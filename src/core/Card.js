@@ -1,67 +1,69 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import ShowImage from './ShowImage';
+import { Card } from 'antd';
+import { addItem, updateItem, removeItem } from './cartHelpers';
 
-const Card = ({
-  product,
-  showViewProductButton = true,
-  showAddToCartButton = true,
-  cartUpdate = false,
-  showRemoveProductButton = false,
-  setRun = f => f,
-  run = undefined
-  // changeCartSize
-}) => {
-  const [redirect, setRedirect] = useState(false);
-  const [count, setCount] = useState(product.count);
-
-  const showViewButton = showViewProductButton => {
-    return (
-      showViewProductButton && (
-        <Link to={`/product/${product._id}`} className="mr-2">
-          <button className="btn btn-outline-primary mt-2 mb-2 card-btn-1">View Product</button>
-        </Link>
-      )
-    );
-  };
-
-  const shouldRedirect = redirect => {
-    if (redirect) {
-      return <Redirect to="/cart" />;
-    }
-  };
-
-
-  const showStock = quantity => {
-    return quantity > 0 ? (
-      <span className="badge badge-primary badge-pill">In Stock </span>
-    ) : (
-      <span className="badge badge-primary badge-pill">Out of Stock </span>
-    );
-  };
-
-  const handleChange = productId => event => {
-    setRun(!run); // run useEffect in parent Cart
-    setCount(event.target.value < 1 ? 1 : event.target.value);
-  };
+const Card2 = ({student}) => {
 
   return (
-    <div className="card ">
-      <div className="card-header card-header-1 ">{product.name}</div>
-      <div className="card-body">
-        {shouldRedirect(redirect)}
-        <ShowImage item={product} url="product" />
-        <p className="card-p  mt-2">{product.description.substring(0, 100)} </p>
-        <p className="card-p black-10">$ {product.price}</p>
-        <p className="black-9">Category: {product.category && product.category.name}</p>
-        {showStock(product.quantity)}
-        <br />
-
-        {showViewButton(showViewProductButton)}
-
-      </div>
+    <div className ="student-card">
+      <div className="student-card-top">
+        <div className="student-card-left">
+        <div className="ribbon11-wrapper">
+        <h3 className="ribbon11">おすすめ！</h3>
+        <h3 className="comments">
+          <b>
+            <Link to={`/student/${student._id}`}>{student.comments}</Link>
+            </b>
+        </h3>
+        </div>
     </div>
+  </div>
+
+  <div class="profile">
+   <div class="profile-wrap">
+     <div class="profile-wrap-left">
+      <div class="iframe-container">
+         <iframe src="https://player.vimeo.com/video/"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+       </div>
+      </div>
+      <div class="profile-wrap-center">
+
+      <div class="profile-info-box">
+        <div class="profile-info">
+          <dt> ID　</dt>
+          <dd> {student.studentid} </dd>
+        </div>
+
+        <div class="profile-info">
+          <dt> 性別・年齢　</dt>
+          <dd> {student.gender} | {student.age} </dd>
+        </div>
+
+        <div class="profile-info">
+          <dt> 国籍・地域　</dt>
+          <dd> {student.country} </dd>
+        </div>
+
+        <div class="profile-info">
+          <dt> 大学　</dt>
+          <dd> {student.university} </dd>
+        </div>
+
+        <div class="profile-info">
+          <dt> IT　</dt>
+          <dd>{student.it_skills.map((skill, i) => (
+                <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill} </span>
+          ))}</dd>
+        </div>
+
+
+</div>
+</div>
+</div>
+</div>
+  </div>
   );
 };
 
-export default Card;
+export default Card2;

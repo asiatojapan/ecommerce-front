@@ -1,81 +1,75 @@
 import React, { Fragment } from "react";
+import { Menu } from 'antd';
 import { Link, withRouter } from "react-router-dom";
+import {AppBar, Toolbar, MenuIcon} from '@material-ui/core';
 import { signout, isAuthenticated } from "../auth";
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
-        return { color: "#ff9900" };
+        return { color: "#1890ff" };
     } else {
         return { color: "#ffffff" };
     }
 };
 
-const Menu = ({ history }) => (
-    <div>
-        <ul className="nav nav-tabs bg-primary">
-            <li className="nav-item">
+const Menu2 = ({ history }) => (
+  <Menu
+    theme="dark"
+    mode="horizontal"
+    defaultSelectedKeys={['2']}
+    style={{ lineHeight: '64px' }}
+  >
+    <Menu.Item>
+      <Link style={isActive(history, "/")} to="/">Home</Link>
+    </Menu.Item>
+
+        {isAuthenticated() && isAuthenticated().user.role === 0 && (
+
                 <Link
                     className="nav-link"
-                    style={isActive(history, "/")}
-                    to="/"
+                    style={isActive(history, "/user/dashboard")}
+                    to="/user/dashboard"
                 >
-                    Home
+                    Dashboard
                 </Link>
-            </li>
+        )}
 
-            {!isAuthenticated() && (
-                  <Fragment>
-                      <li className="nav-item">
-                          <Link
-                              className="nav-link"
-                              style={isActive(history, "/signin")}
-                              to="/signin"
-                          >
-                              Signin
-                          </Link>
-                      </li>
+        {!isAuthenticated() && (
+          <Fragment>
+            <Link
+                className="nav-link"
+                style={isActive(history, "/signin")}
+                to="/signin"
+            >
+                Signin
+            </Link>
+            <Link
+                className="nav-link"
+                style={isActive(history, "/signup")}
+                to="/signup"
+            >
+                Signup
+            </Link>
+    </Fragment>
+)}
 
-                      <li className="nav-item">
-                          <Link
-                              className="nav-link"
-                              style={isActive(history, "/signup")}
-                              to="/signup"
-                          >
-                              Signup
-                          </Link>
-                      </li>
-                  </Fragment>
-              )}
+        {isAuthenticated() && isAuthenticated().user.role === 1 && (
+          <Menu.Item>
+            <Link style={isActive(history, "/admin/dashboard")} to="/admin/dashboard"> Admin Dashboard</Link>
+          </Menu.Item>
+        )}
 
-              {isAuthenticated() && isAuthenticated().user.role === 0 && (
-                  <li className="nav-item">
-                      <Link
-                          className="nav-link"
-                          style={isActive(history, "/user/dashboard")}
-                          to="/user/dashboard"
-                      >
-                          Dashboard
-                      </Link>
-                  </li>
-              )}
+        {isAuthenticated() && (
+            <Menu.Item>
+                <span　onClick={() =>
+                        signout(() => {
+                            history.push("/");})}
+                >  ログアウト
+                </span>
+          </Menu.Item>
+        )}
+  </Menu>
 
-              {isAuthenticated() && (
-                  <li className="nav-item">
-                      <span
-                          className="nav-link"
-                          style={{ cursor: "pointer", color: "#ffffff" }}
-                          onClick={() =>
-                              signout(() => {
-                                  history.push("/");
-                              })
-                          }
-                      >
-                          Signout
-                      </span>
-                  </li>
-              )}
-        </ul>
-    </div>
 );
 
-export default withRouter(Menu);
+export default withRouter(Menu2);

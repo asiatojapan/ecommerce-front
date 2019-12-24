@@ -1,8 +1,9 @@
 import { API } from "../config";
 import queryString from "query-string";
 
+
 export const getProducts = sortBy => {
-    return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=6`, {
+    return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=100`, {
         method: "GET"
     })
         .then(response => {
@@ -10,6 +11,27 @@ export const getProducts = sortBy => {
         })
         .catch(err => console.log(err));
 };
+
+export const getStudents = () => {
+    return fetch(`${API}/students`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const readStudent = studentId => {
+    return fetch(`${API}/student/${studentId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 
 export const getCategories = () => {
     return fetch(`${API}/categories`, {
