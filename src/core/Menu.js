@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { Menu } from 'antd';
 import { Link, withRouter } from "react-router-dom";
-import {AppBar, Toolbar, MenuIcon} from '@material-ui/core';
 import { signout, isAuthenticated } from "../auth";
 
 const isActive = (history, path) => {
