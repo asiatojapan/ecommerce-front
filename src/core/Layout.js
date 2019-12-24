@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import Menu2 from "./Menu";
 import { Layout, Menu, Breadcrumb } from 'antd';
-import Typography from '@material-ui/core/Typography';
 import 'antd/dist/antd.css';
 import "../styles.css";
 
