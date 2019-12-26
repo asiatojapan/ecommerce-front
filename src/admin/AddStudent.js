@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Layout2 from '../core/Layout';
+import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
 import { createStudent } from './apiAdmin';
-import {Form, Select, Input, Button, DatePicker } from 'antd';
+import {Form, Select, Input, Button, DatePicker, PageHeader, Tag, Table, Divider } from 'antd';
 const { Option } = Select;
 const { TextArea } = Input;
 
 const AddStudent = () => {
+  useEffect(() => {
+      window.scrollTo(0, 0)
+  });
   const [values, setValues] = useState({
       name: '',
       studentid: '',
@@ -42,6 +45,8 @@ const AddStudent = () => {
       setValues({ ...values, [name]: value });
   };
 
+
+
   const clickSubmit = e => {
       e.preventDefault();
       setSuccess(false);
@@ -56,15 +61,15 @@ const AddStudent = () => {
   };
 
   const newCategoryFom = () => (
-    <Form labelCol={{ span: 5 }} wrapperCol={{ span: 12 }} onSubmit={clickSubmit}>
+    <Form labelCol={{ span: 2 }} wrapperCol={{ span: 12 }} onSubmit={clickSubmit}>
       <Form.Item label="Name">
         <Input type="text" onChange={handleChange("name")} value={values.name} name="name"
-        autoFocus />
+       />
       </ Form.Item >
 
       <Form.Item label="Student ID">
         <Input type="text" onChange={handleChange("studentid")} value={values.studentid} name="studentid"
-        autoFocus/>
+        />
       </ Form.Item >
 
       <Form.Item label="Gender">
@@ -77,7 +82,7 @@ const AddStudent = () => {
 
       <Form.Item label="Age">
       <Input type="text" onChange={handleChange("age")} value={values.age} name="age"
-      autoFocus required/>
+      />
       </ Form.Item >
 
       <Form.Item label="Japanese">
@@ -104,22 +109,22 @@ const AddStudent = () => {
 
       <Form.Item label="University">
       <Input type="text" onChange={handleChange("university")} value={values.university} name="university"
-      autoFocus required/>
+       />
       </ Form.Item >
 
       <Form.Item label="ATJ　コメント">
       <TextArea type="text" onChange={handleChange("comments")} value={values.comments} name="comments"
-      autoFocus required rows={4}/>
+      rows={2}/>
       </ Form.Item >
 
       <Form.Item label="Faculty">
       <Input type="text" onChange={handleChange("faculty")} value={values.faculty} name="faculty"
-      autoFocus required/>
+      />
       </ Form.Item >
 
       <Form.Item label="Major">
       <Input type="text" onChange={handleChange("major")} value={values.major} name="major"
-      autoFocus required/>
+      />
       </ Form.Item >
 
       <Form.Item label="JLPT">
@@ -136,50 +141,60 @@ const AddStudent = () => {
 
       <Form.Item label="IT Skills">
       <Input type="text" onChange={handleChange("it_skills")} value={values.it_skills} name="it_skills"
-      autoFocus required/>
+      />
+      </ Form.Item >
+
+      <Form.Item label="IT Skills">
+      <Input type="text" onChange={handleChange("entry_timing")} value={values.entry_timing} name="entry_timing"
+      />
       </ Form.Item >
 
       <Form.Item label="Github URL">
       <Input type="text" onChange={handleChange("github")} value={values.github} name="github"
-      autoFocus required/>
+      />
       </ Form.Item >
 
       <Form.Item label="学歴備考">
-      <Input type="text" onChange={handleChange("education_bg")} value={values.education_bg} name="education_bg"
-      autoFocus required/>
+      <TextArea type="text" onChange={handleChange("education_bg")} value={values.education_bg} name="education_bg"
+      rows={3}/>
       </ Form.Item >
 
       <Form.Item label="研究テーマ">
-      <Input type="text" onChange={handleChange("research")} value={values.research} name="research"
-      autoFocus required/>
+      <TextArea type="text" onChange={handleChange("research")} value={values.research} name="research"
+      rows={3}/>
       </ Form.Item >
 
       <Form.Item label="インターンシップ">
-      <Input type="text" onChange={handleChange("internship")} value={values.internship} name="internship"
-      autoFocus required/>
+      <TextArea type="text" onChange={handleChange("internship")} value={values.internship} name="internship"
+      rows={3}/>
       </ Form.Item >
 
       <Form.Item label="日本で働きたい理由">
-      <Input type="text" onChange={handleChange("why_work_in_japan")} value={values.why_work_in_japan} name="why_work_in_japan"
-      autoFocus required/>
+      <TextArea type="text" onChange={handleChange("why_work_in_japan")} value={values.why_work_in_japan} name="why_work_in_japan"
+      rows={3}/>
       </ Form.Item >
 
       <Form.Item label="その他PR">
-      <Input type="text" onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr"
-      autoFocus required/>
+      <TextArea type="text" onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr"
+      rows={3}/>
       </ Form.Item >
 
       <Form.Item label="Video PR">
       <Input type="text" onChange={handleChange("video")} value={values.video} name="video"
-      autoFocus required/>
+      />
       </ Form.Item >
 
+      <Form.Item
+          wrapperCol={{
+            xs: { span: 24, offset: 0 },
+            sm: { span: 16, offset: 2 },
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+    </Form.Item>
 
-          <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
   </Form>
   );
 
@@ -204,13 +219,14 @@ const AddStudent = () => {
   );
 
   return (
-      <Layout2>
+      <AdminMenu>
+      <PageHeader title="Add Student" onBack={() => window.history.back() }/>
                   {showSuccess()}
                   {showError()}
                   {newCategoryFom()}
                   {goBack()}
 
-      </Layout2>
+      </AdminMenu>
   );
 };
 

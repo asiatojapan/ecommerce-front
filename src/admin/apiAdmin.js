@@ -166,3 +166,18 @@ export const deleteStudent = (studentId, userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const updateStudent = (studentId, userId, token, student) => {
+    return fetch(`${API}/student/${studentId}/${userId}`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: student
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

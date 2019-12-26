@@ -68,7 +68,7 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
 export const list = params => {
     const query = queryString.stringify(params);
     console.log("query", query);
-    return fetch(`${API}/products/search?${query}`, {
+    return fetch(`${API}/students/search?${query}`, {
         method: "GET"
     })
         .then(response => {
@@ -95,4 +95,58 @@ export const listRelated = productId => {
             return response.json();
         })
         .catch(err => console.log(err));
+};
+
+export const createLike2 = (userId, studentId, token, like ) => {
+    return fetch(`${API}/like/${studentId}/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(like)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+export const createLike = (userId, student, token) => {
+  return fetch(`${API}/like/${userId}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(student)
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => {
+          console.log(err);
+      });
+};
+
+export const createUnlike = (userId, student, token) => {
+  return fetch(`${API}/unlike/${userId}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(student)
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => {
+          console.log(err);
+      });
 };

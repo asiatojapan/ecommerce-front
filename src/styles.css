@@ -5,11 +5,12 @@
 
 .ant-layout {
   background: #fff;
+  min-height: 100vh;
 }
+
 .full-height {
   height: 100vh;
 }
-
 
 .student-card {
     padding: 16px;

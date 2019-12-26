@@ -65,3 +65,13 @@ export const isAuthenticated = () => {
         return false;
     }
 };
+
+export const getUser = userId => {
+    return fetch(`${API}/user/${userId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

@@ -10,33 +10,39 @@ import AdminDashboard from './user/AdminDashboard';
 import AddCategory from './admin/AddCategory';
 import AddStudent from './admin/AddStudent';
 import AddProduct from './admin/AddProduct';
+import AddLike from './core/AddLike';
 import Shop from './core/Shop';
 import Product from './core/Product';
 import Countdown from './core/Countdown';
 import ManageProducts from './admin/ManageProducts';
 import ManageStudents from './admin/ManageStudents';
-import UpdateProduct from './admin/UpdateProduct';
+import AStudent from './admin/Student';
+import LikedStudentList from './core/LikedStudentsList';
+import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 
 const Routes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
     <Switch>
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
     <Route path="/shop" exact component={Shop} />
     <Route path="/countdown" exact component={Countdown} />
     <Route path="/product/:productId" exact component={Product} />
+    <Route path="/create/like" exact component={AddLike} />
     <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
+    <PrivateRoute path="/likes" exact component={LikedStudentList}/>
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/create/category" exact component={AddCategory} />
-    <Route path="/admin/create/student" exact component={AddStudent} />
+    <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/create/product" exact component={AddProduct} />
     <PrivateRoute path="/admin/products" exact component={ManageProducts} />
     <PrivateRoute path="/admin/students" exact component={ManageStudents} />
-    <AdminRoute path="/admin/product/update/:productId" exact component={UpdateProduct} />
+    <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
+    <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     </Switch>
     </BrowserRouter>
   );

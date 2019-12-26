@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Card } from 'antd';
-import { addItem, updateItem, removeItem } from './cartHelpers';
+import  AddLike  from './AddLike';
 
 const Card2 = ({student}) => {
 
@@ -29,40 +29,40 @@ const Card2 = ({student}) => {
       </div>
       <div class="profile-wrap-center">
 
-      <div class="profile-info-box">
-        <div class="profile-info">
-          <dt> ID　</dt>
-          <dd> {student.studentid} </dd>
+        <div class="profile-info-box">
+          <div class="profile-info">
+            <dt> ID　</dt>
+            <dd> {student.studentid} </dd>
+          </div>
+
+          <div class="profile-info">
+            <dt> 性別・年齢　</dt>
+            <dd> {student.gender} | {student.age} </dd>
+          </div>
+
+          <div class="profile-info">
+            <dt> 国籍・地域　</dt>
+            <dd> {student.country} </dd>
+          </div>
+
+          <div class="profile-info">
+            <dt> 大学　</dt>
+            <dd> {student.university} </dd>
+          </div>
+
+          <div class="profile-info">
+            <dt> IT　</dt>
+            <dd>{student.it_skills.map((skill, i) => (
+                  <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill} </span>
+            ))}
+            </dd>
+            <AddLike student={student} id={student._id}/>
+          </div>
         </div>
-
-        <div class="profile-info">
-          <dt> 性別・年齢　</dt>
-          <dd> {student.gender} | {student.age} </dd>
-        </div>
-
-        <div class="profile-info">
-          <dt> 国籍・地域　</dt>
-          <dd> {student.country} </dd>
-        </div>
-
-        <div class="profile-info">
-          <dt> 大学　</dt>
-          <dd> {student.university} </dd>
-        </div>
-
-        <div class="profile-info">
-          <dt> IT　</dt>
-          <dd>{student.it_skills.map((skill, i) => (
-                <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill} </span>
-          ))}</dd>
-        </div>
-
-
-</div>
-</div>
-</div>
-</div>
+      </div>
+    </div>
   </div>
+</div>
   );
 };
 

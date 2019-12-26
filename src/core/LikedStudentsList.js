@@ -1,13 +1,13 @@
 import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
-import { readStudent } from "../core/apiCore";
-import LikedStudents from "../core/LikedStudents";
+import { readStudent } from "./apiCore";
+import Layout2 from "./Layout";
+import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
-import  AdminMenu from "./AdminMenu";
 import { Descriptions, Badge, Card, Col, Row  } from 'antd';
 import "../styles.css";
 
-const AdminDashboard = () => {
+const LikedStudentsList = () => {
     const {
         user: { _id, name, email, role }
     } = isAuthenticated();
@@ -60,13 +60,7 @@ const AdminDashboard = () => {
 
 
     return (
-      <AdminMenu>
-        <Descriptions title="User Profile" bordered>
-             <Descriptions.Item label="Name" span={3}>{name}</Descriptions.Item>
-             <Descriptions.Item label="Email" span={3}>{email}</Descriptions.Item>
-             <Descriptions.Item label="Role" span={3}>{role === 1 ? "Admin" : "Registered User"}</Descriptions.Item>
-             </Descriptions>
-
+      <Layout2>
               <div style={{ paddingTop: '5rem' }}>
               <Card title="Liked Students">
               {likedstudents.map((s, i) => (
@@ -76,8 +70,8 @@ const AdminDashboard = () => {
               ))}
              </Card>
           </div>
-      </AdminMenu>
+          </Layout2>
     );
 };
 
-export default AdminDashboard;
+export default LikedStudentsList;
