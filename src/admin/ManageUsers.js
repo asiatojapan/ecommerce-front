@@ -2,72 +2,53 @@ import React, { useState, useEffect } from 'react';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from "../auth";
 import { List } from 'antd';
-import { getStudents } from '../core/apiCore';
-import { deleteStudent } from "./apiAdmin";
+import { deleteUser, getUsers } from "./apiAdmin";
 import { PageHeader, Tag, Button, Table, Divider } from 'antd';
 import { Link } from "react-router-dom";
 
 const { Column, ColumnGroup } = Table;
 
-const ManageStudent = () => {
-  const [students, setStudents] = useState([]);
+const ManageUsers = () => {
+  const [users, setUsers] = useState([]);
 
   const { user, token } = isAuthenticated();
-  const loadStudents = () => {
-      getStudents().then(data => {
+  const loadUsers = () => {
+      getUsers().then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
-              setStudents(data);
+              setUsers(data);
           }
       });
   };
 
-  const destroy = studentId => {
-      deleteStudent(studentId, user._id, token).then(data => {
+  const destroy = userId => {
+      deleteUser(user._id, token).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
-              loadStudents();
+              loadUsers();
           }
       });
   };
 
   const columns = [
   {
-    title: 'ID',
-    dataIndex: 'studentid',
-    key: 'studentid',
-  },
-  {
-    title: '名前',
+    title: 'Name',
     dataIndex: 'name',
-    key: 'name'
+    key: 'name',
   },
   {
-    title: '年齢',
-    dataIndex: 'age',
-    key: 'age',
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email'
   },
   {
-    title: '性別',
-    dataIndex: 'gender',
-    key: 'gender',
-  },
-  {
-    title: '国籍',
-    dataIndex: 'country',
-    key: 'country',
-  },
-  {
-    title: '大学',
-    dataIndex: 'university',
-    key: 'university',
-  },
-  {
-    title: '学部',
-    dataIndex: 'faculty',
-    key: 'faculty',
+    title: 'Role',
+    dataIndex: 'role',
+    key: 'role',
+    render: text => (
+      <span> {(text) === 1 ? "Admin" : "Registered User"} </span>)
   },
   {
     title: 'Action',
@@ -75,7 +56,7 @@ const ManageStudent = () => {
     key: 'id',
     render: text => (
       <span>
-        <Link to={`/admin/student/${text}`}> View </Link>
+        <Link to={`/profile/${text}`}> View </Link>
         <Divider type="vertical" />
         <Link to={`/admin/student/update/${text}`}>
         <Button type="primary">
@@ -94,7 +75,7 @@ const ManageStudent = () => {
 
 
   useEffect(() => {
-      loadStudents();
+      loadUsers();
   }, []);
 
     return (
@@ -103,17 +84,11 @@ const ManageStudent = () => {
         style={{
           borderBottom: '2px solid rgb(235, 237, 240)',
         }}
-        title="Students"
-        extra={[
-          <Link to={`/admin/create/student`}>
-          <Button type="primary">
-              + 学生
-            </Button>
-          </Link >]}
+        title="Users"
           />
-      <Table columns={columns} dataSource={students} />
+      <Table columns={columns} dataSource={users} />
       </AdminMenu>
     );
 };
 
-export default ManageStudent;
+export default ManageUsers;

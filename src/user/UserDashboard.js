@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Layout from "../core/Layout";
+import UserLayout from "./UserLayout";
 import { isAuthenticated } from "../auth";
+import { Descriptions, Badge, Card, Col, Row  } from 'antd';
 
 const Dashboard = () => {
 
@@ -10,31 +11,20 @@ const Dashboard = () => {
 
       const userInfo = () => {
           return (
-              <div className="card mb-5">
-                  <h3 className="card-header">User Information</h3>
-                  <ul className="list-group">
-                      <li className="list-group-item">{name}</li>
-                      <li className="list-group-item">{email}</li>
-                      <li className="list-group-item">
-                          {role === 1 ? "Admin" : "Registered User"}
-                      </li>
-                  </ul>
-              </div>
+            <Descriptions title="User Profile" bordered>
+                 <Descriptions.Item label="Name" span={3}>{name}</Descriptions.Item>
+                 <Descriptions.Item label="Email" span={3}>{email}</Descriptions.Item>
+                 <Descriptions.Item label="Role" span={3}>{role === 1 ? "Admin" : "Registered User"}</Descriptions.Item>
+
+             </Descriptions>
+
           );
       };
 
       return (
-      <Layout
-          title="Dashboard"
-          description={`G'day ${name}!`}
-          className="container-fluid"
-      >
-          <div className="row">
-              <div className="col-9">
+      <UserLayout>
                   {userInfo()}
-              </div>
-          </div>
-      </Layout>
+      </UserLayout>
 )
 };
 

@@ -16,6 +16,7 @@ const AddStudent = () => {
       studentid: '',
       gender: '',
       age: '',
+      country: '',
       japanese: '',
       english: '',
       comments: '',
@@ -82,6 +83,11 @@ const AddStudent = () => {
 
       <Form.Item label="Age">
       <Input type="text" onChange={handleChange("age")} value={values.age} name="age"
+      />
+      </ Form.Item >
+
+      <Form.Item label="Country">
+      <Input type="text" onChange={handleChange("country")} value={values.country} name="country"
       />
       </ Form.Item >
 

@@ -51,16 +51,17 @@ const AdminMenu = ({children}) => {
 
     return (
         <Layout>
-          <Sider
-            style={{
-              overflow: 'auto',
-              height: '100vh',
-              position: 'fixed',
-              left: 0,
-            }}
-          >
+        <Sider
+           breakpoint="lg"
+           collapsedWidth="0"
+           onBreakpoint={broken => {
+             console.log(broken);
+           }}
+           onCollapse={(collapsed, type) => {
+             console.log(collapsed, type);
+           }}>
       <div className="logo" />
-      <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+      <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1">
             <Icon type="user" />
             <span className="nav-text">Dashboard</span>
@@ -74,6 +75,7 @@ const AdminMenu = ({children}) => {
         <Menu.Item key="7">
           <Icon type="team" />
           <span className="nav-text">Users</span>
+          <Link to="/admin/users" />
         </Menu.Item>
         <Menu.Item key="8">
           <span className="nav-text">Return Home</span>
@@ -81,7 +83,7 @@ const AdminMenu = ({children}) => {
         </Menu.Item>
       </Menu>
     </Sider>
-    <Layout style={{ marginLeft: 200 }}>
+    <Layout>
      <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
        <div style={{ padding: 24, background: '#fff' }}>
        {children}

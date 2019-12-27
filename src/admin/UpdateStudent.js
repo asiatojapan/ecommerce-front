@@ -66,6 +66,7 @@ const UpdateStudent = ({ match }) => {
                     studentid: data.studentid,
                     gender: data.gender,
                     age: data.age,
+                    country: data.country,
                     japanese: data.japanese,
                     english: data.english,
                     comments: data.comments,
@@ -115,6 +116,7 @@ const UpdateStudent = ({ match }) => {
                     studentid: '',
                     gender: '',
                     age: '',
+                    country: '',
                     japanese: '',
                     english: '',
                     comments: '',
@@ -161,6 +163,11 @@ const UpdateStudent = ({ match }) => {
 
         <Form.Item label="Age">
         <Input type="text" onChange={handleChange("age")} value={values.age} name="age"
+        />
+        </ Form.Item >
+
+        <Form.Item label="Country">
+        <Input type="text" onChange={handleChange("country")} value={values.country} name="country"
         />
         </ Form.Item >
 

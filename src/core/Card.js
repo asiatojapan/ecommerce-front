@@ -2,68 +2,87 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Card } from 'antd';
 import  AddLike  from './AddLike';
+import ReactPlayer from 'react-player'
+import { PageHeader, Menu, Dropdown, Icon, Button, Tag, Typography, Row, Descriptions } from 'antd';
+
+const { Paragraph } = Typography;
+
+const IconLink = ({ src, text }) => (
+  <a
+    style={{
+      marginRight: 16,
+      display: 'flex',
+      alignItems: 'center',
+    }}
+  >
+    <img
+      style={{
+        marginRight: 8,
+      }}
+      src={src}
+      alt="start"
+    />
+    {text}
+  </a>
+);
 
 const Card2 = ({student}) => {
 
   return (
-    <div className ="student-card">
-      <div className="student-card-top">
-        <div className="student-card-left">
-        <div className="ribbon11-wrapper">
-        <h3 className="ribbon11">おすすめ！</h3>
-        <h3 className="comments">
-          <b>
-            <Link to={`/student/${student._id}`}>{student.comments}</Link>
-            </b>
-        </h3>
-        </div>
-    </div>
-  </div>
-
-  <div class="profile">
-   <div class="profile-wrap">
-     <div class="profile-wrap-left">
-      <div class="iframe-container">
-         <iframe src="https://player.vimeo.com/video/"  frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-       </div>
-      </div>
-      <div class="profile-wrap-center">
-
-        <div class="profile-info-box">
-          <div class="profile-info">
-            <dt> ID　</dt>
-            <dd> {student.studentid} </dd>
-          </div>
-
-          <div class="profile-info">
-            <dt> 性別・年齢　</dt>
-            <dd> {student.gender} | {student.age} </dd>
-          </div>
-
-          <div class="profile-info">
-            <dt> 国籍・地域　</dt>
-            <dd> {student.country} </dd>
-          </div>
-
-          <div class="profile-info">
-            <dt> 大学　</dt>
-            <dd> {student.university} </dd>
-          </div>
-
-          <div class="profile-info">
-            <dt> IT　</dt>
-            <dd>{student.it_skills.map((skill, i) => (
-                  <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill} </span>
+    <PageHeader
+      title={student.comments.substring(0,80)}
+      style={{
+        border: '1px solid rgb(235, 237, 240)',
+        marginBottom: 20,
+      }}
+      tags={student.it_skills.map((skill, i) => (
+                  <Tag color="blue" key={i}> {skill} </Tag>
             ))}
-            </dd>
-            <AddLike student={student} id={student._id}/>
-          </div>
-        </div>
+      extra={[
+        <AddLike student={student} id={student._id}/>,
+      ]}
+      avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
+    >
+    <Row className="content" type="flex">
+    <div
+      className="extra"
+      style={{
+        marginRight: 30,
+      }}
+    >
+
+    <div className='player-wrapper'>
+        <ReactPlayer
+          className='react-player'
+          url='https://www.youtube.com/watch?v=ysz5S6PUM-U'
+          width='100%'
+          height='100%'
+        />
       </div>
     </div>
-  </div>
-</div>
-  );
+      <div className="main" style={{ flex: 1 }}>
+      <Descriptions title={student.studentid}>
+      <Descriptions.Item label="ID" style={{ paddingBottom: 0 }} >{student.studentid}</Descriptions.Item>
+      <Descriptions.Item label="性別・年齢">{student.gender === "male" ? "男" : "女"}　| {student.age}</Descriptions.Item>
+      <Descriptions.Item label="国籍・地域">{student.country}</Descriptions.Item>
+      <Descriptions.Item label="大学"> {student.university} </Descriptions.Item>
+      <Descriptions.Item label="IT">
+        {student.it_skills.map((skill, i) => (
+                    <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill} </span>
+              ))}
+      </Descriptions.Item>
+    </Descriptions>
+      <Row>
+        <IconLink
+          src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"
+          text="Resume"
+        />
+      </Row>
+      </div>
+      </Row>
+    </PageHeader>
+
+);
 };
 
 export default Card2;

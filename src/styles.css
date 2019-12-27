@@ -7,7 +7,10 @@
   background: #fff;
   min-height: 100vh;
 }
-
+.ant-layout-sider {
+  border-right: 1px solid #e8e8e8;
+  background: #fff;
+}
 .full-height {
   height: 100vh;
 }
@@ -213,4 +216,17 @@
     text-align: right;
     clear: both;
     margin-right: 16px;
+}
+
+
+.player-wrapper {
+  position: relative;
+  width: 200px;
+  padding-top: 56.25% /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

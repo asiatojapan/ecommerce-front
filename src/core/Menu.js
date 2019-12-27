@@ -21,7 +21,6 @@ const Menu2 = ({ history }) => (
     <Menu.Item>
       <Link style={isActive(history, "/")} to="/">Home</Link>
     </Menu.Item>
-    <Link style={isActive(history, "/likes")} to="/likes">My Students</Link>
 
         {isAuthenticated() && isAuthenticated().user.role === 0 && (
 

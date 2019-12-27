@@ -8,9 +8,9 @@ const { Header, Content, Footer } = Layout;
 
 const Layout2 = ({children}) => (
   <Layout className="layout2">
-  <Menu2 />
+  <Menu2 theme="dark"/>
     <Content style={{ padding: '0 50px' }}>
-      <div style={{ background: '#fff', paddingLeft: 200, paddingRight: 200, paddingTop: 20, paddingBottom: 20, minHeight: 980 }}>{children}</div>
+      <div style={{ background: '#fff', paddingLeft: "5%", paddingRight: "5%", paddingTop: 20, paddingBottom: 20, minHeight: 980 }}>{children}</div>
     </Content>
     <Footer style={{ borderTop: "1px solid #eee", background: '#fff', textAlign: 'center' }}>ASIA to JAPAN</Footer>
   </Layout>

@@ -16,10 +16,12 @@ import Product from './core/Product';
 import Countdown from './core/Countdown';
 import ManageProducts from './admin/ManageProducts';
 import ManageStudents from './admin/ManageStudents';
+import ManageUsers from './admin/ManageUsers';
 import AStudent from './admin/Student';
-import LikedStudentList from './core/LikedStudentsList';
+import LikedStudentList from './user/LikedStudentsList';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
+import Profile from './user/Profile';
 
 const Routes = () => {
   return (
@@ -34,13 +36,15 @@ const Routes = () => {
     <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
-    <PrivateRoute path="/likes" exact component={LikedStudentList}/>
+    <PrivateRoute path="/user/likes" exact component={LikedStudentList}/>
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/create/category" exact component={AddCategory} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/create/product" exact component={AddProduct} />
     <PrivateRoute path="/admin/products" exact component={ManageProducts} />
     <PrivateRoute path="/admin/students" exact component={ManageStudents} />
+    <PrivateRoute path="/admin/users" exact component={ManageUsers} />
+    <PrivateRoute path="/profile/:userId" exact component={Profile} />
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     </Switch>
