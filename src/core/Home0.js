@@ -8,7 +8,7 @@ import { getStudents, getCategories, getFilteredStudents } from './apiCore';
 const Home = () => {
   const [students, setStudents] = useState([]);
   const [myFilters, setMyFilters] = useState({
-      filters: { categories: [] }
+      filters: { category: [] }
   });
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(false);
@@ -76,7 +76,7 @@ const Home = () => {
       <Checkbox
           categories={categories}
           handleFilters={filters =>
-              handleFilters(filters, "categories")
+              handleFilters(filters, "category")
           }
       />
         {filteredResults.map((student, i) => (

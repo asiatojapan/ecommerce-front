@@ -15,7 +15,8 @@ const AddLike = ({student, id })  => {
     const init = userId => {
         getUser(userId).then(data => {
             setLikedstudents([data.liked_students]);
-            if (data.liked_students.includes(id)) {
+            const found = data.liked_students.some(el => el._id === id)
+            if (found) {
               setLiked(true)
                }
             else {

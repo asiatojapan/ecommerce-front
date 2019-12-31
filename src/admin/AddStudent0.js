@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link } from 'react-router-dom';
-import { createStudent,  getCategories  } from './apiAdmin';
-import Checkbox from "../core/Checkbox";
-import {Form, Select, Input, Button, DatePicker, PageHeader, Tag, Table, Divider} from 'antd';
+import { createStudent } from './apiAdmin';
+import {Form, Select, Input, Button, DatePicker, PageHeader, Tag, Table, Divider } from 'antd';
 import { Upload, Icon, message } from 'antd';
 
+const { Dragger } = Upload;
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -14,7 +14,6 @@ const AddStudent = () => {
   useEffect(() => {
       window.scrollTo(0, 0)
   });
-
   const [values, setValues] = useState({
       name: '',
       studentid: '',
@@ -37,117 +36,43 @@ const AddStudent = () => {
       other_pr: '',
       video: '',
       upload_fyp: '',
-      categories_list: [],
-      categories: '',
-      error: "",
-      formData: ''
+      error: ""
       });
 
-      const { user, token } = isAuthenticated();
+  const [success, setSuccess] = useState(false);
 
-      const {
-        name,
-        studentid,
-        gender,
-        age,
-        country,
-        japanese,
-        english,
-        comments,
-        university,
-        major,
-        faculty,
-        upload_fyp,
-        categories_list,
-        categories,
-        error,
-        createdStudent,
-        formData
-      } = values;
-
-      const [success, setSuccess] = useState(false);
-
-      // load categories and set form data
-      const init = () => {
-          getCategories().then(data => {
-              if (data.error) {
-                  setValues({ ...values, error: data.error });
-              } else {
-                  setValues({
-                      ...values,
-                      categories_list: data,
-                      formData: new FormData()
-                  });
-              }
-          });
-      };
-
-      useEffect(() => {
-          init();
-      }, []);
+  // destructure user and token from localstorage
+  const { user, token } = isAuthenticated();
 
 
-      const handleChange = name => event => {
-          const value = name === 'it_skills' ? event.target.value.split(",") : event.target.value;
-          setValues({ ...values, [name]: value });
-      };
+  const handleChange = name => event => {
+      const value = name === 'it_skills' ? event.target.value.split(",") : event.target.value;
+      setValues({ ...values, [name]: value });
+  };
 
-      const [checked, setCheked] = useState([]);
-      const [filteredResults, setFilteredResults] = useState([]);
 
-      const handleToggle = c => () => {
-          // return the first index or -1
-          const v = checked.indexOf(c._id === -1)
-          const currentCategoryId = v;
-          const newCheckedCategoryId = [...checked];
-          // if currently checked was not already in checked state > push
-          // else pull/take off
-          if (currentCategoryId === -1) {
-              newCheckedCategoryId.push(c);
+
+  const clickSubmit = e => {
+      e.preventDefault();
+      setSuccess(false);
+      // make request to api to create category
+      createStudent(user._id, token, values).then(data => {
+          if (data.error) {
+            setValues({ ...values, error: data.error });
           } else {
-              newCheckedCategoryId.splice(currentCategoryId, 1);
+              setSuccess(true);
           }
-          // console.log(newCheckedCategoryId);
-          setCheked(newCheckedCategoryId);
-          setValues({
-              ...values,
-              categories: newCheckedCategoryId
-          });
-          console.log(values)
-      };
+      });
+  };
 
-      const clickSubmit = event => {
-          event.preventDefault();
-          setValues({ ...values, error: '', loading: true });
 
-          createStudent(user._id, token, values).then(data => {
-              if (data.error) {
-                  setValues({ ...values, error: data.error });
-              } else {
-                  setValues({
-                      ...values,
-                      loading: false,
-                      createdStudent: data.name
-                  });
-                  setSuccess(true);
-              }
-          });
-      };
 
   const newCategoryFom = () => (
-    <Form labelCol={{ span: 2 }} wrapperCol={{ span: 12 }} onSubmit={clickSubmit} enctype="multipart/form-data">
+    <Form labelCol={{ span: 2 }} wrapperCol={{ span: 12 }} onSubmit={clickSubmit}>
 
-    <Form.Item label="Tags">
-    {categories_list.map((c, i) => (
-        <li key={i} className="list-unstyled">
-        <input type="checkbox" onChange={handleToggle(c._id)} value={checked.indexOf(c._id === -1)} name="categories"
-       /> <label className="form-check-label">{c.name}</label>
-        </li>
-    ))}
-    </ Form.Item >
 
       <Form.Item label="Name">
-        <Input type="text" onChange={handleChange("name")} value={name} name="name"
+        <Input type="text" onChange={handleChange("name")} value={values.name} name="name"
        />
       </ Form.Item >
 
@@ -287,11 +212,11 @@ const AddStudent = () => {
   </Form>
   );
 
-  const showSuccess = () => (
-      <div className="alert alert-info" style={{ display: createdStudent ? '' : 'none' }}>
-          <h2>{`${createdStudent}`} is created!</h2>
-      </div>
-  );
+  const showSuccess = () => {
+      if (success) {
+          return <h3 className="text-success">{values.name} is created</h3>;
+      }
+  };
 
   const showError = () => (
       <div className="alert alert-danger" style={{ display: values.error ? '' : 'none' }}>

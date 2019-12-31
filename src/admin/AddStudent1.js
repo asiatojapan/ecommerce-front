@@ -65,8 +65,6 @@ const AddStudent = () => {
         formData
       } = values;
 
-      const [success, setSuccess] = useState(false);
-
       // load categories and set form data
       const init = () => {
           getCategories().then(data => {
@@ -129,7 +127,6 @@ const AddStudent = () => {
                       loading: false,
                       createdStudent: data.name
                   });
-                  setSuccess(true);
               }
           });
       };
@@ -137,13 +134,17 @@ const AddStudent = () => {
   const newCategoryFom = () => (
     <Form labelCol={{ span: 2 }} wrapperCol={{ span: 12 }} onSubmit={clickSubmit} enctype="multipart/form-data">
 
-    <Form.Item label="Tags">
+    <Form.Item label="Name">
     {categories_list.map((c, i) => (
         <li key={i} className="list-unstyled">
         <input type="checkbox" onChange={handleToggle(c._id)} value={checked.indexOf(c._id === -1)} name="categories"
        /> <label className="form-check-label">{c.name}</label>
         </li>
     ))}
+
+    <Checkbox categories={categories_list}
+      />
+
     </ Form.Item >
 
       <Form.Item label="Name">

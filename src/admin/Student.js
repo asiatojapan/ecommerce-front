@@ -67,7 +67,7 @@ const Student = props => {
              <Descriptions.Item label="FYP" span={3}>{student.research}</Descriptions.Item>
              <Descriptions.Item label="インターンシップ" span={3}>{student.internship}</Descriptions.Item>
              <Descriptions.Item label="その他PR" span={3}>{student.other_pr}</Descriptions.Item>
-
+             <Descriptions.Item label="FYP" span={3}>{student.upload_fyp}</Descriptions.Item>
         </Descriptions>
     )
 

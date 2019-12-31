@@ -65,6 +65,28 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
         });
 };
 
+export const getFilteredStudents = (skip, limit, filters = {}) => {
+    const data = {
+        limit,
+        skip,
+        filters
+    };
+    return fetch(`${API}/students/by/search`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
 export const list = params => {
     const query = queryString.stringify(params);
     console.log("query", query);

@@ -53,6 +53,8 @@ const ManageStudent = () => {
     title: '性別',
     dataIndex: 'gender',
     key: 'gender',
+    render: text => (
+      <span> {(text) === "male" ? "男" : "女"} </span>)
   },
   {
     title: '国籍',
@@ -68,6 +70,21 @@ const ManageStudent = () => {
     title: '学部',
     dataIndex: 'faculty',
     key: 'faculty',
+  },
+  {
+    title: 'Cat',
+    dataIndex: 'categories.name',
+    key: 'categories.name',
+  },
+  {
+    title: '学部',
+    dataIndex: 'upload_fyp',
+    key: 'upload_fyp',
+    render: text => {
+      if (text) {
+       return <a href={text}>FYP</a>
+      }
+    }
   },
   {
     title: 'Action',

@@ -30,7 +30,7 @@ const Card2 = ({student}) => {
 
   return (
     <PageHeader
-      title={student.comments.substring(0,80)}
+      title={student.comments}
       style={{
         border: '1px solid rgb(235, 237, 240)',
         marginBottom: 20,
@@ -70,6 +70,11 @@ const Card2 = ({student}) => {
         {student.it_skills.map((skill, i) => (
                     <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill} </span>
               ))}
+      </Descriptions.Item>
+      <Descriptions.Item label="Category">
+      {student.categories.map((skill, i) => (
+                  <span key={i}> {i < (skill.length - 1)? ',' : ''}{skill.name} </span>
+            ))}
       </Descriptions.Item>
     </Descriptions>
       <Row>
