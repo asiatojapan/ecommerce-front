@@ -65,11 +65,12 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
         });
 };
 
-export const getFilteredStudents = (skip, limit, filters = {}) => {
+export const getFilteredStudents = (userId, skip, limit, filters = {}) => {
     const data = {
         limit,
         skip,
-        filters
+        filters,
+        userId
     };
     return fetch(`${API}/students/by/search`, {
         method: "POST",

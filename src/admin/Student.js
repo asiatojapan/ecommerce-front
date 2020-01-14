@@ -13,7 +13,7 @@ const Student = props => {
     const [student, setStudent] = useState({});
     const [error, setError] = useState(false);
 
-      const { user, token } = isAuthenticated();
+    const { user, token } = isAuthenticated();
 
     const loadSingleStudent = studentId => {
         readStudent(studentId).then(data => {

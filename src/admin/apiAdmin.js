@@ -23,10 +23,9 @@ export const createStudent = (userId, token, student) => {
         method: 'POST',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(student)
+        body: student
     })
         .then(response => {
             return response.json();
@@ -206,4 +205,56 @@ export const deleteUser = (userId, token) => {
             return response.json();
         })
         .catch(err => console.log(err));
+};
+
+export const readUser = (userId, token) => {
+    return fetch(`${API}/user/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+export const createRec = (studentId, userId, token) => {
+  return fetch(`${API}/rec/${studentId}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(userId)
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => {
+          console.log(err);
+      });
+};
+
+export const createUnRec = (studentId, user, token) => {
+  return fetch(`${API}/unrec/${studentId}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(user)
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => {
+          console.log(err);
+      });
 };

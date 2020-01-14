@@ -43,43 +43,33 @@ const Signin = () => {
     };
 
     const signInForm = () => (
-  <div class="cover bg-left bg-center-l" >
-  <article class="vh-100 dt w-100 bg-near-white">
-  <div class="dtc v-mid mid-gray ph3 ph4-l">
-  <form class="measure center">
-    <fieldset id="sign_up" class="ba b--transparent ph0 mh0">
-      <legend class="f2 fw6 ph0 mh0">Sign In</legend>
-      <div class="mt3">
-        <label class="db fw6 lh-copy f6" for="email-address">Email</label>
-        <input
-               prefix={<Icon type="user"/>}
-               placeholder="Username" onChange={handleChange("email")}
-               type="email"
-               class="pa2 input-reset ba bg-transparent w-100"
-               value={email}
-             />
-        </div>
-      <div class="mv3">
-        <label class="db fw6 lh-copy f6" for="password">Password</label>
-        <input
-               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+       <Form className="login-form">
+        <Title　style={{ textAlign: "center"}}>Login to
+        ASIA to JAPAN
+        </Title>
+       <Form.Item>
+       <Input
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Username" onChange={handleChange("email")}
+              type="email"
+              className="form-control"
+              value={email}
+            />
+      </Form.Item>
+      <Form.Item>
+      <Input
+             prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+             type="password"
+             placeholder="Password"   onChange={handleChange("password")}
                type="password"
-               placeholder="Password"   onChange={handleChange("password")}
-                 type="password"
-                 className="b pa2 input-reset ba bg-transparent w-100"
-                 value={password}
-             />
-      </div>
-    </fieldset>
-    <div class="">
-    <button block type="primary" htmlType="submit" className="b ph4 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" onClick={clickSubmit}>
-     ログイン
-   </button>
-    </div>
-  </form>
-  </div>
-</article>
-  </div>
+               className="form-control"
+               value={password}
+           />
+      </Form.Item>
+      <Button block type="primary" htmlType="submit" className="login-form-button" onClick={clickSubmit}>
+       ログイン
+     </Button>
+    </Form>
     );
 
     const showError = () => (
@@ -113,10 +103,16 @@ const Signin = () => {
 
   return (
       <div className="full-height">
+      <Row type="flex" justify="space-around" align="middle" height="100vw" className="full-height">
+
+       <Col span={8} offset={0}>
        {showLoading()}
        {showError()}
        {signInForm()}
        {redirectUser()}
+       </Col>
+
+      </Row>
       </div>
   );
 };

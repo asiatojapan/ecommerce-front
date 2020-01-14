@@ -15,16 +15,22 @@ const Checkbox2 = ({ categories, handleFilters }) => {
         } else {
             newCheckedCategoryId.splice(currentCategoryId, 1);
         }
-       console.log(newCheckedCategoryId);
+        // console.log(newCheckedCategoryId);
         setCheked(newCheckedCategoryId);
         handleFilters(newCheckedCategoryId);
     };
 
     return categories.map((c, i) => (
-      <div class="flex items-center mb2">
-          <input class="mr2" type="checkbox" onChange={handleToggle(c.name)} id={c.name} value={c.name}/>
-          <label for={c.name} class="lh-copy">{c.name}</label>
-      </div>
+      <Card style={{ width: 300 }}>
+      <li key={i} className="list-unstyled">
+          <Checkbox
+              onChange={handleToggle(c._id)}
+              value={checked.indexOf(c._id === -1)}
+              type="checkbox"
+              className="form-check-input"
+          >{c.name}</Checkbox>
+      </li>
+  </Card>
     ));
 };
 

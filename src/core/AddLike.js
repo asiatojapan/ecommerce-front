@@ -48,9 +48,9 @@ const AddLike = ({student, id })  => {
 
     const newLikeForm = () => {
       if (liked) {
-        return    <Button onClick={ clickDelete } type="primary"> {text}</Button>
+        return  <a className="f6 link dim ph3 pv2 mb2 dib white bg-black" onClick={ clickDelete } href="#0">{text}</a>
       } else {
-        return  <Button onClick={ clickSubmit } type="dashed"> {text} </Button>
+        return  <a className="f6 link dim ba ph3 pv2 mb2 dib black" onClick={ clickSubmit } href="#0">{text}</a>
       };
     };
 
