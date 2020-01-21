@@ -104,7 +104,23 @@ const Settings = () => {
               </article>
               </article>
             </div>
-
+            <article class="mw6 br2 bg-white ba b--black-10 h75">
+            <div class="tc">
+              <h1 class="f5 pt2 f6 ml3 pr2 ">Help <MdHelpOutline/></h1>
+            </div>
+              <article class="center mw5 mw6-ns hidden bb bt b--black-10">
+              <div class="mw9 center ph3-ns">
+                <div class="cf ph2-ns">
+                <div class="fl w-100 w-50-ns pa2">
+                  <div class="tc"> Help </div>
+                </div>
+                <div class="fl w-100 w-50-ns pa2">
+                  <div class="tc"> Support </div>
+                </div>
+                </div>
+                </div>
+              </article>
+              </article>
 
 
       </AdminMenu>

@@ -23,9 +23,9 @@ const AdminMenu = ({ history, children }) => {
     return (
       <div>
         <Menu2/>
-        <Content style={{ padding: '2px 0px' }}>
-          <Layout style={{ padding: '24px 0', background: '#fff' }}>
-            <Sider width={200} style={{ background: '#fff' }}>
+        <Content style={{ margin: '0px 0px' }}>
+          <Layout style={{ margin: '1px 0', background: '#fff' }}>
+            <Sider width={200} style={{ background: '#fff', padding: '20px 0' }}>
           <Link
                 className="nav-link"
                 style={isActive(history, "/admin/dashboard")}
@@ -44,6 +44,12 @@ const AdminMenu = ({ history, children }) => {
                 to="/admin/users" className="link dim dark-gray pl4 pa2 f6 f6-ns dib mr3 mr4-ns"
             >Users</Link>
 
+            <Link
+                  className="nav-link"
+                  style={isActive(history, "/admin/interviews")}
+                  to="/admin/interviews" className="link dim dark-gray pl4 pa2 f6 f6-ns dib mr3 mr4-ns"
+              >Interviews</Link>
+
           <Link
                 className="nav-link"
                 style={isActive(history, "/admin/profile")}
@@ -51,7 +57,7 @@ const AdminMenu = ({ history, children }) => {
             >Settings</Link>
 
             </Sider>
-            <Content style={{ padding: '0 24px', minHeight: "100vh" }}>
+            <Content style={{ padding: '0 0px', minHeight: "100vh" }}>
             {children}
             </Content>
           </Layout>

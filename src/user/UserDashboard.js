@@ -5,7 +5,7 @@ import { getUsers } from "../admin/apiAdmin";
 import { readStudent, getStudents } from "../core/apiCore";
 import { Descriptions, Badge, Card, Col, Row  } from 'antd';
 
-const Dashboard = () => {
+const Dashboard = React.memo( ({value}) => {
 
   const {
       user: { _id, name, email, role }
@@ -124,7 +124,7 @@ const Dashboard = () => {
           </div>
       </UserLayout>
 )
-};
+});
 
 
 

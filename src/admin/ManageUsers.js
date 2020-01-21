@@ -33,22 +33,22 @@ function GlobalFilter({
 
   return (
 
-  <div className="mb4">
-  <form class="bg-near-white center pa4 br2-ns">
-  <fieldset class="cf bn ma0">
-  <legend class="pa0 f5 f4-ns mb3 black-80">Search Users</legend>
-    <div class="cf">
-    <input
-      value={globalFilter || ''}
-      onChange={e => {
-        setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`検索`}
-      className="f6 f5-l input-reset bn fl black-80 bg-white pa3 lh-solid w-100 w-100-m w-100-l br2-ns br--left-ns"
-      />
-      </div>
-  </fieldset>
-</form>
+  <div className="mv2">
+  <div class="flex">
+  <div class="w-10">
+    <div class="pa0 pa2 mb2 db w-100">Search:</div>
+  </div>
+  <div class="w-90 v-mid">
+  <input
+    value={globalFilter || ''}
+    onChange={e => {
+      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+    }}
+    placeholder={`検索`}
+    className="ba b--black-20 pa2 mb2 db w-100"
+    />
+  </div>
+  </div>
 </div>
   )
 }
@@ -197,7 +197,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-function Table({ columns, data }) {
+export const Table = function ({ columns, data }) {
 
   const filterTypes = React.useMemo(
     () => ({
@@ -254,30 +254,8 @@ function Table({ columns, data }) {
     defaultColumn,
     filterTypes,
     },
-   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect,
-   hooks => {
-        hooks.flatColumns.push(columns => [
-          // Let's make a column for selection
-          {
-            id: 'selection',
-            // The header can use the table's getToggleAllRowsSelectedProps method
-            // to render a checkbox
-            Header: ({ getToggleAllRowsSelectedProps }) => (
-              <div>
-                <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
-              </div>
-            ),
-            // The cell can use the individual row's getToggleRowSelectedProps method
-            // to the render a checkbox
-            Cell: ({ row }) => (
-              <div>
-                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
-              </div>
-            ),
-          },
-          ...columns,
-        ])
-      })
+   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect
+  )
 
   // Render the UI for your table
   return (
@@ -287,14 +265,13 @@ function Table({ columns, data }) {
       globalFilter={state.globalFilter}
       setGlobalFilter={setGlobalFilter}
     />
-    <table class="f6 w-100 mw center" cellspacing="0" {...getTableProps()}>
-      <thead>
+    <table class="f6 w-100 mw center ba b--light-gray" cellspacing="0" {...getTableProps()}>
+      <thead class="bg-black">
         {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
+          <tr className="stripe-dark" {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th class="fw6 bb b--black-20 tl pb3 pr3 bg-white" {...column.getHeaderProps()}>
+              <th class="fw6 tl pa3 bg-white" {...column.getHeaderProps()}>
               {column.render('Header')}
-              <div></div>
               </th>
             ))}
           </tr>
@@ -307,59 +284,49 @@ function Table({ columns, data }) {
           (row, i) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+              <tr className="stripe-dark" {...row.getRowProps()}>
                 {row.cells.map(cell => {
-                  return <td class=" pr3 bb b--black-20" {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  return <td class="pa3" {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
             )}
         )}
       </tbody>
     </table>
-    <div className="mt2 center pagination">
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {'<<'}
-        </button>{' '}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {'<'}
-        </button>{' '}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {'>'}
-        </button>{' '}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {'>>'}
-        </button>{' '}
-        <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-        <span>
-          | Go to page:{' '}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
-            onChange={e => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0
-              gotoPage(page)
-            }}
-            style={{ width: '100px' }}
-          />
-        </span>{' '}
-        <select
-          value={pageSize}
-          onChange={e => {
-            setPageSize(Number(e.target.value))
-          }}
-        >
-          {[10, 20, 30, 40, 50].map(pageSize => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+    <div class="flex items-center justify-center">
+    <ul class="pagination modal-1">
+      <li><a onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
+      <li><a onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</a></li>
+      <li><a onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</a></li>
+      <li><a onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</a></li>
+    </ul>
+    <div class="mv2">
+    <span>
+       Go to page:{' '}
+      <input
+        type="number"
+        defaultValue={pageIndex + 1}
+        onChange={e => {
+          const page = e.target.value ? Number(e.target.value) - 1 : 0
+          gotoPage(page)
+        }}
+        style={{ width: '100px' }}
+      />
+    </span>{' '}
+    <select
+      value={pageSize}
+      onChange={e => {
+        setPageSize(Number(e.target.value))
+      }}
+    >
+      {[10, 20, 30, 40, 50].map(pageSize => (
+        <option key={pageSize} value={pageSize}>
+          Show {pageSize}
+        </option>
+      ))}
+    </select>
       </div>
+    </div>
     </div>
   )
 }
@@ -374,7 +341,6 @@ const ManageUsers = () => {
 
   const loadUsers = () => {
       getUsers().then(data => {
-      setLikedstudents(data.liked_students);
           if (data.error) {
               console.log(data.error);
           } else {
@@ -393,7 +359,26 @@ const ManageUsers = () => {
       });
   };
 
-  const columns = [
+  const columns = React.useMemo(
+   () => [
+     // Let's make a column for selection
+     {
+       id: "selection",
+       // The header can use the table's getToggleAllRowsSelectedProps method
+       // to render a checkbox
+       Header: ({ getToggleAllRowsSelectedProps }) => (
+         <div>
+           <input type="checkbox" {...getToggleAllRowsSelectedProps()} />
+         </div>
+       ),
+       // The cell can use the individual row's getToggleRowSelectedProps method
+       // to the render a checkbox
+       Cell: ({ row }) => (
+         <div>
+           <input type="checkbox" {...row.getToggleRowSelectedProps()} />
+         </div>
+       )
+     },
     {
           Header: 'ID',
           accessor: (text, i) =>
@@ -414,10 +399,39 @@ const ManageUsers = () => {
       Header: 'Role',
       accessor: (text) =>
       <div>
-      {text.role === 1 ? "Admin" : "Registered User"}
+      {text.role === 1 ? "Admin" : "User"}
       </div>,
       id: 'role',
       sortType: 'basic',
+    },
+    {
+      Header: 'Phase',
+      accessor: "round"
+    },
+    {
+      Header: 'Phase Memo',
+      accessor: "phase"
+    },
+    {
+      Header: '営業担当',
+      accessor: (text) =>
+      <div>
+      {text.salesrep.map((c,i)=>
+      <div>
+      {c.name}
+      </div>)}
+      </div>,
+    },
+    {
+      Header: 'おすすめ',
+      accessor: (text, i) =>
+      <div> {text.rec_students.length}</div>
+    },
+
+    {
+      Header: '面接',
+      accessor: (text, i) =>
+      <div> {text.interviews.length}</div>
     },
 
     {
@@ -432,7 +446,10 @@ const ManageUsers = () => {
       </div>,
       filterable : true
     }
-];
+],
+
+  []
+);
 
  const data = users
 
@@ -443,15 +460,20 @@ const ManageUsers = () => {
 
     return (
       <AdminMenu>
-      <div class="cf">
-        <div class="fl w-100 w-75-ns pa2">
-        <legend class="fw7 f3">Users</legend>
-        </div>
-        <div class="fl w-100 w-25-ns pa2 tr">
-          <Link to={`/admin/create/user`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Users </Link>
-        </div>
+      <div>
+        <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
+              <div class="tl pa2 fl">
+                      <div class="f3 f2-ns lh-solid">Users</div>
+                    </div>
+                  <div class="fr tr">
+            <Link to={`/admin/create/user`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Users </Link>
+
+                </div>
+          </div>
       </div>
+      <div class="ph4-ns">
       <Table columns={columns} data={data} />
+      </div>
       </AdminMenu>
     );
 };

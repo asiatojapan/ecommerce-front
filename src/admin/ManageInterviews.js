@@ -2,19 +2,16 @@ import React, { useState, useEffect } from 'react';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from "../auth";
 import { List } from 'antd';
-import { getStudents } from '../core/apiCore';
-import { deleteStudent, getCheckStudents } from "./apiAdmin";
+import { getInterviews } from "./apiAdmin";
 import { Link } from "react-router-dom";
-import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination, useMountedLayoutEffect } from 'react-table'
+import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
 import matchSorter from 'match-sorter'
-import { Modal, Button } from 'antd';
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef()
     const resolvedRef = ref || defaultRef
 
-   console.log("hello");
     React.useEffect(() => {
       resolvedRef.current.indeterminate = indeterminate
     }, [resolvedRef, indeterminate])
@@ -36,23 +33,23 @@ function GlobalFilter({
 
   return (
 
-    <div className="mv2">
-    <div class="flex">
-    <div class="w-10">
-      <div class="pa0 pa2 mb2 db w-100">Search:</div>
-    </div>
-    <div class="w-90 v-mid">
-    <input
-      value={globalFilter || ''}
-      onChange={e => {
-        setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`検索`}
-      className="ba b--black-20 pa2 mb2 db w-100"
-      />
-    </div>
-    </div>
+  <div className="mv2">
+  <div class="flex">
+  <div class="w-10">
+    <div class="pa0 pa2 mb2 db w-100">Search:</div>
   </div>
+  <div class="w-90 v-mid">
+  <input
+    value={globalFilter || ''}
+    onChange={e => {
+      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+    }}
+    placeholder={`検索`}
+    className="ba b--black-20 pa2 mb2 db w-100"
+    />
+  </div>
+  </div>
+</div>
   )
 }
 
@@ -200,7 +197,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-export const Table = function ({ columns, data, selectedRows, onSelectedRowsChange }) {
+export const Table = function ({ columns, data }) {
 
   const filterTypes = React.useMemo(
     () => ({
@@ -250,22 +247,15 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
     flatColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, selectedRowIds, selectedRowPaths  },
+    state: { pageIndex, pageSize, selectedRowIds },
     } = useTable({
     columns,
     data,
     defaultColumn,
-    initialState: {
-        selectedRowPaths: selectedRows
-      },
     filterTypes,
     },
-   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect,
-)
-
-  useEffect(() => {
-    onSelectedRowsChange(selectedFlatRows);
-    }, [onSelectedRowsChange, selectedFlatRows]);
+   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect
+  )
 
   // Render the UI for your table
   return (
@@ -341,26 +331,20 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
   )
 }
 
-const ManageStudent = () => {
-  const [students, setStudents] = useState([]);
-
+const ManageInterviews = () => {
+  const [interviews, setInterviews] = useState([]);
   const { user, token } = isAuthenticated();
-  const loadStudents = () => {
-      getStudents().then(data => {
-          if (data.error) {
-              console.log(data.error);
-          } else {
-              setStudents(data);
-          }
-      });
-  };
 
-  const destroy = studentId => {
-      deleteStudent(studentId, user._id, token).then(data => {
+
+  const [ likedstudents, setLikedstudents ] =  useState([]);
+
+
+  const loadInterviews = () => {
+      getInterviews().then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
-              loadStudents();
+              setInterviews(data);
           }
       });
   };
@@ -387,130 +371,67 @@ const ManageStudent = () => {
        )
      },
     {
-          Header: 'StudentID',
-          accessor: 'studentid',
-          id: 'sid',
-          sortType: 'basic'
+          Header: 'Student',
+          accessor: (text, i) =>
+                <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
         },
+        {
+              Header: 'User',
+              accessor: (text, i) =>
+                    <div>{text.users.map((user,i)=> <div>{user.name}</div>)}</div>
+            },
     {
-          Header: 'Name',
-          accessor: 'name',
-          id: 'name',
-        },
-    {
-      Header: 'Age',
-      accessor: 'age',
-      id: 'age',
-      sortType: 'basic',
-      Filter: SelectColumnFilter,
-      filter: 'includes'
+      Header: 'Phase',
+      accessor: "phase"
     },
     {
-      Header: '国籍',
-      accessor: 'country',
-      id: 'country',
-      sortType: 'basic',
-      Filter: SelectColumnFilter,
-      filter: 'includes'
+      Header: '時間',
+      accessor: "time"
     },
     {
-      Header: '大学',
-      accessor: 'university',
-      id: 'uni',
-      sortType: 'basic',
-      Filter: SelectColumnFilter,
-      filter: 'includes'
+      Header: '結果',
+      accessor: "result"
     },
-    {
-      Header: 'おすすめ',
-      accessor: (text, i) =>
-      <div> {text.rec_users.map((c,i)=>
-      <div>
-      {c.name},
-      </div>)}</div>
-    },
-
-    {
-      Header: '面接',
-      accessor: (text, i) =>
-      <div> {text.liked_users.map((c,i)=>
-      <div>
-      {c.name},
-      </div>)}</div>
-    },
-
-    {
-      Header: 'フェーズ',
-      accessor: "status"
-    },
-
     {
       Header: "Actions",
       accessor: (text, i) =>
       <div>
-      <Link to={`/admin/student/${text._id}`}> View </Link> |
-      <Link to={`/admin/student/update/${text._id}`}> Update </Link>
-      <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="f6 link dim br2 ph2 pv1 mb1 mt1 dib white bg-dark-red">
-            Delete
-        </a>
+      <Link to={`/admin/profile/${text._id}`}> View </Link> |
+      <Link to={`/admin/user/update/${text._id}`}> Update </Link>
+
       </div>,
       filterable : true
     }
-  ],
-    []
-  );
+],
 
-  const data = students
+  []
+);
 
-  const [selectedRows, setSelectedRows] = useState([]);
+ const data = interviews
 
-  const selectedRowKeys = Object.values(selectedRows);
-
-  const clickList = e => {
-      getCheckStudents(selectedRows.map(
-                          d => d.original._id), "リスト");
-                          window.location.reload();
-  };
-
-  const clickYes = e => {
-      getCheckStudents(selectedRows.map(
-                          d => d.original._id), "来日");
-                          window.location.reload();
-  };
-
-  const clickFailed = e => {
-      getCheckStudents(selectedRows.map(
-                          d => d.original._id), "NG");
-                            window.location.reload();
-  };
 
   useEffect(() => {
-      loadStudents();
+      loadInterviews();
   }, []);
 
-
     return (
-    <AdminMenu>
-    <div>
-    <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
-          <div class="tl pa2 fl">
-                  <div class="f3 f2-ns lh-solid">Students</div>
+      <AdminMenu>
+      <div>
+        <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
+              <div class="tl pa2 fl">
+                      <div class="f3 f2-ns lh-solid">Interviews</div>
+                    </div>
+                  <div class="fr tr">
+            <Link to={`/admin/create/user`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Users </Link>
+
                 </div>
-          <div class="fr tr">
-            <Link to={`/admin/create/student`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Students </Link> <br/>
-
-            <a className="f7 link dim br1 ba ph3 pv1 mb2 dib near-black" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickList() } } >リスト掲載</a>
-            <a className="f7 link dim br1 ba ph3 pv1 mb2 dib near-black" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickYes() } } >来日</a>
-            <a className="f7 link dim br1 ba ph3 pv1 mb2 dib near-black" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickFailed() } } >NG</a>
-
           </div>
-    </div>
-</div>
-  <div class="ph4-ns">
-      <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
-  </div>
+      </div>
+      <div class="ph4-ns">
+      <Table columns={columns} data={data} />
+      </div>
       </AdminMenu>
     );
 };
 
-export default ManageStudent;
+export default ManageInterviews;

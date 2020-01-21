@@ -15,6 +15,7 @@ import Shop from './core/Shop';
 import Product from './core/Product';
 import Countdown from './core/Countdown';
 import ManageProducts from './admin/ManageProducts';
+import ManageInterviews from './admin/ManageInterviews';
 import AdminProfile from './user/AdminProfile';
 import UpdateUser from './admin/UpdateUser';
 import Settings from './admin/Settings';
@@ -23,6 +24,7 @@ import AdminUser from './admin/AdminUser';
 import ManageUsers from './admin/ManageUsers';
 import AStudent from './admin/Student';
 import LikedStudentList from './user/LikedStudentsList';
+import InterviewStudents from './user/InterviewStudents';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
@@ -40,7 +42,7 @@ const Routes = () => {
     <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
-    <PrivateRoute path="/user/likes" exact component={LikedStudentList}/>
+    <PrivateRoute path="/user/students" exact component={LikedStudentList}/>
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
@@ -48,7 +50,8 @@ const Routes = () => {
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/create/product" exact component={AddProduct} />
     <AdminRoute path="/admin/settings" exact component={Settings} />
-
+    <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
+    <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
     <PrivateRoute path="/admin/products" exact component={ManageProducts} />
     <PrivateRoute path="/admin/students" exact component={ManageStudents} />
     <PrivateRoute path="/admin/users" exact component={ManageUsers} />

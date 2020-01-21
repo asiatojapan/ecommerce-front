@@ -44,7 +44,7 @@ const AddLike = ({student, id })  => {
         createUnlike(user._id, student, token);
     };
 
-    const text = liked ? 'Unlike' : 'Like'
+    const text = liked ? 'Unsave' : 'Save'
 
     const newLikeForm = () => {
       if (liked) {

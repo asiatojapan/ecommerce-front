@@ -25,7 +25,7 @@ const AddRec = ({student, userIdFromTable})  => {
             }
         });
         setRecUsers([student.rec_users]);
-        const found = student.rec_users.some(el => el._id === userIdFromTable)
+        const found = student.rec_users.some(el => el === userIdFromTable)
         if (found) {
           setRec(true)
            }
@@ -42,8 +42,6 @@ const AddRec = ({student, userIdFromTable})  => {
     const clickSubmit = e => {
         e.preventDefault();
         setRec(true);
-        console.log(student)
-        console.log(user)
         // make request to api to create category
         createRec(student._id, user, token);
     };

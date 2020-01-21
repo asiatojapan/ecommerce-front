@@ -192,6 +192,48 @@ export const getUsers = () => {
         .catch(err => console.log(err));
 };
 
+export const getSalesRep = () => {
+    return fetch(`${API}/users/salesrep`, {
+        method: 'GET'
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getMyUsers = (userId) => {
+    return fetch(`${API}/users/myusers/${userId}`, {
+      method: 'GET'
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => console.log(err));
+};
+
+export const getFilteredProducts = (skip, limit, filters = {}) => {
+    const data = {
+        limit,
+        skip,
+        filters
+    };
+    return fetch(`${API}/products/by/search`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
 export const deleteUser = (userId, token) => {
     return fetch(`${API}/user/${userId}`, {
         method: 'DELETE',
@@ -224,6 +266,7 @@ export const readUser = (userId, token) => {
 
 
 export const createRec = (studentId, userId, token) => {
+
   return fetch(`${API}/rec/${studentId}`, {
       method: 'POST',
       headers: {
@@ -232,6 +275,28 @@ export const createRec = (studentId, userId, token) => {
           Authorization: `Bearer ${token}`
       },
       body: JSON.stringify(userId)
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => {
+          console.log(err);
+      });
+};
+
+export const createInterview = (student, user, token, interview) => {
+  const data = {
+      student,
+      user
+  };
+  return fetch(`${API}/interview/create/${user}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(data)
   })
       .then(response => {
           return response.json();
@@ -257,4 +322,35 @@ export const createUnRec = (studentId, user, token) => {
       .catch(err => {
           console.log(err);
       });
+};
+
+export const getCheckStudents = (userId, status) => {
+  const data = {
+      status,
+      userId
+  };
+    return fetch(`${API}/students/bulkupdate`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+export const getInterviews = () => {
+    return fetch(`${API}/interviews`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
 };

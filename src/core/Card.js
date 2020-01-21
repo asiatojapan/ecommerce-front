@@ -5,12 +5,14 @@ import  AddLike  from './AddLike';
 import { FaFileDownload } from 'react-icons/fa';
 import { isAuthenticated } from '../auth';
 
+import {PdfDocument} from "../pdf/PdfDocument";
+
 const Card2 = ({student}) => {
 
   const { user, token } = isAuthenticated();
 
   return (
-      <article class="dt w-100 bb b--near-white pa4" href="#0" style={{ backgroundColor: student.rec_users.indexOf(user._id)>-1 ? '#000' : '' }}>
+      <article class="dt w-100 bb b--near-white pa4" href="#0" style={{ backgroundColor: student.rec_users.indexOf(user._id)>-1 ? '#eee' : '' }}>
           <div class="dtc v-mid">
           <Link to={`/student/${student._id}`} className="f6 f5-ns fw6 pv2 db blue link dim">
           {student.comments}
@@ -44,19 +46,18 @@ const Card2 = ({student}) => {
                     <dd class="f6 fw4 ml0">日本語</dd>
                     <dd class="f6 fw6 ml0">{student.japanese === "" ? "nill": student.japanese}</dd>
                   </dl>
+                  <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+                    <dd class="f6 fw4 ml0">Status</dd>
+                    <dd class="f6 fw6 ml0">{student.status}</dd>
+                  </dl>
                   <div>
                   <a class="no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma1 tc br2 pa1 " href={student.upload_fyp} title="FYP">
                     <FaFileDownload />
-                    <span class="f7 ml3 pr2">Resume</span>
                   </a>
-                  <a class="no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma1 tc br2 pa1" href={student.upload_fyp} title="FYP">
-                    <FaFileDownload />
-                    <span class="f7 ml3 pr2">Resume</span>
-                  </a>
+                  <PdfDocument student={student}/>
                 </div>
                 </div>
                 </article>
-
               </div>
               </div>
             </div>

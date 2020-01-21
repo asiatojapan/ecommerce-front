@@ -6,6 +6,7 @@ import { updateUser, deleteUser,readUser  } from './apiAdmin';
 import { getStudents } from '../core/apiCore';
 import LikedStudents from "../user/LikedStudents";
 import AddRec from "./AddRec";
+import AddInterview from "./AddInterview";
 import { Form, Select, Input, Button, DatePicker, Descriptions, Badge, Divider } from 'antd';
 import { PageHeader } from 'antd';
 import { Table } from "./ManageStudents";
@@ -78,27 +79,56 @@ const AdminUser = props => {
         });
     };
 
-    const columns =
-    [
-      {
-            Header: 'StudentID',
-            accessor: 'studentid',
-            id: 'sid',
-            sortType: 'basic'
-          },
-      {
-            Header: 'Name',
-            accessor: 'name',
-            id: 'name',
-          },
-        {
-          Header: 'Age',
-          accessor: (text, i) =>
-          <div>
-          <AddRec student={text} userIdFromTable={props.match.params.userId}/>
-          </div>
-        },
-    ];
+    const columns = React.useMemo(
+     () => [
+       // Let's make a column for selection
+
+       {
+             Header: 'StudentID',
+             accessor: 'studentid',
+             id: 'sid',
+             sortType: 'basic'
+           },
+       {
+             Header: 'Name',
+             accessor: 'name',
+             id: 'name',
+           },
+           {
+             Header: '面接社数',
+             accessor: (text, i) =>
+             <div>　
+             {text.interviews.length}
+             </div>
+           },
+         {
+           Header: 'おすすめ',
+           accessor: (text, i) =>
+           <div>
+           <AddRec student={text} userIdFromTable={props.match.params.userId}/>
+           </div>
+         },
+         {
+           Header: 'Liked',
+           accessor: (text, i) =>
+           <div>
+           {text.liked_users.map((c,i) =>
+             <div>
+             {c._id == props.match.params.userId ? "Yes" : ""}
+             </div>
+           )}
+           </div>
+         },
+         {
+           Header: '面接',
+           accessor: (text, i) =>
+           <div>
+           <AddInterview student={text} userIdFromTable={props.match.params.userId}/>
+           </div>
+         },
+    ],
+      []
+    );
 
     useEffect(() => {
         loadStudents();
@@ -116,6 +146,10 @@ const AdminUser = props => {
         });
     };
 
+    const [selectedRows, setSelectedRows] = useState([]);
+
+    const selectedRowKeys = Object.values(selectedRows);
+
     const userList = () => (
 
       <Descriptions bordered size="small">
@@ -126,26 +160,25 @@ const AdminUser = props => {
 
     return (
       <AdminMenu>
-      <PageHeader
-          style={{
-            borderBottom: '2px solid rgb(235, 237, 240)',
-            marginBottom: 20,
-          }} onBack={() => window.history.back() }
-          title={user1.name}
-          extra={[
-              <Link to={`/admin/student/update/${user1._id}`}>
-            <Button type="primary">
-                編集
-              </Button>
-            </Link >,
-             <Button onClick={() => destroy(user1._id)} type="danger">
-                Delete
-            </Button>
-          ]}
-            />
-      {userList()}
+      <main class="cf mw9 tc center">
+      <header class="bg-near-white sans-serif pa3">
+    <div class="center pa1 pt2-ns ph1-l">
+      <h4 class="f2 f2-m dark-blue">
+        {user1.name}
+      </h4>
+      <h5 className="dark-blue ">{user1.email}, {user1.role === 1 ? "Admin" : "User"}, {user1.salesrep } <br class="dn db-ns"/>
+      {user1.round}{user1.phase}</h5>
+    </div>
+    <hr class="mw3 bb bw1 b--black-10"/>
+    <span><Link to={`/admin/student/update/${user1._id}`}>Update</Link> </span>|
+    <span><a onClick={() => destroy(user1._id)} type="danger">
+       Delete
+   </a></span>
+  </header>
+      </main>
       <main class="pa3 pa5-ns">
-        <Table columns={columns} data={data} />
+
+      <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
       </main>
       </AdminMenu>
     );

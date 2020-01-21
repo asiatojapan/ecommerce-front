@@ -230,3 +230,92 @@
   top: 0;
   left: 0;
 }
+
+
+/* IE11 hide native button (thanks Matt!) */
+select::-ms-expand {
+display: none;
+}
+
+.selectdiv:after {
+  content: '<>';
+  color: #333;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  right: 11px;
+  /*Adjust for position however you want*/
+
+  top: 18px;
+  border-bottom: 1px solid #999;
+  /*left line */
+
+  position: absolute;
+  pointer-events: none;
+}
+
+.selectdiv select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Add some styling */
+
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: 40px;
+  float: right;
+  padding: 0px 12px;
+  color: #333;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cccccc;
+  -ms-word-break: normal;
+  word-break: normal;
+}
+
+
+.pagination{
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 10px;
+}
+.pagination li{
+    display: inline;
+    text-align: center;
+}
+.pagination a{
+    float: left;
+    display: block;
+    font-size: 14px;
+    text-decoration: none;
+    padding: 5px 12px;
+    color:#fff;
+    margin-left: -1px;
+    border:1px solid transparent;
+    line-height: 1.5;
+}
+
+.modal-1 li:first-child a {
+    -moz-border-radius: 6px 0 0 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px 0 0 6px;
+}
+.modal-1 a {
+    border-color: #ddd;
+    color: #4285F4;
+    background: #fff;
+}
+.modal-1 a.active, .modal-1 a:active {
+    border-color: #4285F4;
+    background: #4285F4;
+    color: #fff;
+}
+
+.modal-1 li:last-child a {
+    -moz-border-radius: 0 6px 6px 0;
+    -webkit-border-radius: 0;
+    border-radius: 0 6px 6px 0;
+}

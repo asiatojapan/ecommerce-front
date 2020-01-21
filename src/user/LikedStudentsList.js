@@ -4,6 +4,7 @@ import { readStudent } from "../core/apiCore";
 import UserLayout from "./UserLayout";
 import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
+import Card2 from '../core/Card';
 import { Descriptions, Badge, Card, Col, Row, Statistic } from 'antd';
 import "../styles.css";
 
@@ -37,21 +38,11 @@ const LikedStudentsList = () => {
 
     return (
       <UserLayout>
-      <div class="ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
-        <div class="f3 f2-ns dim black-70 lh-solid">My Students</div>
+      <div class="pv4">
+        <div class="f3 f3-ns b black">Saved Students ({likedstudents.length})</div>
       </div>
-      <div style={{ background: '#fff', paddingBottom: '30px' }}>
-       <Row gutter={16}>
-         <Col span={12}>
-           <Card style={{ background: '#eee'}}>
-             <Statistic title="Total" value={likedstudents.length} />
-           </Card>
-         </Col>
-
-       </Row>
-     </div>
         {likedstudents.map((s, i) => (
-        <LikedStudents id={likedstudents[i]}/>
+          <Card2 student={s} />
         ))}
       </UserLayout>
     );

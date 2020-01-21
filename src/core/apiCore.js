@@ -173,3 +173,13 @@ export const createUnlike = (userId, student, token) => {
           console.log(err);
       });
 };
+
+export const getMyInterviews = (userId) => {
+    return fetch(`${API}/interviews/mylist/${userId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

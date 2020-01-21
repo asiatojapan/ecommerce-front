@@ -88,6 +88,7 @@ const UpdateStudent = ({ match }) => {
                     other_pr: data.other_pr,
                     video: data.video,
                     categories: data.categories,
+                    upload_fyp: data.upload_fyp,
                     formData: new FormData()
                 });
                 initCategories();
@@ -108,13 +109,13 @@ const UpdateStudent = ({ match }) => {
 
     useEffect(() => {
         init(match.params.studentId);
-
     }, []);
 
     const handleChange = name => event => {
-        const value = name === 'it_skills' || "entry_timing" ? event.target.value.split(",") : event.target.value;
-        formData.set(name, value);
-        setValues({ ...values, [name]: value });
+          const value = name === 'upload_fyp' ? event.target.files[0] : event.target.value;
+          console.log(value)
+          formData.set(name, value);
+          setValues({ ...values, [name]: value });
     };
 
     const [checked, setCheked] = useState([]);
@@ -372,8 +373,9 @@ const UpdateStudent = ({ match }) => {
   <div class="mw9 center ph3-ns">
     <div class="cf ph2-ns">
       <div class="fl w-100 w-100-ns pa2">
-         <label for="other_pr" class="f6 b db mb2">その他PR<span class="normal black-60"></span></label>
-         <input onChange={handleChange('upload_fyp')} type="file" name="upload_fyp"  />
+         <label for="other_pr" class="f6 b db mb2">FYP PDF<span class="normal black-60"></span></label>
+         <input onChange={handleChange('upload_fyp')} type="file" name="upload_fyp"/>
+         {values.upload_fyp}
         </div>
     </div>
     </div>
