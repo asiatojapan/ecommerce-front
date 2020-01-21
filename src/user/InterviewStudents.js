@@ -5,9 +5,6 @@ import UserLayout from "./UserLayout";
 import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
 import CardInterview from './CardInterview';
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-
 import { Descriptions, Badge, Card, Col, Row, Statistic } from 'antd';
 import "../styles.css";
 
@@ -33,7 +30,7 @@ const LikedStudentsList = () => {
       useEffect(() => {
             loadInterviews();
         }, []);
-      
+
 
     return (
       <UserLayout>
