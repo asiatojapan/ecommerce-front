@@ -1,12 +1,21 @@
 import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { readStudent } from "../core/apiCore";
-import UserLayout from "./UserLayout";
 import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
-import Card2 from '../core/Card';
-import { Descriptions, Badge, Card, Col, Row, Statistic } from 'antd';
+import CardMainStudent from '../templates/CardMainStudent';
+import {
+  Container,
+  Page,
+  Grid,
+  Card,
+  Stamp,
+  ContactCard,
+  Timeline, Button
+} from "tabler-react";
+import SiteWrapper from '../templates/SiteWrapper'
 import "../styles.css";
+
 
 const LikedStudentsList = () => {
     const {
@@ -37,14 +46,19 @@ const LikedStudentsList = () => {
 
 
     return (
-      <UserLayout>
-      <div class="pv4">
-        <div class="f3 f3-ns b black">Saved Students ({likedstudents.length})</div>
-      </div>
-        {likedstudents.map((s, i) => (
-          <Card2 student={s} />
-        ))}
-      </UserLayout>
+
+      <SiteWrapper>
+      <Page.Content title={"My Saved Students (" + likedstudents.length + ")"}>
+      <div className="my-3 my-md-5">
+      <Container>
+          {likedstudents.map((s, i) => (
+            <CardMainStudent student={s} />
+          ))}
+          </Container>
+          </div>
+            </Page.Content>
+          </SiteWrapper>
+
     );
 };
 

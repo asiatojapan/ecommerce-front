@@ -53,6 +53,7 @@ function GlobalFilter({
   )
 }
 
+
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
 }) {
@@ -257,7 +258,6 @@ export const Table = function ({ columns, data }) {
    useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect
   )
 
-  // Render the UI for your table
   return (
     <div>
     <GlobalFilter
@@ -334,10 +334,6 @@ export const Table = function ({ columns, data }) {
 const ManageInterviews = () => {
   const [interviews, setInterviews] = useState([]);
   const { user, token } = isAuthenticated();
-
-
-  const [ likedstudents, setLikedstudents ] =  useState([]);
-
 
   const loadInterviews = () => {
       getInterviews().then(data => {
@@ -421,10 +417,6 @@ const ManageInterviews = () => {
               <div class="tl pa2 fl">
                       <div class="f3 f2-ns lh-solid">Interviews</div>
                     </div>
-                  <div class="fr tr">
-            <Link to={`/admin/create/user`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Users </Link>
-
-                </div>
           </div>
       </div>
       <div class="ph4-ns">

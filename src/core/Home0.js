@@ -2,37 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Layout2 from "./Layout";
 import Card2 from './Card';
 import { Link, Redirect } from 'react-router-dom';
+import Search from './Search';
 import { isAuthenticated } from '../auth';
 import Checkbox2 from "./Checkbox";
-import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
-import { it_skills } from "./it_skills";
 import { Row, Col } from 'antd';
 import { getStudents, getCategories, getFilteredStudents } from './apiCore';
-import { PDFDownloadLink, Document } from '@react-pdf/renderer'
-import CardStudent from '../templates/CardStudent';
+import { PDFDownloadLink, Document, Page } from '@react-pdf/renderer'
 import SiteWrapper from '../templates/SiteWrapper'
-import {
-  Page,
-  Avatar,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Table,
-  Alert,
-  Progress,
-  Container,
-  Badge,
-} from "tabler-react";
-import "../styles.css";
 import "tabler-react/dist/Tabler.css";
 
 const Home = () => {
   const { user, token } = isAuthenticated();
   const [students, setStudents] = useState([]);
   const [myFilters, setMyFilters] = useState({
-      filters: { categories: [], it_skills: [] }
+      filters: { categories: [] }
   });
   const [categorieslist, setCategorieslist] = useState([]);
   const [error, setError] = useState(false);
@@ -90,20 +74,7 @@ const Home = () => {
         }
     }
     return array;
-  };
-
-  const handleItCategories = value => {
-     const data = it_skills;
-     let array = [];
-
-     for (let key in data) {
-         if (data[key]._id === parseInt(value)) {
-             array = data[key].array;
-         }
-     }
-     return array;
- };
-
+};
 
   const loadStudents = () => {
       getStudents("createdAt").then(data => {
@@ -121,41 +92,36 @@ const Home = () => {
 
     return (
       <SiteWrapper>
-      <Page.Content title={filteredResults.length + " Results"}>
-      <div className="my-3 my-md-5">
-      <Container>
-         <Grid.Row cards>
-           <Grid.Col lg={3} md={3}>
-           <div class="card">
-                  <div class="card-body">
-                  <ItCheckbox it_skills={it_skills} handleFilters={filters =>
-                      handleFilters(filters, "it_skills")} />
+          <section class="mw12 mw12-ns center pa3 ph5-ns">
+              <div class="fl w-25 pa2">
+                <div class="bg-white pa4 br2-ns">
+                <form class="pa0">
+                <fieldset class="bn">
+                <legend class="fw7">Filters</legend>
+                  <Checkbox2
+                      categories={categories}
+                      handleFilters={filters =>
+                          handleFilters(filters, "it_skills")
+                      }
+                  />
+                  </fieldset>
+                </form>
+                </div>
+              </div>
+                <div class="fl w-75 pa2">
+                <div class="pa-l">
+                  <div class="bg-white pa4 br2-ns">
+                    <div class="pa0 bw2 b--light-gray bb f4-ns mb black-80 pb3">{filteredResults.length}　Results</div>
+                    {filteredResults.map((student, i) => (
+                    <div key={i}>
+                      <Card2 student={student} />
+                    </div>
+                    ))}
                   </div>
                 </div>
-                <div class="card">
-                  <div class="card-body">
-                    <h3 class="card-title">Filters</h3>
-                    <Checkbox2
-                               categories={categories}
-                               handleFilters={filters =>
-                                   handleFilters(filters, "tags")} />
-                  </div>
-                </div>
-
-           </Grid.Col>
-        <Grid.Col lg={9} md={9}>
-        {filteredResults.map((student, i) => (
-        <div key={i}>
-          <Card2 student={student} />
-        </div>
-        ))}
-        </Grid.Col>
-        </Grid.Row>
-        </Container>
-        </div>
-        </Page.Content>
-        </SiteWrapper>
-
+            </div>
+          </section>
+      </SiteWrapper>
     );
 };
 

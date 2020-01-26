@@ -11,7 +11,6 @@ import AddCategory from './admin/AddCategory';
 import AddStudent from './admin/AddStudent';
 import AddProduct from './admin/AddProduct';
 import AddLike from './core/AddLike';
-import Shop from './core/Shop';
 import Product from './core/Product';
 import Countdown from './core/Countdown';
 import ManageProducts from './admin/ManageProducts';
@@ -35,7 +34,6 @@ const Routes = () => {
     <Switch>
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
-    <Route path="/shop" exact component={Shop} />
     <Route path="/countdown" exact component={Countdown} />
     <Route path="/product/:productId" exact component={Product} />
     <Route path="/create/like" exact component={AddLike} />

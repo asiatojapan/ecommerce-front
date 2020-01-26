@@ -14,7 +14,6 @@ const IndeterminateCheckbox = React.forwardRef(
     const defaultRef = React.useRef()
     const resolvedRef = ref || defaultRef
 
-   console.log("hello");
     React.useEffect(() => {
       resolvedRef.current.indeterminate = indeterminate
     }, [resolvedRef, indeterminate])

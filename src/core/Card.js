@@ -12,61 +12,39 @@ const Card2 = ({student}) => {
   const { user, token } = isAuthenticated();
 
   return (
-      <article class="dt w-100 bb b--near-white pa4" href="#0" style={{ backgroundColor: student.rec_users.indexOf(user._id)>-1 ? '#eee' : '' }}>
-          <div class="dtc v-mid">
-          <Link to={`/student/${student._id}`} className="f6 f5-ns fw6 pv2 db blue link dim">
-          {student.comments}
-          </Link>
-          {student.it_skills.map((skill, i) => (
-            <li class="dib">
-              <div class="f7 link dim ba ph2 pv1 mb2 dib br2 dark-blue">{skill}</div>
-            </li>
-                ))}
-            <div class="dt dt-row">
-              <div class="db dtc v-mid-ns">
-                <img src="http://tachyons.io/img/super-wide.jpg" alt="A bright blue sky" class="w-100 mw7 w5-ns" />
-              </div>
-              <div class="db dtc v-mid pr4-ns pl3-ns">
-              <article class="pa1 pa0-ns" data-name="slab-stat-small">
-                <h3 class="fw6 f6 ttu">ID: {student.studentid}</h3>
-                <div class="cf">
-                  <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
-                    <dd class="f6 fw4 ml0">性別・年齢</dd>
-                    <dd class="f6 fw6 ml0">{student.gender === "male" ? "男" : "女"}　| {student.age}</dd>
-                  </dl>
-                  <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
-                    <dd class="f6 fw4 ml0">国籍・地域</dd>
-                    <dd class="f6 fw6 ml0">{student.country === "" ? "nill" : student.country}</dd>
-                  </dl>
-                  <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
-                    <dd class="f6 fw4 ml0">大学</dd>
-                    <dd class="f6 fw6 ml0">{student.university === "" ? "nill": student.university}</dd>
-                  </dl>
-                  <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
-                    <dd class="f6 fw4 ml0">日本語</dd>
-                    <dd class="f6 fw6 ml0">{student.japanese === "" ? "nill": student.japanese}</dd>
-                  </dl>
-                  <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
-                    <dd class="f6 fw4 ml0">Status</dd>
-                    <dd class="f6 fw6 ml0">{student.status}</dd>
-                  </dl>
-                  <div>
-                  <a class="no-underline near-white bg-animate bg-near-black hover-bg-gray inline-flex items-center ma1 tc br2 pa1 " href={student.upload_fyp} title="FYP">
-                    <FaFileDownload />
-                  </a>
-                  <PdfDocument student={student}/>
-                </div>
-                </div>
-                </article>
-              </div>
-              </div>
-            </div>
-            <div class="dtc v-mid">
-              <form class="w-100 tr">
-              <AddLike student={student} id={student._id}/>
-              </form>
-            </div>
-      </article>
+
+    <div class="card">
+    <div class="card-header">
+   {student.rec_users.indexOf(user._id)>-1 ? <div class="card-status bg-blue card-status-left"></div> : "" }
+    <h3 class="card-title">{student.comments}</h3>
+    <div class="card-options">
+      <AddLike student={student} id={student._id}/>
+    </div>
+    </div>
+    <div class="card-body">
+    <div class="table-responsive">
+    <table class="table card-table table-vcenter">
+    <tbody class>
+    <tr class="">
+    <td class="">
+    <img alt="" src="https://tabler.github.io/tabler/demo/products/apple-iphone7-special.jpg" class="h-8" / >
+    </td>
+    <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">{student.studentid} </h6>{student.gender === "male" ? "男" : "女"} | {student.age}</td>
+    <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">国籍</h6>{student.country === "" ? "nill" : student.country}</td>
+    <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">大学</h6>{student.university === "" ? "nill": student.university}</td>
+    <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">日本語</h6>{student.japanese === "" ? "nill": student.japanese}</td>
+    <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">英語</h6>{student.english === "" ? "nill": student.english}</td>
+    <td class="text-right"><strong>$499</strong></td></tr>
+    </tbody>
+    </table>
+    </div>
+    </div>
+    <div class="card-footer">
+    {student.it_skills.map((skill, i) => (
+    <span class="badge badge-warning mr-1">{skill}</span>
+      ))}
+      </div>
+    </div>
 
 );
 };

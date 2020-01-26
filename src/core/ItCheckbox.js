@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import {Card, Checkbox } from 'antd';
 
-const Checkbox = ({ categories, handleFilters }) => {
+const ItCheckbox = ({ it_skills, handleFilters }) => {
     const [checked, setCheked] = useState([]);
 
     const handleToggle = c => () => {
@@ -14,22 +15,17 @@ const Checkbox = ({ categories, handleFilters }) => {
         } else {
             newCheckedCategoryId.splice(currentCategoryId, 1);
         }
-        // console.log(newCheckedCategoryId);
+        console.log(newCheckedCategoryId);
         setCheked(newCheckedCategoryId);
         handleFilters(newCheckedCategoryId);
     };
 
-    return categories.map((c, i) => (
-        <li key={i} className="list-unstyled">
-            <input
-                onChange={handleToggle(c._id)}
-                value={checked.indexOf(c._id === -1)}
-                type="checkbox"
-                className="form-check-input"
-            />
-            <label className="form-check-label">{c.name}</label>
-        </li>
+    return it_skills.map((c, i) => (
+      <div class="flex items-center mb2">
+          <input class="mr2" type="checkbox" onChange={handleToggle(c.name)} id={c.name} value={c.name}/>
+          <label for={c.name} class="lh-copy">{c.name}</label>
+      </div>
     ));
 };
 
-export default Checkbox;
+export default ItCheckbox;

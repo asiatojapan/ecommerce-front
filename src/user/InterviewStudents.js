@@ -4,8 +4,21 @@ import { getMyInterviews } from "../core/apiCore";
 import UserLayout from "./UserLayout";
 import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
-import CardInterview from './CardInterview';
-import { Descriptions, Badge, Card, Col, Row, Statistic } from 'antd';
+import CardStudent from '../templates/CardStudent';
+import SiteWrapper from '../templates/SiteWrapper'
+import {
+  Page,
+  Avatar,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Table,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
 import "../styles.css";
 
 const LikedStudentsList = () => {
@@ -33,15 +46,19 @@ const LikedStudentsList = () => {
 
 
     return (
-      <UserLayout>
-      <div class="pv4">
-        <div class="f3 f3-ns b black">Interviews ({interviews.length})</div>
-      </div>
+      <SiteWrapper>
 
+      <Page.Content title={"My Interviews (" + interviews.length + ")"}>
+      <div className="my-3 my-md-5">
+      <Container>
 
       {interviews.map((c,i) => <div>
-        <CardInterview student={c.student} /></div>)}
-      </UserLayout>
+        <CardStudent student={c.student} /></div>)}
+
+          </Container>
+          </div>
+            </Page.Content>
+          </SiteWrapper>
     );
 };
 
