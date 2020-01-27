@@ -3,10 +3,9 @@ import { isAuthenticated, getUser } from "../auth";
 import { readStudent, getStudents } from "../core/apiCore";
 import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
-import  AdminMenu from "./AdminMenu";
 import { Table } from "../admin/ManageUsers";
 import { getUsers, getMyUsers, deleteUser } from "../admin/apiAdmin";
-import SiteWrapper from '../templates/SiteWrapper'
+import AdminSiteWrapper from '../templates/AdminSiteWrapper'
 import {
   Page,
   Avatar,
@@ -59,9 +58,11 @@ const AdminDashboard = () => {
 
     const columns = [
       {
-            Header: 'Name',
-            accessor: 'name',
-            id: 'name',
+        Header: 'Name',
+            accessor: (text, i) =>
+            <div>
+            <Link to={`/admin/profile/${text._id}`}> {text.name} </Link>
+            </div>,
           },
       {
         Header: 'Email',
@@ -94,10 +95,9 @@ const AdminDashboard = () => {
       {
         Header: "Actions",
         accessor: (text, i) =>
-        <div>
-        <Link to={`/admin/profile/${text._id}`}> View </Link> |
-        <Link to={`/admin/user/update/${text._id}`}> Update </Link>
-        <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="f6 link dim br2 ph2 pv1 mb1 mt1 dib white bg-dark-red">
+        <div className="btn-list">
+        <Link className="btn-sm btn btn-success" to={`/admin/user/update/${text._id}`}> Update </Link>
+        <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="btn btn-sm btn-secondary">
               Delete
           </a>
         </div>,
@@ -113,42 +113,20 @@ const AdminDashboard = () => {
     }, []);
 
 
-    const adminLinks = () => {
-        return (
-            <div className="card">
-                <h4 className="card-header">Admin Links</h4>
-                <ul className="list-group">
-                    <li className="list-group-item">
-                        <Link className="nav-link" to="/admin/create/student">
-                            Create Student
-                        </Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link className="nav-link" to="/admin/students">
-                            View Students
-                        </Link>
-                    </li>
-                    <li className="list-group-item">
-                        <Link className="nav-link" to="/admin/products">
-                            Manage Products
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-        );
-    };
 
 
     return (
-      <SiteWrapper>
-      <div class="ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
-        <div class="f3 f2-ns lh-solid">Your Users</div>
-      </div>
-
-      <div class="ph4-ns">
-        <Table columns={columns} data={data}/>
-      </div>
-      </SiteWrapper>
+      <AdminSiteWrapper>
+      <Page.Content title="Dashboard">
+       <Grid.Row>
+       <Grid.Col width={12}>
+          <Card>
+            <Table columns={columns} data={data}/>
+          </Card>
+      </Grid.Col>
+       </Grid.Row>
+      </Page.Content>
+      </AdminSiteWrapper>
     );
 };
 

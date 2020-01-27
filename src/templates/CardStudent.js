@@ -22,7 +22,6 @@ const CardStudent = ({student}) => {
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
                        <Grid.Col auto>
-                     <span class="status-icon bg-success"></span>
                        </Grid.Col>
                        <Grid.Col>
                          <div>
@@ -35,7 +34,7 @@ const CardStudent = ({student}) => {
                          </Text.Small>
                        </Grid.Col>
                        <Grid.Col auto>
-                       <span class="stamp stamp-md bg-green mr-5">来日決定</span>
+                       <span class="status-icon bg-success"></span>来日決定
                        </Grid.Col>
                      </Grid.Row>
                    </li>

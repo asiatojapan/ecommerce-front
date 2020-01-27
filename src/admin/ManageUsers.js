@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from "../auth";
-import { List } from 'antd';
 import { deleteUser, getUsers } from "./apiAdmin";
 import { Link } from "react-router-dom";
+import AdminSiteWrapper from '../templates/AdminSiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
 import matchSorter from 'match-sorter'
 
@@ -33,22 +32,20 @@ function GlobalFilter({
 
   return (
 
-  <div className="mv2">
-  <div class="flex">
-  <div class="w-10">
-    <div class="pa0 pa2 mb2 db w-100">Search:</div>
-  </div>
-  <div class="w-90 v-mid">
-  <input
-    value={globalFilter || ''}
-    onChange={e => {
-      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-    }}
-    placeholder={`検索`}
-    className="ba b--black-20 pa2 mb2 db w-100"
-    />
-  </div>
-  </div>
+    <div class="card-header">
+    <h3 class="card-title">Users</h3>
+    <div class="card-options">
+    <div class="input-group">
+    <input
+      value={globalFilter || ''}
+      onChange={e => {
+        setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+      }}
+      placeholder={`検索`}
+      className="form-control"
+      />
+    </div>
+    </div>
 </div>
   )
 }
@@ -259,18 +256,20 @@ export const Table = function ({ columns, data }) {
 
   // Render the UI for your table
   return (
+
     <div>
     <GlobalFilter
       preGlobalFilteredRows={preGlobalFilteredRows}
       globalFilter={state.globalFilter}
       setGlobalFilter={setGlobalFilter}
     />
-    <table class="f6 w-100 mw center ba b--light-gray" cellspacing="0" {...getTableProps()}>
-      <thead class="bg-black">
+    <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter" cellspacing="0" {...getTableProps()}>
+      <thead>
         {headerGroups.map(headerGroup => (
-          <tr className="stripe-dark" {...headerGroup.getHeaderGroupProps()}>
+          <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th class="fw6 tl pa3 bg-white" {...column.getHeaderProps()}>
+              <th {...column.getHeaderProps()}>
               {column.render('Header')}
               </th>
             ))}
@@ -279,20 +278,21 @@ export const Table = function ({ columns, data }) {
         <tr>
         </tr>
       </thead>
-      <tbody class="lh-copy" {...getTableBodyProps()}>
+      <tbody {...getTableBodyProps()}>
         {page.map(
           (row, i) => {
             prepareRow(row);
             return (
-              <tr className="stripe-dark" {...row.getRowProps()}>
+              <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
-                  return <td class="pa3" {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  return <td class {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
             )}
         )}
       </tbody>
     </table>
+    </div>
     <div class="flex items-center justify-center">
     <ul class="pagination modal-1">
       <li><a onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
@@ -440,7 +440,7 @@ const ManageUsers = () => {
       <div>
       <Link to={`/admin/profile/${text._id}`}> View </Link> |
       <Link to={`/admin/user/update/${text._id}`}> Update </Link>
-      <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="f6 link dim br2 ph2 pv1 mb1 mt1 dib white bg-dark-red">
+      <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="btn btn-sm btn-secondary">
             Delete
         </a>
       </div>,
@@ -459,7 +459,7 @@ const ManageUsers = () => {
   }, []);
 
     return (
-      <AdminMenu>
+      <AdminSiteWrapper>
       <div>
         <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
               <div class="tl pa2 fl">
@@ -474,7 +474,7 @@ const ManageUsers = () => {
       <div class="ph4-ns">
       <Table columns={columns} data={data} />
       </div>
-      </AdminMenu>
+      </AdminSiteWrapper>
     );
 };
 

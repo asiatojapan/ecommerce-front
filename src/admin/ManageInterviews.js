@@ -369,7 +369,7 @@ const ManageInterviews = () => {
     {
           Header: 'Student',
           accessor: (text, i) =>
-                <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
+          <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
         },
         {
               Header: 'User',

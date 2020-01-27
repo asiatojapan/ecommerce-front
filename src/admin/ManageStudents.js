@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from "../auth";
-import { List } from 'antd';
 import { getStudents } from '../core/apiCore';
 import { deleteStudent, getCheckStudents } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination, useMountedLayoutEffect } from 'react-table'
 import matchSorter from 'match-sorter'
-import { Modal, Button } from 'antd';
+import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import {
+  Page,
+  Dropdown,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
+
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -34,24 +48,20 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length
 
   return (
-
-    <div className="mv2">
-    <div class="flex">
-    <div class="w-10">
-      <div class="pa0 pa2 mb2 db w-100">Search:</div>
-    </div>
-    <div class="w-90 v-mid">
-    <input
-      value={globalFilter || ''}
-      onChange={e => {
-        setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`検索`}
-      className="ba b--black-20 pa2 mb2 db w-100"
-      />
-    </div>
-    </div>
-  </div>
+    <div class="card-body border-bottom py-3">
+                      <div class="mb-0">
+                        <div class="mx-2 ">
+                        <input
+                          value={globalFilter || ''}
+                          onChange={e => {
+                            setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+                          }}
+                          placeholder={`検索`}
+                          className="form-control form-control-sm"
+                          />
+                      </div>
+                    </div>
+                  </div>
   )
 }
 
@@ -274,12 +284,13 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
       globalFilter={state.globalFilter}
       setGlobalFilter={setGlobalFilter}
     />
-    <table class="f6 w-100 mw center ba b--light-gray" cellspacing="0" {...getTableProps()}>
-      <thead class="bg-black">
+    <div class="table-responsive">
+    <table class="table card-table table-striped table-vcenter"  cellspacing="0" {...getTableProps()}>
+      <thead>
         {headerGroups.map(headerGroup => (
-          <tr className="stripe-dark" {...headerGroup.getHeaderGroupProps()}>
+          <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th class="fw6 tl pa3 bg-white" {...column.getHeaderProps()}>
+              <th {...column.getHeaderProps()}>
               {column.render('Header')}
               </th>
             ))}
@@ -288,20 +299,22 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
         <tr>
         </tr>
       </thead>
-      <tbody class="lh-copy" {...getTableBodyProps()}>
+      <tbody {...getTableBodyProps()}>
         {page.map(
           (row, i) => {
             prepareRow(row);
             return (
-              <tr className="stripe-dark" {...row.getRowProps()}>
+              <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
-                  return <td class="pa3" {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
             )}
         )}
       </tbody>
     </table>
+    </div>
+
     <div class="flex items-center justify-center">
     <ul class="pagination modal-1">
       <li><a onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
@@ -423,19 +436,14 @@ const ManageStudent = () => {
     {
       Header: 'おすすめ',
       accessor: (text, i) =>
-      <div> {text.rec_users.map((c,i)=>
-      <div>
-      {c.name},
-      </div>)}</div>
+      <div> {text.rec_users.length}
+    </div>
     },
 
     {
       Header: '面接',
       accessor: (text, i) =>
-      <div> {text.liked_users.map((c,i)=>
-      <div>
-      {c.name},
-      </div>)}</div>
+      <div> {text.liked_users.length} </div>
     },
 
     {
@@ -446,12 +454,12 @@ const ManageStudent = () => {
     {
       Header: "Actions",
       accessor: (text, i) =>
-      <div>
-      <Link to={`/admin/student/${text._id}`}> View </Link> |
-      <Link to={`/admin/student/update/${text._id}`}> Update </Link>
-      <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="f6 link dim br2 ph2 pv1 mb1 mt1 dib white bg-dark-red">
+      <div className="btn-list">
+      <Link className="btn-sm btn btn-primary" to={`/admin/student/${text._id}`}> View </Link>
+      <Link className="btn-sm btn btn-success" to={`/admin/student/update/${text._id}`}> Update </Link>
+      <button className="btn-sm btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
             Delete
-        </a>
+        </button>
       </div>,
       filterable : true
     }
@@ -483,32 +491,49 @@ const ManageStudent = () => {
                             window.location.reload();
   };
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   useEffect(() => {
       loadStudents();
   }, []);
 
 
     return (
-    <AdminMenu>
-    <div>
-    <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
-          <div class="tl pa2 fl">
-                  <div class="f3 f2-ns lh-solid">Students</div>
-                </div>
-          <div class="fr tr">
-            <Link to={`/admin/create/student`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Students </Link> <br/>
+    <AdminSiteWrapper>
+    <Page.Content>
+    <Grid.Row>
+    <Grid.Col width={12}>
+       <Card>
+       <div class="card-header"><h3 class="card-title">Students </h3>
+       <div class="card-options">
+       <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
+        フェーズ
+      </Button>
 
-            <a className="f7 link dim br1 ba ph3 pv1 mb2 dib near-black" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickList() } } >リスト掲載</a>
-            <a className="f7 link dim br1 ba ph3 pv1 mb2 dib near-black" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickYes() } } >来日</a>
-            <a className="f7 link dim br1 ba ph3 pv1 mb2 dib near-black" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickFailed() } } >NG</a>
-
-          </div>
-    </div>
-</div>
-  <div class="ph4-ns">
-      <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
-  </div>
-      </AdminMenu>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton> フェーズ変更
+        </Modal.Header>
+        <Modal.Body>
+        <div class="btn-list">
+        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickList() } } >リスト掲載</button>
+        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickYes() } } >来日</button>
+        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickFailed() } } >NG</button>
+        </div>
+        </Modal.Body>
+      </Modal>
+       <Link to={`/admin/create/student`} className="btn btn-sm btn-secondary"> + Add Students </Link> <br/>
+        </div>
+        </div>
+         <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
+       </Card>
+   </Grid.Col>
+    </Grid.Row>
+  </Page.Content>
+      </AdminSiteWrapper>
     );
 };
 
