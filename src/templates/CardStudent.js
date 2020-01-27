@@ -25,9 +25,8 @@ const CardStudent = ({student}) => {
                        </Grid.Col>
                        <Grid.Col>
                          <div>
-                           <a className="text-inherit" href="#">
-                             {student.studentid}
-                           </a>
+                         <Link to={`/student/${student._id}`}> {student.studentid} </Link>
+
                          </div>
                          <Text.Small muted className="d-block item-except h-1x">
                            {student.name}

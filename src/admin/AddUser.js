@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import {Form, Select, Input, Button, DatePicker } from 'antd';
-import { PageHeader } from 'antd';
+import { signup } from '../auth';
 import { getSalesRep } from "./apiAdmin";
-import { read, update, updateUser } from '../user/apiUser';
 import AdminSiteWrapper from '../templates/AdminSiteWrapper'
 import {
   Page,
@@ -18,40 +16,29 @@ import {
   Container,
   Badge,
 } from "tabler-react";
-const { Option } = Select;
-const { TextArea } = Input;
 
-const UpdateUser = ({ match, history }) => {
+const AddUser = ({history}) => {
     const [values, setValues] = useState({
-        name: '',
-        email: '',
-        password: '',
-        role: '',
-        phase: "",
-        round: "",
-        sales_rep: "",
-        users: [],
-        error: false,
-        success: false,
-        redirectUser: false
+      name: '',
+      email: '',
+      password: '',
+      role: '',
+      phase: "",
+      round: "",
+      sales_rep: "",
+      users: [],
+      error: false,
+      success: false,
+      redirectToProfile: false
     });
 
     const [users, setUsers] = useState([]);
-    const { token } = isAuthenticated();
-    const { name, email, password, role, phase, round, sales_rep, error, success } = values;
 
-    const init = userId => {
-        // console.log(userId);
-        read(userId, token).then(data => {
-            if (data.error) {
-                setValues({ ...values, error: true });
-            } else {
-                setValues({ ...values, name: data.name, email: data.email, role: data.role, phase: data.phase,
-                round: data.round, sales_rep: data.sales_rep });
-            }
-        });
+    const { name, email, password, role, phase, round, sales_rep, error, success, redirectToProfile } = values;
+
+    const handleChange = name => event => {
+        setValues({ ...values, error: false, [name]: event.target.value });
     };
-
 
     const initUsers = () => {
         getSalesRep().then(data => {
@@ -64,70 +51,54 @@ const UpdateUser = ({ match, history }) => {
     };
 
     useEffect(() => {
-        init(match.params.userId);
         initUsers();
     }, []);
 
-    const handleChange = name => e => {
-        setValues({ ...values, error: false, [name]: e.target.value });
-    };
 
-    const clickSubmit = e => {
-        e.preventDefault();
-        update(match.params.userId, token, { name, email, role, phase, round, sales_rep, password }).then(data => {
+    const clickSubmit = event => {
+        event.preventDefault();
+        setValues({ ...values, error: false });
+        signup({ name, email, password, role, round, sales_rep }).then(data => {
             if (data.error) {
-                // console.log(data.error);
-                alert(data.error);
+                setValues({ ...values, error: data.error, success: false });
             } else {
-              setValues({
-                  ...values,
-                  name: data.name,
-                  email: data.email,
-                  role: data.role,
-                  phase: data.phase,
-                  round: data.round,
-                  sales_rep: data.sales_rep,
-                  success: true
-              });
+                setValues({
+                    ...values,
+                    name: '',
+                    email: '',
+                    password: '',
+                    error: '',
+                    role: "",
+                    round: "",
+                    sales_rep: "",
+                    redirectToProfile: true,
+                    success: true
+                });
             }
         });
     };
 
-    const redirectUser = success => {
-        if (success) {
-            return <Redirect to="/admin/users" />;
-        }
-    };
-
-
-        const showError = () => (
-            <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-                {error}
-            </div>
-        );
-
-        const showSuccess = () => (
-            <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
-                User has been updated!
-            </div>
-        );
-
-    const profileUpdate = (name, email, password, role, round, phase, sales_rep ) => (
-
+    const signUpForm = () => (
         <form>
         <div class="card">
-          <div class="card-header">
-           <h4 class="card-title">Update User</h4>
-          </div>
-          <div class="card-body">
+        <div class="card-header">
+         <h4 class="card-title">Add User</h4>
+        </div>
+        <div class="card-body">
 
           <div class="mb-2">
             <label class="form-label">Name</label>
             <input onChange={handleChange('name')} type="text" class="form-control" value={name} />
           </div>
+
           <div class="mb-2">
             <label class="form-label">Email</label>
             <input onChange={handleChange('email')} type="text" class="form-control" value={email} />
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Password</label>
+            <input onChange={handleChange('password')} type="password" class="form-control" value={password} />
           </div>
           <div class="mb-2">
               <div class="form-label">営業担当</div>
@@ -157,10 +128,6 @@ const UpdateUser = ({ match, history }) => {
               <option value="Phase IV"> Phase IV </option>
                 </select>
           </div>
-          <div class="mb-2">
-            <label class="form-label">Phase Memo</label>
-            <input onChange={handleChange("phase")} value={phase} name="phase" class="form-control"/>
-          </div>
 
           </div>
           <div class="card-footer text-right">
@@ -168,24 +135,44 @@ const UpdateUser = ({ match, history }) => {
                 <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
               <button type="submit" onClick={clickSubmit} class="btn btn-primary ml-auto">Submit</button>
           </div>
-        </div>
-      </div>
-    </form>
+          </div>
+            </div>
+        </form>
     );
+
+    const showError = () => (
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+            {error}
+        </div>
+    );
+
+    const showSuccess = () => (
+        <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
+            New account is created!
+        </div>
+    );
+
+    const redirectUser = () => {
+        if (redirectToProfile) {
+            if (!error) {
+                return <Redirect to="/admin/users" />;
+            }
+        }
+    };
 
     return (
       <AdminSiteWrapper>
       <Page.Content>
       <Grid.Row>
       <Grid.Col width={12}>
-      {showSuccess()}
-      {showError()}
-          {profileUpdate(name, email, password, role, round, phase, sales_rep)}
-          </Grid.Col>
-          </Grid.Row>
-          </Page.Content>
-      </AdminSiteWrapper>
+            {showSuccess()}
+            {showError()}
+            {signUpForm()}
+            </Grid.Col>
+            </Grid.Row>
+            </Page.Content>
+        </AdminSiteWrapper>
     );
 };
 
-export default withRouter(UpdateUser);
+export default withRouter(AddUser);

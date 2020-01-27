@@ -9,11 +9,9 @@ import Dashboard from './user/UserDashboard';
 import AdminDashboard from './user/AdminDashboard';
 import AddCategory from './admin/AddCategory';
 import AddStudent from './admin/AddStudent';
-import AddProduct from './admin/AddProduct';
+import AddUser from './admin/AddUser';
 import AddLike from './core/AddLike';
 import Product from './core/Product';
-import Countdown from './core/Countdown';
-import ManageProducts from './admin/ManageProducts';
 import ManageInterviews from './admin/ManageInterviews';
 import AdminProfile from './user/AdminProfile';
 import UpdateUser from './admin/UpdateUser';
@@ -31,29 +29,23 @@ import Quixote from './pdf/Quixote';
 
 const Routes = () => {
   return (
-    <BrowserRouter onUpdate={() => window.scrollTo(0, 0)}>
+    <BrowserRouter>
     <Switch>
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
-    <Route path="/countdown" exact component={Countdown} />
-    <Route path="/product/:productId" exact component={Product} />
     <Route path="/create/like" exact component={AddLike} />
-    <PrivateRoute path="/user/dashboard" exact component={Dashboard} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/user/students" exact component={LikedStudentList}/>
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
-    <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
-    <AdminRoute path="/create/category" exact component={AddCategory} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
-    <AdminRoute path="/create/product" exact component={AddProduct} />
+    <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/settings" exact component={Settings} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
     <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
-    <PrivateRoute path="/admin/products" exact component={ManageProducts} />
-    <PrivateRoute path="/admin/students" exact component={ManageStudents} />
-    <PrivateRoute path="/admin/users" exact component={ManageUsers} />
+    <AdminRoute path="/admin/students" exact component={ManageStudents} />
+    <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
     <PrivateRoute path="/quixote" exact component={Quixote} />
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />

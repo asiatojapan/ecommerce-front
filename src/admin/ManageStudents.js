@@ -57,7 +57,7 @@ function GlobalFilter({
                             setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
                           }}
                           placeholder={`検索`}
-                          className="form-control form-control-sm"
+                          className="form-control"
                           />
                       </div>
                     </div>

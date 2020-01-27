@@ -125,7 +125,6 @@ const Home = () => {
       <Container>
          <Grid.Row cards>
            <Grid.Col lg={3} md={3}>
-
            <div class="card">
                   <div class="card-body">
                   <h3 class="card-title">IT Skills</h3>

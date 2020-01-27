@@ -1,7 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Layout2 from './Layout';
 import { readStudent } from './apiCore';
-import Card from './Card';
+import SiteWrapper from '../templates/SiteWrapper'
+import {
+  Page,
+  Avatar,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Table,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
 
 const Student = props => {
     const [student, setStudent] = useState({});
@@ -23,44 +36,44 @@ const Student = props => {
     }, [props]);
 
     return (
-        <Layout2>
-        <div className="indiv-left">
-          <div className="indiv-card">
+      <SiteWrapper>
+      <Page.Content>
+      <Grid.Row>
+      <Grid.Col lg={9}>
+      <div class="card card-sm">
+          <div class="d-block">
             <div className="iframe-container">
-              <iframe src="https://player.vimeo.com/video/372553472" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
-            </div>
-            <h4> {student.comments} </h4>
-          </div>
+                          <iframe src="https://player.vimeo.com/video/372553472" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                          <h4>{student.comments}</h4>
+                        </div>
+                      </div>
+                      <div class="card">
+                      <div class="card-header"><div class="card-title">Basic info</div>
+                      </div>
+                                        <div class="card-body">
 
-          <div className="indiv-card">
-            <dl className="indiv-header">About</dl>
-            <p> {student.why_work_in_japan} </p>
+                                          <div class="mb-2">
+                                            <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
+                                          </div>
+                                          <div class="mb-2">
+                                           <Icon prefix="fe" name="user" /><strong>  性別・年齢: </strong> {student.gender} | {student.age}
+                                          </div>
+                                          <div class="mb-2">
+                                          <Icon prefix="fa" name="map-marker" />  <strong>国籍・地域: </strong>{student.country}
+                                          </div>
+                                          <div class="mb-2">
+                                          <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
+                                          </div>
+                                          <div class="mb-2">
+                                          <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty}
+                                          </div>
 
-            <div className="profile">
-              <div className="profile-info">
-                <dt> ID </dt>
-                <dd> {student.studentid} </dd>
-              </div>
-              <div className="profile-info">
-                <dt> 性別・年齢 </dt>
-                <dd> {student.gender} | {student.age} </dd>
-              </div>
-              <div className="profile-info">
-                <dt> 国籍・地域 </dt>
-                <dd> {student.university} </dd>
-              </div>
-              <div className="profile-info">
-                <dt> 大学 </dt>
-                <dd> {student.university} </dd>
-              </div>
+                                        </div>
+                                      </div>
 
-              <div className="profile-info">
-                <dt> 入社タイミング </dt>
-                <dd> {student.it_skills} </dd>
-              </div>
-
-          </div>
-        </div>
 
           <div className="indiv-card">
             <dl className="indiv-header">Education</dl>
@@ -107,8 +120,15 @@ const Student = props => {
             <h4> {student.other_pr} </h4>
           </div>
 
-      </div>
-      </Layout2>
+      </Grid.Col>
+      <Grid.Col lg={3}>
+      <Card>
+        hello
+        </Card>
+        </Grid.Col>
+       </Grid.Row>
+     </Page.Content>
+    </SiteWrapper>
     );
 };
 

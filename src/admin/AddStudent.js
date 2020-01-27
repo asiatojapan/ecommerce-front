@@ -2,12 +2,24 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../core/Layout';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { createStudent, getCategories } from './apiAdmin';
-import { PageHeader } from 'antd';
 import Checkbox from "../core/Checkbox";
+import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import {
+  Page,
+  Dropdown,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
 
-const AddStudent = () => {
+const AddStudent = ({ history }) => {
     const [values, setValues] = useState({
       name: '',
       studentid: '',
@@ -124,9 +136,11 @@ const AddStudent = () => {
 
 
     const newPostForm = () => (
-        <form onSubmit={clickSubmit}>
 
-    <div>
+
+  <form onSubmit={clickSubmit}>
+    <div class="card">
+    <div class="card-body">
       <div class="mw9 center ph3-ns">
       <div class="cf ph2-ns">
         <div class="fl w-100 w-50-ns pa2">
@@ -301,14 +315,19 @@ const AddStudent = () => {
     <div class="mw9 center ph3-ns">
       <div class="cf ph2-ns">
         <div class="fl w-100 w-100-ns pa2">
-           <label for="other_pr" class="f6 b db mb2">その他PR<span class="normal black-60"></span></label>
+           <label for="other_pr" class="f6 b db mb2">FYP<span class="normal black-60"></span></label>
            <input onChange={handleChange('upload_fyp')} type="file" name="upload_fyp"  />
           </div>
       </div>
       </div>
     </div>
-
-  <button className="btn btn-outline-primary">Create Student</button>
+  <div class="card-footer text-right">
+                  <div class="d-flex">
+                    <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
+                    <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+                  </div>
+                </div>
+                </div>
         </form>
     );
 
@@ -346,8 +365,10 @@ const AddStudent = () => {
         };
 
     return (
-      <AdminMenu>
-        <PageHeader style={Style} title="Add Student" onBack={() => window.history.back() }/>
+      <AdminSiteWrapper>
+      <Page.Content title="Add Student">
+      <Grid.Row>
+      <Grid.Col width={12}>
             <div>
               {showLoading()}
               {showSuccess()}
@@ -355,8 +376,11 @@ const AddStudent = () => {
               {newPostForm()}
               {redirectUser()}
             </div>
-        </AdminMenu>
+            </Grid.Col>
+            </Grid.Row>
+            </Page.Content>
+        </AdminSiteWrapper>
     );
 };
 
-export default AddStudent;
+export default withRouter(AddStudent);

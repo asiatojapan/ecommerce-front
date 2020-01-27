@@ -7,7 +7,20 @@ import { getStudents } from '../core/apiCore';
 import LikedStudents from "../user/LikedStudents";
 import AddRec from "./AddRec";
 import AddInterview from "./AddInterview";
-import { Form, Select, Input, Button, DatePicker, Descriptions, Badge, Divider } from 'antd';
+import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import {
+  Page,
+  Dropdown,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
+import { Form, Select, Input, Button, DatePicker, Descriptions,Divider } from 'antd';
 import { PageHeader } from 'antd';
 import { Table } from "./ManageStudents";
 const { Option } = Select;
@@ -71,6 +84,7 @@ const AdminUser = props => {
     const loadSingleUser = userId => {
         readUser(userId).then(data => {
           setLikedstudents(data.liked_students);
+          console.log(data.liked_students)
             if (data.error) {
                 setError(data.error);
             } else {
@@ -94,6 +108,11 @@ const AdminUser = props => {
              accessor: 'name',
              id: 'name',
            },
+           {
+                 Header: 'Status',
+                 accessor: 'status',
+                 id: 'status',
+               },
            {
              Header: '面接社数',
              accessor: (text, i) =>
@@ -150,37 +169,63 @@ const AdminUser = props => {
 
     const selectedRowKeys = Object.values(selectedRows);
 
-    const userList = () => (
-
-      <Descriptions bordered size="small">
-             <Descriptions.Item label="User ID" span={3}>{user1._id}</Descriptions.Item>
-             <Descriptions.Item label="Email" span={3}>{user1.email}</Descriptions.Item>
-        </Descriptions>
-    )
-
     return (
-      <AdminMenu>
-      <main class="cf mw9 tc center">
-      <header class="bg-near-white sans-serif pa3">
-    <div class="center pa1 pt2-ns ph1-l">
-      <h4 class="f2 f2-m dark-blue">
-        {user1.name}
-      </h4>
-      <h5 className="dark-blue ">{user1.email}, {user1.role === 1 ? "Admin" : "User"}, {user1.salesrep } <br class="dn db-ns"/>
-      {user1.round}{user1.phase}</h5>
-    </div>
-    <hr class="mw3 bb bw1 b--black-10"/>
-    <span><Link to={`/admin/student/update/${user1._id}`}>Update</Link> </span>|
-    <span><a onClick={() => destroy(user1._id)} type="danger">
-       Delete
-   </a></span>
-  </header>
-      </main>
-      <main class="pa3 pa5-ns">
+      <AdminSiteWrapper>
+      <Page.Content title="Profile">
+      <Grid.Row>
+      <Grid.Col lg={4} >
+      <div class="card">
+                    <div class="card-body ">
+                      <h2 class="mb-3">{user1.name}</h2>
+                      <p class="mb-4">
+                        <b>Email: </b> {user1.email}<br/>
+                        <b>Role: </b> {user1.role === 1 ? "Admin" : "User"}<br/>
+                         <b>営業担当: </b>{user1.salesrep }<br/>
+                         <b>フェーズ: </b>{user1.round} <br/>
+                         <b>フェーズメモ: </b>{user1.phase}
+                      </p>
+                    </div>
+                  </div>
 
-      <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
-      </main>
-      </AdminMenu>
+                  <div class="card">
+                      <div class="card-header"> <h3 class="card-title"> おすすめ ({likedstudents.length === 0 ? "0": likedstudents.length}) </h3></div>
+                                <div class="card-body ">
+                                <div class="row mb-n3">
+                                {likedstudents.map((c, i) =>
+                                <div class="col-6 row row-sm mb-3 align-items-center">
+                        <div class="col text-truncate">
+                          <a href="#" class="text-body d-block text-truncate">{c.studentid}</a>
+                          <small class="d-block text-muted text-truncate mt-n1">{c.name}</small>
+                        </div>
+                      </div>)}
+                      </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header"> <h3 class="card-title"> Liked ({likedstudents.length === 0 ? "0": likedstudents.length}) </h3></div>
+                              <div class="card-body ">
+                              <div class="row mb-n3">
+                              {likedstudents.map((c, i) =>
+                              <div class="col-6 row row-sm mb-3 align-items-center">
+                      <div class="col text-truncate">
+                        <a href="#" class="text-body d-block text-truncate">{c.studentid}</a>
+                        <small class="d-block text-muted text-truncate mt-n1">{c.name}</small>
+                      </div>
+                    </div>)}
+                    </div>
+                  </div>
+              </div>
+  </Grid.Col>
+  <Grid.Col lg={8}>
+  <Card>
+    <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
+    </Card>
+    </Grid.Col>
+
+      </Grid.Row>
+      </Page.Content>
+      </AdminSiteWrapper>
     );
 };
 

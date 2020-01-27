@@ -12,7 +12,6 @@ const CardInterview = ({student}) => {
     <ul>
     <li class="pa2 pa2-ns ba b--black-10">
     <div class="cf dt w-100">
-
     <div class="dtc v-mid mr3 w3">
           <img src="http://mrmrs.github.io/images/0010.jpg" class="db w-100 "/>
         </div>

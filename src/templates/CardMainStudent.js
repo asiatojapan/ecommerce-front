@@ -21,18 +21,10 @@ const CardMainStudent = ({student}) => {
           <ul className="list-unstyled list-separated">
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
-                       <Grid.Col auto>
-
-                       </Grid.Col>
                        <Grid.Col>
                          <div>
-                           <a className="text-inherit" href="#">
-                             {student.studentid}
-                           </a>
+                         <Link class="h2" to={`/student/${student._id}`}> {student.studentid} </Link>
                          </div>
-                         <Text muted className="d-block item-except h-1x">
-                           {student.name}
-                         </Text>
                        </Grid.Col>
                        <Grid.Col auto>
                          <AddLike student={student} id={student._id}/>

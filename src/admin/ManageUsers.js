@@ -3,8 +3,20 @@ import { isAuthenticated } from "../auth";
 import { deleteUser, getUsers } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import AdminSiteWrapper from '../templates/AdminSiteWrapper'
-import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
-import matchSorter from 'match-sorter'
+import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table';
+import matchSorter from 'match-sorter';
+import {
+  Page,
+  Dropdown,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -33,8 +45,6 @@ function GlobalFilter({
   return (
 
     <div class="card-header">
-    <h3 class="card-title">Users</h3>
-    <div class="card-options">
     <div class="input-group">
     <input
       value={globalFilter || ''}
@@ -44,7 +54,6 @@ function GlobalFilter({
       placeholder={`検索`}
       className="form-control"
       />
-    </div>
     </div>
 </div>
   )
@@ -339,8 +348,8 @@ const ManageUsers = () => {
   const [ likedstudents, setLikedstudents ] =  useState([]);
 
 
-  const loadUsers = () => {
-      getUsers().then(data => {
+  const loadUsers = userId => {
+      getUsers(token).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -379,11 +388,6 @@ const ManageUsers = () => {
          </div>
        )
      },
-    {
-          Header: 'ID',
-          accessor: (text, i) =>
-                <div>{i+1}</div>
-      },
     {
           Header: 'Name',
           accessor: 'name',
@@ -437,12 +441,12 @@ const ManageUsers = () => {
     {
       Header: "Actions",
       accessor: (text, i) =>
-      <div>
-      <Link to={`/admin/profile/${text._id}`}> View </Link> |
-      <Link to={`/admin/user/update/${text._id}`}> Update </Link>
-      <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } className="btn btn-sm btn-secondary">
+      <div className="btn-list">
+      <Link className="btn-sm btn btn-primary" to={`/admin/profile/${text._id}`}> View </Link>
+      <Link className="btn-sm btn btn-success" to={`/admin/user/update/${text._id}`}> Update </Link>
+      <button className="btn-sm btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
             Delete
-        </a>
+        </button>
       </div>,
       filterable : true
     }
@@ -460,21 +464,21 @@ const ManageUsers = () => {
 
     return (
       <AdminSiteWrapper>
-      <div>
-        <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
-              <div class="tl pa2 fl">
-                      <div class="f3 f2-ns lh-solid">Users</div>
-                    </div>
-                  <div class="fr tr">
-            <Link to={`/admin/create/user`} className="f6 link dim br2 ph3 pv2 mb2 dib white bg-near-black">+ Add Users </Link>
-
-                </div>
-          </div>
-      </div>
-      <div class="ph4-ns">
+      <Page.Content>
+      <Grid.Row>
+      <Grid.Col width={12}>
+      <Card>
+      <div class="card-header"><h3 class="card-title"> Users </h3>
+      <div class="card-options">
+     <Link to={`/admin/create/user`} className="btn btn-sm btn-secondary"> + Add Users </Link> <br/>
+     </div>
+     </div>
       <Table columns={columns} data={data} />
-      </div>
-      </AdminSiteWrapper>
+      </Card>
+      </Grid.Col>
+       </Grid.Row>
+     </Page.Content>
+     </AdminSiteWrapper>
     );
 };
 

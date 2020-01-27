@@ -14,7 +14,7 @@ export const getProducts = sortBy => {
 
 export const getStudents = () => {
     return fetch(`${API}/students`, {
-        method: "GET"
+        method: "GET",
     })
         .then(response => {
             return response.json();
