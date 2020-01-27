@@ -34,16 +34,18 @@ const Card2 = ({student}) => {
     <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">大学</h6>{student.university === "" ? "nill": student.university}</td>
     <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">日本語</h6>{student.japanese === "" ? "nill": student.japanese}</td>
     <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">英語</h6>{student.english === "" ? "nill": student.english}</td>
-    <td class="text-right"><strong>$499</strong></td></tr>
+    <td class="text-right"><strong><PdfDocument student={student}/></strong></td></tr>
     </tbody>
     </table>
     </div>
     </div>
     <div class="card-footer">
+    <div class="tags">
     {student.it_skills.map((skill, i) => (
-    <span class="badge badge-warning mr-1">{skill}</span>
+      <span class="tag expanded">{skill}</span>
       ))}
       </div>
+    </div>
     </div>
 
 );

@@ -4,6 +4,7 @@ import { readStudent } from "../core/apiCore";
 import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
 import CardMainStudent from '../templates/CardMainStudent';
+import CardStudent from '../templates/CardStudent';
 import {
   Container,
   Page,
@@ -52,7 +53,8 @@ const LikedStudentsList = () => {
       <div className="my-3 my-md-5">
       <Container>
           {likedstudents.map((s, i) => (
-            <CardMainStudent student={s} />
+            <div><CardMainStudent student={s} />
+            </div>
           ))}
           </Container>
           </div>

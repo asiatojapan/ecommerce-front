@@ -8,7 +8,7 @@ import {
   Grid,
   List,
   Button,
-  RouterContextProvider,
+  RouterContextProvider, Avatar
 } from "tabler-react";
 
 import type { NotificationProps } from "tabler-react";
@@ -61,20 +61,20 @@ const navBarItems: Array<navItem> = [
   {
     value: "Interview Students",
     to: "/user/interviews",
-    icon: "work",
+    icon: "check-circle",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
   {
     value: "Schedule",
     to: "/gallery",
-    icon: "image",
+    icon: "file-text",
     LinkComponent: withRouter(NavLink),
   },
 ];
 
 const accountDropdownProps = {
-  avatarURL: "./avatar.jpg",
+  avatarURL:  <span class="avatar">BM</span>,
   name: isAuthenticated() ? user.name : "" ,
   description: isAuthenticated() ? user.role === 1 ? "Admin" : "User" : "",
   options: [

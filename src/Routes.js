@@ -27,6 +27,7 @@ import InterviewStudents from './user/InterviewStudents';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
+import Quixote from './pdf/Quixote';
 
 const Routes = () => {
   return (
@@ -54,6 +55,7 @@ const Routes = () => {
     <PrivateRoute path="/admin/students" exact component={ManageStudents} />
     <PrivateRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
+    <PrivateRoute path="/quixote" exact component={Quixote} />
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />

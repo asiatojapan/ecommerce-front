@@ -22,11 +22,7 @@ const CardMainStudent = ({student}) => {
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
                        <Grid.Col auto>
-                         <Avatar
-                           size="md"
-                           className="d-block"
-                           imageURL="demo/faces/female/12.jpg"
-                         />
+
                        </Grid.Col>
                        <Grid.Col>
                          <div>
@@ -34,9 +30,9 @@ const CardMainStudent = ({student}) => {
                              {student.studentid}
                            </a>
                          </div>
-                         <Text.Small muted className="d-block item-except h-1x">
+                         <Text muted className="d-block item-except h-1x">
                            {student.name}
-                         </Text.Small>
+                         </Text>
                        </Grid.Col>
                        <Grid.Col auto>
                          <AddLike student={student} id={student._id}/>
@@ -45,6 +41,7 @@ const CardMainStudent = ({student}) => {
                    </li>
                  </ul>
                </Card.Body>
+                {student.status === "来日" ?  <div class="card-alert alert alert-success mb-0">　<i class="fe fe-check-circle"></i>　来日決定　</div>　 :　"" }
     </Card>
 
 

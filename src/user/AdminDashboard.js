@@ -6,9 +6,21 @@ import { Link } from "react-router-dom";
 import  AdminMenu from "./AdminMenu";
 import { Table } from "../admin/ManageUsers";
 import { getUsers, getMyUsers, deleteUser } from "../admin/apiAdmin";
-import { MdHelpOutline } from "react-icons/md";
-
+import SiteWrapper from '../templates/SiteWrapper'
+import {
+  Page,
+  Avatar,
+  Icon,
+  Grid,
+  Card,
+  Text,
+  Alert,
+  Progress,
+  Container,
+  Badge,
+} from "tabler-react";
 import "../styles.css";
+
 
 const AdminDashboard = () => {
 
@@ -128,7 +140,7 @@ const AdminDashboard = () => {
 
 
     return (
-      <AdminMenu>
+      <SiteWrapper>
       <div class="ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
         <div class="f3 f2-ns lh-solid">Your Users</div>
       </div>
@@ -136,8 +148,7 @@ const AdminDashboard = () => {
       <div class="ph4-ns">
         <Table columns={columns} data={data}/>
       </div>
-
-      </AdminMenu>
+      </SiteWrapper>
     );
 };
 

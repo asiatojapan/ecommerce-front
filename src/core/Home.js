@@ -121,20 +121,21 @@ const Home = () => {
 
     return (
       <SiteWrapper>
-      <Page.Content title={filteredResults.length + " Results"}>
       <div className="my-3 my-md-5">
       <Container>
          <Grid.Row cards>
            <Grid.Col lg={3} md={3}>
+
            <div class="card">
                   <div class="card-body">
+                  <h3 class="card-title">IT Skills</h3>
                   <ItCheckbox it_skills={it_skills} handleFilters={filters =>
                       handleFilters(filters, "it_skills")} />
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-body">
-                    <h3 class="card-title">Filters</h3>
+                    <h3 class="card-title">Tags</h3>
                     <Checkbox2
                                categories={categories}
                                handleFilters={filters =>
@@ -144,6 +145,7 @@ const Home = () => {
 
            </Grid.Col>
         <Grid.Col lg={9} md={9}>
+        <h3> {filteredResults.length + " Results"} </h3>
         {filteredResults.map((student, i) => (
         <div key={i}>
           <Card2 student={student} />
@@ -153,9 +155,7 @@ const Home = () => {
         </Grid.Row>
         </Container>
         </div>
-        </Page.Content>
         </SiteWrapper>
-
     );
 };
 

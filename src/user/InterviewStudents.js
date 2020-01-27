@@ -54,11 +54,10 @@ const LikedStudentsList = () => {
 
       {interviews.map((c,i) => <div>
         <CardStudent student={c.student} /></div>)}
-
           </Container>
           </div>
-            </Page.Content>
-          </SiteWrapper>
+          </Page.Content>
+    </SiteWrapper>
     );
 };
 

@@ -22,11 +22,7 @@ const CardStudent = ({student}) => {
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
                        <Grid.Col auto>
-                         <Avatar
-                           size="md"
-                           className="d-block"
-                           imageURL="demo/faces/female/12.jpg"
-                         />
+                     <span class="status-icon bg-success"></span>
                        </Grid.Col>
                        <Grid.Col>
                          <div>
@@ -39,9 +35,7 @@ const CardStudent = ({student}) => {
                          </Text.Small>
                        </Grid.Col>
                        <Grid.Col auto>
-                       <Badge color="primary" className="br-pill ba ph4 pv mb2 f6 w-100 avenir red">
-                        来日決定
-                      </Badge>
+                       <span class="stamp stamp-md bg-green mr-5">来日決定</span>
                        </Grid.Col>
                      </Grid.Row>
                    </li>
