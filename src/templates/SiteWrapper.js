@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, withRouter, Link } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth";
 
 import {
@@ -43,6 +43,43 @@ type navItem = {|
 
 const { user, token } = isAuthenticated();
 
+const adminnavBarItems: Array<navItem> = [
+  {
+    value: "List",
+    to: "/",
+    icon: "home",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Dashboard",
+    to: "/admin/dashboard",
+    icon: "grid",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Students",
+    to: "/admin/students",
+    icon: "list",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Users",
+    to: "/admin/users",
+    icon: "user",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Interviews",
+    to: "/admin/interviews",
+    icon: "box",
+    LinkComponent: withRouter(NavLink),
+  },
+];
+
 const navBarItems: Array<navItem> = [
   {
     value: "List",
@@ -52,23 +89,23 @@ const navBarItems: Array<navItem> = [
     useExact: true,
   },
   {
-    value: "Saved Students",
+    value: "Students",
     to: "/user/students",
-    icon: "flag",
+    icon: "list",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
   {
-    value: "Interview Students",
+    value: "Interviews",
     to: "/user/interviews",
-    icon: "check-circle",
+    icon: "box",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
   {
     value: "Schedule",
-    to: "/gallery",
-    icon: "file-text",
+    to: "/user/schedule",
+    icon: "box",
     LinkComponent: withRouter(NavLink),
   },
 ];
@@ -78,13 +115,9 @@ const accountDropdownProps = {
   name: isAuthenticated() ? user.name : "" ,
   description: isAuthenticated() ? user.role === 1 ? "Admin" : "User" : "",
   options: [
-    { icon: "user", value: "Profile", to: "/profile" },
+    { icon: "user", value: "Profile", to: "/profile/${user._id}"},
     { icon: "settings", value: "Settings" },
-    { isDivider: true },
     { icon: "help-circle", value: "Need help?" },
-    { icon: "log-out", value: "Sign out", to: "/logout"
-
-    },
   ],
 };
 
@@ -99,24 +132,24 @@ const isActive = (history, path) => {
 
 const SiteWrapper = ({ history, children }) => (
 <Fragment>
-  {isAuthenticated() && (
+  {isAuthenticated() && isAuthenticated().user.role === 1 && (
       <Site.Wrapper
         headerProps={{
-          href: "/",
+          href: "/admin/dashboard",
           alt: "",
           imageURL: logo,
           accountDropdown: accountDropdownProps,
           navItems: (
-            <Nav.Item type="div" className="d-none d-md-flex">
-            <div onClick={() =>
+            <Button
+            className="btn btn-sm btn-outline-primary"
+            onClick={() =>
                     signout(() => {
                         history.push("/");})}
             >  Log Out
-            </div>
-            </Nav.Item>
+            </Button>
           ),
         }}
-        navProps={{ itemsObjects: navBarItems }}
+        navProps={{ itemsObjects: adminnavBarItems }}
         routerContextComponentType={withRouter(RouterContextProvider)}
         footerProps={{
           copyright: (
@@ -153,7 +186,63 @@ const SiteWrapper = ({ history, children }) => (
       >
       {children}
       </Site.Wrapper>)}
+      {isAuthenticated() && isAuthenticated().user.role === 0 && (
+          <Site.Wrapper
+            headerProps={{
+              href: "/",
+              alt: "",
+              imageURL: logo,
+              accountDropdown: accountDropdownProps,
+              navItems: (
+                <Nav.Item>
+                <Button
+                className="btn btn-sm btn-outline-primary"
+                onClick={ () =>
+                        signout(() => { if (window.confirm('Are you sure you wish to log out?'))
+                            history.push("/");})}
+                >  Log Out
+                </Button>
+                </Nav.Item>
+              ),
+            }}
+            navProps={{ itemsObjects: navBarItems }}
+            routerContextComponentType={withRouter(RouterContextProvider)}
+            footerProps={{
+              copyright: (
+                <React.Fragment>
+                  ASIAtoJAPAN
+                </React.Fragment>
+              ),
+              nav: (
+                <React.Fragment>
+                  <Grid.Col auto={true}>
+                    <List className="list-inline list-inline-dots mb-0">
+                      <List.Item className="list-inline-item">
+                        <a href="./docs/index.html">Documentation</a>
+                      </List.Item>
+                      <List.Item className="list-inline-item">
+                        <a href="./faq">FAQ</a>
+                      </List.Item>
+                    </List>
+                  </Grid.Col>
+                  <Grid.Col auto={true}>
+                    <Button
+                      href="https://github.com/tabler/tabler-react"
+                      size="sm"
+                      outline
+                      color="primary"
+                      RootComponent="a"
+                    >
+                      Help
+                    </Button>
+                  </Grid.Col>
+                </React.Fragment>
+              ),
+            }}
+          >
+          {children}
+          </Site.Wrapper>)}
         </Fragment>
 );
 
-export default SiteWrapper;
+export default withRouter(SiteWrapper);

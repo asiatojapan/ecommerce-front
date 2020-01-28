@@ -1,7 +1,6 @@
 import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { readStudent, getStudents } from "../core/apiCore";
-import LikedStudents from "../user/LikedStudents";
 import { Link } from "react-router-dom";
 import  AdminMenu from "../user/AdminMenu";
 import { getUsers } from "./apiAdmin";

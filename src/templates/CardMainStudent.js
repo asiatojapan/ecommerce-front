@@ -17,24 +17,28 @@ const CardMainStudent = ({student}) => {
 
   return (
     <Card>
-      <Card.Body>
-          <ul className="list-unstyled list-separated">
-                   <li className="list-separated-item">
-                     <Grid.Row className="align-items-center">
-                       <Grid.Col>
-                         <div>
-                         <Link class="h2" to={`/student/${student._id}`}> {student.studentid} </Link>
-                         </div>
-                       </Grid.Col>
-                       <Grid.Col auto>
-                         <AddLike student={student} id={student._id}/>
-                       </Grid.Col>
-                     </Grid.Row>
-                   </li>
-                 </ul>
-               </Card.Body>
-                {student.status === "来日" ?  <div class="card-alert alert alert-success mb-0">　<i class="fe fe-check-circle"></i>　来日決定　</div>　 :　"" }
-    </Card>
+    <div class="card-body">
+                    <div class="row row-sm align-items-center">
+                      <div class="col-auto">
+                        <span class="avatar avatar-lg"></span>
+                      </div>
+                      <div class="col">
+                        <h4 class="card-title m-0">
+                          <Link class="h2" to={`/student/${student._id}`}> {student.studentid} </Link>
+                        </h4>
+                        <div class="text-muted">
+                        {student.comments}
+                        </div>
+                        <div class="small mt-1">
+                          {student.status === "来日" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                    { user.round === "Phase II" ?  <div><AddLike student={student} id={student._id}/> </div> : "" }
+                      </div>
+                    </div>
+                  </div>
+        </Card>
 
 
 );

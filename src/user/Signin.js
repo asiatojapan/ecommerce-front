@@ -75,10 +75,14 @@ const Signin = () => {
       </div>
     </fieldset>
     <div class="center tc">
+
     <button block type="primary" htmlType="submit" className="f6 link dim br2 ph4 pv2 mb2 dib white bg-dark-blue pointer" onClick={clickSubmit}>
      Log In
    </button>
     </div>
+    Admin: <br/>
+    a@a2.com <br/>
+    password1
   </form>
   </div>
   </div>

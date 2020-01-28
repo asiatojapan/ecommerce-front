@@ -21,10 +21,12 @@ const Checkbox2 = ({ categories, handleFilters }) => {
     };
 
     return categories.map((c, i) => (
-      <div class="flex items-center mb2">
-          <input class="mr2" type="checkbox" onChange={handleToggle(c.name)} id={c.name} value={c.name}/>
-          <label for={c.name} class="lh-copy">{c.name}</label>
-      </div>
+   <div>
+      <label class="form-check">
+      <input class="form-check-input" type="checkbox" onChange={handleToggle(c.name)} id={c.name} value={c.name}/>
+         <span class="form-check-label">{c.name}</span>
+      </label>
+   </div>
     ));
 };
 

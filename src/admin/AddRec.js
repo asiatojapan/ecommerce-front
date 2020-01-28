@@ -6,7 +6,7 @@ import { list, readStudent, getStudents } from "../core/apiCore";
 import { read } from "../user/apiUser"
 import { Button } from 'antd';
 
-const AddRec = ({student, userIdFromTable})  => {
+const AddRec = ({student, userIdFromTable, handleUpdate})  => {
     const [rec, setRec] = useState(false);
 
     const [ recUsers, setRecUsers ] =  useState([]);
@@ -53,13 +53,13 @@ const AddRec = ({student, userIdFromTable})  => {
         createUnRec(student._id, user, token);
     };
 
-    const text = rec ? ' - おすすめ' : '+おすすめ'
+    const text = rec ? ' 推薦' : ' 推薦'
 
     const newLikeForm = () => {
       if (rec) {
-        return  <a className="f6 link dim ph3 pv1 mb dib white bg-black" onClick={ clickDelete } href="#0">{text}</a>
+        return  <a className="btn btn-sm btn-primary" onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text}</a>
       } else {
-        return  <a className="f6 link dim ba ph3 pv1 mb dib black" onClick={ clickSubmit } href="#0">{text}</a>
+        return  <a className="btn btn-sm btn-outline-primary" onClick={ clickSubmit } href="#0">{text}</a>
       };
     };
 

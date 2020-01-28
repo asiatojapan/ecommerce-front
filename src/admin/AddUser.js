@@ -3,7 +3,7 @@ import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { signup } from '../auth';
 import { getSalesRep } from "./apiAdmin";
-import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
   Dropdown,
@@ -161,7 +161,7 @@ const AddUser = ({history}) => {
     };
 
     return (
-      <AdminSiteWrapper>
+      <SiteWrapper>
       <Page.Content>
       <Grid.Row>
       <Grid.Col width={12}>
@@ -171,7 +171,7 @@ const AddUser = ({history}) => {
             </Grid.Col>
             </Grid.Row>
             </Page.Content>
-        </AdminSiteWrapper>
+        </SiteWrapper>
     );
 };
 

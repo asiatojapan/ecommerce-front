@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
-import { updateUser, deleteUser,readUser  } from './apiAdmin';
-import { getStudents } from '../core/apiCore';
-import LikedStudents from "../user/LikedStudents";
+import { updateUser, deleteUser,readUser } from './apiAdmin';
+import { getStudents, getMyInterviews  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddInterview from "./AddInterview";
-import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
   Dropdown,
@@ -73,6 +72,7 @@ const AdminUser = props => {
         });
     };
     const data = students
+
     const [user1, setUser1] = useState({});
     const [error, setError] = useState(false);
 
@@ -80,11 +80,11 @@ const AdminUser = props => {
 
     const [ likedstudents, setLikedstudents ] =  useState([]);
 
+    const [ interviewstudents, setInterviewstudents ] =  useState([]);
 
     const loadSingleUser = userId => {
         readUser(userId).then(data => {
           setLikedstudents(data.liked_students);
-          console.log(data.liked_students)
             if (data.error) {
                 setError(data.error);
             } else {
@@ -92,6 +92,20 @@ const AdminUser = props => {
             }
         });
     };
+
+    const loadMyInteviews = userId => {
+        getMyInterviews(userId).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setInterviewstudents(data);
+            }
+        });
+    };
+
+        function handleUpdate(userId) {
+            loadMyInteviews(userId);
+        }
 
     const columns = React.useMemo(
      () => [
@@ -124,7 +138,7 @@ const AdminUser = props => {
            Header: 'おすすめ',
            accessor: (text, i) =>
            <div>
-           <AddRec student={text} userIdFromTable={props.match.params.userId}/>
+           <AddRec student={text} userIdFromTable={props.match.params.userId} handleUpdate={handleUpdate(props.match.params.userId)}/>
            </div>
          },
          {
@@ -142,7 +156,7 @@ const AdminUser = props => {
            Header: '面接',
            accessor: (text, i) =>
            <div>
-           <AddInterview student={text} userIdFromTable={props.match.params.userId}/>
+           <AddInterview student={text} userIdFromTable={props.match.params.userId} handleUpdate={handleUpdate(props.match.params.userId)}/>
            </div>
          },
     ],
@@ -153,6 +167,7 @@ const AdminUser = props => {
         loadStudents();
         const userId = props.match.params.userId;
         loadSingleUser(userId);
+        loadMyInteviews(userId);
     }, [props]);
 
     const destroy = userId => {
@@ -169,9 +184,43 @@ const AdminUser = props => {
 
     const selectedRowKeys = Object.values(selectedRows);
 
+
+    const interviewCard = () => (
+      <div class="card">
+          <div class="card-header"> <h3 class="card-title">  面接　({interviewstudents.length === 0 ? "0": interviewstudents.length}) </h3></div>
+                    <div class="card-body ">
+                    <div class="row mb-n3">
+                    {interviewstudents.map((c, i) =>
+                    <div class="col-6 row row-sm mb-3 align-items-center">
+                    <div class="col text-truncate">
+                    <Link className="text-body d-block text-truncate" to={`/student/${c.student._id}`}> {c.student.studentid}</Link>
+                    <small class="d-block text-muted text-truncate mt-n1">{c.student.name}</small>
+                    </div>
+          </div>)}
+          </div>
+        </div>
+    </div>
+    )
+
+    const likedstudentsCard = () => (
+    <div class="card">
+        <div class="card-header"> <h3 class="card-title"> Liked ({likedstudents.length === 0 ? "0": likedstudents.length}) </h3></div>
+                  <div class="card-body ">
+                  <div class="row mb-n3">
+                  {likedstudents.map((c, i) =>
+                  <div class="col-6 row row-sm mb-3 align-items-center">
+          <div class="col text-truncate">
+          <Link className="text-body d-block text-truncate" to={`/student/${c._id}`}> {c.studentid}</Link>
+            <small class="d-block text-muted text-truncate mt-n1">{c.name}</small>
+          </div>
+        </div>)}
+        </div>
+      </div>
+  </div>
+)
     return (
-      <AdminSiteWrapper>
-      <Page.Content title="Profile">
+      <SiteWrapper>
+      <Page.Content>
       <Grid.Row>
       <Grid.Col lg={4} >
       <div class="card">
@@ -186,36 +235,8 @@ const AdminUser = props => {
                       </p>
                     </div>
                   </div>
-
-                  <div class="card">
-                      <div class="card-header"> <h3 class="card-title"> おすすめ ({likedstudents.length === 0 ? "0": likedstudents.length}) </h3></div>
-                                <div class="card-body ">
-                                <div class="row mb-n3">
-                                {likedstudents.map((c, i) =>
-                                <div class="col-6 row row-sm mb-3 align-items-center">
-                        <div class="col text-truncate">
-                          <a href="#" class="text-body d-block text-truncate">{c.studentid}</a>
-                          <small class="d-block text-muted text-truncate mt-n1">{c.name}</small>
-                        </div>
-                      </div>)}
-                      </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header"> <h3 class="card-title"> Liked ({likedstudents.length === 0 ? "0": likedstudents.length}) </h3></div>
-                              <div class="card-body ">
-                              <div class="row mb-n3">
-                              {likedstudents.map((c, i) =>
-                              <div class="col-6 row row-sm mb-3 align-items-center">
-                      <div class="col text-truncate">
-                        <a href="#" class="text-body d-block text-truncate">{c.studentid}</a>
-                        <small class="d-block text-muted text-truncate mt-n1">{c.name}</small>
-                      </div>
-                    </div>)}
-                    </div>
-                  </div>
-              </div>
+                  {likedstudentsCard()}
+                  {interviewCard()}
   </Grid.Col>
   <Grid.Col lg={8}>
   <Card>
@@ -225,7 +246,7 @@ const AdminUser = props => {
 
       </Grid.Row>
       </Page.Content>
-      </AdminSiteWrapper>
+    </SiteWrapper>
     );
 };
 

@@ -4,6 +4,7 @@ import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
 import { readStudent } from '../core/apiCore';
 import { updateStudent, deleteStudent } from './apiAdmin';
+import SiteWrapper from '../templates/SiteWrapper'
 import { Form, Select, Input, Button, DatePicker, Descriptions, Badge, Divider } from 'antd';
 import { PageHeader } from 'antd';
 const { Option } = Select;

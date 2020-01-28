@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout2 from './Layout';
 import { readStudent } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
+import  AddLike  from './AddLike';
 import {
   Page,
   Avatar,
@@ -9,12 +10,15 @@ import {
   Grid,
   Card,
   Text,
+  Tag,
   Table,
   Alert,
   Progress,
   Container,
   Badge,
 } from "tabler-react";
+
+import {PdfDocument} from "../pdf/PdfDocument";
 
 const Student = props => {
     const [student, setStudent] = useState({});
@@ -43,88 +47,118 @@ const Student = props => {
       <div class="card card-sm">
           <div class="d-block">
             <div className="iframe-container">
-                          <iframe src="https://player.vimeo.com/video/372553472" frameborder="0" allow="autoplay; fullscreen" allowfullscreen=""></iframe>
+                          <iframe src="https://player.vimeo.com/video/372553472"></iframe>
                         </div>
                         </div>
                         <div class="card-body">
                           <h4>{student.comments}</h4>
                         </div>
+                        <div class="card-footer">
+                        <Tag.List>
+                            <Tag color="black">{student.categories}</Tag>
+                        </Tag.List>
+                        </div>
                       </div>
                       <div class="card">
-                      <div class="card-header"><div class="card-title">Basic info</div>
+                      <div class="card-header"><div class="card-title">Basic Info</div>
                       </div>
-                                        <div class="card-body">
+                      <div class="card-body">
 
-                                          <div class="mb-2">
-                                            <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
-                                          </div>
-                                          <div class="mb-2">
-                                           <Icon prefix="fe" name="user" /><strong>  性別・年齢: </strong> {student.gender} | {student.age}
-                                          </div>
-                                          <div class="mb-2">
-                                          <Icon prefix="fa" name="map-marker" />  <strong>国籍・地域: </strong>{student.country}
-                                          </div>
-                                          <div class="mb-2">
-                                          <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
-                                          </div>
-                                          <div class="mb-2">
-                                          <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty}
-                                          </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
+                      </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="user" /><strong>  性別・年齢: </strong> {student.gender} | {student.age}
+                      </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
+                      </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
+                      </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty}
+                      </div>
+                      </div>
+                      </div>
 
-                                        </div>
-                                      </div>
+                      <div class="card">
+                      <div class="card-header"><div class="card-title">Education</div>
+                      </div>
+                      <div class="card-body">
 
+                      <div class="mb-2">
+                      <strong>{student.university}  </strong>
+                      </div>
+                      <div class="mb-2">
+                      {student.faculty} - {student.major}
+                      </div>
+                      <div class="mb-2 text-muted">
+                      {student.grad_year} - {student.grad_month}
+                      </div>
+                      <div class="hr-text">研究テーマ</div>
+                      <div class="mb-2">
+                      {student.research}
+                      </div>
+                      <div class="hr-text">学歴備考</div>
+                      <div class="mb-2">
+                      {student.education_bg}
+                      </div>
+                      </div>
+                      </div>
 
-          <div className="indiv-card">
-            <dl className="indiv-header">Education</dl>
-            <ul className="indiv-entry">
-              <div className="profile-entry-title"> {student.university} </div>
-              <div className="profile-entry-title"> {student.faculty} - {student.major} </div>
-              <div className="profile-entry-title"> {student.grad_year} - {student.grad_month} </div>
+                      <div class="card">
+                      <div class="card-header"><div class="card-title">IT Skills</div>
+                      </div>
+                      <div class="card-body">
+                      <Tag.List>
+                          <Tag color="blue">{student.it_skills}</Tag>
+                      </Tag.List>
+                      </div>
+                      </div>
 
+                      <div class="card">
+                      <div class="card-header"><div class="card-title">言語</div>
+                      </div>
+                      <div class="card-body">
+                      <div class="mb-2">
+                      <strong>日本語: </strong> {student.japanese}
+                      </div>
+                      <div class="mb-2">
+                      <strong>英語: </strong> {student.english}
+                      </div>
+                      </div>
+                      </div>
 
-              <div className="profile-info">
-              <dt> 研究テーマ　</dt>
-              <dd style={{ color: "#666", fontSize: "1rem" }}> {student.research} </dd>
-              </div>
+                      <div class="card">
+                      <div class="card-header"><div class="card-title">その他PR</div>
+                      </div>
+                      <div class="card-body">
+                      {student.other_pr}
+                      </div>
+                      </div>
 
-              <div className="profile-info">
-              <dt> 学歴備考　</dt>
-              <dd> {student.education_bg} </dd>
-              </div>
-
-            </ul>
-          </div>
-
-          <div className="indiv-card">
-            <dl className="indiv-header">IT Skills</dl>
-            <div className="profile-info">
-            {student.it_skills}
-            </div>
-          </div>
-
-          <div className="indiv-card">
-            <dl className="indiv-header">言語</dl>
-            <ul className="profile-entries">
-                <li>
-                日本語：{student.japanese}
-                </li>
-                <li>
-                英語：{student.english}
-                </li>
-              </ul>
-          </div>
-
-          <div className="indiv-card">
-            <dl className="indiv-header">その他PR</dl>
-            <h4> {student.other_pr} </h4>
-          </div>
 
       </Grid.Col>
       <Grid.Col lg={3}>
-      <Card>
-        hello
-        </Card>
+      <div class="card">
+      <div class="card-body">
+        <AddLike student={student} id={props.match.params.studentId}/>
+      </div>
+      </div>
+
+      <div class="card">
+      <div class="card-header"><div class="card-title">Downloads</div>
+      </div>
+      <div class="card-body">
+      <div class="mb-2">
+      <PdfDocument student={student}/>
+      <button href={student.upload_fyp} class="btn btn-bitbucket ml-2">
+        FYP
+        </button>
+      </div>
+      </div>
+      </div>
         </Grid.Col>
        </Grid.Row>
      </Page.Content>

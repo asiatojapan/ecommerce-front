@@ -8,6 +8,9 @@ import { Button } from 'antd';
 const AddLike = ({student, id })  => {
     const [liked, setLiked] = useState(false);
 
+    const {
+        user: { _id, name, email, role, round }
+    } = isAuthenticated();
     // destructure user and token from localstorage
     const { user, token } = isAuthenticated();
     const [ likedstudents, setLikedstudents ] =  useState([]);
@@ -44,15 +47,33 @@ const AddLike = ({student, id })  => {
         createUnlike(user._id, student, token);
     };
 
-    const text = liked ? 'Unsave' : 'Save'
+    const text = liked ? 'Saved' : 'Save'
 
     const newLikeForm = () => {
-      if (liked) {
-        return  <a className="f6 link dim ph3 pv2 mb2 dib white bg-black" onClick={ clickDelete } href="#0">{text}</a>
-      } else {
-        return  <a className="f6 link dim ba ph3 pv2 mb2 dib black" onClick={ clickSubmit } href="#0">{text}</a>
+      return (
+          <div>
+
+            {liked && user.round === "Phase II" && (
+               <button className="btn btn-sm btn-danger disabled" onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text} </button>
+            )}
+
+            {liked && user.round !== "Phase II" && (
+               <button className="btn btn-sm btn-danger " onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
+            )}
+
+            {!liked && user.round === "Phase II" && (
+               <button className="btn btn-sm btn-outline-danger disabled" onClick={ clickDelete } href="#0"> {text} </button>
+            )}
+
+            {!liked && user.round !== "Phase II" && (
+               <button className="btn btn-sm btn-outline-danger" onClick={ clickDelete } href="#0"> {text} </button>
+            )}
+
+
+          </div>
+        )
       };
-    };
+
 
     return (
             <div>

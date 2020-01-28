@@ -5,7 +5,7 @@ import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { createStudent, getCategories } from './apiAdmin';
 import Checkbox from "../core/Checkbox";
-import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
   Dropdown,
@@ -365,7 +365,7 @@ const AddStudent = ({ history }) => {
         };
 
     return (
-      <AdminSiteWrapper>
+      <SiteWrapper>
       <Page.Content title="Add Student">
       <Grid.Row>
       <Grid.Col width={12}>
@@ -379,7 +379,7 @@ const AddStudent = ({ history }) => {
             </Grid.Col>
             </Grid.Row>
             </Page.Content>
-        </AdminSiteWrapper>
+        </SiteWrapper>
     );
 };
 

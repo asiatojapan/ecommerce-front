@@ -183,3 +183,14 @@ export const getMyInterviews = (userId) => {
         })
         .catch(err => console.log(err));
 };
+
+export const createSubmit = (userId, token) => {
+  return fetch(`${API}/submit/${userId}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+  })
+};

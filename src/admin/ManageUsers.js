@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from "../auth";
 import { deleteUser, getUsers } from "./apiAdmin";
 import { Link } from "react-router-dom";
-import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table';
 import matchSorter from 'match-sorter';
 import {
@@ -463,7 +463,7 @@ const ManageUsers = () => {
   }, []);
 
     return (
-      <AdminSiteWrapper>
+    <SiteWrapper>
       <Page.Content>
       <Grid.Row>
       <Grid.Col width={12}>
@@ -478,7 +478,7 @@ const ManageUsers = () => {
       </Grid.Col>
        </Grid.Row>
      </Page.Content>
-     </AdminSiteWrapper>
+    </SiteWrapper>
     );
 };
 

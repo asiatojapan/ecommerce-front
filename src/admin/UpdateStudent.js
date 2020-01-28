@@ -6,6 +6,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { readStudent } from '../core/apiCore';
 import { updateStudent, getCategories } from './apiAdmin';
 import {Form, Select, Input, Button, DatePicker } from 'antd';
+import SiteWrapper from '../templates/SiteWrapper'
 import { PageHeader } from 'antd';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -378,6 +379,7 @@ const UpdateStudent = ({ match }) => {
          {values.upload_fyp}
         </div>
     </div>
+
     </div>
   </div>
 
@@ -419,13 +421,13 @@ const UpdateStudent = ({ match }) => {
     };
 
     return (
-            <AdminMenu>
+            <SiteWrapper>
             <PageHeader style={Style} title="Edit Student" onBack={() => window.history.back() }/>
                     {showSuccess()}
                     {showError()}
                     {newPostForm()}
                     {redirectUser()}
-            </AdminMenu>
+            </SiteWrapper>
     );
 };
 

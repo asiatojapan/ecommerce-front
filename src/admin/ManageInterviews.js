@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from "../auth";
 import { List } from 'antd';
 import { getInterviews } from "./apiAdmin";
 import { Link } from "react-router-dom";
+import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
 import matchSorter from 'match-sorter'
 
@@ -411,7 +411,7 @@ const ManageInterviews = () => {
   }, []);
 
     return (
-      <AdminMenu>
+      <SiteWrapper>
       <div>
         <div class="cf ph3 ph4-ns pv4 mb3 bb b--black-10 black-70">
               <div class="tl pa2 fl">
@@ -422,7 +422,7 @@ const ManageInterviews = () => {
       <div class="ph4-ns">
       <Table columns={columns} data={data} />
       </div>
-      </AdminMenu>
+    </SiteWrapper>
     );
 };
 

@@ -5,7 +5,7 @@ import {Form, Select, Input, Button, DatePicker } from 'antd';
 import { PageHeader } from 'antd';
 import { getSalesRep } from "./apiAdmin";
 import { read, update, updateUser } from '../user/apiUser';
-import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
   Dropdown,
@@ -174,7 +174,7 @@ const UpdateUser = ({ match, history }) => {
     );
 
     return (
-      <AdminSiteWrapper>
+      <SiteWrapper>
       <Page.Content>
       <Grid.Row>
       <Grid.Col width={12}>
@@ -184,7 +184,7 @@ const UpdateUser = ({ match, history }) => {
           </Grid.Col>
           </Grid.Row>
           </Page.Content>
-      </AdminSiteWrapper>
+      </SiteWrapper>
     );
 };
 

@@ -2,7 +2,6 @@ import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { getMyInterviews } from "../core/apiCore";
 import UserLayout from "./UserLayout";
-import LikedStudents from "./LikedStudents";
 import { Link } from "react-router-dom";
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper'
@@ -23,7 +22,7 @@ import "../styles.css";
 
 const LikedStudentsList = () => {
     const {
-        user: { _id, name, email, role }
+        user: { _id, name, email, role, round }
     } = isAuthenticated();
 
     const { user, token } = isAuthenticated();

@@ -18,14 +18,14 @@ const CardStudent = ({student}) => {
   return (
     <Card>
       <Card.Body>
+      {student.status === "来日" ?  <div class="card-status bg-green"></div>　 :　<div class="card-status bg-primary"></div>}
           <ul className="list-unstyled list-separated">
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
-                       <Grid.Col auto>
-                       </Grid.Col>
+
                        <Grid.Col>
                          <div>
-                         <Link to={`/student/${student._id}`}> {student.studentid} </Link>
+                         <Link className="card-title m-0" to={`/student/${student._id}`}> {student.studentid} </Link>
 
                          </div>
                          <Text.Small muted className="d-block item-except h-1x">
@@ -33,7 +33,7 @@ const CardStudent = ({student}) => {
                          </Text.Small>
                        </Grid.Col>
                        <Grid.Col auto>
-                       <span class="status-icon bg-success"></span>来日決定
+                       {student.status === "来日" ?  <div> <span class="text-success">●</span> 来日決定　</div>:　<div><span class="text-primary">●</span> SKYPE </div>}
                        </Grid.Col>
                      </Grid.Row>
                    </li>

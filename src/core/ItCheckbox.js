@@ -21,10 +21,12 @@ const ItCheckbox = ({ it_skills, handleFilters }) => {
     };
 
     return it_skills.map((c, i) => (
-      <div class="flex items-center mb2">
-          <input class="mr2" type="checkbox" onChange={handleToggle(c.name)} id={c.name} value={c.name}/>
-          <label for={c.name} class="lh-copy">{c.name}</label>
-      </div>
+<label class="form-selectgroup-item">
+  <input  class="form-selectgroup-input" type="checkbox" onChange={handleToggle(c.name)} id={c.name} value={c.name}/>
+<span class="form-selectgroup-box">{c.name}</span>
+</label>
+
+
     ));
 };
 

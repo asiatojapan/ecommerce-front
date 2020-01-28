@@ -6,7 +6,7 @@ import { deleteStudent, getCheckStudents } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination, useMountedLayoutEffect } from 'react-table'
 import matchSorter from 'match-sorter'
-import AdminSiteWrapper from '../templates/AdminSiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {
@@ -455,7 +455,7 @@ const ManageStudent = () => {
       Header: "Actions",
       accessor: (text, i) =>
       <div className="btn-list">
-      <Link className="btn-sm btn btn-primary" to={`/admin/student/${text._id}`}> View </Link>
+      <Link className="btn-sm btn btn-primary" to={`/student/${text._id}`}> View </Link>
       <Link className="btn-sm btn btn-success" to={`/admin/student/update/${text._id}`}> Update </Link>
       <button className="btn-sm btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
             Delete
@@ -503,7 +503,7 @@ const ManageStudent = () => {
 
 
     return (
-    <AdminSiteWrapper>
+    <SiteWrapper>
     <Page.Content>
     <Grid.Row>
     <Grid.Col width={12}>
@@ -533,7 +533,7 @@ const ManageStudent = () => {
    </Grid.Col>
     </Grid.Row>
   </Page.Content>
-      </AdminSiteWrapper>
+      </SiteWrapper>
     );
 };
 

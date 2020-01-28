@@ -100,7 +100,7 @@ const MyDoc = ({student}) => (
 
 const Link = ({student}) => {
     return (
-      <div>
+      <div class="btn btn-bitbucket">
         <PDFDownloadLink document={<MyDoc student={student}/>} fileName={student.studentid + " Resume.pdf"}>
           {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Resume')}
         </PDFDownloadLink>

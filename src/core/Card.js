@@ -14,7 +14,7 @@ const Card2 = ({student}) => {
   return (
     <div class="card">
     <div class="card-header">
-    {student.rec_users.indexOf(user._id)>-1 ? <div class="card-status bg-blue card-status-left"></div> : "" }
+      {student.rec_users.indexOf(user._id)>-1 ? <div class="card-status bg-blue card-status-left"></div> : "" }
     <Link class="card-title" to={`/student/${student._id}`}> {student.comments} </Link>
     <div class="card-options">
       <AddLike student={student} id={student._id}/>

@@ -125,13 +125,7 @@ const Home = () => {
       <Container>
          <Grid.Row cards>
            <Grid.Col lg={3} md={3}>
-           <div class="card">
-                  <div class="card-body">
-                  <h3 class="card-title">IT Skills</h3>
-                  <ItCheckbox it_skills={it_skills} handleFilters={filters =>
-                      handleFilters(filters, "it_skills")} />
-                  </div>
-                </div>
+
                 <div class="card">
                   <div class="card-body">
                     <h3 class="card-title">Tags</h3>
@@ -142,6 +136,17 @@ const Home = () => {
                   </div>
                 </div>
 
+                <div class="card">
+                       <div class="card-body">
+                       <h3 class="card-title">IT Skills</h3>
+                       <div class="mb-3">
+                        <div class="form-selectgroup">
+                               <ItCheckbox it_skills={it_skills} handleFilters={filters =>
+                           handleFilters(filters, "it_skills")} />
+                       </div>
+                          </div>
+                       </div>
+                     </div>
            </Grid.Col>
         <Grid.Col lg={9} md={9}>
         <h3> {filteredResults.length + " Results"} </h3>
