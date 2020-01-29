@@ -114,7 +114,6 @@ const UpdateStudent = ({ match }) => {
 
     const handleChange = name => event => {
           const value = name === 'upload_fyp' ? event.target.files[0] : event.target.value;
-          console.log(value)
           formData.set(name, value);
           setValues({ ...values, [name]: value });
     };
@@ -376,7 +375,6 @@ const UpdateStudent = ({ match }) => {
       <div class="fl w-100 w-100-ns pa2">
          <label for="other_pr" class="f6 b db mb2">FYP PDF<span class="normal black-60"></span></label>
          <input onChange={handleChange('upload_fyp')} type="file" name="upload_fyp"/>
-         {values.upload_fyp}
         </div>
     </div>
 

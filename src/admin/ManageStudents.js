@@ -9,6 +9,7 @@ import matchSorter from 'match-sorter'
 import SiteWrapper from '../templates/SiteWrapper'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import ImportStudents from "./ImportStudents";
 import {
   Page,
   Dropdown,
@@ -526,6 +527,8 @@ const ManageStudent = () => {
         </Modal.Body>
       </Modal>
        <Link to={`/admin/create/student`} className="btn btn-sm btn-secondary"> + Add Students </Link> <br/>
+
+       <ImportStudents/>
         </div>
         </div>
          <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>

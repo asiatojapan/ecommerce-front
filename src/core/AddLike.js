@@ -58,15 +58,15 @@ const AddLike = ({student, id })  => {
             )}
 
             {liked && user.round !== "Phase II" && (
-               <button className="btn btn-sm btn-danger " onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
+               <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
             )}
 
             {!liked && user.round === "Phase II" && (
-               <button className="btn btn-sm btn-outline-danger disabled" onClick={ clickDelete } href="#0"> {text} </button>
+               <button className="btn btn-sm btn-outline-danger disabled" onClick={ clickSubmit } href="#0"> {text} </button>
             )}
 
             {!liked && user.round !== "Phase II" && (
-               <button className="btn btn-sm btn-outline-danger" onClick={ clickDelete } href="#0"> {text} </button>
+               <button className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0"> {text} </button>
             )}
 
 

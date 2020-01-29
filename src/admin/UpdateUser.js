@@ -93,9 +93,10 @@ const UpdateUser = ({ match, history }) => {
         });
     };
 
-    const redirectUser = success => {
+    const redirectUser = () => {
         if (success) {
-            return <Redirect to="/admin/users" />;
+              window.scrollTo(0, 0);
+
         }
     };
 
@@ -180,6 +181,7 @@ const UpdateUser = ({ match, history }) => {
       <Grid.Col width={12}>
       {showSuccess()}
       {showError()}
+      {redirectUser()}
           {profileUpdate(name, email, password, role, round, phase, sales_rep)}
           </Grid.Col>
           </Grid.Row>

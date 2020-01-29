@@ -451,3 +451,66 @@ iframe {
     background-color: currentColor;
     opacity: .1;
 }
+
+.form-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: calc(1.4666667em + .75rem + 2px);
+    margin-bottom: 0;
+}
+.form-file-input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: calc(1.4666667em + .75rem + 2px);
+    margin: 0;
+    opacity: 0;
+}
+.form-file-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    height: calc(1.4666667em + .75rem + 2px);
+    border-color: rgba(123,126,136,.24);
+    border-radius: 3px;
+}
+.form-file-text {
+    display: block;
+    flex-grow: 1;
+    padding: .375rem .75rem;
+    overflow: hidden;
+    font-weight: 400;
+    line-height: 1.4666667;
+    color: #303645;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: #fff;
+    border-color: inherit;
+    border-style: solid;
+    border-width: 1px;
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+.form-file-button {
+    margin-left: 0;
+    border-left: 0;
+}
+
+.form-file-button {
+    display: block;
+    flex-shrink: 0;
+    padding: .375rem .75rem;
+    margin-left: -1px;
+    line-height: 1.4666667;
+    color: #303645;
+    background-color: rgba(48,54,69,.032);
+    border-color: inherit;
+    border-style: solid;
+    border-width: 1px;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+}

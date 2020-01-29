@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../core/Layout';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
@@ -105,7 +104,6 @@ const AddStudent = ({ history }) => {
     const handleChange = name => event => {
         const value = name === 'upload_fyp' ? event.target.files[0] : event.target.value;
         formData.set(name, value);
-        console.log(formData.get("it_skills"))
         setValues({ ...values, [name]: value });
     };
 

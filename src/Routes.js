@@ -13,6 +13,7 @@ import AddUser from './admin/AddUser';
 import AddLike from './core/AddLike';
 import Product from './core/Product';
 import ManageInterviews from './admin/ManageInterviews';
+import UpdateInterview from './admin/UpdateInterview';
 import AdminProfile from './user/AdminProfile';
 import UpdateUser from './admin/UpdateUser';
 import Settings from './admin/Settings';
@@ -54,6 +55,7 @@ const Routes = () => {
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
+      <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
     </Switch>
     </BrowserRouter>
   );

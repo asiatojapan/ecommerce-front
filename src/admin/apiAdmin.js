@@ -52,6 +52,24 @@ export const updateCategory = (categoryId, userId, token, category) => {
         .catch(err => console.log(err));
 };
 
+
+export const updateInterview = (interviewId, userId, token, interview) => {
+    return fetch(`${API}/interview/${interviewId}/${userId}`, {
+        method: 'PUT',
+        headers: {
+            // content type?
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(interview)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 export const createProduct = (userId, token, product) => {
     return fetch(`${API}/product/create/${userId}`, {
         method: 'POST',
@@ -68,8 +86,6 @@ export const createProduct = (userId, token, product) => {
             console.log(err);
         });
 };
-
-
 
 
 export const getCategory = categoryId => {
@@ -289,12 +305,12 @@ export const createRec = (studentId, userId, token) => {
       });
 };
 
-export const createInterview = (student, user, token, interview) => {
+export const createInterview = (student, company, token, interview) => {
   const data = {
       student,
-      user
+      company
   };
-  return fetch(`${API}/interview/create/${user}`, {
+  return fetch(`${API}/interview/create/${company}`, {
       method: 'POST',
       headers: {
           Accept: 'application/json',
@@ -353,6 +369,31 @@ export const getCheckStudents = (userId, status) => {
 export const getInterviews = () => {
     return fetch(`${API}/interviews`, {
         method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getInterview = interviewId => {
+    return fetch(`${API}/interview/${interviewId}`, {
+        method: 'GET'
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const deleteInterview = (interviewId, userId, token) => {
+    return fetch(`${API}/interview/${interviewId}/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();

@@ -106,7 +106,7 @@ const Home = () => {
 
 
   const loadStudents = () => {
-      getStudents("createdAt").then(data => {
+      getStudents().then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
