@@ -11,7 +11,8 @@ import { Row, Col } from 'antd';
 import { getStudents, getCategories, getFilteredStudents } from './apiCore';
 import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import CardStudent from '../templates/CardStudent';
-import SiteWrapper from '../templates/SiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper';
+import Loading from "../templates/Loading.js";
 import {
   Page,
   Avatar,
@@ -115,9 +116,6 @@ const Home = () => {
       });
   };
 
-  useEffect(() => {
-      loadStudents();
-  }, []);
 
     return (
       <SiteWrapper>
@@ -125,7 +123,6 @@ const Home = () => {
       <Container>
          <Grid.Row cards>
            <Grid.Col lg={3} md={3}>
-
                 <div class="card">
                   <div class="card-body">
                     <h3 class="card-title">Tags</h3>
@@ -150,6 +147,7 @@ const Home = () => {
            </Grid.Col>
         <Grid.Col lg={9} md={9}>
         <h3> {filteredResults.length + " Results"} </h3>
+
         {filteredResults.map((student, i) => (
         <div key={i}>
           <Card2 student={student} />
