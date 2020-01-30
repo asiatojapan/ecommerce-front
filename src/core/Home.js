@@ -12,7 +12,6 @@ import { getStudents, getCategories, getFilteredStudents } from './apiCore';
 import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper';
-import Loading from "../templates/Loading.js";
 import {
   Page,
   Avatar,
