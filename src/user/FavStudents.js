@@ -1,9 +1,8 @@
 import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
-import { readStudent,createSubmit } from "../core/apiCore";
+import { getFavStudents, createSubmit } from "../core/apiCore";
 import { Link } from "react-router-dom";
 import CardMainStudent from '../templates/CardMainStudent';
-import CardStudent from '../templates/CardStudent';
 import {
   Container,
   Page,
@@ -17,21 +16,20 @@ import SiteWrapper from '../templates/SiteWrapper'
 import "../styles.css";
 
 
-const LikedStudentsList = () => {
-    const {
-        user: { _id, name, email, role, round }
-    } = isAuthenticated();
+const FavStudents = () => {
+    const {  user: { _id, name, email, role, round } } = isAuthenticated();
 
     const [ success, setSuccess] = useState(false);
 
     const { user, token } = isAuthenticated();
 
-    const [ likedstudents, setLikedstudents ] =  useState([]);
+
+    const [ favStudents, setFavStudents ] =  useState([]);
 
 
     const init = userId => {
-        getUser(userId).then(data => {
-            setLikedstudents(data.liked_students);
+        getFavStudents(user._id).then(data => {
+            setFavStudents(data);
         });
     };
 
@@ -53,14 +51,14 @@ const LikedStudentsList = () => {
                     window.location.hash = 'r';
                     window.location.reload(1);
                 }
-            }, 2000);
+            }, 1000);
             }
         });
     };
 
 
     useEffect(() => {
-        init(user._id);
+        init();
     }, []);
 
 
@@ -74,14 +72,14 @@ const LikedStudentsList = () => {
                       </div>
                     </div>
                     <div class="ml-auto">
-                    { user.round === "Phase II" ?  <button type="button" class="btn btn-dark btn-lg"
+                    { user.round === "Phase II" ?  <button type="button" class="btn btn-dark btn-lg disabled"
+                        >
+                         Submitted
+                       </button> : <button type="button" class="btn btn-dark btn-lg"
                         onClick={() => { if (window.confirm('Are you sure you wish to submit?')) submit(user) } }>
                          Submit
                        </button>
-                        : <button type="button" class="btn btn-dark btn-lg disabled"
-                            >
-                             Submitted
-                           </button>
+
                  }
                     </div>
                   </div>
@@ -98,17 +96,15 @@ const LikedStudentsList = () => {
       <Container>
       {showConfirmation()}
       {confirmationButton()}
-      {likedstudents.map((s, i) => (
-        <div>
-          <CardMainStudent student={s} />
-          </div>
-          ))}
+      {favStudents.map((s) => {
+        return <CardMainStudent key={s._id} student={s} />
+      })}
       </Container>
-          </div>
-            </Page.Content>
-          </SiteWrapper>
+      </div>
+      </Page.Content>
+      </SiteWrapper>
 
     );
 };
 
-export default LikedStudentsList;
+export default FavStudents;

@@ -21,7 +21,7 @@ import ManageStudents from './admin/ManageStudents';
 import AdminUser from './admin/AdminUser';
 import ManageUsers from './admin/ManageUsers';
 import AStudent from './admin/Student';
-import LikedStudentList from './user/LikedStudentsList';
+import FavStudents from './user/FavStudents';
 import InterviewStudents from './user/InterviewStudents';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
@@ -39,7 +39,7 @@ const Routes = () => {
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/faq" exact component={Faq}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
-    <PrivateRoute path="/user/students" exact component={LikedStudentList}/>
+    <PrivateRoute path="/user/students" exact component={FavStudents}/>
     <PrivateRoute path="/user/dashboard" exact component={Dashboard}/>
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />

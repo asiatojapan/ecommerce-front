@@ -3,7 +3,7 @@ import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
 import { updateUser, deleteUser,readUser } from './apiAdmin';
-import { getStudents, getMyInterviews  } from '../core/apiCore';
+import { getStudents, getMyInterviews, getFavStudents  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddInterview from "./AddInterview";
 import SiteWrapper from '../templates/SiteWrapper'
@@ -61,6 +61,33 @@ function SelectColumnFilter({
 
 const AdminUser = props => {
     const [students, setStudents] = useState([]);
+    const data = students
+
+    const [user1, setUser1] = useState({});
+    const [error, setError] = useState(false);
+
+    const { user, token } = isAuthenticated();
+
+    const [ favStudents, setFavStudents ] =  useState([]);
+
+    const [ interviewstudents, setInterviewstudents ] =  useState([]);
+
+    const loadSingleUser = (userId) => {
+        readUser(userId).then(data => {
+            if (data.error) {
+                setError(data.error);
+            } else {
+                setUser1(data);
+            }
+        });
+    };
+
+
+    const loadFavStudents = userId => {
+        getFavStudents(userId).then(data => {
+            setFavStudents(data);
+        });
+    };
 
     const loadStudents = () => {
         getStudents().then(data => {
@@ -71,41 +98,16 @@ const AdminUser = props => {
             }
         });
     };
-    const data = students
 
-    const [user1, setUser1] = useState({});
-    const [error, setError] = useState(false);
+    function handleUpdate(userId) {
+        loadFavStudents(userId);
+    }
 
-    const { user, token } = isAuthenticated();
-
-    const [ likedstudents, setLikedstudents ] =  useState([]);
-
-    const [ interviewstudents, setInterviewstudents ] =  useState([]);
-
-    const loadSingleUser = userId => {
-        readUser(userId).then(data => {
-          setLikedstudents(data.liked_students);
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setUser1(data);
-            }
-        });
-    };
-
-    const loadMyInteviews = userId => {
-        getMyInterviews(userId).then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setInterviewstudents(data);
-            }
-        });
-    };
-
-        function handleUpdate(userId) {
-            loadMyInteviews(userId);
-        }
+    useEffect(() => {
+        loadSingleUser(props.match.params.userId);
+        loadStudents();
+        loadFavStudents(props.match.params.userId);
+    }, []);
 
     const columns = React.useMemo(
      () => [
@@ -145,30 +147,16 @@ const AdminUser = props => {
            Header: 'Liked',
            accessor: (text, i) =>
            <div>
-           {text.liked_users.map((c,i) =>
+           {text.favorites.map((c,i) =>
              <div>
-             {c._id == props.match.params.userId ? "Yes" : ""}
+             {c == props.match.params.userId ? <span class=" badge badge-warning">●</span> : ""}
              </div>
            )}
-           </div>
-         },
-         {
-           Header: '面接',
-           accessor: (text, i) =>
-           <div>
-           <AddInterview student={text} userIdFromTable={props.match.params.userId} handleUpdate={handleUpdate(props.match.params.userId)}/>
            </div>
          },
     ],
       []
     );
-
-    useEffect(() => {
-        loadStudents();
-        const userId = props.match.params.userId;
-        loadSingleUser(userId);
-        loadMyInteviews(userId);
-    }, [props]);
 
     const destroy = userId => {
         deleteUser(userId, user._id, token).then(data => {
@@ -202,12 +190,12 @@ const AdminUser = props => {
     </div>
     )
 
-    const likedstudentsCard = () => (
+    const favStudentsCard = () => (
     <div class="card">
-        <div class="card-header"> <h3 class="card-title"> Liked ({likedstudents.length === 0 ? "0": likedstudents.length}) </h3></div>
+        <div class="card-header"> <h3 class="card-title"> Fav </h3></div>
                   <div class="card-body ">
                   <div class="row mb-n3">
-                  {likedstudents.map((c, i) =>
+                  {favStudents.map((c, i) =>
                   <div class="col-6 row row-sm mb-3 align-items-center">
           <div class="col text-truncate">
           <Link className="text-body d-block text-truncate" to={`/student/${c._id}`}> {c.studentid}</Link>
@@ -235,15 +223,13 @@ const AdminUser = props => {
                       </p>
                     </div>
                   </div>
-                  {likedstudentsCard()}
-                  {interviewCard()}
+                  {favStudentsCard()}
   </Grid.Col>
   <Grid.Col lg={8}>
   <Card>
     <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
     </Card>
     </Grid.Col>
-
       </Grid.Row>
       </Page.Content>
     </SiteWrapper>

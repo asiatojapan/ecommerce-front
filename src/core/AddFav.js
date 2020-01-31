@@ -15,18 +15,15 @@ const AddFav = ({student, handleUpdate})  => {
         user: { round }
     } = isAuthenticated();
 
-    const init = () => {
-        const found = student.favorites.some(el => el === user._id)
-        if (found) {
-          setFav(true)
-           }
-        else {
-          setFav(false)
-        };
-    };
 
     useEffect(() => {
-        init();
+      const found = student.favorites.some(el => el === user._id)
+      if (found) {
+        setFav(true)
+         }
+      else {
+        setFav(false)
+      };
     }, []);
 
     const clickSubmit = e => {

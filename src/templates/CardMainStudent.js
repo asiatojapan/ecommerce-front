@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import  AddLike  from '../core/AddLike';
+import  AddFav from '../core/AddFav';
 import { FaFileDownload } from 'react-icons/fa';
 import { isAuthenticated } from '../auth';
 import {
@@ -33,11 +33,11 @@ const CardMainStudent = ({student}) => {
                           {student.status === "来日" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
                         </div>
                       </div>
-                      <div class="col-auto">
-                    { user.round === "Phase II" ?  <div><AddLike student={student} id={student._id}/> </div> : "" }
-                      </div>
-                    </div>
-                  </div>
+                  <div class="col-auto">
+                  <AddFav student={student}/>
+              </div>
+            </div>
+          </div>
         </Card>
 
 

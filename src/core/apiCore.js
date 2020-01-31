@@ -43,27 +43,6 @@ export const getCategories = () => {
         .catch(err => console.log(err));
 };
 
-export const getFilteredProducts = (skip, limit, filters = {}) => {
-    const data = {
-        limit,
-        skip,
-        filters
-    };
-    return fetch(`${API}/products/by/search`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
 
 export const getFilteredStudents = (userId, skip, limit, filters = {}) => {
     const data = {
@@ -120,23 +99,6 @@ export const listRelated = productId => {
         .catch(err => console.log(err));
 };
 
-export const createLike2 = (userId, studentId, token, like ) => {
-    return fetch(`${API}/like/${studentId}/${userId}`, {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(like)
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => {
-            console.log(err);
-        });
-};
 
 export const createLike = (userId, student, token) => {
   return fetch(`${API}/like/${userId}`, {
@@ -197,7 +159,7 @@ export const createSubmit = (userId, token) => {
 
 export const createFav = (studentId, userId, token) => {
 
-  return fetch(`${API}/students/${studentId}/favorites`, {
+  return fetch(`${API}/student/${studentId}/favorites`, {
       method: 'POST',
       headers: {
           Accept: 'application/json',
@@ -216,13 +178,23 @@ export const createFav = (studentId, userId, token) => {
 
 
 export const destroyFav = (studentId, user, token) => {
-  return fetch(`${API}/students/${studentId}/favorites`,  {
+  return fetch(`${API}/student/${studentId}/favorites`,  {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getFavStudents = (userId) => {
+    return fetch(`${API}/students/favorites/${userId}`, {
+        method: "GET"
     })
         .then(response => {
             return response.json();

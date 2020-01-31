@@ -118,8 +118,8 @@ const Home = () => {
       <SiteWrapper>
       <div className="my-3 my-md-5">
       <Container>
-         <Grid.Row cards>
-           <Grid.Col lg={3} md={3}>
+         <Grid.Row>
+           <Grid.Col width={12} lg={3} sm={12}>
                 <div class="card">
                   <div class="card-body">
                     <h3 class="card-title">Tags</h3>
@@ -142,7 +142,8 @@ const Home = () => {
                        </div>
                      </div>
            </Grid.Col>
-        <Grid.Col lg={9} md={9}>
+
+        <Grid.Col width={12} lg={9} sm={12}>
         <h3> {filteredResults.length + " Results"} </h3>
 
         {filteredResults.map((student, i) => (
