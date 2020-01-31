@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { Link } from "react-router-dom";
-import { createRec, createUnRec } from "./apiAdmin";
+import { createRec, destroyRec } from "./apiAdmin";
 import { list, readStudent, getStudents } from "../core/apiCore";
 import { read } from "../user/apiUser"
 import { Button } from 'antd';
@@ -50,7 +50,7 @@ const AddRec = ({student, userIdFromTable, handleUpdate})  => {
         e.preventDefault();
         setRec(false);
         // make request to api to create category
-        createUnRec(student._id, user, token);
+        destroyRec(student._id, user, token);
     };
 
     const text = rec ? ' 推薦' : ' 推薦'

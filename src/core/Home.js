@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Layout2 from "./Layout";
 import Card2 from './Card';
 import { Link, Redirect } from 'react-router-dom';
 import { isAuthenticated } from '../auth';
@@ -7,7 +6,6 @@ import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { it_skills } from "./it_skills";
-import { Row, Col } from 'antd';
 import { getStudents, getCategories, getFilteredStudents } from './apiCore';
 import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import CardStudent from '../templates/CardStudent';

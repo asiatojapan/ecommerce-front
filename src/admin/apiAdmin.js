@@ -327,7 +327,7 @@ export const createInterview = (student, company, token, interview) => {
       });
 };
 
-export const createUnRec = (studentId, user, token) => {
+export const destroyRec = (studentId, user, token) => {
   return fetch(`${API}/unrec/${studentId}`, {
       method: 'POST',
       headers: {

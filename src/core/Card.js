@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { Card } from 'antd';
 import  AddLike  from './AddLike';
+import  AddFav  from './AddFav';
 import { FaFileDownload } from 'react-icons/fa';
 import { isAuthenticated } from '../auth';
 
@@ -17,7 +18,7 @@ const Card2 = ({student}) => {
       {student.rec_users.indexOf(user._id)>-1 ? <div class="card-status bg-blue card-status-left"></div> : "" }
     <Link class="card-title" to={`/student/${student._id}`}> {student.comments} </Link>
     <div class="card-options">
-    
+      <AddFav student={student}/>
     </div>
     </div>
     <div class="card-body">
