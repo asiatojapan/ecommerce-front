@@ -39,7 +39,7 @@ const CardStudent = ({student}) => {
                    </li>
                  </ul>
                </Card.Body>
-    </Card>
+               </Card>
 
 
 );

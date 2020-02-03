@@ -4,27 +4,13 @@ import { Link } from "react-router-dom";
 import { createRec, destroyRec } from "./apiAdmin";
 import { list, readStudent, getStudents } from "../core/apiCore";
 import { read } from "../user/apiUser"
-import { Button } from 'antd';
 
 const AddRec = ({student, userIdFromTable, handleUpdate})  => {
     const [rec, setRec] = useState(false);
 
-    const [ recUsers, setRecUsers ] =  useState([]);
-
-    const { token } = isAuthenticated();
-
-    const [user, setUser] = useState([]);
+    const { user, token } = isAuthenticated();
 
     const init = userIdFromTable => {
-        // console.log(userId);
-        read(userIdFromTable).then(data => {
-            if (data.error) {
-                setUser({ _id: data._id});
-            } else {
-                setUser({  _id: data._id });
-            }
-        });
-        setRecUsers([student.rec_users]);
         const found = student.rec_users.some(el => el === userIdFromTable)
         if (found) {
           setRec(true)

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table';
 import matchSorter from 'match-sorter';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import {
   Page,
   Dropdown,
@@ -278,8 +279,11 @@ export const Table = function ({ columns, data }) {
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
               {column.render('Header')}
+              <span>
+              {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
+              </span>
               </th>
             ))}
           </tr>
@@ -441,13 +445,14 @@ const ManageUsers = () => {
     {
       Header: "Actions",
       accessor: (text, i) =>
-      <div className="btn-list">
-      <Link className="btn-sm btn btn-primary" to={`/admin/profile/${text._id}`}> View </Link>
-      <Link className="btn-sm btn btn-success" to={`/admin/user/update/${text._id}`}> Update </Link>
-      <button className="btn-sm btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
-            Delete
-        </button>
-      </div>,
+      <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
+        <Dropdown.Item to={`/admin/profile/${text._id}`}>View </Dropdown.Item>
+        <Dropdown.Item to={`/admin/user/update/${text._id}`} >Update</Dropdown.Item>
+        <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
+                Delete
+            </a></Dropdown.Item>
+      </DropdownButton>
+      ,
       filterable : true
     }
 ],

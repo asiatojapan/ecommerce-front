@@ -16,7 +16,7 @@ const Card2 = ({student}) => {
     <div class="card">
     <div class="card-header">
       {student.rec_users.indexOf(user._id)>-1 ? <div class="card-status bg-blue card-status-left"></div> : "" }
-    <Link class="card-title" to={`/student/${student._id}`}> {student.comments} </Link>
+    <Link class="card-title" to={`/student/${student._id}`}>   {student.comments == null?  "" : student.comments.slice(50) }</Link>
     <div class="card-options">
       <AddFav student={student}/>
     </div>
@@ -27,7 +27,7 @@ const Card2 = ({student}) => {
     <tbody class>
     <tr class="">
     <td class="">
-    <img alt="" src="https://tabler.github.io/tabler/demo/products/apple-iphone7-special.jpg" class="h-8" / >
+    {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} ></iframe> </div> }
     </td>
     <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">{student.studentid} </h6>{student.gender === "male" ? "男" : "女"} | {student.age}</td>
     <td class="d-none d-md-table-cell text-nowrap"><h6 class="h6 mt-0 mb-0">国籍</h6>{student.country === "" ? "nill" : student.country}</td>

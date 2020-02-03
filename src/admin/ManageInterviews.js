@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
 import matchSorter from 'match-sorter'
-
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
 import {
   Page,
@@ -421,13 +421,13 @@ const ManageInterviews = () => {
     {
       Header: "Actions",
       accessor: (text, i) =>
-      <div>
-      <Link to={`/admin/profile/${text._id}`}> View </Link>
-      <UpdateInterview interviewId={text._id} />
-      <button className="btn-sm btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
-            Delete
-      </button>
-      </div>,
+      <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
+        <Dropdown.Item><UpdateInterview interviewId={text._id} /></Dropdown.Item>
+        <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
+                Delete
+            </a></Dropdown.Item>
+      </DropdownButton>
+      ,
       filterable : true
     }
 ],

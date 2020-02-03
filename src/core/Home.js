@@ -10,6 +10,7 @@ import { getStudents, getCategories, getFilteredStudents } from './apiCore';
 import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper';
+import LoadingButton from '../templates/LoadingButton';
 import {
   Page,
   Avatar,
@@ -34,7 +35,7 @@ const Home = () => {
   });
   const [categorieslist, setCategorieslist] = useState([]);
   const [error, setError] = useState(false);
-  const [limit, setLimit] = useState(6);
+  const [limit, setLimit] = useState(10);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
@@ -61,6 +62,20 @@ const Home = () => {
       });
   };
 
+  const loadMore = () => {
+    let toSkip = skip + limit;
+    // console.log(newFilters);
+    getFilteredStudents(user._id, toSkip, limit, myFilters.filters).then(data => {
+        if (data.error) {
+            setError(data.error);
+        } else {
+            setFilteredResults([...filteredResults, ...data.data]);
+            setSize(data.size);
+            setSkip(toSkip);
+        }
+    });
+  };
+
 
   useEffect(() => {
       init();
@@ -68,6 +83,16 @@ const Home = () => {
   }, []);
 
 
+  const loadMoreButton = () => {
+     return (
+         size > 0 &&
+         size >= limit && (
+             <button onClick={loadMore} className="btn btn-warning mb-5">
+                 Load more
+             </button>
+         )
+     );
+ };
 
   const handleFilters = (filters, filterBy) => {
       console.log(filters, filterBy);
@@ -151,6 +176,8 @@ const Home = () => {
           <Card2 student={student} />
         </div>
         ))}
+        {loadMoreButton()}
+
         </Grid.Col>
         </Grid.Row>
         </Container>

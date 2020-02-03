@@ -105,9 +105,16 @@ const AdminUser = props => {
 
     useEffect(() => {
         loadSingleUser(props.match.params.userId);
+    }, []);
+
+    useEffect(() => {
         loadStudents();
+    }, []);
+
+    useEffect(() => {
         loadFavStudents(props.match.params.userId);
     }, []);
+
 
     const columns = React.useMemo(
      () => [
@@ -140,7 +147,7 @@ const AdminUser = props => {
            Header: 'おすすめ',
            accessor: (text, i) =>
            <div>
-           <AddRec student={text} userIdFromTable={props.match.params.userId} handleUpdate={handleUpdate(props.match.params.userId)}/>
+           <AddRec student={text} userIdFromTable={props.match.params.userId} />
            </div>
          },
          {
@@ -152,6 +159,13 @@ const AdminUser = props => {
              {c == props.match.params.userId ? <span class=" badge badge-warning">●</span> : ""}
              </div>
            )}
+           </div>
+         },
+         {
+           Header: '面接',
+           accessor: (text, i) =>
+           <div>
+             <AddInterview student={text} userIdFromTable={props.match.params.userId} />
            </div>
          },
     ],
@@ -224,6 +238,7 @@ const AdminUser = props => {
                     </div>
                   </div>
                   {favStudentsCard()}
+                    {interviewCard()}
   </Grid.Col>
   <Grid.Col lg={8}>
   <Card>

@@ -5,6 +5,7 @@ import ReactLoading from "react-loading";
 import "bootstrap/dist/css/bootstrap.css";
 
 import { getStudents } from '../core/apiCore';
+
 export default class Loading extends React.Component {
   constructor(props) {
     super(props);

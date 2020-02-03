@@ -327,6 +327,22 @@ export const createInterview = (student, company, token, interview) => {
       });
 };
 
+export const deleteInterview = (interviewId, userId, token) => {
+    return fetch(`${API}/interview/${interviewId}/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
 export const destroyRec = (studentId, user, token) => {
   return fetch(`${API}/unrec/${studentId}`, {
       method: 'POST',
@@ -379,21 +395,6 @@ export const getInterviews = () => {
 export const getInterview = interviewId => {
     return fetch(`${API}/interview/${interviewId}`, {
         method: 'GET'
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
-export const deleteInterview = (interviewId, userId, token) => {
-    return fetch(`${API}/interview/${interviewId}/${userId}`, {
-        method: 'DELETE',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        }
     })
         .then(response => {
             return response.json();

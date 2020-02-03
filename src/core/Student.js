@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout2 from './Layout';
 import { readStudent } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
-import  AddLike  from './AddLike';
+import  AddFav2  from './AddFav2';
 import {
   Page,
   Avatar,
@@ -47,7 +47,8 @@ const Student = props => {
       <div class="card card-sm">
           <div class="d-block">
             <div className="iframe-container">
-                          <iframe src="https://player.vimeo.com/video/372553472"></iframe>
+            {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} ></iframe> </div> }
+
                         </div>
                         </div>
                         <div class="card-body">
@@ -143,7 +144,7 @@ const Student = props => {
       <Grid.Col lg={3}>
       <div class="card">
       <div class="card-body">
-        <AddLike student={student} id={props.match.params.studentId}/>
+        <AddFav2 student={props.match.params.studentId} />
       </div>
       </div>
 

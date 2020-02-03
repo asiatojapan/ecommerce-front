@@ -2,31 +2,22 @@ import React, { useState, useEffect } from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { Link } from "react-router-dom";
 import { read } from "../user/apiUser"
-import { createInterview } from "./apiAdmin";
-import { Button } from 'antd';
+import { createInterview, deleteInterview } from "./apiAdmin";
 
 const AddInterview = ({student, userIdFromTable, handleUpdate })  => {
 
     const [interview, setInterview] = useState(false);
 
-    const [ recUsers, setRecUsers ] =  useState([]);
-
-    const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
-    // destructure user and token from localstorage
     const { user, token } = isAuthenticated();
 
-    const [ user1, setUser] = useState([]);
-
     const init = userIdFromTable => {
-        // console.log(userId);
-        read(userIdFromTable).then(data => {
-            if (data.error) {
-                setUser({ _id: data._id});
-            } else {
-                setUser({  _id: data._id });
-            }
-        });
+      const found = student.interviews.some(el => el.company === userIdFromTable)
+      if (found) {
+        setInterview(true)
+         }
+      else {
+        setInterview(false)
+      };
     };
 
     useEffect(() => {
@@ -36,21 +27,25 @@ const AddInterview = ({student, userIdFromTable, handleUpdate })  => {
 
     const clickSubmit = e => {
         e.preventDefault();
-        setError("");
-        setSuccess(false);
+        setInterview(true)
         // make request to api to create category
-        createInterview(student, userIdFromTable, token).then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setError("");
-                setSuccess(true);
-            }
-        });
+        createInterview(student, userIdFromTable, token)
+
     };
 
+    const clickDelete = e => {
+        e.preventDefault();
+        setInterview(false);
+    };
+
+
+    const text = interview ? '面接' : ' 面接'
+
     const newLikeForm = () => {
-        return  <a className="f6 link dim ba ph3 pv2 mb2 dib black" onClick={ clickSubmit } href="#0">Add to Interview</a>
+      if (interview) {
+        return  <a className="btn btn-sm btn-danger" href="#0"> <i class="fe fe-check"></i> {text}</a>
+      } else {
+        return  <a className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0">{text}</a> }
     };
 
     return (

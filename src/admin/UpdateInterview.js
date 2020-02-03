@@ -136,9 +136,9 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     const interviewUpdate = (company, student, time,  phase, result, time_period, category) => (
       <div>
-      <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
+      <a onClick={handleShow}>
        Update
-     </Button>
+     </a>
 
      <Modal show={show} onHide={handleClose}>
      <form>
@@ -187,6 +187,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
           <div class="mb-2">
               <div class="form-label">選考</div>
               <select placeholder="選考" onChange={handleChange("phase")} value={phase} class="form-control">
+                  <option value="">Select</option>
                     <option value="1次"> 1次 </option>
                     <option value="2次"> 2次 </option>
                     <option value="最終"> 最終 </option>
@@ -198,6 +199,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
           <div class="mb-2">
             <label class="form-label">結果</label>
             <select placeholder="結果" onChange={handleChange("result")} value={result} class="form-control">
+                <option value="">Select</option>
                   <option value="Nil"> </option>
                   <option value="合格"> ● </option>
                   <option value="不合格"> X </option>
@@ -210,6 +212,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
           <div class="mb-2">
             <label class="form-label">Day</label>
             <select placeholder="time_period" onChange={handleChange("time_period")} value={time_period} class="form-control">
+                  <option value="">Select</option>
                   <option value="1日"> 1日</option>
                   <option value="2日"> 2日 </option>
                   <option value="3日"> 3日 </option>
@@ -236,7 +239,6 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     return (
       <span>
-
           {interviewUpdate(company, student, time, phase, result, time_period, category)}
           {redirectUser()}
       </span>

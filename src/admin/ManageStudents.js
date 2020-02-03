@@ -8,6 +8,7 @@ import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagin
 import matchSorter from 'match-sorter'
 import SiteWrapper from '../templates/SiteWrapper'
 import Button from 'react-bootstrap/Button';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import Modal from 'react-bootstrap/Modal';
 import ImportStudents from "./ImportStudents";
 import {
@@ -291,8 +292,11 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
+              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
               {column.render('Header')}
+              <span>
+              {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+              </span>
               </th>
             ))}
           </tr>
@@ -437,15 +441,25 @@ const ManageStudent = () => {
     {
       Header: 'おすすめ',
       accessor: (text, i) =>
-      <div> {text.rec_users.length}
+      <div> {text.rec_users.length == null? "" : text.rec_users.length}
     </div>
     },
 
     {
+      Header: 'Faved',
+      accessor: (text, i) =>
+      <div> {text.favorites.length == null? "" : text.favorites.length}
+    </div>
+    },
+
+
+    {
       Header: '面接',
       accessor: (text, i) =>
-      <div> {text.liked_users.length} </div>
+      <div> {text.interviews.length == null? "" : text.interviews.length}
+    </div>
     },
+
 
     {
       Header: 'フェーズ',
@@ -455,13 +469,13 @@ const ManageStudent = () => {
     {
       Header: "Actions",
       accessor: (text, i) =>
-      <div className="btn-list">
-      <Link className="btn-sm btn btn-primary" to={`/student/${text._id}`}> View </Link>
-      <Link className="btn-sm btn btn-success" to={`/admin/student/update/${text._id}`}> Update </Link>
-      <button className="btn-sm btn btn-danger" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
-            Delete
-        </button>
-      </div>,
+      <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
+        <Dropdown.Item to={`/student/${text._id}`}>View </Dropdown.Item>
+        <Dropdown.Item to={`/admin/student/update/${text._id}`} >Update</Dropdown.Item>
+        <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
+                Delete
+            </a></Dropdown.Item>
+      </DropdownButton>,
       filterable : true
     }
   ],
