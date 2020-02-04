@@ -18,8 +18,6 @@ import {
   Container,
   Badge,
 } from "tabler-react";
-const { Option } = Select;
-const { TextArea } = Input;
 
 const UpdateUser = ({ match, history }) => {
     const [values, setValues] = useState({

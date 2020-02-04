@@ -44,6 +44,10 @@ const Card2 = ({student}) => {
     {student.it_skills.map((skill, i) => (
       <span class="tag expanded">{skill}</span>
       ))}
+      <br/>
+      {student.tags.map((skill, i) => (
+        <span class="tag tag-azure">{skill}</span>
+        ))}
       </div>
     </div>
     </div>

@@ -56,7 +56,9 @@ const Student = props => {
                         </div>
                         <div class="card-footer">
                         <Tag.List>
-                            <Tag color="black">{student.categories}</Tag>
+                        {student.tags?
+                          student.tags.map((skill) => (
+                              <Tag color="azure">#{skill}</Tag>)) : ""}
                         </Tag.List>
                         </div>
                       </div>
@@ -69,7 +71,10 @@ const Student = props => {
                       <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
                       </div>
                       <div class="mb-2">
-                      <Icon prefix="fe" name="user" /><strong>  性別・年齢: </strong> {student.gender} | {student.age}
+                      <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender? "男性": "女性"}
+                      </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="user" /><strong>  年齢: </strong> {student.age}
                       </div>
                       <div class="mb-2">
                       <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
@@ -78,7 +83,7 @@ const Student = props => {
                       <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
                       </div>
                       <div class="mb-2">
-                      <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty}
+                      <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty} ({student.education_bg})
                       </div>
                       </div>
                       </div>
@@ -89,34 +94,36 @@ const Student = props => {
                       <div class="card-body">
 
                       <div class="mb-2">
-                      <strong>{student.university}  </strong>
+                      <strong><h4>{student.university}  </h4></strong>
                       </div>
                       <div class="mb-2">
-                      {student.faculty} - {student.major}
+                      <strong>{student.faculty} ({student.education_bg})</strong>
+                      </div>
+                      <div class="mb-2">
+                      {student.major}
                       </div>
                       <div class="mb-2 text-muted">
                       {student.grad_year} - {student.grad_month}
                       </div>
                       <div class="hr-text">研究テーマ</div>
-                      <div class="mb-2">
+                      <div class="mb-2 pre-wrap">　
                       {student.research}
                       </div>
-                      <div class="hr-text">学歴備考</div>
-                      <div class="mb-2">
-                      {student.education_bg}
-                      </div>
+
                       </div>
                       </div>
 
                       <div class="card">
-                      <div class="card-header"><div class="card-title">IT Skills</div>
+                      <div class="card-header"><div class="card-title">Internship</div>
                       </div>
                       <div class="card-body">
-                      <Tag.List>
-                          <Tag color="blue">{student.it_skills}</Tag>
-                      </Tag.List>
+                      <div class="mb-2 pre-wrap">　
+                      {student.internship}
                       </div>
                       </div>
+                      </div>
+
+
 
                       <div class="card">
                       <div class="card-header"><div class="card-title">言語</div>
@@ -132,10 +139,29 @@ const Student = props => {
                       </div>
 
                       <div class="card">
+                      <div class="card-header"><div class="card-title">IT Skills</div>
+                      </div>
+                      <div class="card-body">
+                      <Tag.List>
+                      {student.it_skills?
+                        student.it_skills.map((skill) => (
+                            <Tag color="secondary">{skill}</Tag>)) : ""}
+                      </Tag.List>
+                      </div>
+                      </div>
+
+                      <div class="card">
                       <div class="card-header"><div class="card-title">その他PR</div>
                       </div>
                       <div class="card-body">
+                      <div class="hr-text">働きたい理由</div>
+                      <div class="mb-2 pre-wrap">　
+                      {student.why_work_in_japan}
+                      </div>
+                      <div class="hr-text">その他PR</div>
+                      <div class="mb-2 pre-wrap">　
                       {student.other_pr}
+                      </div>
                       </div>
                       </div>
 

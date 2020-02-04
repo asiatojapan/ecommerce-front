@@ -146,6 +146,26 @@ export const getMyInterviews = (userId) => {
         .catch(err => console.log(err));
 };
 
+export const getGroupInterviewList = (userId) => {
+    return fetch(`${API}/interviews/group/${userId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getGroupInterviewPerson = (studentId, userId) => {
+    return fetch(`${API}/interviews/group/${userId}/${studentId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 export const createSubmit = (userId, token) => {
   return fetch(`${API}/submit/${userId}`, {
       method: 'POST',
@@ -194,6 +214,16 @@ export const destroyFav = (studentId, user, token) => {
 
 export const getFavStudents = (userId) => {
     return fetch(`${API}/students/favorites/${userId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const readInterview = interviewId => {
+    return fetch(`${API}/interview/${interviewId}`, {
         method: "GET"
     })
         .then(response => {

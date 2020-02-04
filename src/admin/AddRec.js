@@ -8,7 +8,9 @@ import { read } from "../user/apiUser"
 const AddRec = ({student, userIdFromTable, handleUpdate})  => {
     const [rec, setRec] = useState(false);
 
-    const { user, token } = isAuthenticated();
+    const { token } = isAuthenticated();
+
+    const [user, setUser] = useState([])
 
     const init = userIdFromTable => {
         const found = student.rec_users.some(el => el === userIdFromTable)
@@ -29,14 +31,14 @@ const AddRec = ({student, userIdFromTable, handleUpdate})  => {
         e.preventDefault();
         setRec(true);
         // make request to api to create category
-        createRec(student._id, user, token);
+        createRec(student._id, userIdFromTable, token);
     };
 
     const clickDelete = e => {
         e.preventDefault();
         setRec(false);
         // make request to api to create category
-        destroyRec(student._id, user, token);
+        destroyRec(student._id, userIdFromTable, token);
     };
 
     const text = rec ? ' 推薦' : ' 推薦'

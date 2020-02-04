@@ -65,25 +65,21 @@ const FavStudents = () => {
     const confirmationButton = () =>
     (
       <div class="card">
-            <div class="card-body p-3 d-flex align-items-center">
-                    <div class="mr-3 lh-sm">
-                      <div class="strong  align-items-center">
-                        <h3>My Students</h3>
-                      </div>
-                    </div>
-                    <div class="ml-auto">
-                    { user.round === "Phase II" ?  <button type="button" class="btn btn-dark btn-lg disabled"
-                        >
-                         Submitted
-                       </button> : <button type="button" class="btn btn-dark btn-lg"
-                        onClick={() => { if (window.confirm('Are you sure you wish to submit?')) submit(user) } }>
-                         Submit
-                       </button>
+      <div class="card-header">
+                        <h3 class="card-title">My Students</h3>
+                        <div class="card-options">
+                        { user.round === "Phase II" ?  <button type="button" class="btn btn-dark btn-lg disabled"
+                            >
+                             Submitted
+                           </button> : <button type="button" class="btn btn-dark btn-lg"
+                            onClick={() => { if (window.confirm('Are you sure you wish to submit?')) submit(user) } }>
+                             Submit
+                           </button>
 
-                 }
-                    </div>
-                  </div>
-                </div>
+                     }  </div>
+                        </div>
+                      </div>
+
     )
 
 

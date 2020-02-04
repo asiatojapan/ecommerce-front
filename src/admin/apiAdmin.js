@@ -286,8 +286,10 @@ export const readUser = (userId, token) => {
 };
 
 
-export const createRec = (studentId, userId, token) => {
-
+export const createRec = (studentId, _id, token) => {
+  const data = {
+      _id
+  };
   return fetch(`${API}/rec/${studentId}`, {
       method: 'POST',
       headers: {
@@ -295,7 +297,7 @@ export const createRec = (studentId, userId, token) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(userId)
+      body: JSON.stringify(data)
   })
       .then(response => {
           return response.json();
@@ -308,7 +310,8 @@ export const createRec = (studentId, userId, token) => {
 export const createInterview = (student, company, token, interview) => {
   const data = {
       student,
-      company
+      company,
+      interview
   };
   return fetch(`${API}/interview/create/${company}`, {
       method: 'POST',
@@ -343,7 +346,10 @@ export const deleteInterview = (interviewId, userId, token) => {
 };
 
 
-export const destroyRec = (studentId, user, token) => {
+export const destroyRec = (studentId, _id, token) => {
+  const data = {
+      _id
+  };
   return fetch(`${API}/unrec/${studentId}`, {
       method: 'POST',
       headers: {
@@ -351,7 +357,7 @@ export const destroyRec = (studentId, user, token) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify(data)
   })
       .then(response => {
           return response.json();

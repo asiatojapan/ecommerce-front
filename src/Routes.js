@@ -9,9 +9,11 @@ import Dashboard from './user/UserDashboard';
 import AdminDashboard from './user/AdminDashboard';
 import AddCategory from './admin/AddCategory';
 import AddStudent from './admin/AddStudent';
+import AddFullInterview from './admin/AddFullInterview';
 import AddUser from './admin/AddUser';
 import AddLike from './core/AddLike';
 import Product from './core/Product';
+import Interview from './core/Interview';
 import ManageInterviews from './admin/ManageInterviews';
 import UpdateInterview from './admin/UpdateInterview';
 import AdminProfile from './user/AdminProfile';
@@ -23,6 +25,7 @@ import ManageUsers from './admin/ManageUsers';
 import AStudent from './admin/Student';
 import FavStudents from './user/FavStudents';
 import InterviewStudents from './user/InterviewStudents';
+import InterviewByStudent from './user/InterviewByStudent';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
@@ -44,6 +47,7 @@ const Routes = () => {
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
+    <AdminRoute path="/admin/create/interview" exact component={AddFullInterview} />
     <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/settings" exact component={Settings} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
@@ -51,6 +55,8 @@ const Routes = () => {
     <AdminRoute path="/admin/students" exact component={ManageStudents} />
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
+    <PrivateRoute path="/interview/:interviewId" exact component={Interview}/>
+    <PrivateRoute path="/student/:studentId/interviews" exact component={InterviewByStudent}/>
     <PrivateRoute path="/quixote" exact component={Quixote} />
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />

@@ -19,12 +19,9 @@ const CardMainStudent = ({student}) => {
     <Card>
     <div class="card-body">
                     <div class="row row-sm align-items-center">
-                      <div class="col-auto">
-                        <span class="avatar avatar-lg"></span>
-                      </div>
                       <div class="col">
-                        <h4 class="card-title m-0">
-                          <Link class="h2" to={`/student/${student._id}`}> {student.studentid} </Link>
+                        <h4 class="card-title mb-2">
+                          <Link class="h3" to={`/student/${student._id}`}> {student.studentid} </Link>
                         </h4>
                         <div class="text-muted">
                         {student.comments}

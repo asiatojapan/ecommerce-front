@@ -11,29 +11,36 @@ import {
 } from "tabler-react";
 import {PdfDocument} from "../pdf/PdfDocument";
 
-const CardStudent = ({student}) => {
+const CardStudent = ({student, interview}) => {
 
   const { user, token } = isAuthenticated();
+
+  const coming = student.map(function(element, index, array) {
+    if (element.status =="来日")
+      return true
+  });
+
 
   return (
     <Card>
       <Card.Body>
-      {student.status === "来日" ?  <div class="card-status bg-green"></div>　 :　<div class="card-status bg-primary"></div>}
+      { coming === true ?  <div class="card-status bg-green"></div>　 :　<div class="card-status bg-primary"></div>}
           <ul className="list-unstyled list-separated">
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
 
                        <Grid.Col>
                          <div>
-                         <Link className="card-title m-0" to={`/student/${student._id}`}> {student.studentid} </Link>
-
+                         <Link class="h3" to={`/student/${student._id}`}> {student.map((s, i) => <div> {s.name}</div>)} </Link>
                          </div>
-                         <Text.Small muted className="d-block item-except h-1x">
+                         <Text muted className="d-block item-except h-1x mb-2">
                            {student.name}
-                         </Text.Small>
+                         </Text>
+                            {student.status === "来日" ?  <div> <span class="text-success">●</span> 来日決定　</div>:　<div><span class="text-primary">●</span> SKYPE </div>}
                        </Grid.Col>
                        <Grid.Col auto>
-                       {student.status === "来日" ?  <div> <span class="text-success">●</span> 来日決定　</div>:　<div><span class="text-primary">●</span> SKYPE </div>}
+                        <strong> {interview.phase} </strong><br/>
+                       <Link to={`/student/${interview._id}/interviews/`}> View Interview </Link>
                        </Grid.Col>
                      </Grid.Row>
                    </li>

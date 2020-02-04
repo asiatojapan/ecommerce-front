@@ -430,6 +430,13 @@ const ManageUsers = () => {
       </div>)}
       </div>,
     },
+
+    {
+      Header: 'Fav',
+      accessor: (text, i) =>
+      <div> {text.favorites.length}</div>
+    },
+
     {
       Header: 'おすすめ',
       accessor: (text, i) =>
