@@ -3,7 +3,7 @@ import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
 import { updateUser, deleteUser,readUser } from './apiAdmin';
-import { getStudents, getMyInterviews, getFavStudents  } from '../core/apiCore';
+import { getStudents, getMyInterviews, getFavStudents,getGroupInterviewList  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddInterview from "./AddInterview";
 import SiteWrapper from '../templates/SiteWrapper'
@@ -69,6 +69,7 @@ const AdminUser = props => {
     const { user, token } = isAuthenticated();
 
     const [ favStudents, setFavStudents ] =  useState([]);
+    const [run, setRun] = useState(false);
 
     const [ interviewstudents, setInterviewstudents ] =  useState([]);
 
@@ -114,6 +115,10 @@ const AdminUser = props => {
     useEffect(() => {
         loadFavStudents(props.match.params.userId);
     }, []);
+
+    useEffect(() => {
+      setInterviewstudents(getGroupInterviewList(props.match.params.userId));
+    }, [run]);
 
 
     const columns = React.useMemo(
@@ -186,23 +191,12 @@ const AdminUser = props => {
 
     const selectedRowKeys = Object.values(selectedRows);
 
-
-    const interviewCard = () => (
+    const interviewCard= interviewstudents => {
+      return (
       <div class="card">
-          <div class="card-header"> <h3 class="card-title">  面接　({interviewstudents.length === 0 ? "0": interviewstudents.length}) </h3></div>
-                    <div class="card-body ">
-                    <div class="row mb-n3">
-                    {interviewstudents.map((c, i) =>
-                    <div class="col-6 row row-sm mb-3 align-items-center">
-                    <div class="col text-truncate">
-                    <Link className="text-body d-block text-truncate" to={`/student/${c.student._id}`}> {c.student.studentid}</Link>
-                    <small class="d-block text-muted text-truncate mt-n1">{c.student.name}</small>
-                    </div>
-          </div>)}
-          </div>
-        </div>
-    </div>
-    )
+        {console.log(interviewstudents)}
+    </div>)
+    }
 
     const favStudentsCard = () => (
     <div class="card">

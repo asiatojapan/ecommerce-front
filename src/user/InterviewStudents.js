@@ -20,7 +20,7 @@ import {
 } from "tabler-react";
 import "../styles.css";
 
-const LikedStudentsList = () => {
+const InterviewStudents = () => {
     const {
         user: { _id, name, email, role, round }
     } = isAuthenticated();
@@ -52,7 +52,7 @@ const LikedStudentsList = () => {
       <Container>
 
       {interviews.map((c,i) => <div>
-        <CardStudent student={c.students} interview={c}/></div>)}
+        <CardStudent interview={c} student={c.student}/></div>)}
           </Container>
           </div>
           </Page.Content>
@@ -60,4 +60,4 @@ const LikedStudentsList = () => {
     );
 };
 
-export default LikedStudentsList;
+export default InterviewStudents;

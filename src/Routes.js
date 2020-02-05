@@ -16,6 +16,7 @@ import Product from './core/Product';
 import Interview from './core/Interview';
 import ManageInterviews from './admin/ManageInterviews';
 import UpdateInterview from './admin/UpdateInterview';
+import UpdateInterviewItem from './user/UpdateInterviewItem';
 import AdminProfile from './user/AdminProfile';
 import UpdateUser from './admin/UpdateUser';
 import Settings from './admin/Settings';
@@ -25,7 +26,6 @@ import ManageUsers from './admin/ManageUsers';
 import AStudent from './admin/Student';
 import FavStudents from './user/FavStudents';
 import InterviewStudents from './user/InterviewStudents';
-import InterviewByStudent from './user/InterviewByStudent';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
@@ -56,12 +56,12 @@ const Routes = () => {
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
     <PrivateRoute path="/interview/:interviewId" exact component={Interview}/>
-    <PrivateRoute path="/student/:studentId/interviews" exact component={InterviewByStudent}/>
     <PrivateRoute path="/quixote" exact component={Quixote} />
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
+      <PrivateRoute path="/user/interviewitem/:interviewId" exact component={UpdateInterviewItem} />
     </Switch>
     </BrowserRouter>
   );

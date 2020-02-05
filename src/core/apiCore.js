@@ -231,3 +231,24 @@ export const readInterview = interviewId => {
         })
         .catch(err => console.log(err));
 };
+
+export const updateInterviewItem = (interviewId, interviewItemId, userId, token, interview) => {
+  const data = {
+      interviewItemId,
+      interview
+  };
+    return fetch(`${API}/interviewitem/${interviewId}/${userId}`, {
+        method: 'PUT',
+        headers: {
+            // content type?
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
