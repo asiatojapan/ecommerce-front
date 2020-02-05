@@ -144,12 +144,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 }
             };
 
-    const interviewUpdate = (company, student, time,  phase, result, time_period, category) => (
-      <div><span>
+    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
+      <div>
       <button className="btn btn-primary ml-3" onClick={handleShow}>
        Update
      </button>
-     </span>
+
      <Modal show={show} onHide={handleClose}>
      <form>
        <Modal.Header closeButton> Update Interview
@@ -157,8 +157,10 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
        <Modal.Body>
 
           <div className="form-group">
-                <label className="text-muted">Name</label>
-                 <input onChange={handleChange('student')} type="text" className="form-control" value={student} />
+          <label class="form-label">Static</label>
+          <div class="form-control-plaintext">Username</div>
+              <label className="text-muted">Name</label>
+                 <input onChange={handleChange('student')} type="text" className="form-control-plaintext" value={student} />
           </div>
 
           <div className="form-group">

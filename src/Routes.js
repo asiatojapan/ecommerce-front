@@ -26,6 +26,7 @@ import ManageUsers from './admin/ManageUsers';
 import AStudent from './admin/Student';
 import FavStudents from './user/FavStudents';
 import InterviewStudents from './user/InterviewStudents';
+import InterviewStudentsDay1 from './user/InterviewStudentsDay1';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
@@ -52,6 +53,7 @@ const Routes = () => {
     <AdminRoute path="/admin/settings" exact component={Settings} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
     <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
+    <PrivateRoute path="/user/interviews/day1" exact component={InterviewStudentsDay1} />
     <AdminRoute path="/admin/students" exact component={ManageStudents} />
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
