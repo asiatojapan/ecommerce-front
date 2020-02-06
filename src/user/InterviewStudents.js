@@ -50,9 +50,10 @@ const InterviewStudents = () => {
 
     return (
       <InterviewNav>
+      <div class="mt-6">
       {interviews.map((c,i) => <div>
         <CardStudent interview={c} student={c.student}/></div>)}
-      
+      </div>
       </InterviewNav>
     );
 };

@@ -14,6 +14,10 @@ import {
 import type { NotificationProps } from "tabler-react";
 import logo from './Logo.png'
 
+const style = {
+  borderColor: "#0c0c0c"
+ };
+
 type Props = {|
   +children: React.Node,
 |};
@@ -102,12 +106,6 @@ const navBarItems: Array<navItem> = [
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
-  {
-    value: "Schedule",
-    to: "/user/schedule",
-    icon: "box",
-    LinkComponent: withRouter(NavLink),
-  },
 ];
 
 const accountDropdownProps = {
@@ -133,7 +131,7 @@ const isActive = (history, path) => {
 const SiteWrapper = ({ history, children }) => (
 <Fragment>
   {isAuthenticated() && isAuthenticated().user.role === 1 && (
-      <Site.Wrapper
+      <Site.Wrapper 
         headerProps={{
           href: "/admin/dashboard",
           alt: "",

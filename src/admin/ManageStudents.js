@@ -143,7 +143,7 @@ function SliderColumnFilter({
         max={max}
         value={filterValue || min}
         onChange={e => {
-          setFilter(parseInt(e.target.value, 10))
+          setFilter(parseInt(e.target.value, 50))
         }}
       />
       <button onClick={() => setFilter(undefined)}>Off</button>
@@ -295,7 +295,7 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
               <th {...column.getHeaderProps(column.getSortByToggleProps())}>
               {column.render('Header')}
               <span>
-              {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}
+              {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
               </span>
               </th>
             ))}
@@ -340,13 +340,19 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
         style={{ width: '100px' }}
       />
     </span>{' '}
+    <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
     <select
       value={pageSize}
       onChange={e => {
         setPageSize(Number(e.target.value))
       }}
     >
-      {[10, 20, 30, 40, 50].map(pageSize => (
+      {[50, 100, 150, 200, 250].map(pageSize => (
         <option key={pageSize} value={pageSize}>
           Show {pageSize}
         </option>

@@ -39,13 +39,13 @@ const navBarItems: Array<navItem> = [
     useExact: true,
   },
   {
-    value: "Day1",
+    value: "Day 1",
     to: "/user/interviews/day1",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
   {
-    value: "Interviews",
+    value: "Day 2",
     to: "/user/interviews/day2",
     LinkComponent: withRouter(NavLink),
     useExact: true,

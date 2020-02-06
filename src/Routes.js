@@ -27,11 +27,13 @@ import AStudent from './admin/Student';
 import FavStudents from './user/FavStudents';
 import InterviewStudents from './user/InterviewStudents';
 import InterviewStudentsDay1 from './user/InterviewStudentsDay1';
+import InterviewStudentsDay2 from './user/InterviewStudentsDay2';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
 import Quixote from './pdf/Quixote';
 import Faq from './user/Faq';
+import Test from './user/Test';
 
 const Routes = () => {
   return (
@@ -42,6 +44,7 @@ const Routes = () => {
     <Route path="/create/like" exact component={AddLike} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/faq" exact component={Faq}/>
+    <PrivateRoute path="/test" exact component={Test}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/user/students" exact component={FavStudents}/>
     <PrivateRoute path="/user/dashboard" exact component={Dashboard}/>
@@ -54,6 +57,7 @@ const Routes = () => {
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
     <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
     <PrivateRoute path="/user/interviews/day1" exact component={InterviewStudentsDay1} />
+    <PrivateRoute path="/user/interviews/day2" exact component={InterviewStudentsDay2} />
     <AdminRoute path="/admin/students" exact component={ManageStudents} />
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />

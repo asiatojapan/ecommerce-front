@@ -326,6 +326,12 @@ export const Table = function ({ columns, data }) {
         style={{ width: '100px' }}
       />
     </span>{' '}
+    <span>
+          Page{' '}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{' '}
+        </span>
     <select
       value={pageSize}
       onChange={e => {

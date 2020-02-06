@@ -4,7 +4,7 @@ import { getMyInterviews, getGroupInterviewList, getGroupInterviewPerson, readSt
 import { Link } from "react-router-dom";
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper'
-import UpdateInterviewItem from "../user/UpdateInterviewItem"
+import UpdateInterviewItem from "../user/UpdateInterviewItem0"
 import {
   Page,
   Avatar,
@@ -39,7 +39,7 @@ const InterviewItem = ({item, interview}) => {
                     </div>
                   </div>
                   <div class="ml-auto">
-                  {item.phase} / <strong>{item.time}</strong> /   <strong>{item.result}</strong>
+                  {item.phase}/ {item.time_period} / <strong>{item.time}</strong> /   <strong>{item.result}</strong>
                   </div>
                   <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} />
 

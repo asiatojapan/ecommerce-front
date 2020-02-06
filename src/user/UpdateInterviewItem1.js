@@ -4,7 +4,7 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import { getInterview, getUsers } from '../admin/apiAdmin';
 import { getStudents, updateInterviewItem } from '../core/apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
-import { useForm, Controller } from "react-hook-form";
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {
@@ -22,8 +22,6 @@ import {
 } from "tabler-react";
 
 const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) => {
-
-    const { register, handleSubmit, watch, errors, control } = useForm();
     const [values, setValues] = useState({
         studentname: "",
         name: "",
@@ -55,11 +53,13 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
+                console.log(data)
                 const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
                 setValues({ ...values, studentname: data.student.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
-                  time_period: interviewItems[0].time_period,
+                  time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
+                  character_match: interviewItems[0].character_match, skill_match: interviewItems[0].skill_match
                  });
             }
         });
@@ -73,10 +73,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         setValues({ ...values, error: false, [name]: e.target.value });
     };
 
-
-    const onSubmit = data => { console.log(data) }
-
     const clickSubmit = e => {
+        e.preventDefault();
         updateInterviewItem(interviewId, interviewItemId, user._id, token, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
             if (data.error) {
                 // console.log(data.error);
@@ -122,19 +120,18 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
       <button className="btn btn-primary ml-3" onClick={handleShow}>
        Done?
      </button>
-          <Modal show={show} onHide={handleClose}>
-                 <form onSubmit={handleSubmit(clickSubmit)}>
+
+                 <Modal show={show} onHide={handleClose}>
+                 <form>
                    <Modal.Body closeButton>
                    <div class="container">
+                       {console.log(student)}
                        <h3 class="text-center mt-5 mb-5">How was your interview with <br/>
                        <strong> {studentname} </strong>? </h3>
                        <hr />
-                        <input style={{display: 'none' }} onChange={handleChange('japanese_level')} value={japanese_level}
-                          name="japaneseVali"
-                          ref={register({ required: true, maxLength: 10 })}
-                        />
-                        <Form.Group label="日本語力"> {errors.japaneseVali && <div class="text-red">This field is required</div>}
-                          <Form.SelectGroup pills onChange={handleChange('japanese_level')} name="japanese">
+
+                        <Form.Group label="日本語力">
+                          <Form.SelectGroup pills  onChange={handleChange('japanese_level')}>
                             <Form.SelectGroupItem
                               label="1"
                               name="japanese"
@@ -163,7 +160,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                           </Form.SelectGroup>
                         </Form.Group>
 
-                        <Form.Group label="Skill Match">{errors.skillVali && <div class="text-red">This field is required</div>}
+                        <Form.Group label="Skill Match">
                           <Form.SelectGroup pills  onChange={handleChange('skill_match')}>
                             <Form.SelectGroupItem
                               label="1"
@@ -192,12 +189,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                             />
                           </Form.SelectGroup>
                         </Form.Group>
-                        <input style={{display: 'none' }} onChange={handleChange('skill_match')} value={skill_match}
-                          name="skillVali"
-                          ref={register({ required: true, maxLength: 10 })}
-                        />
 
-                        <Form.Group label="Character Match"> {errors.characterVali && <div class="text-red">This field is required</div>}
+                        <Form.Group label="Skill Match">
                           <Form.SelectGroup pills onChange={handleChange('character_match')}>
                             <Form.SelectGroupItem
                               label="1"
@@ -226,12 +219,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                             />
                           </Form.SelectGroup>
                         </Form.Group>
-                        <input style={{display: 'none' }} onChange={handleChange('character_match')} value={character_match}
-                          name="characterVali"
-                          ref={register({ required: true, maxLength: 10 })}
-                        />
 
-                        <Form.Group label="合否">   {errors.resultVali && <div class="text-red">This field is required</div>}
+                        <Form.Group label="合否">
                           <Form.SelectGroup onChange={handleChange('result')}>
                             <Form.SelectGroupItem
                               icon="x"
@@ -245,16 +234,10 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                             />
                           </Form.SelectGroup>
                         </Form.Group>
-
-                        <input style={{display: 'none' }} onChange={handleChange('result')} value={result}
-                          name="resultVali"
-                          ref={register({ required: true, maxLength: 10 })}
-                        />
-
                         </div>
                       </Modal.Body>
                       <Modal.Footer>
-                  <input type="submit" className="btn btn-primary btn-block"/>
+                  <button type="submit" onClick={clickSubmit} class="btn btn-primary btn-block ">Submit</button>
               </Modal.Footer>
               </form>
             </Modal>

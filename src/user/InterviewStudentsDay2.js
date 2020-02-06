@@ -56,7 +56,7 @@ const InterviewStudents = () => {
       {interviews.map((interview,i) => <div>
         { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
           <div>
-          { item.time_period === "1日"　?
+          { item.time_period === "2日"　?
           <div class="mt-6">
             <InterviewItemByDay item={item} interview={interview}/> </div>
             : "" }
