@@ -23,6 +23,14 @@ import {
   Container,
   Badge,
 } from "tabler-react";
+import {
+  SearchkitManager,
+  TermQuery,
+  FilteredQuery,
+  BoolShould
+}
+
+const searchkit = new SearchkitManager("localhost:8000/api/students")
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -449,14 +457,11 @@ const ManageStudent = () => {
       <div> {text.rec_users.length == null? "" : text.rec_users.length}
     </div>
     },
-    {
-      Header: 'Faved',
-      accessor: "favoritesCount"
-    },
+
     {
       Header: 'Faved',
       accessor: (text, i) =>
-      <div> {text.favorites.users == null? "" : text.favorites.length}
+      <div> {text.favorites.length == null? "" : text.favorites.length}
     </div>
     },
 

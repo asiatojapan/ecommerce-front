@@ -45,24 +45,24 @@ const AddFav2 = ({student, handleUpdate})  => {
 
     const newLikeForm = () => {
           return (
-      <div>
-        {fav && user.round === "Phase II" && (
-           <button className="btn btn-sm btn-danger disabled" disabled onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text} </button>
-        )}
+            <div>
+              {fav && user.round === "Phase II" && (
+                 <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text} </button>
+              )}
 
-        {fav && user.round !== "Phase II" && (
-           <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
-        )}
+              {fav && user.round !== "Phase II" && (
+                 <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
+              )}
 
-        {!fav && user.round === "Phase II" && (
-           <button className="btn btn-sm btn-outline-danger disabled" disabled onClick={ clickSubmit } href="#0"> {text} </button>
-        )}
+              {!fav && user.round === "Phase II" && (
+                 <button className="btn btn-sm btn-outline-danger " onClick={ clickSubmit } href="#0"> {text} </button>
+              )}
 
-        {!fav && user.round !== "Phase II" && (
-           <button className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0"> {text} </button>
-        )}
+              {!fav && user.round !== "Phase II" && (
+                 <button className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0"> {text} </button>
+              )}
 
-      </div>)
+            </div>)
     };
 
     return (

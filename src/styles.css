@@ -29,223 +29,6 @@ html {
   min-height: 100%;
 }
 
-.ant-layout {
-  background: #fff;
-  min-height: 100vh;
-}
-
-.ant-layout-sider {
-  border-right: 1px solid #e8e8e8;
-  background: #fff;
-}
-
-.full-height {
-  height: 100vh;
-}
-
-.student-card {
-    padding: 16px;
-    border: 1px solid #c7c7c7;
-    border-radius: 4px;
-    margin-top: 30px;
-    top: 5px;
-    display: block;
-    width: 100%;
-    min-height: 149px;
-    padding: 10px 20px;
-    border-radius: 3px;
-    box-sizing: border-box;
-    cursor: default;
-    clear: both;
-    background-color: #fff;
-    border-color: #dcdcdc;
-    box-shadow: 0 0 10px #dcdcdc;
-}
-
-.student-card-left {
-    -webkit-box-align: end;
-    align-items: flex-end;
-}
-
-.ribbon11-wrapper {
-    display: -webkit-box;
-    display: flex;
-    position: relative;
-    margin: 0 auto;
-}
-
-.ribbon11 {
-    display: inline-block;
-    position: relative;
-    box-sizing: border-box;
-    padding: 10px;
-    margin: 0 0 0 -40px;
-    width: 130px;
-    height: 40px;
-    font-size: 12px;
-    color: white;
-    background: #222;
-    border-radius: 3px 6px 6px 0;
-}
-
-.ribbon11:before {
-    position: absolute;
-    content: '';
-    top: 100%;
-    left: 0;
-    border: none;
-    border-bottom: solid 15px transparent;
-    border-right: solid 20px #222;
-}
-
-.comments {
-    margin: 6px 0 0 8px;
-}
-
-.profile-info {
-    display: -webkit-box;
-    display: flex;
-}
-
-.profile-info dt {
-    font-size: 1rem;
-    font-weight: 600;
-    color: rgba(0,0,0,0.9);
-    -webkit-box-flex: 0;
-    flex: 0 0 102px;
-    float: left;
-    text-align: right;
-    clear: both;
-    margin-right: 16px;
-}
-
-.profile {
-    margin: 1.3rem 0.3rem 1.2rem;
-}
-
-.profile-wrap {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.profile-wrap-left {
-    -webkit-box-flex: 1;
-    flex: 1;
-    max-width: 200px;
-}
-
-.iframe-container {
-    overflow: hidden;
-    padding-top: 56.25%;
-    position: relative;
-    margin-bottom: 1rem;
-}
-
-.iframe-container iframe {
-    border: 0;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-}
-
-.profile-wrap-center {
-    -webkit-box-flex: 1;
-    flex: 1;
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-flex: 4;
-    flex-grow: 4;
-}
-
-.profile-info {
-    display: -webkit-box;
-    display: flex;
-}
-
-.profile-info dt {
-    font-size: 1rem;
-    font-weight: 600;
-    color: rgba(0,0,0,0.9);
-    -webkit-box-flex: 0;
-    flex: 0 0 102px;
-    float: left;
-    text-align: right;
-    clear: both;
-    margin-right: 16px;
-}
-.profile-info dd {
-    min-width: 500px;
-}
-
-.row {
-    display: -webkit-box;
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-}
-
-.indiv-left {
-    width: 75%;
-}
-
-.indiv-card {
-    padding: 16px;
-    border: 1px solid #e6e6e6;
-    background-color: #fff;
-    font-size: 16px;
-    color: #24282A;
-    border-radius: 3px;
-    margin-bottom: 30px;
-}
-
-.iframe-container {
-    overflow: hidden;
-    padding-top: 56.25%;
-    position: relative;
-    margin-bottom: 1rem;
-}
-.indiv-card {
-    padding: 16px;
-    border: 1px solid #e6e6e6;
-    background-color: #fff;
-    font-size: 16px;
-    color: #24282A;
-    border-radius: 3px;
-    margin-bottom: 30px;
-}
-
-.indiv-header {
-    padding-bottom: 10px;
-    padding-top: 10px;
-    font-size: 14px;
-    box-shadow: inset 0 -1px 0 0 #dddde5;
-    font-weight: 700;
-}
-
-.profile-info {
-    display: -webkit-box;
-    display: flex;
-}
-
-.profile-info dt {
-    font-size: 1rem;
-    font-weight: 600;
-    color: rgba(0,0,0,0.9);
-    -webkit-box-flex: 0;
-    flex: 0 0 102px;
-    float: left;
-    text-align: right;
-    clear: both;
-    margin-right: 16px;
-}
-
 
 .player-wrapper {
   position: relative;
@@ -374,7 +157,7 @@ display: none;
 
 .page-main {
     flex: 1 1 auto;
-    background-color: #fff;
+    background-color:#f7f7f7;;
 }
 
 div#root {
@@ -533,6 +316,17 @@ iframe {
   white-space: pre-wrap;
 }
 
-.card {
-  border: 1px solid;
+.card1 {
+    box-shadow: none;
+    position: relative;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: none;
 }

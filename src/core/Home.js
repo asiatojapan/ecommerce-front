@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Card2 from './Card';
+import List from './List';
 import { Link, Redirect } from 'react-router-dom';
 import { isAuthenticated } from '../auth';
 import Checkbox2 from "./Checkbox";
@@ -16,7 +17,6 @@ import {
   Avatar,
   Icon,
   Grid,
-  Card,
   Text,
   Table,
   Alert,
@@ -26,7 +26,30 @@ import {
 } from "tabler-react";
 import "../styles.css";
 import "tabler-react/dist/Tabler.css";
+import styled from 'styled-components'
 
+  const CardColumn = styled.div`
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: minmax(200px, auto);
+    grid-gap: 1rem;`
+
+    const Card= styled.div`
+      position: relative;
+      background: #fff;
+      margin-bottom: 20px;
+    border: 0;
+    border-radius: 12px;
+    color: #323232;
+    margin-bottom: 16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    overflow: hidden;
+    padding: 0;
+    text-align: left;
+    transition: all .2s ease-out;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
+    `
 const Home = () => {
   const { user, token } = isAuthenticated();
   const [students, setStudents] = useState([]);
@@ -35,7 +58,7 @@ const Home = () => {
   });
   const [categorieslist, setCategorieslist] = useState([]);
   const [error, setError] = useState(false);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(15);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
@@ -145,7 +168,7 @@ const Home = () => {
       <Container>
          <Grid.Row>
            <Grid.Col width={12} lg={3} sm={12}>
-                <div class="card">
+                <Card>
                   <div class="card-body">
                     <h3 class="card-title">Tags</h3>
                     <Checkbox2
@@ -153,9 +176,9 @@ const Home = () => {
                                handleFilters={filters =>
                                    handleFilters(filters, "tags")} />
                   </div>
-                </div>
+                </Card>
 
-                <div class="card">
+                <Card>
                        <div class="card-body">
                        <h3 class="card-title">IT Skills</h3>
                        <div class="mb-3">
@@ -165,17 +188,18 @@ const Home = () => {
                        </div>
                           </div>
                        </div>
-                     </div>
+                     </Card>
            </Grid.Col>
 
         <Grid.Col width={12} lg={9} sm={12}>
         <h3> {filteredResults.length + " Results"} </h3>
 
         {filteredResults.map((student, i) => (
-        <div key={i}>
-          <Card2 student={student} />
+        <div>
+          <List student={student} />
         </div>
         ))}
+
         {loadMoreButton()}
 
         </Grid.Col>

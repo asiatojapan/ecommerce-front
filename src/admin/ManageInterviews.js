@@ -8,6 +8,7 @@ import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagin
 import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
+import AddInterviewItem from "./AddInterviewItem";
 import {
   Page,
   Dropdown,
@@ -399,30 +400,22 @@ const ManageInterviews = () => {
                     <div>{text.companies.map((user,i)=> <div>{user.name}</div>)}</div>
             },
     {
-      Header: 'Phase',
-      accessor: "phase"
+      Header: 'Rank',
+      accessor: "companyRank"
     },
     {
-      Header: '時間',
-      accessor: "time"
+      Header: 'Rate',
+      accessor: "companyRate"
     },
     {
-      Header: '結果',
-      accessor: "result"
-    },
-    {
-      Header: '日',
-      accessor: "time_period"
-    },
-    {
-      Header: 'Category',
-      accessor: "category"
+      Header: 'Reason',
+      accessor: "reason"
     },
     {
       Header: "Actions",
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
-        <Dropdown.Item><UpdateInterview interviewId={text._id} /></Dropdown.Item>
+        <Dropdown.Item><AddInterviewItem interviewId={text._id} /></Dropdown.Item>
         <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
                 Delete
             </a></Dropdown.Item>

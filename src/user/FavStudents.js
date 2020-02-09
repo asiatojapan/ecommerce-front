@@ -79,8 +79,7 @@ const FavStudents = () => {
                      }  </div>
                         </div>
                       </div>
-
-    )
+                        )
 
 
 

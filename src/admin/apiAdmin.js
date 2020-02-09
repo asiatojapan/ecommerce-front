@@ -330,6 +330,26 @@ export const createInterview = (student, company, token, interview) => {
       });
 };
 
+export const createInterviewItem = (interviewId, userId, token, interview) => {
+  console.log(interview)
+  return fetch(`${API}/interview/${interviewId}/create/${userId}`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(interview)
+  })
+      .then(response => {
+          return response.json();
+      })
+      .catch(err => {
+          console.log(err);
+      });
+};
+
+
 export const deleteInterview = (interviewId, userId, token) => {
     return fetch(`${API}/interview/${interviewId}/${userId}`, {
         method: 'DELETE',
