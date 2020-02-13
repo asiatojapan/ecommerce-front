@@ -7,7 +7,7 @@ import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { it_skills } from "./it_skills";
-import { getStudents, getCategories, getFilteredStudents } from './apiCore';
+import { getStudents, getCategories, getFilteredStudents,getFavStudents } from './apiCore';
 import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper';
@@ -18,6 +18,7 @@ import {
   Icon,
   Grid,
   Text,
+  Notification,
   Table,
   Alert,
   Progress,
@@ -26,7 +27,13 @@ import {
 } from "tabler-react";
 import "../styles.css";
 import "tabler-react/dist/Tabler.css";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import Notifications, {notify} from 'react-notify-toast';
+
 import styled from 'styled-components'
+
 
   const CardColumn = styled.div`
     display: grid;
@@ -34,25 +41,10 @@ import styled from 'styled-components'
     grid-auto-rows: minmax(200px, auto);
     grid-gap: 1rem;`
 
-    const Card= styled.div`
-      position: relative;
-      background: #fff;
-      margin-bottom: 20px;
-    border: 0;
-    border-radius: 12px;
-    color: #323232;
-    margin-bottom: 16px;
-    margin-left: 4px;
-    margin-right: 4px;
-    overflow: hidden;
-    padding: 0;
-    text-align: left;
-    transition: all .2s ease-out;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
-    `
 const Home = () => {
   const { user, token } = isAuthenticated();
   const [students, setStudents] = useState([]);
+  const [favCount, setFavCount] = useState();
   const [myFilters, setMyFilters] = useState({
       filters: { categories: [], it_skills: [] }
   });
@@ -85,6 +77,14 @@ const Home = () => {
       });
   };
 
+  const getFavCount = userId => {
+    getFavStudents(user._id).then(data => {
+        setFavCount(data.length);
+    });
+};
+
+  
+
   const loadMore = () => {
     let toSkip = skip + limit;
     // console.log(newFilters);
@@ -103,6 +103,7 @@ const Home = () => {
   useEffect(() => {
       init();
       loadFilteredResults(skip, limit, myFilters.filters);
+      getFavCount(user._id);
   }, []);
 
 
@@ -116,6 +117,17 @@ const Home = () => {
          )
      );
  };
+
+
+ const Position = () => {
+    let myColor = { width: "100%", background: '#0E1717', text: "#FFFFFF" };
+    notify.show(
+        <div style={{fontSize: "16px" }}>
+          390円OFF適用。 対象商品をあと3 点追加で、500円OFF
+          <a class="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
+        </div>, "custom", -1, myColor
+      );
+  }
 
   const handleFilters = (filters, filterBy) => {
       console.log(filters, filterBy);
@@ -136,6 +148,10 @@ const Home = () => {
         }
     }
     return array;
+  };
+
+  const handleSetFavCount = e => {
+    setFavCount(e);
   };
 
   const handleItCategories = value => {
@@ -162,24 +178,23 @@ const Home = () => {
   };
 
 
+
     return (
       <SiteWrapper>
       <div className="my-3 my-md-5">
       <Container>
          <Grid.Row>
            <Grid.Col width={12} lg={3} sm={12}>
-                <Card>
-                  <div class="card-body">
+                <div class="list-list">
                     <h3 class="card-title">Tags</h3>
                     <Checkbox2
                                categories={categories}
                                handleFilters={filters =>
                                    handleFilters(filters, "tags")} />
+                
                   </div>
-                </Card>
 
-                <Card>
-                       <div class="card-body">
+                <div class="list-list">
                        <h3 class="card-title">IT Skills</h3>
                        <div class="mb-3">
                         <div class="form-selectgroup">
@@ -188,15 +203,14 @@ const Home = () => {
                        </div>
                           </div>
                        </div>
-                     </Card>
+            
            </Grid.Col>
 
         <Grid.Col width={12} lg={9} sm={12}>
-        <h3> {filteredResults.length + " Results"} </h3>
-
-        {filteredResults.map((student, i) => (
+               {filteredResults.map((student, i) => (
         <div>
-          <List student={student} />
+          <List student={student} setFavCount={handleSetFavCount}
+            favCount={favCount}/>
         </div>
         ))}
 
@@ -206,6 +220,12 @@ const Home = () => {
         </Grid.Row>
         </Container>
         </div>
+        
+            {favCount === 0 ? 
+            <div>
+          {Position()}
+          </div>: <a href="/user/students"><div class="count-bar"><div class="heart"><i class="fe fe-heart"></i>{favCount} </div></div></a>} 
+          <Notifications options={{zIndex: 200, width: "100%"}} />
         </SiteWrapper>
     );
 };

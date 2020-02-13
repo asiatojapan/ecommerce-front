@@ -456,8 +456,9 @@ const ManageStudent = () => {
     {
       Header: 'Faved',
       accessor: (text, i) =>
-      <div> {text.favorites.users == null? "" : text.favorites.length}
-    </div>
+      <div> {text.favorites.users == null? "" : 
+      <div> </div> }
+    </div> 
     },
 
 

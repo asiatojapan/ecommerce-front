@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from "../auth";
 import { List } from 'antd';
-import { getInterviews, deleteInterview } from "./apiAdmin";
+import { getInterviews, deleteInterview, deleteInterviewItem } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
 import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
+import UpdateInterviewItem from "./UpdateInterviewItem";
 import AddInterviewItem from "./AddInterviewItem";
 import {
   Page,
@@ -369,6 +370,17 @@ const ManageInterviews = () => {
   };
 
 
+  const destroyItem = (interviewId, itemId) => {
+    deleteInterviewItem(interviewId, user._id, token, itemId).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            loadInterviews();
+        }
+    });
+};
+
+
   const columns = React.useMemo(
    () => [
      // Let's make a column for selection
@@ -390,15 +402,29 @@ const ManageInterviews = () => {
        )
      },
     {
-          Header: 'Student',
-          accessor: (text, i) =>
-          <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
-        },
-        {
-              Header: 'Company',
-              accessor: (text, i) =>
-                    <div>{text.companies.map((user,i)=> <div>{user.name}</div>)}</div>
-            },
+    Header: 'Student',
+    accessor: (text, i) =>
+    <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
+    },
+    {
+    Header: 'Company',
+    accessor: (text, i) =>
+    <div>{text.companies.map((user,i)=> <div>{user.name}</div>)}</div>
+    },
+    { 
+      Header: 'Interview',
+      accessor: (text, i) =>
+      <div>{text.interviewItems.length == null ? "" : 
+        <div>{text.interviewItems.map((item, i) => 
+        <div>{item.time} ({item.category}) : {item.result} 
+        <UpdateInterviewItem interviewItemId={item._id} interviewId={text._id} />
+        <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroyItem(text._id, item._id) } } >
+                Delete
+            </a>
+            </div>)} 
+        </div>}
+      </div>
+    },
     {
       Header: 'Rank',
       accessor: "companyRank"
@@ -415,7 +441,7 @@ const ManageInterviews = () => {
       Header: "Actions",
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
-        <Dropdown.Item><AddInterviewItem interviewId={text._id} /></Dropdown.Item>
+        <Dropdown.Item> <AddInterviewItem interviewId={text._id} /></Dropdown.Item>
         <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
                 Delete
             </a></Dropdown.Item>

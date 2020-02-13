@@ -54,11 +54,12 @@ const InterviewStudents = () => {
     return (
       <InterviewNav>
       {interviews.map((interview,i) => <div>
+        {console.log(interview)}
         { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
-          <div>
+          <div> {console.log(item)}
           { item.time_period === "1日"　?
           <div class="mt-6">
-            <InterviewItemByDay item={item} interview={interview}/> </div>
+            <InterviewItemByDay item={item} interview={interview}/></div>
             : "" }
           </div>
         ) : ""} </div> )}

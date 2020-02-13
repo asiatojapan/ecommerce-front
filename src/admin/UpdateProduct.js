@@ -20,6 +20,7 @@ const UpdateProduct = ({ match }) => {
         redirectToProfile: false,
         formData: ''
     });
+    
     const [categories, setCategories] = useState([]);
 
     const { user, token } = isAuthenticated();

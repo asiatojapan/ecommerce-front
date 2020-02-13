@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import { createInterviewItem, getInterview, getUsers } from './apiAdmin';
-import { getStudents } from '../core/apiCore';
+import { getInterview, getUsers } from './apiAdmin';
+import { getStudents, updateInterviewItem } from '../core/apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
 
 import Button from 'react-bootstrap/Button';
@@ -20,16 +20,20 @@ import {
   Badge,
 } from "tabler-react";
 
-  const AddInterviewItem = ({interviewId, userIdFromTable, handleUpdate }) => {
+const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) => {
     const [values, setValues] = useState({
         name: "",
         time: "",
+        status: "",
         phase: "",
         result: "",
         company: "",
         student: "",
         time_period: "",
         category: "",
+        japanese_level: "",
+        skill_match: "",
+        character_match: "",
         error: false,
         success: false,
         redirectToProfile: false,
@@ -40,22 +44,46 @@ import {
 
     const { user, token } = isAuthenticated();
 
-    const { company, student, name, time, phase, result, time_period, category, error, success, redirectToProfile} = values;
+    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
 
-    const init = () => {
+    const init = interviewId => {
         getInterview(interviewId).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
-                setValues({ ...values, company: data.company, student: data.student });
-                console.log(data.student)
+                const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
+                setValues({ ...values, company: data.company._id, student: data.student._id,
+                  status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
+                  phase: interviewItems[0].phase, category: interviewItems[0].category,
+                  time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
+                  character_match: interviewItems[0].character_match, skill_match: interviewItems[0].skill_match
+                 });
             }
         });
     };
 
+    const initUsers = () => {
+        getUsers().then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setUsers(data);
+            }
+        });
+    };
+
+    const initStudents = () => {
+        getStudents().then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setStudents(data);
+            }
+        });
+    };
 
     useEffect(() => {
-        init();
+        init(interviewId);
     }, []);
 
     const handleChange = name => e => {
@@ -64,7 +92,7 @@ import {
 
     const clickSubmit = e => {
         e.preventDefault();
-        createInterviewItem(interviewId, user._id, token, {time, phase, result, time_period, category }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, user._id, token, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -79,6 +107,9 @@ import {
                   result: data.result,
                   category: data.category,
                   time_period: data.time_period,
+                  japanese_level: data.japanese_level,
+                  character_match: data.character_match,
+                  skill_match: data.skill_match,
                   success: true,
                   redirectToProfile: true
               });
@@ -113,26 +144,20 @@ import {
                 }
             };
 
-    const interviewUpdate = ( time,  phase, result, time_period, category) => (
+    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
       <div>
-      <a onClick={handleShow}>
-       Add Interview Item
-     </a>
+      <button onClick={handleShow}>
+       Update
+     </button>
 
      <Modal show={show} onHide={handleClose}>
      <form>
-       <Modal.Header closeButton> Add Interview Item
-       </Modal.Header>
-       <Modal.Body>
-          <div class="mb-2">
-           <h3>{student.name}</h3> 
-            <h3>{company.name}</h3>
-        </div>
+       <Modal.Body closeButton>
+
 
           <div class="mb-2">
               <div class="form-label">時間</div>
               <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
-              <option value="">Select</option>
                     <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
                     <option value="10:00"> 10:00 </option>
@@ -187,7 +212,7 @@ import {
           <div class="mb-2">
             <label class="form-label">Category</label>
             <select placeholder="category" onChange={handleChange("category")} value={category} class="form-control">
-                  <option value="">Select</option>
+                    <option value="">Select</option>
                   <option value="面接"> 面接</option>
                   <option value="試験"> 試験 </option>
                   <option value="説明会"> 説明会 </option>
@@ -205,10 +230,10 @@ import {
 
     return (
       <span>
-          {interviewUpdate(time, phase, result, time_period, category)}
+          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match)}
           {redirectUser()}
       </span>
     );
 };
 
-export default withRouter(AddInterviewItem);
+export default withRouter(UpdateInterviewItem);

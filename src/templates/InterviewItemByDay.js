@@ -17,59 +17,70 @@ const InterviewItemByDay = ({item, interview}) => {
 
     const Card = styled.div`
           position: relative;
-          display: flex;
-          flex-direction: column;
-          min-width: 0;
-          word-wrap: break-word;
-          background-color: #f9f9f9;
-          background-clip: border-box;
-          border-radius: 0px;
+          background: #fff;
+          padding: 20px 20px;
+          margin-bottom: 20px;
+          border-radius: 20px;
+          position: relative;
+          background: #fff;
+          margin-bottom: 20px;
+          border: 0;
+          border-radius: 12px;
+          color: #323232;
+          overflow: hidden;
+          text-align: left;
+          transition: all .2s ease-out;
+          box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
       `;
 
     const CardFailed = styled.div`
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            word-wrap: break-word;
-            background-color: #eee;
-            background-clip: border-box;
-            border-radius: 0px;
+          position: relative;
+          background: #fff;
+          padding: 20px 20px;
+          margin-bottom: 20px;
+          border-radius: 20px;
+          position: relative;
+          background: #fff;
+          margin-bottom: 20px;
+          border: 0;
+          border-radius: 12px;
+          color: #323232;
+          overflow: hidden;
+          text-align: left;
+          transition: all .2s ease-out;
+          box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
         `;
 
     const children = (
                 <div class="card-body p-2 d-flex align-items-center">
-                  <span class="avatar mr-3 rounded"></span>
+                  <span class="bg-secondary text-white stamp px-2 mr-3">{item.category}
+                    </span>
                   <div class="mr-3 lh-sm">
                   <h3 class="mb-0">
                       <strong> {item.time}</strong>
                     <Link class="text-blue ml-3"
                     to={`/student/${interview.student._id}`} target="_blank">
                     {interview.student.name} ({interview.student.studentid}) </Link></h3>
-                    <div class="text-muted">{item.category}</div>
+                    <div> {item.result} / 日本語 {item.japanese_level} / Character {item.character_match} / スキル {item.skill_match} </div>
                   </div>
                   <div class="ml-auto">
                    {item.company_form === true ?
-                      <span class="bg-green text-white stamp mr-3"> {item.result} </span>  :
+                      <div>
+                      <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /> 
+                      </div>:
                      <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /> }
                     </div>
                 </div>
     )
 
     const display = () => {
-        if (item.result === "合格")  {
+       
           return (
               <Card>
                {children}
              </Card>
-           ) }
-        else if (item.result === "不合格")  {
-          return (
-          <CardFailed>
-           {children}
-         </CardFailed>
-          )
-       }
+           ) 
+       
     }
 
     return (

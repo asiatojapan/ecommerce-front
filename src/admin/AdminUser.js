@@ -218,7 +218,6 @@ const AdminUser = props => {
       <SiteWrapper>
       <Page.Content>
       <Grid.Row>
-      <Grid.Col lg={4} >
       <div class="card">
                     <div class="card-body ">
                       <h2 class="mb-3">{user1.name}</h2>
@@ -232,13 +231,12 @@ const AdminUser = props => {
                     </div>
                   </div>
                   {favStudentsCard()}
-                    {interviewCard()}
-  </Grid.Col>
-  <Grid.Col lg={8}>
-  <Card>
+                  {interviewCard()}
+      </Grid.Row>
+      <Grid.Row>
+    <Card>
     <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
     </Card>
-    </Grid.Col>
       </Grid.Row>
       </Page.Content>
     </SiteWrapper>

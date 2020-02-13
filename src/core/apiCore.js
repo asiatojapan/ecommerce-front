@@ -166,7 +166,7 @@ export const getGroupInterviewPerson = (studentId, userId) => {
         .catch(err => console.log(err));
 };
 
-export const createSubmit = (userId, token) => {
+export const createSubmit = (userId, token, rank) => {
   return fetch(`${API}/submit/${userId}`, {
       method: 'POST',
       headers: {
@@ -174,8 +174,47 @@ export const createSubmit = (userId, token) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
       },
+      body: JSON.stringify(rank)
   })
 };
+
+export const createFavItem = (userId, token, favItem) => {
+    return fetch(`${API}/order/favitem/create/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(favItem)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
+  export const createOrder = (userId, token, createOrderData) => {
+    return fetch(`${API}/order/create/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ order: createOrderData })
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
+
 
 export const createFav = (studentId, userId, token) => {
 
@@ -214,6 +253,16 @@ export const destroyFav = (studentId, user, token) => {
 
 export const getFavStudents = (userId) => {
     return fetch(`${API}/students/favorites/${userId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getOrders = (userId) => {
+    return fetch(`${API}/order/list/${userId}`, {
         method: "GET"
     })
         .then(response => {

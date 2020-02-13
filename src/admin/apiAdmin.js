@@ -427,3 +427,22 @@ export const getInterview = interviewId => {
         })
         .catch(err => console.log(err));
 };
+
+export const deleteInterviewItem = (interviewId, userId, token, itemId) => {
+    const interviewItemId = {
+        itemId
+    };
+    return fetch(`${API}/interview/${interviewId}/interviewitem/${userId}`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(interviewItemId)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

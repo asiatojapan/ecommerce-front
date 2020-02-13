@@ -14,19 +14,17 @@ import {
 } from "tabler-react";
 import {PdfDocument} from "../pdf/PdfDocument";
 
-const CardMainStudent = ({student, indivRank, setRun = f => f,  run = undefined }) => {
+const CardMainStudentConfirm = ({student, indivRank }) => {
 
   const { user, token } = isAuthenticated();
 
 
   const handleSetRankChange = (e) => {
-      setRun(!run);
-      console.log(run)
       indivRank({rank: e, studentId: student._id})
   };
 
-  const clickDelete = (e) => {
-    setRun(!run);
+  const clickDelete = e => {
+    e.preventDefault();
     destroyFav(student._id, user, token);
 };
 
@@ -38,7 +36,7 @@ const CardMainStudent = ({student, indivRank, setRun = f => f,  run = undefined 
                         <h4 class="card-title mb-2">
                           <Link to={`/student/${student._id}`}> {student.studentid} </Link>
                         </h4>
-                        <div className="list-Desc" style={{marginBottom: "0px"}}>
+                        <div className="list-Desc">
                         <div>
                         <Icon prefix="fe" name="user" /><strong>  性別・年齢: </strong> {student.gender === "male" ? "男性": "女性"}・{student.age}
                         </div>
@@ -46,7 +44,8 @@ const CardMainStudent = ({student, indivRank, setRun = f => f,  run = undefined 
                         <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
                         </div>
                         </div>
-                           
+                          {student.status === "来日" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
+                       
                       </div>
                   <div class="col-auto">
                     <AddRank favStudent={student} handleRankChange={handleSetRankChange} />
@@ -56,4 +55,4 @@ const CardMainStudent = ({student, indivRank, setRun = f => f,  run = undefined 
 );
 };
 
-export default CardMainStudent;
+export default CardMainStudentConfirm;

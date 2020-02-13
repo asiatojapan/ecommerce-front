@@ -154,32 +154,6 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
      <form>
        <Modal.Body closeButton>
 
-        
-          <div className="form-group">
-              <label className="text-muted">Name</label>
-              <input onChange={handleChange('company')} type="text" className="form-control" value={company} />
-          </div>
-
-
-          <div className="form-group">
-              <label className="text-muted">Time</label>
-              <input onChange={handleChange('time')} type="text" className="form-control" value={time} />
-          </div>
-
-          <div className="form-group">
-              <label className="text-muted">Japanese Level (number)</label>
-              <input onChange={handleChange('japanese_level')} type="text" className="form-control" value={japanese_level} />
-          </div>
-
-          <div className="form-group">
-              <label className="text-muted">Skill Match (number)</label>
-              <input onChange={handleChange('skill_match')} type="text" className="form-control" value={skill_match} />
-          </div>
-
-          <div className="form-group">
-              <label className="text-muted">Character Match (number)</label>
-              <input onChange={handleChange('character_match')} type="text" className="form-control" value={character_match} />
-          </div>
 
           <div class="mb-2">
               <div class="form-label">時間</div>
