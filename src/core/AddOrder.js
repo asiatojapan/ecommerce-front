@@ -22,6 +22,8 @@ const AddOrder = ({ favStudent, interviewItemId, match, history }) => {
   const [rank, setRank] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const { register, handleSubmit, watch, errors, control } = useForm();
+   
 
   // destructure user and token from localstorage
   const { user, token } = isAuthenticated();
@@ -47,7 +49,11 @@ const AddOrder = ({ favStudent, interviewItemId, match, history }) => {
   };
 
   const newCategoryFom = () => (
-      <form onSubmit={clickSubmit}>
+      <form onSubmit={handle(clickSubmit)}>
+              <input style={{display: 'none' }} onChange={handleChange} value={rank}
+                          name="jrank"
+                          ref={register({ required: true, maxLength: 10 })}
+                        />{errors.japaneseVali && <div class="text-red">This field is required</div>}
             <Form.Group label="希望"> 
                           <Form.SelectGroup pills onChange={handleChange} name="japanese">
                             <Form.SelectGroupItem

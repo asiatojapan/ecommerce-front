@@ -33,7 +33,13 @@ import Student from './core/Student';
 import Profile from './user/Profile';
 import Quixote from './pdf/Quixote';
 import Faq from './user/Faq';
-import Test from './user/Test';
+import CheckoutPreview from './core/CheckoutPreview';
+import Checkout from './core/Checkout';
+import Orders from './user/Orders';
+import Order from './user/Order';
+
+document.body.style.backgroundColor = "#f5f7fb";
+
 
 const Routes = () => {
   return (
@@ -44,8 +50,11 @@ const Routes = () => {
     <Route path="/create/like" exact component={AddLike} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/faq" exact component={Faq}/>
-    <PrivateRoute path="/test" exact component={Test}/>
+    <PrivateRoute path="/user/orders" exact component={Orders}/>
+    <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>
+    <PrivateRoute path="/checkout" exact component={Checkout}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
+    <PrivateRoute path="/order/:orderId" exact component={Order}/>
     <PrivateRoute path="/user/students" exact component={FavStudents}/>
     <PrivateRoute path="/user/dashboard" exact component={Dashboard}/>
     <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />

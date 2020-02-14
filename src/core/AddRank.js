@@ -22,7 +22,8 @@ const AddRank = ({ favStudent, interviewItemId, handleRankChange }) => {
   const [rank, setRank] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const { register, handleSubmit, watch, errors, control } = useForm();
+  
   // destructure user and token from localstorage
   const { user, token } = isAuthenticated();
 
@@ -33,7 +34,11 @@ const AddRank = ({ favStudent, interviewItemId, handleRankChange }) => {
   };
 
   const newCategoryFom = () => (
-      <form>
+      <form> 
+          <input style={{display: 'none' }} onChange={handleChange} value={rank}
+      name="jrank"
+      ref={register({ required: true, maxLength: 10 })}
+    />{errors.japaneseVali && <div class="text-red">This field is required</div>}
             <Form.Group label="希望"> 
                           <Form.SelectGroup pills onChange={handleChange} name="japanese">
                             <Form.SelectGroupItem
@@ -64,26 +69,6 @@ const AddRank = ({ favStudent, interviewItemId, handleRankChange }) => {
                           </Form.SelectGroup>
                         </Form.Group>
             </form>
-  );
-
-  const showSuccess = () => {
-      if (success) {
-          return <h3 className="text-success">{rank} is created</h3>;
-      }
-  };
-
-  const showError = () => {
-      if (error) {
-          return <h3 className="text-danger">Category should be unique</h3>;
-      }
-  };
-
-  const goBack = () => (
-      <div className="mt-5">
-          <Link to="/admin/dashboard" className="text-warning">
-              Back to Dashboard
-          </Link>
-      </div>
   );
 
   return (

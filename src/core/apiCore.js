@@ -271,6 +271,17 @@ export const getOrders = (userId) => {
         .catch(err => console.log(err));
 };
 
+export const readOrder = orderId => {
+    return fetch(`${API}/order/${orderId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
 export const readInterview = interviewId => {
     return fetch(`${API}/interview/${interviewId}`, {
         method: "GET"

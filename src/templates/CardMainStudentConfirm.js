@@ -48,7 +48,6 @@ const CardMainStudentConfirm = ({student, indivRank }) => {
                        
                       </div>
                   <div class="col-auto">
-                    <AddRank favStudent={student} handleRankChange={handleSetRankChange} />
               </div>
             </div>
           </div>

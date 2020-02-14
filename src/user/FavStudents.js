@@ -2,7 +2,7 @@ import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { getFavStudents, createSubmit, createOrder, getOrders } from "../core/apiCore";
 import { Link } from "react-router-dom";
-import CardMainStudent from '../templates/CardMainStudent';
+import CardCheckout from '../core/CardCheckout';
 import {
   Container,
   Page,
@@ -115,8 +115,7 @@ const FavStudents = () => {
           onClick={() => { if (window.confirm('Are you sure you wish to submit?')) buy() } }>
             Submit
           </button>
-
-    }  </div>
+      }  </div>
       </div>
         </div>
       )
@@ -126,7 +125,7 @@ const FavStudents = () => {
           {user.round === "Phase III" ? 
               <div> {console.log(orders)} </div> : 
             <div> {favStudents.map((s, index) => 
-              <CardMainStudent key={s._id} student={s} indivRank={handleSetRank} setRun={setRun}
+              <CardCheckout key={s._id} student={s} indivRank={handleSetRank} setRun={setRun}
               run={run}/>
             )} </div>
             
