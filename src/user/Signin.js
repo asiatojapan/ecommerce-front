@@ -105,7 +105,7 @@ const Signin = () => {
                                 <div class="card-body p-6">
                                 <div class="text-center mb-6">
                                 <img src={Logo} class="text-center" height="100px" alt="logo"/></div>
-                                    <div class="card-title">Login to your Account</div>
+                                    <div class="card-title text-center">ASIA to JAPAN</div>
                                     <div class="form-group">
                                         <label class="form-label">Email Address</label>
                                         <input 
@@ -158,8 +158,10 @@ const Signin = () => {
   };
 
   return (
-      <div className="page">
-       {showLoading()}
+      <div className="page" style={{height: "100vh"}}>
+               <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
        {showError()}
        {formss()}
        {redirectUser()}

@@ -29,17 +29,16 @@ import "../styles.css";
 import "tabler-react/dist/Tabler.css";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import Notifications, {notify} from 'react-notify-toast';
-
 import styled from 'styled-components'
 
 
-  const CardColumn = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    grid-auto-rows: minmax(200px, auto);
-    grid-gap: 1rem;`
+
+const CardColumn = styled.div`
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+grid-auto-rows: minmax(200px, auto);
+grid-gap: 1rem;`
 
 const Home = () => {
   const { user, token } = isAuthenticated();
@@ -50,6 +49,7 @@ const Home = () => {
   });
   const [categorieslist, setCategorieslist] = useState([]);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [limit, setLimit] = useState(15);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
@@ -70,6 +70,7 @@ const Home = () => {
           if (data.error) {
               setError(data.error);
           } else {
+              setLoading(false)
               setFilteredResults(data.data);
               setSize(data.size);
               setSkip(0);
@@ -180,7 +181,10 @@ const Home = () => {
 
 
     return (
-      <SiteWrapper>
+      <SiteWrapper> 
+         <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
       <div className="my-3 my-md-5">
       <Container>
          <Grid.Row>
@@ -208,7 +212,7 @@ const Home = () => {
 
         <Grid.Col width={12} lg={9} sm={12}>
                {filteredResults.map((student, i) => (
-        <div>
+      <div>
           <List student={student} setFavCount={handleSetFavCount}
             favCount={favCount}/>
         </div>

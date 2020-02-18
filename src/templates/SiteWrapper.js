@@ -24,7 +24,8 @@ const isActive = (history, path) => {
 
 
 const SiteWrapper = ({ history, children }) => (
-  <Fragment>
+  <Fragment> 
+    {isAuthenticated() && (
       <Navbar expand="lg" style={{backgroundColor: "#fff", boxShadow: "0 2px 4px 0 rgba(76,76,75,.1)"}}>
         <Navbar.Brand href="/">
           <img
@@ -66,7 +67,7 @@ const SiteWrapper = ({ history, children }) => (
             <a className="btn btn-outline-primary" href="/checkout/preview"> <i class="fe fe-star"></i> {" "}Your Cart
             </a>
         </Navbar.Collapse>
-      </Navbar> 
+      </Navbar> )}
       <div style={{padding: "2rem 0rem"}}>
       {children}
       </div>

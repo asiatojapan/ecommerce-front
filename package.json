@@ -35,7 +35,6 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "react-select": "^3.0.8",
-    "react-spinners": "^0.8.0",
     "react-table": "^7.0.0-rc.15",
     "react-table-v6": "^6.8.6",
     "react-toastify": "^5.5.0",
