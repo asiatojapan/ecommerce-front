@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table';
 import matchSorter from 'match-sorter';
+import Table2 from 'react-bootstrap/Table';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import {
   Page,
@@ -44,19 +45,15 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length
 
   return (
-
-    <div class="card-header">
-    <div class="input-group">
     <input
-      value={globalFilter || ''}
-      onChange={e => {
-        setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`検索`}
-      className="form-control"
-      />
-    </div>
-</div>
+    value={globalFilter || ''}
+    onChange={e => {
+      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+    }}
+    placeholder={`検索`}
+    className="form-control" 
+    style={{marginBottom: "1rem"}}
+    />
   )
 }
 
@@ -71,7 +68,8 @@ function DefaultColumnFilter({
       onChange={e => {
         setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
       }}
-      placeholder={`Search ${count} records...`}
+      style={{width: "100%"}}
+      placeholder={`Search ${count}`}
     />
   )
 }
@@ -204,7 +202,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-export const Table = function ({ columns, data }) {
+export const Table = function ({ columns, data, selectedRows, onSelectedRowsChange }) {
 
   const filterTypes = React.useMemo(
     () => ({
@@ -239,30 +237,25 @@ export const Table = function ({ columns, data }) {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
     prepareRow,
     selectedFlatRows,
     state,
+    rows,
     flatColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, selectedRowIds },
     } = useTable({
     columns,
     data,
     defaultColumn,
+    initialState: {
+        selectedRowPaths: selectedRows
+      },
     filterTypes,
     },
-   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect
-  )
+   useFilters, useGlobalFilter, useSortBy,useRowSelect,
+)
+
 
   // Render the UI for your table
   return (
@@ -273,79 +266,42 @@ export const Table = function ({ columns, data }) {
       globalFilter={state.globalFilter}
       setGlobalFilter={setGlobalFilter}
     />
-    <div class="table-responsive">
-    <table class="table card-table table-striped table-vcenter" cellspacing="0" {...getTableProps()}>
+    <div style={{background:"#fff"}}>
+    <Table2 bordered hover size="sm"  cellspacing="0" {...getTableProps()}>
       <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-              {column.render('Header')}
-              <span>
-              {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
-              </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-        <tr>
-        </tr>
+      {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  <span>{column.canFilter ? column.render('Filter') : null}
+                  {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
+                  </span>
+                  </th>
+               
+              ))}
+            </tr>
+          ))}
+        
       </thead>
+      
       <tbody {...getTableBodyProps()}>
-        {page.map(
-          (row, i) => {
+      {rows.map((row, i) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map(cell => {
-                  return <td class {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
-            )}
-        )}
+          )
+        })}
+        
       </tbody>
-    </table>
+    </Table2>
     </div>
-    <div class="flex items-center justify-center">
-    <ul class="pagination modal-1">
-      <li><a onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
-      <li><a onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</a></li>
-      <li><a onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</a></li>
-      <li><a onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</a></li>
-    </ul>
-    <div class="mv2">
-    <span>
-       Go to page:{' '}
-      <input
-        type="number"
-        defaultValue={pageIndex + 1}
-        onChange={e => {
-          const page = e.target.value ? Number(e.target.value) - 1 : 0
-          gotoPage(page)
-        }}
-        style={{ width: '100px' }}
-      />
-    </span>{' '}
-    <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-    <select
-      value={pageSize}
-      onChange={e => {
-        setPageSize(Number(e.target.value))
-      }}
-    >
-      {[10, 20, 30, 40, 50].map(pageSize => (
-        <option key={pageSize} value={pageSize}>
-          Show {pageSize}
-        </option>
-      ))}
-    </select>
-      </div>
-    </div>
+
+   
     </div>
   )
 }
@@ -420,7 +376,8 @@ const ManageUsers = () => {
     },
     {
       Header: 'Phase',
-      accessor: "round"
+      accessor: "round",
+      Filter: SelectColumnFilter,
     },
     {
       Header: 'Phase Memo',
@@ -428,6 +385,7 @@ const ManageUsers = () => {
     },
     {
       Header: '営業担当',
+      Filter: SelectColumnFilter,
       accessor: (text) =>
       <div>
       {text.salesrep.map((c,i)=>
@@ -437,26 +395,38 @@ const ManageUsers = () => {
       </div>,
     },
 
-    {
-      Header: 'Fav',
-      accessor: (text, i) =>
-      <div> {text.favorites.length}</div>
-    },
 
     {
       Header: 'おすすめ',
+      Filter: "",
       accessor: (text, i) =>
       <div> {text.rec_students.length}</div>
     },
 
     {
+      Header: 'Fav',
+      Filter: "",
+      accessor: (text, i) =>
+      <div> {text.favorites.length}</div>
+    },
+
+    {
       Header: '面接',
+      Filter: "",
+      accessor: (text, i) =>
+      <div> {text.interviews.length}</div>
+    },
+
+    {
+      Header: '面接',
+      Filter: "",
       accessor: (text, i) =>
       <div> {text.interviews.length}</div>
     },
 
     {
       Header: "Actions",
+      Filter: "",
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item to={`/admin/profile/${text._id}`}>View </Dropdown.Item>
@@ -482,20 +452,14 @@ const ManageUsers = () => {
 
     return (
     <SiteWrapper>
-      <Page.Content>
-      <Grid.Row>
-      <Grid.Col width={12}>
-      <Card>
+      <Container>
       <div class="card-header"><h3 class="card-title"> Users </h3>
       <div class="card-options">
      <Link to={`/admin/create/user`} className="btn btn-sm btn-secondary"> + Add Users </Link> <br/>
      </div>
      </div>
       <Table columns={columns} data={data} />
-      </Card>
-      </Grid.Col>
-       </Grid.Row>
-     </Page.Content>
+       </Container>
     </SiteWrapper>
     );
 };

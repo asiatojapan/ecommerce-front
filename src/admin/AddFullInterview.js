@@ -20,13 +20,8 @@ import {
 const AddFullInterview = ({ history }) => {
   const [values, setValues] = useState({
       name: "",
-      time: "",
-      phase: "",
-      result: "",
       company: "",
       student: "",
-      time_period: "",
-      category: "",
       createdInterview: "",
       error: false,
       success: false,
@@ -39,7 +34,7 @@ const AddFullInterview = ({ history }) => {
   const [ students, setStudents] = useState([]);
 
   const { user, token } = isAuthenticated();
-  const { company, student, name, time, phase, result, time_period, category, error, success, createdInterview, loading, redirectToProfile} = values;
+  const { company, student, name, error, success, createdInterview, loading, redirectToProfile} = values;
 
   const init = interviewId => {
       initUsers();
@@ -79,7 +74,7 @@ const AddFullInterview = ({ history }) => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
 
-        createInterview( student, company, token, { time, phase, result, time_period, category }).then(data => {
+        createInterview( student, company, token, {  }).then(data => {
 
             if (data.error) {
                 setValues({ ...values, error: data.error });

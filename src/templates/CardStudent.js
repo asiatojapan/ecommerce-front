@@ -17,34 +17,31 @@ const CardStudent = ({interview, student}) => {
   const { user, token } = isAuthenticated();
 
   return (
-    <Card>
-      <Card.Body>
-      { student.status === "来日" ?  <div class="card-status bg-green"></div>　 :　<div class="card-status bg-primary"></div>}
-          <ul className="list-unstyled list-separated">
+    <div class="list-list" style={{backgroundColor: "#fff"}}>
+          <ul className="list-unstyled list-separated" style={{margin: "0"}}>
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
 
                        <Grid.Col>
+                       <Text muted className="d-block item-except h-1x">
+                           {student.studentid}
+                         </Text>
                          <div>
                          <Link class="h3" to={`/student/${student._id}`} target="_blank"> {student.name} </Link>
                          </div>
-                         <Text muted className="d-block item-except h-1x">
-                           {student.studentid}
-                         </Text>
                      </Grid.Col>
                        <Grid.Col auto>
-                       {student.status === "来日" ?  <div> <span class="text-success">●</span> 来日決定　</div>:　<div><span class="text-primary">●</span> SKYPE </div>}
+                       {student.status === "来日" ?  <div> <span class="text-success">●</span> 来日決定　</div>:　<div><span class="text-primary"></span> </div>}
                        </Grid.Col>
                      </Grid.Row>
                    </li>
                  </ul>
-               </Card.Body>
                { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
                  <div>
                    <InterviewItem interview={interview} item={item}/>
                  </div>
                ) : ""}
-               </Card>
+               </div>
 
 
 );

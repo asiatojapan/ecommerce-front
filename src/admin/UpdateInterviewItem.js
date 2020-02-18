@@ -146,7 +146,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
       <div>
-      <button onClick={handleShow}>
+      <button onClick={handleShow} className="btn btn-sm btn-outline-primary">
        Update
      </button>
 

@@ -50,7 +50,7 @@ const CardCheckout = ({student,indivRank,
 
 
   const handleSetRankChange = (e) => {
-      indivRank({rank: e, studentId: student._id})
+      indivRank({rank: Number(e), studentId: student._id})
   };
 
 

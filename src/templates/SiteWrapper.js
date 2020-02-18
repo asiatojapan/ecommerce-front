@@ -7,113 +7,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Container from 'react-bootstrap/Container';
 import Card from 'react-bootstrap/Card';
-import type { NotificationProps } from "tabler-react";
 import logo from './Logo.png'
-
-const style = {
-  borderColor: "#0c0c0c"
- };
-
-type Props = {|
-  +children: React.Node,
-|};
-
-type State = {|
-  notificationsObjects: Array<NotificationProps>,
-|};
-
-type subNavItem = {|
-  +value: string,
-  +to?: string,
-  +icon?: string,
-  +LinkComponent?: React.ElementType,
-  +useExact?: boolean,
-|};
-
-type navItem = {|
-  +value: string,
-  +to?: string,
-  +icon?: string,
-  +active?: boolean,
-  +LinkComponent?: React.ElementType,
-  +subItems?: Array<subNavItem>,
-  +useExact?: boolean,
-|};
-
+import {Avatar
+} from "tabler-react";
 
 const { user, token } = isAuthenticated();
 
-const adminnavBarItems: Array<navItem> = [
-  {
-    value: "List",
-    to: "/",
-    icon: "home",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "Dashboard",
-    to: "/admin/dashboard",
-    icon: "grid",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "Students",
-    to: "/admin/students",
-    icon: "list",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "Users",
-    to: "/admin/users",
-    icon: "user",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "Interviews",
-    to: "/admin/interviews",
-    icon: "box",
-    LinkComponent: withRouter(NavLink),
-  },
-];
-
-const navBarItems: Array<navItem> = [
-  {
-    value: "List",
-    to: "/",
-    icon: "home",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "Students",
-    to: "/user/students",
-    icon: "list",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "Interviews",
-    to: "/user/interviews",
-    icon: "box",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-];
-
-const accountDropdownProps = {
-  avatarURL:  <span class="avatar">BM</span>,
-  name: isAuthenticated() ? user.name : "" ,
-  description: isAuthenticated() ? user.role === 1 ? "Admin" : "User" : "",
-  options: [
-    { icon: "user", value: "Profile", to: "/profile/${user._id}"},
-    { icon: "settings", value: "Settings" },
-    { icon: "help-circle", value: "Need help?" },
-  ],
-};
 
 const isActive = (history, path) => {
     if (history.location.pathname === path) {
@@ -138,13 +37,19 @@ const SiteWrapper = ({ history, children }) => (
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-  
+            {isAuthenticated() && isAuthenticated().user.role === 1 && (
+              <Fragment>
+             <Nav.Link href="/admin/students">Students</Nav.Link>
+             <Nav.Link href="/admin/users">Users</Nav.Link>
+             <Nav.Link href="/admin/interviews">Interviews</Nav.Link>
+             </Fragment>
+             )}
           </Nav>
-          <Nav>
+          <Nav>  
           <NavDropdown title={user.name} id="basic-nav-dropdown">
               <Dropdown.Header style={{fontWeight: "700", color:"#000"}}> Your Profile</Dropdown.Header>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/user/profile">Account</NavDropdown.Item>
+              <NavDropdown.Item href={`/profile/${user._id}`}>Account</NavDropdown.Item>
               <NavDropdown.Item href="/user/orders">Orders</NavDropdown.Item>
               <NavDropdown.Item href="/user/interviews">Interviews</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -156,8 +61,9 @@ const SiteWrapper = ({ history, children }) => (
             </button>
             </Dropdown.Header>
             </NavDropdown>
+            
             </Nav>
-            <a className="btn btn-primary" href="/checkout/preview"> Your Cart
+            <a className="btn btn-outline-primary" href="/checkout/preview"> <i class="fe fe-star"></i> {" "}Your Cart
             </a>
         </Navbar.Collapse>
       </Navbar> 

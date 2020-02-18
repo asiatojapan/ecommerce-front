@@ -23,13 +23,16 @@ import {
 const UpdateInterview = ({ interviewId, match, history }) => {
     const [values, setValues] = useState({
         name: "",
-        time: "",
-        phase: "",
+        interviewType: "",
+        studentStatus: "",
+        companyStatus: "",
+        status: "",
         result: "",
+        companyRank: "",
+        companyRate: "",
+        reason: "",
         company: "",
         student: "",
-        time_period: "",
-        category: "",
         error: false,
         success: false,
         redirectToProfile: false,
@@ -40,7 +43,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     const { user, token } = isAuthenticated();
 
-    const { company, student, name, time, phase, result, time_period, category, error, success, redirectToProfile} = values;
+    const { company, student, name, interviewType, studentStatus, companyStatus, status, companyRank, companyRate, reason,  error, success, redirectToProfile} = values;
 
     const init = interviewId => {
         // console.log(userId);
@@ -48,7 +51,9 @@ const UpdateInterview = ({ interviewId, match, history }) => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
-                setValues({ ...values, company: data.company, student: data.student, time: data.time, result: data.result, phase: data.phase, category: data.category, time_period: data.time_period });
+                setValues({ ...values, company: data.company, student: data.student,
+                interviewType: data.interviewType, studentStatus: data.studentStatus, companyStatus: data.companyStatus, 
+            status: data.status, companyRate: data.companyRank, companyRate: data.companyRate, reason: data.reason});
             }
         });
         initUsers();
@@ -85,21 +90,15 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterview(interviewId,  user._id, token, { company, student, time, phase, result, time_period, category }).then(data => {
+        updateInterview(interviewId,  user._id, token, {company, student, interviewType, companyStatus, studentStatus, status}).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
             } else {
               setValues({
                   ...values,
-                  company: data.company,
-                  student: data.student,
-                  name: data.name,
-                  time: data.time,
-                  phase: data.phase,
-                  result: data.result,
-                  category: data.category,
-                  time_period: data.time_period,
+                  company: data.company, student: data.student, interviewType: data.interviewType, studentStatus: data.studentStatus, companyStatus: data.companyStatus, 
+                  status: data.status, companyRate: data.companyRate, companyRate: data.companyRank, reason: data.reason,
                   success: true,
                   redirectToProfile: true
               });
@@ -134,7 +133,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
                 }
             };
 
-    const interviewUpdate = (company, student, time,  phase, result, time_period, category) => (
+    const interviewUpdate = (company, student, interviewType, companyStatus, studentStatus, status) => (
       <div>
       <a onClick={handleShow}>
        Update
@@ -166,68 +165,50 @@ const UpdateInterview = ({ interviewId, match, history }) => {
           </div>
 
           <div class="mb-2">
-              <div class="form-label">時間</div>
-              <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
-                    <option value="08:00"> 08:00 </option>
-                    <option value="09:00"> 09:00 </option>
-                    <option value="10:00"> 10:00 </option>
-                    <option value="11:00"> 11:00 </option>
-                    <option value="12:00"> 12:00 </option>
-                    <option value="12:40"> 12:40 </option>
-                    <option value="13:00"> 13:00 </option>
-                    <option value="14:00"> 14:00 </option>
-                    <option value="15:00"> 15:00 </option>
-                    <option value="16:00"> 16:00 </option>
-                    <option value="17:00"> 17:00 </option>
-                    <option value="18:00"> 18:00 </option>
+              <div class="form-label">Interview Type</div>
+              <select placeholder="Type" onChange={handleChange("interviewType")} value={interviewType} class="form-control">
+                    <option value=""> Select </option>
+                    <option value="Nil"> Nil </option>
+                    <option value="Japan"> 日本 </option>
+                    <option value="Skype"> Skype </option>
                 </select>
           </div>
 
 
           <div class="mb-2">
-              <div class="form-label">選考</div>
-              <select placeholder="選考" onChange={handleChange("phase")} value={phase} class="form-control">
+              <div class="form-label">Company Status</div>
+              <select placeholder="選考" onChange={handleChange("companyStatus")} value={companyStatus} class="form-control">
                   <option value="">Select</option>
-                    <option value="1次"> 1次 </option>
-                    <option value="2次"> 2次 </option>
-                    <option value="最終"> 最終 </option>
-                    <option value="NG"> NG</option>
-                    <option value="終了"> 終了</option>
+                    <option value="Nil"> Nil </option>
+                    <option value="Asking"> Ask </option>
+                    <option value="Waiting"> まち </option>
+                    <option value="Confirmed"> Confirmed</option>
+                    <option value="NG"> NG </option>
                 </select>
           </div>
 
           <div class="mb-2">
-            <label class="form-label">結果</label>
-            <select placeholder="結果" onChange={handleChange("result")} value={result} class="form-control">
-                <option value="">Select</option>
-                  <option value="Nil"> </option>
-                  <option value="合格"> ● </option>
-                  <option value="不合格"> X </option>
-                  <option value="三角"> ▲</option>
-                  <option value="辞退"> 辞退　</option>
-                  <option value="内定"> 内定　</option>
-              </select>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Day</label>
-            <select placeholder="time_period" onChange={handleChange("time_period")} value={time_period} class="form-control">
+              <div class="form-label">Student Status</div>
+              <select placeholder="選考" onChange={handleChange("studentStatus")} value={studentStatus} class="form-control">
                   <option value="">Select</option>
-                  <option value="1日"> 1日</option>
-                  <option value="2日"> 2日 </option>
-                  <option value="3日"> 3日 </option>
-              </select>
+                    <option value="Nil"> Nil </option>
+                    <option value="Asking"> Ask </option>
+                    <option value="Waiting"> まち </option>
+                    <option value="Confirmed"> Confirmed</option>
+                    <option value="NG"> NG </option>
+                </select>
           </div>
 
           <div class="mb-2">
-            <label class="form-label">Category</label>
-            <select placeholder="category" onChange={handleChange("category")} value={category} class="form-control">
-                  <option value="面接"> 面接</option>
-                  <option value="試験"> 試験 </option>
-                  <option value="説明会"> 説明会 </option>
-                  <option value="Skype"> Skype </option>
+            <label class="form-label">Status</label>
+            <select placeholder="status" onChange={handleChange("status")} value={status} class="form-control">
+                  <option value="">Select</option>
+                  <option value="選考"> 選考</option>
+                  <option value="終わる"> 終わる </option>
               </select>
           </div>
+
+          
     </Modal.Body>
     <Modal.Footer>
         <button type="submit" onClick={clickSubmit} class="btn btn-primary ml-auto">Submit</button>
@@ -239,7 +220,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     return (
       <span>
-          {interviewUpdate(company, student, time, phase, result, time_period, category)}
+          {interviewUpdate(company, student, interviewType,  companyStatus, studentStatus, status)}
           {redirectUser()}
       </span>
     );

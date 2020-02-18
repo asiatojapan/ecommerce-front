@@ -140,16 +140,19 @@ const AdminUser = props => {
                  Header: 'Status',
                  accessor: 'status',
                  id: 'status',
+                 Filter: SelectColumnFilter,
                },
            {
              Header: '面接社数',
+             Filter: "",
              accessor: (text, i) =>
              <div>　
              {text.interviews.length}
              </div>
            },
          {
-           Header: 'おすすめ',
+           Header: 'おすすめ', 
+           Filter: "",
            accessor: (text, i) =>
            <div>
            <AddRec student={text} userIdFromTable={props.match.params.userId} />
@@ -157,6 +160,7 @@ const AdminUser = props => {
          },
          {
            Header: 'Liked',
+           Filter: "",
            accessor: (text, i) =>
            <div>
            {text.favorites.map((c,i) =>
@@ -168,6 +172,7 @@ const AdminUser = props => {
          },
          {
            Header: '面接',
+           Filter: "",
            accessor: (text, i) =>
            <div>
              <AddInterview student={text} userIdFromTable={props.match.params.userId} />
@@ -234,9 +239,8 @@ const AdminUser = props => {
                   {interviewCard()}
       </Grid.Row>
       <Grid.Row>
-    <Card>
+    
     <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
-    </Card>
       </Grid.Row>
       </Page.Content>
     </SiteWrapper>

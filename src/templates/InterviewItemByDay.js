@@ -20,12 +20,10 @@ const InterviewItemByDay = ({item, interview}) => {
           background: #fff;
           padding: 20px 20px;
           margin-bottom: 20px;
-          border-radius: 20px;
           position: relative;
           background: #fff;
           margin-bottom: 20px;
-          border: 0;
-          border-radius: 12px;
+          border: 1;
           color: #323232;
           overflow: hidden;
           text-align: left;
@@ -43,7 +41,6 @@ const InterviewItemByDay = ({item, interview}) => {
           background: #fff;
           margin-bottom: 20px;
           border: 0;
-          border-radius: 12px;
           color: #323232;
           overflow: hidden;
           text-align: left;

@@ -57,7 +57,6 @@ export const updateInterview = (interviewId, userId, token, interview) => {
     return fetch(`${API}/interview/${interviewId}/${userId}`, {
         method: 'PUT',
         headers: {
-            // content type?
             'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: `Bearer ${token}`
@@ -69,6 +68,7 @@ export const updateInterview = (interviewId, userId, token, interview) => {
         })
         .catch(err => console.log(err));
 };
+
 
 export const createProduct = (userId, token, product) => {
     return fetch(`${API}/product/create/${userId}`, {
@@ -331,7 +331,6 @@ export const createInterview = (student, company, token, interview) => {
 };
 
 export const createInterviewItem = (interviewId, userId, token, interview) => {
-  console.log(interview)
   return fetch(`${API}/interview/${interviewId}/create/${userId}`, {
       method: 'POST',
       headers: {
@@ -429,7 +428,7 @@ export const getInterview = interviewId => {
 };
 
 export const deleteInterviewItem = (interviewId, userId, token, itemId) => {
-    const interviewItemId = {
+    const id = {
         itemId
     };
     return fetch(`${API}/interview/${interviewId}/interviewitem/${userId}`, {
@@ -439,7 +438,7 @@ export const deleteInterviewItem = (interviewId, userId, token, itemId) => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(interviewItemId)
+        body: JSON.stringify(id)
     })
         .then(response => {
             return response.json();

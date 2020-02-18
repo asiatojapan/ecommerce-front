@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from "../auth";
 import { getStudents } from '../core/apiCore';
 import { deleteStudent, getCheckStudents } from "./apiAdmin";
 import { Link } from "react-router-dom";
-import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination, useMountedLayoutEffect } from 'react-table'
+import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
 import SiteWrapper from '../templates/SiteWrapper'
 import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Modal from 'react-bootstrap/Modal';
+import Table2 from 'react-bootstrap/Table';
 import ImportStudents from "./ImportStudents";
+import Pagination from "../tables/Pagination";
 import {
-  Page,
   Dropdown,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
   Container,
-  Badge,
 } from "tabler-react";
 
 const IndeterminateCheckbox = React.forwardRef(
@@ -49,20 +42,16 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length
 
   return (
-    <div class="card-body border-bottom py-3">
-                      <div class="mb-0">
-                        <div class="mx-2 ">
-                        <input
-                          value={globalFilter || ''}
-                          onChange={e => {
-                            setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-                          }}
-                          placeholder={`検索`}
-                          className="form-control"
-                          />
-                      </div>
-                    </div>
-                  </div>
+
+        <input
+          value={globalFilter || ''}
+          onChange={e => {
+            setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+          }}
+          placeholder={`検索`}
+          className="form-control" 
+          style={{marginBottom: "1rem"}}
+          />
   )
 }
 
@@ -77,7 +66,8 @@ function DefaultColumnFilter({
       onChange={e => {
         setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
       }}
-      placeholder={`Search ${count} records...`}
+      style={{width: "100%"}}
+      placeholder={`Search ${count}`}
     />
   )
 }
@@ -101,6 +91,7 @@ function SelectColumnFilter({
   return (
     <select
       value={filterValue}
+      style={{width: "100%"}}
       onChange={e => {
         setFilter(e.target.value || undefined)
       }}
@@ -245,22 +236,13 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
     prepareRow,
     selectedFlatRows,
     state,
+    rows,
     flatColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, selectedRowIds, selectedRowPaths  },
     } = useTable({
     columns,
     data,
@@ -270,7 +252,7 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
       },
     filterTypes,
     },
-   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect,
+   useFilters, useGlobalFilter, useSortBy,useRowSelect,
 )
 
   useEffect(() => {
@@ -285,27 +267,27 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
       globalFilter={state.globalFilter}
       setGlobalFilter={setGlobalFilter}
     />
-    <div class="table-responsive">
-    <table class="table card-table table-striped table-vcenter"  cellspacing="0" {...getTableProps()}>
+    <div style={{background:"#fff"}}>
+    <Table2 bordered hover size="sm" style={{fontSize: "12px"}} cellspacing="0" {...getTableProps()}>
       <thead>
-        {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-              {column.render('Header')}
-              <span>
-              {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
-              </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-        <tr>
-        </tr>
+      {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render('Header')}
+                  <span>{column.canFilter ? column.render('Filter') : null}
+                  {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
+                  </span>
+                  </th>
+               
+              ))}
+            </tr>
+          ))}
+        
       </thead>
+      
       <tbody {...getTableBodyProps()}>
-        {page.map(
-          (row, i) => {
+      {rows.map((row, i) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
@@ -313,52 +295,14 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
                 })}
               </tr>
-            )}
-        )}
+          )
+        })}
+        
       </tbody>
-    </table>
+    </Table2>
     </div>
 
-    <div class="flex items-center justify-center">
-    <ul class="pagination modal-1">
-      <li><a onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
-      <li><a onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</a></li>
-      <li><a onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</a></li>
-      <li><a onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</a></li>
-    </ul>
-    <div class="mv2">
-    <span>
-       Go to page:{' '}
-      <input
-        type="number"
-        defaultValue={pageIndex + 1}
-        onChange={e => {
-          const page = e.target.value ? Number(e.target.value) - 1 : 0
-          gotoPage(page)
-        }}
-        style={{ width: '100px' }}
-      />
-    </span>{' '}
-    <span>
-          Page{' '}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{' '}
-        </span>
-    <select
-      value={pageSize}
-      onChange={e => {
-        setPageSize(Number(e.target.value))
-      }}
-    >
-      {[50, 100, 150, 200, 250].map(pageSize => (
-        <option key={pageSize} value={pageSize}>
-          Show {pageSize}
-        </option>
-      ))}
-    </select>
-      </div>
-    </div>
+   
     </div>
   )
 }
@@ -408,11 +352,15 @@ const ManageStudent = () => {
          </div>
        )
      },
+     {
+      Header: 'Info',
+      columns: [
     {
           Header: 'StudentID',
-          accessor: 'studentid',
           id: 'sid',
-          sortType: 'basic'
+          sortType: 'basic',
+          filter: 'fuzzyText',
+          accessor: "studentid"
         },
     {
           Header: 'Name',
@@ -442,41 +390,58 @@ const ManageStudent = () => {
       sortType: 'basic',
       Filter: SelectColumnFilter,
       filter: 'includes'
-    },
+    } ]},
+   
     {
       Header: 'おすすめ',
+      Filter: "",
       accessor: (text, i) =>
       <div> {text.rec_users.length == null? "" : text.rec_users.length}
     </div>
     },
     {
+      Header: 'Like',
+      columns: [
+    {
       Header: 'Faved',
-      accessor: "favoritesCount"
+      Filter: "",
+      accessor: "favoritesCount",
+     
     },
     {
       Header: 'Faved',
+      Filter: "",
       accessor: (text, i) =>
-      <div> {text.favorites.users == null? "" : 
-      <div> </div> }
+      <div> {text.favUsers.length == null? "" : 
+      <div> {text.favUsers.map((t, i) => <span class="badge bg-blue">{t.name}</span>)}</div> }
     </div> 
-    },
-
+    } ]  }
+    ,
+    {
+      Header: '面接',
+      columns: [
 
     {
       Header: '面接',
+      Filter: "",
       accessor: (text, i) =>
       <div> {text.interviews.length == null? "" : text.interviews.length}
     </div>
+    
     },
+     ] },
+
 
 
     {
       Header: 'フェーズ',
-      accessor: "status"
+      accessor: "status",
+      Filter: SelectColumnFilter,
     },
 
     {
       Header: "Actions",
+      Filter: "",
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item to={`/student/${text._id}`}>View </Dropdown.Item>
@@ -528,10 +493,7 @@ const ManageStudent = () => {
 
     return (
     <SiteWrapper>
-    <Page.Content>
-    <Grid.Row>
-    <Grid.Col width={12}>
-       <Card>
+      <Container>
        <div class="card-header"><h3 class="card-title">Students </h3>
        <div class="card-options">
        <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
@@ -554,11 +516,9 @@ const ManageStudent = () => {
        <ImportStudents/>
         </div>
         </div>
-         <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
-       </Card>
-   </Grid.Col>
-    </Grid.Row>
-  </Page.Content>
+        <div>
+         <Table columns={columns} PaginationComponent={Pagination} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
+       </div> </Container>
       </SiteWrapper>
     );
 };

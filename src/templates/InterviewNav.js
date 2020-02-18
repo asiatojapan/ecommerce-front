@@ -55,17 +55,18 @@ const navBarItems: Array<navItem> = [
 const InterviewNav =({ history, children }) => {
     return (
       <SiteWrapper>
-      <Page.Content title="My Interviews">
-      <Container>
-      <Nav
-        itemsObjects={navBarItems}
-      />
-      </Container>
-      <div className="mt-2">
-      {children}
-      </div>
-      </Page.Content>
-    </SiteWrapper>
+        <Container>
+          <div>
+          <div class="list-list">
+          <div style={{fontSize: "26px", fontWeight: "500"}} >Interviews</div>
+          <Nav
+            itemsObjects={navBarItems}
+          />
+          </div>
+        {children}
+        </div>
+     </Container>
+      </SiteWrapper>
     );
 };
 

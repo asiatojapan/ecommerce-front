@@ -38,7 +38,9 @@ const Checkout = () => {
         console.log(e)
         items.map((student, i) => {
           if (student._id === e.studentId) {
-              items[i].rank = 1 }
+              items[i].rank = e.rank
+            items[i].name = student.name 
+            items[i].studentid = student.studentid }
         });
       };
 
@@ -51,7 +53,7 @@ const Checkout = () => {
         const month = d.toLocaleString('default', { month: 'long' });
         var y = d.getFullYear() 
           const createOrderData = {
-            favStudents: items,
+            students: items,
             transaction_id: y + month + " " + user.name,
           };
           createOrder(user._id, token, createOrderData).then(data => {

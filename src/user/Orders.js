@@ -48,12 +48,10 @@ const Orders = () => {
 
        {orders.map((o,i) => 
         <div class="list-list">
-          {o.createdAt}
-           {o.status}
-      {o.transaction_id} 
-      {o.createdAt}
-      {o.favStudents.length} < a href={`/order/${o._id}`}> See </a></div> )}
-  
+          {o.students.map((p, pIndex) => <div> {p._id}{p.name} </div>)}
+          
+          {o.students.length} < a href={`/order/${o._id}`}> See </a></div> )}
+      
     </div>
 
     return (

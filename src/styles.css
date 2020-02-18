@@ -6,13 +6,13 @@
   line-height: 1.5;
   color: #495057;
   text-align: left;
-  background-color: #f5f7fb;
+  background-color: #f6f6f7;
 }
 
 main {
     display: block;
     padding: 25px 25px;
-    background-color: #f5f7fb;
+    background-color: #f6f6f7;
     min-height: 100vh;
 }
 
@@ -22,7 +22,7 @@ body {
   line-height: 1.5;
   color: #495057;
   text-align: left;
-  background-color: #f5f7fa;
+  background-color: #f6f6f7;
 }
 
 html {

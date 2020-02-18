@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import UserLayout from './UserLayout';
+import SiteWrapper from '../templates/SiteWrapper';
 import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
-import {Form, Select, Input, Button, DatePicker } from 'antd';
+import {Select, Input, Button, DatePicker } from 'antd';
 import { PageHeader } from 'antd';
+import {
+    Container,
+    Grid,
+    Column, Form, Avatar
+  } from "tabler-react";
 import { read, update, updateUser } from './apiUser';
 const { Option } = Select;
 const { TextArea } = Input;
@@ -86,12 +91,52 @@ const Profile = ({ match }) => {
         </form>
     );
 
+    const profile = () => (
+        <Grid.Row>
+            <Grid.Col width={12} lg={3} sm={12}>
+            <div class="list-list"> 
+            <div class="card-body text-center">
+            <Avatar color="blue"> {name.charAt(0)} </Avatar>
+                <h3 class="h3 mt-0 mb-4 mb-3">{name}</h3>
+                <p class="mb-4"></p>
+                <ul class="list list-inline social-links">
+                    <li class="list-inline-item">
+                        <button class="btn btn-sm btn-twitter">
+                           Follow</button>
+                            </li></ul></div>
+            </div>
+            </Grid.Col>
+            <Grid.Col width={12} lg={9} sm={12}>
+            <div class="list-list"> 
+            
+            <h2 class="card-title"> Profile</h2>
+            <Form.Group label="Name">
+                <Form.Input
+                    disabled
+                    name="example-disabled-text-input"
+                    value={name}
+                />
+                </Form.Group>
+                <Form.Group label="Email">
+                <Form.Input
+                    disabled
+                    name="example-disabled-text-input"
+                    value={email}
+                />
+                </Form.Group>
+            </div>
+            </Grid.Col>
+            </Grid.Row>
+    )
+
     return (
-        <UserLayout>
-            <h2 className="mb-4">Profile update</h2>
-            {profileUpdate(name, email, password)}
+        <SiteWrapper>
+            <Container>
+            {profile()}
             {redirectUser(success)}
-        </UserLayout >
+          
+            </Container>
+        </SiteWrapper >
     );
 };
 

@@ -9,6 +9,8 @@ import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
 import UpdateInterviewItem from "./UpdateInterviewItem";
+import Table2 from 'react-bootstrap/Table';
+
 import AddInterviewItem from "./AddInterviewItem";
 import {
   Page,
@@ -22,6 +24,47 @@ import {
   Container,
   Badge,
 } from "tabler-react";
+import styled from 'styled-components'
+
+const Styles = styled.div`
+  padding: 1rem;
+
+  table {
+    border-spacing: 0;
+    border: 1px solid rgba(0, 40, 100, 0.12);
+
+    tr {
+      :last-child {
+        td {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    th,
+    td {
+      margin: 0;
+      padding: 0.5rem;
+      border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+      border-right: 1px solid rgba(0, 40, 100, 0.12);
+
+      :last-child {
+        border-right: 0;
+      }
+
+      input {
+        font-size: 1rem;
+        padding: 0;
+        margin: 0;
+        border: 0;
+      }
+    }
+  }
+
+  .pagination {
+    padding: 0.5rem;
+  }
+`
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -48,19 +91,17 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length
 
   return (
-
-    <div class="card-header">
-    <div class="input-group">
+    <span>
     <input
-      value={globalFilter || ''}
-      onChange={e => {
-        setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-      }}
-      placeholder={`検索`}
-      className="form-control"
-      />
-    </div>
-</div>
+    value={globalFilter || ''}
+    onChange={e => {
+      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+    }}
+    placeholder={`検索`}
+    className="form-control" 
+    style={{marginBottom: "1rem"}}
+    />
+    </span>
   )
 }
 
@@ -71,13 +112,16 @@ function DefaultColumnFilter({
   const count = preFilteredRows.length
 
   return (
+    <div>
     <input
       value={filterValue || ''}
       onChange={e => {
         setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
       }}
-      placeholder={`Search ${count} records...`}
+      style={{width: "100%"}}
+      placeholder={`Search ${count}`}
     />
+    </div>
   )
 }
 
@@ -209,7 +253,40 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-export const Table = function ({ columns, data }) {
+const EditableCell = ({
+  cell: { value: initialValue },
+  row: { index },
+  column: { id },
+  updateMyData, // This is a custom function that we supplied to our table instance
+  }) => {
+  // We need to keep and update the state of the cell normally
+  const [value, setValue] = React.useState(initialValue)
+
+  const onChange = e => {
+    setValue(e.target.value)
+  }
+
+  // We'll only update the external data when the input is blurred
+  const onBlur = () => {
+    updateMyData(index, id, value)
+  }
+
+  // If the initialValue is changed external, sync it up with our state
+  React.useEffect(() => {
+    setValue(initialValue)
+  }, [initialValue])
+
+  return <input value={value} onChange={onChange} onBlur={onBlur} />
+}
+
+// Set our editable cell renderer as the default Cell renderer
+const defaultColumn = {
+  Cell: EditableCell,
+}
+
+
+export const Table = function ({ columns, data, selectedRows, updateMyData, onSelectedRowsChange }) {
+
 
   const filterTypes = React.useMemo(
     () => ({
@@ -244,106 +321,68 @@ export const Table = function ({ columns, data }) {
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    page,
-    canPreviousPage,
-    canNextPage,
-    pageOptions,
-    pageCount,
-    gotoPage,
-    nextPage,
-    previousPage,
-    setPageSize,
     prepareRow,
-    selectedFlatRows,
     state,
-    flatColumns,
+    rows,
     preGlobalFilteredRows,
     setGlobalFilter,
-    state: { pageIndex, pageSize, selectedRowIds },
     } = useTable({
-    columns,
-    data,
-    defaultColumn,
+      columns,
+      data,
+      defaultColumn,
+      updateMyData,
     filterTypes,
     },
-   useFilters, useGlobalFilter, useSortBy, usePagination,useRowSelect
-  )
+   useFilters, useGlobalFilter, useSortBy,useRowSelect,
+)
 
-  return (
-    <div>
-    <GlobalFilter
-      preGlobalFilteredRows={preGlobalFilteredRows}
-      globalFilter={state.globalFilter}
-      setGlobalFilter={setGlobalFilter}
-    />
-    <div class="table-responsive">
-    <table class="table card-table table-striped table-vcenter"  cellspacing="0" {...getTableProps()}>
-      <thead>
-        {headerGroups.map(headerGroup => (
+return (
+  <div>
+  <GlobalFilter
+    preGlobalFilteredRows={preGlobalFilteredRows}
+    globalFilter={state.globalFilter}
+    setGlobalFilter={setGlobalFilter}
+  />
+  <div style={{background:"#fff"}}>
+  <table {...getTableProps()}>
+    <thead>
+    {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()}>
-              {column.render('Header')}
-              </th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                {column.render('Header')}
+                <span>{column.canFilter ? column.render('Filter') : null}
+                {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
+                </span>
+                </th>
+             
             ))}
           </tr>
         ))}
-        <tr>
-        </tr>
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {page.map(
-          (row, i) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                })}
-              </tr>
-            )}
-        )}
-      </tbody>
-    </table>
-    </div>
+      
+    </thead>
+    
+    <tbody {...getTableBodyProps()}>
+    {rows.map((row, i) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => {
+                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+              })}
+            </tr>
+        )
+      })}
+      
+    </tbody>
+  </table>
+  </div>
 
-    <div class="flex items-center justify-center">
-    <ul class="pagination modal-1">
-      <li><a onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</a></li>
-      <li><a onClick={() => previousPage()} disabled={!canPreviousPage}>{'<'}</a></li>
-      <li><a onClick={() => nextPage()} disabled={!canNextPage}>{'>'}</a></li>
-      <li><a onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</a></li>
-    </ul>
-    <div class="mv2">
-    <span>
-       Go to page:{' '}
-      <input
-        type="number"
-        defaultValue={pageIndex + 1}
-        onChange={e => {
-          const page = e.target.value ? Number(e.target.value) - 1 : 0
-          gotoPage(page)
-        }}
-        style={{ width: '100px' }}
-      />
-    </span>{' '}
-    <select
-      value={pageSize}
-      onChange={e => {
-        setPageSize(Number(e.target.value))
-      }}
-    >
-      {[10, 20, 30, 40, 50].map(pageSize => (
-        <option key={pageSize} value={pageSize}>
-          Show {pageSize}
-        </option>
-      ))}
-    </select>
-      </div>
-    </div>
-    </div>
-  )
+ 
+  </div>
+)
 }
+
 
 const ManageInterviews = () => {
   const [interviews, setInterviews] = useState([]);
@@ -380,8 +419,22 @@ const ManageInterviews = () => {
     });
 };
 
+const updateMyData = (rowIndex, columnId, value) => {
+  setInterviews(old =>
+    old.map((row, index) => {
+      if (index === rowIndex) {
+        return {
+          ...old[rowIndex],
+          [columnId]: value,
+        }
+      }
+      return row
+    })
+  )
+}
 
-  const columns = React.useMemo(
+
+const columns = React.useMemo(
    () => [
      // Let's make a column for selection
      {
@@ -403,80 +456,93 @@ const ManageInterviews = () => {
      },
     {
     Header: 'Student',
+    Filter: SelectColumnFilter,
     accessor: (text, i) =>
     <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
     },
     {
     Header: 'Company',
+    Filter: SelectColumnFilter,
     accessor: (text, i) =>
     <div>{text.companies.map((user,i)=> <div>{user.name}</div>)}</div>
     },
+    {
+    Header: 'InterviewType',
+    accessor: "interviewType",
+    Filter: SelectColumnFilter,
+    },
+    {
+    Header: 'Company Skype',
+    accessor: "companyStatus",
+    Filter: SelectColumnFilter,
+    },
+    {
+    Header: 'Student Skype',
+    accessor: "studentStatus",
+    Filter: SelectColumnFilter,
+    },
     { 
       Header: 'Interview',
+      Filter: "",
       accessor: (text, i) =>
       <div>{text.interviewItems.length == null ? "" : 
         <div>{text.interviewItems.map((item, i) => 
-        <div>{item.time} ({item.category}) : {item.result} 
+        <div>{item.time_period}/{item.time}/{item.category}/ {item.result} 
         <UpdateInterviewItem interviewItemId={item._id} interviewId={text._id} />
-        <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroyItem(text._id, item._id) } } >
-                Delete
-            </a>
+        <button className="btn btn-outline-danger btn-sm" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroyItem(text._id, item._id) } } >
+                削除
+            </button>
             </div>)} 
         </div>}
       </div>
     },
     {
-      Header: 'Rank',
-      accessor: "companyRank"
-    },
-    {
-      Header: 'Rate',
-      accessor: "companyRate"
-    },
-    {
-      Header: 'Reason',
-      accessor: "reason"
-    },
+      Header: 'Status',
+      accessor: "status",
+      Filter: SelectColumnFilter,
+      },
     {
       Header: "Actions",
+      Filter: "",
       accessor: (text, i) =>
+      <div>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item> <AddInterviewItem interviewId={text._id} /></Dropdown.Item>
+        <Dropdown.Item> <UpdateInterview interviewId={text._id} />
+       </Dropdown.Item>
         <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
                 Delete
             </a></Dropdown.Item>
-      </DropdownButton>
+      </DropdownButton></div>
       ,
       filterable : true
-    }
+    },
+
 ],
 
   []
 );
-
+  
  const data = interviews
 
-
+ const [originalData] = React.useState(data)
   useEffect(() => {
       loadInterviews();
   }, []);
 
     return (
       <SiteWrapper>
-      <Page.Content>
-      <Grid.Row>
-      <Grid.Col width={12}>
-      <Card>
+        <Container>
       <div class="card-header"><h3 class="card-title"> Interviews </h3>
       <div class="card-options">
      <Link to={`/admin/create/interview`} className="btn btn-sm btn-secondary"> + Add Interview </Link> <br/>
      </div>
      </div>
-      <Table columns={columns} data={data} />
-      </Card>
-      </Grid.Col>
-       </Grid.Row>
-     </Page.Content>
+     <Styles>
+     <Table columns={columns} data={data} updateMyData={updateMyData} />
+     
+    </Styles>
+      </Container>
     </SiteWrapper>
     );
 };

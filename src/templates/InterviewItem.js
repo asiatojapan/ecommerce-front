@@ -4,7 +4,7 @@ import { getMyInterviews, getGroupInterviewList, getGroupInterviewPerson, readSt
 import { Link } from "react-router-dom";
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper'
-import UpdateInterviewItem from "../user/UpdateInterviewItem0"
+import UpdateInterviewItem from "../user/UpdateInterviewItem"
 import {
   Page,
   Avatar,
@@ -25,24 +25,22 @@ const InterviewItem = ({item, interview}) => {
     const { user, token } = isAuthenticated();
 
     return (
-      <div class="card-footer p-3 d-flex align-items-center">
+      <div class="card-footer p-0 d-flex align-items-center">
 
                     <div class="strong">
-                    <span class="bg-secondary text-white stamp px-2 mr-3">{item.category}
+                    <span class="bg-secondary text-white stamp px-2 mr-3">{item.time}
                     </span>
                     </div>
                     <div class="mr-3 lh-sm">
                     <div class="strong">
                       Japanese Level: {item.japanese_level} <br />
-                      Character Match: {item.character_match}<br />
-                      Skill Match: {item.skill_match}
                     </div>
                   </div>
                   <div class="ml-auto">
                   {item.phase}/ {item.time_period} / <strong>{item.time}</strong> /   <strong>{item.result}</strong>
                   </div>
-                  <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} />
-
+                  <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /> 
+              
       </div>
     );
 };

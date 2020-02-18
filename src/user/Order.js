@@ -45,9 +45,7 @@ const Order = props => {
           <div class="list-list">
           <h3 class="card-title">{order.status}</h3>
             </div>
-           
-            {console.log(order.favStudents)} 
-
+            
           </div>
        </Container>
       </SiteWrapper>
