@@ -33,12 +33,14 @@ const InterviewStudents = () => {
     const { user, token } = isAuthenticated();
 
     const [ interviews, setInterviews] = useState([]);
-
+    const [ loading, setLoading] = useState(true)
+    
     const loadInterviews = () => {
         getGroupInterviewList(user._id).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
+              setLoading(false)
                 setInterviews(data);
             }
         });
@@ -53,6 +55,9 @@ const InterviewStudents = () => {
 
     return (
       <InterviewNav>
+          <div class="loading" style={{ display: loading ? "" : "none" }}>
+          <div class="loaderSpin"></div>
+      </div>
       {interviews.map((interview,i) => <div>
         { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
           <div>

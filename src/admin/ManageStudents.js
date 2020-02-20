@@ -11,7 +11,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Modal from 'react-bootstrap/Modal';
 import Table2 from 'react-bootstrap/Table';
 import ImportStudents from "./ImportStudents";
-import Pagination from "../tables/Pagination";
+
 import {
   Dropdown,
   Container,
@@ -309,7 +309,7 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
 
 const ManageStudent = () => {
   const [students, setStudents] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const { user, token } = isAuthenticated();
   const loadStudents = () => {
       getStudents().then(data => {
@@ -317,6 +317,7 @@ const ManageStudent = () => {
               console.log(data.error);
           } else {
               setStudents(data);
+              setLoading(false)
           }
       });
   };
@@ -468,11 +469,23 @@ const ManageStudent = () => {
                           window.location.reload();
   };
 
-  const clickYes = e => {
+  const clickInvite = e => {
       getCheckStudents(selectedRows.map(
-                          d => d.original._id), "来日");
+                          d => d.original._id), "来日可否");
                           window.location.reload();
   };
+
+  const clickYes = e => {
+    getCheckStudents(selectedRows.map(
+                        d => d.original._id), "来日決定");
+                        window.location.reload();
+};
+
+const clickPending = e => {
+  getCheckStudents(selectedRows.map(
+                      d => d.original._id), "Shortlist");
+                      window.location.reload();
+};
 
   const clickFailed = e => {
       getCheckStudents(selectedRows.map(
@@ -493,6 +506,9 @@ const ManageStudent = () => {
 
     return (
     <SiteWrapper>
+        <div class="loading" style={{ display: loading ? "" : "none" }}>
+          <div class="loaderSpin"></div>
+      </div>
       <Container>
        <div class="card-header"><h3 class="card-title">Students </h3>
        <div class="card-options">
@@ -506,7 +522,9 @@ const ManageStudent = () => {
         <Modal.Body>
         <div class="btn-list">
         <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickList() } } >リスト掲載</button>
-        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickYes() } } >来日</button>
+        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickInvite() } } >来日可否</button>
+        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickYes() } } >来日決定</button>
+        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickPending() } } >Shortlist</button>
         <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickFailed() } } >NG</button>
         </div>
         </Modal.Body>
@@ -517,7 +535,7 @@ const ManageStudent = () => {
         </div>
         </div>
         <div>
-         <Table columns={columns} PaginationComponent={Pagination} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
+         <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
        </div> </Container>
       </SiteWrapper>
     );

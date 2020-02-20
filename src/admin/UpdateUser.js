@@ -5,7 +5,8 @@ import {Form, Select, Input, Button, DatePicker } from 'antd';
 import { PageHeader } from 'antd';
 import { getSalesRep } from "./apiAdmin";
 import { read, update, updateUser } from '../user/apiUser';
-import SiteWrapper from '../templates/SiteWrapper'
+import SiteWrapper from '../templates/SiteWrapper';
+
 import {
   Page,
   Dropdown,
@@ -166,7 +167,6 @@ const UpdateUser = ({ match, history }) => {
                     <option value=""> Select </option>
                     <option value="0"> User </option>
                     <option value="1"> Admin </option>
-                    <option value="2"> Student </option>
                     </select>
                   </div>
             </div>

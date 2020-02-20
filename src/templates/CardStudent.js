@@ -10,7 +10,6 @@ import {
   Grid,
   Card, Dropdown, Avatar, Text, Button, Badge
 } from "tabler-react";
-import {PdfDocument} from "../pdf/PdfDocument";
 
 const CardStudent = ({interview, student}) => {
 

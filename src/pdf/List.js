@@ -1,22 +1,26 @@
 import React from 'react';
 
-import { Text, View, StyleSheet,Font } from '@react-pdf/renderer'
-import ipaexm from './fonts/ipaexm.ttf';
-import ipaexg from './fonts/ipaexg.ttf';
+import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import ipaexg from './fonts/ipaexg.ttf'
 
-Font.register({
-  family: 'ipaexm',
-  src: ipaexm
+Font.register( {
+  family: 'Ipaexg',
+  src: ipaexg,
 });
 
 const styles = StyleSheet.create({
+  item: {
+    flexDirection: 'row',
+    marginBottom: 5,
+  },
   bulletPoint: {
     width: 10,
     fontSize: 10,
   },
   itemContent: {
+    flex: 1,
+    fontFamily: "Ipaexg",
     fontSize: 10,
-    fontFamily: 'ipaexm',
   },
 });
 

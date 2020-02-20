@@ -6,7 +6,6 @@ import  AddFav  from './AddFav';
 import { FaFileDownload } from 'react-icons/fa';
 import { isAuthenticated } from '../auth';
 import styled from 'styled-components'
-import {PdfDocument} from "../pdf/PdfDocument";
 import axios from 'axios';
 
 const Card2 = ({student}) => {

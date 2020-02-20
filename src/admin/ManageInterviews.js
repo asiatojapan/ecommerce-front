@@ -387,12 +387,14 @@ return (
 const ManageInterviews = () => {
   const [interviews, setInterviews] = useState([]);
   const { user, token } = isAuthenticated();
+  const [loading, setLoading] = useState(true)
 
   const loadInterviews = () => {
       getInterviews().then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
+              setLoading(false);
               setInterviews(data);
           }
       });
@@ -532,10 +534,13 @@ const columns = React.useMemo(
 
     return (
       <SiteWrapper>
+           <div class="loading" style={{ display: loading ? "" : "none" }}>
+          <div class="loaderSpin"></div>
+      </div>
         <Container>
       <div class="card-header"><h3 class="card-title"> Interviews </h3>
       <div class="card-options">
-     <Link to={`/admin/create/interview`} className="btn btn-sm btn-secondary"> + Add Interview </Link> <br/>
+      {/* <Link to={`/admin/create/interview`} className="btn btn-sm btn-secondary"> + Add Interview </Link> <br/> */}
      </div>
      </div>
      <Styles>

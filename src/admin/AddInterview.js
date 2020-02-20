@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { read } from "../user/apiUser"
 import { createInterview, deleteInterview } from "./apiAdmin";
 
-const AddInterview = ({student, userIdFromTable, handleUpdate })  => {
+const AddInterview = ({student, userIdFromTable, handleUpdate,  setRun = f => f,
+  run = undefined })  => {
 
     const [interview, setInterview] = useState(false);
 
     const { user, token } = isAuthenticated();
+    
 
     const init = userIdFromTable => {
       const found = student.interviews.some(el => el.company === userIdFromTable)
@@ -28,6 +30,7 @@ const AddInterview = ({student, userIdFromTable, handleUpdate })  => {
     const clickSubmit = e => {
         e.preventDefault();
         setInterview(true)
+        setRun(!run)
         // make request to api to create category
         createInterview(student, userIdFromTable, token)
 

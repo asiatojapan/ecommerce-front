@@ -26,13 +26,16 @@ const UpdateStudent = ({ match, history }) => {
       it_skills: '',
       entry_timing: '',
       jlpt: '',
+      jlpt_next: '',
       github: '',
+      qualification: '',
       education_bg: '',
       research: '',
       why_work_in_japan: '',
       internship: '',
       other_pr: '',
       video: '',
+      videoImg: '',
       categories_list: [],
       categories: [],
       loading: false,
@@ -81,13 +84,16 @@ const UpdateStudent = ({ match, history }) => {
                     it_skills: data.it_skills,
                     entry_timing: data.entry_timing,
                     jlpt: data.jlpt,
+                    jlpt_next: data.jlpt_next,
                     github: data.github,
                     education_bg: data.education_bg,
+                    qualification: data.qualification,
                     research: data.research,
                     why_work_in_japan: data.why_work_in_japan,
                     internship: data.internship,
                     other_pr: data.other_pr,
                     video: data.video,
+                    videoImg: data.videoImg,
                     categories: data.categories,
                     upload_fyp: data.upload_fyp,
                     formData: new FormData()
@@ -186,6 +192,7 @@ const UpdateStudent = ({ match, history }) => {
                     internship: '',
                     other_pr: '',
                     video: '',
+                    videoImg: '',
                     loading: false,
                     error: false,
                     redirectToProfile: true,
@@ -251,6 +258,11 @@ const UpdateStudent = ({ match, history }) => {
             <option value="None"> None </option>
             </select>
          </div>
+
+        < div class="mb-2">
+            <label class="form-label">JLPT Next</label>
+             <input type="text" onChange={handleChange("jlpt_next")} value={values.jlpt_next} name="jlpt_next"  class="form-control"/>
+          </div>
   
           <div class="mb-2">
             <label class="form-label">English</label>
@@ -300,6 +312,11 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">Video Url</label>
              <input type="text" onChange={handleChange("video")} value={values.video} name="video"  class="form-control"/>
           </div>
+
+          <div class="mb-2">
+            <label class="form-label">videoImg</label>
+             <input type="text" onChange={handleChange("videoImg")} value={values.videoImg} name="videoImg"  class="form-control"/>
+          </div>
   
           <div class="mb-2">
             <label class="form-label">Github URL</label>
@@ -309,6 +326,11 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">学歴備考</label>
              <input type="text" onChange={handleChange("education_bg")} value={values.education_bg} name="education_bg"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">学歴備考</label>
+             <input type="text" onChange={handleChange("qualification")} value={values.qualification} name="qualification"  class="form-control"/>
           </div>
   
           <div class="mb-2">

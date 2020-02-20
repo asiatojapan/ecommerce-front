@@ -7,6 +7,7 @@ import { getStudents, getMyInterviews, getFavStudents,getGroupInterviewList  } f
 import AddRec from "./AddRec";
 import AddInterview from "./AddInterview";
 import SiteWrapper from '../templates/SiteWrapper'
+import Modal from 'react-bootstrap/Modal';
 import {
   Page,
   Dropdown,
@@ -19,11 +20,9 @@ import {
   Container,
   Badge,
 } from "tabler-react";
-import { Form, Select, Input, Button, DatePicker, Descriptions,Divider } from 'antd';
-import { PageHeader } from 'antd';
+import { Button } from 'antd';
 import { Table } from "./ManageStudents";
-const { Option } = Select;
-const { TextArea } = Input;
+import { FaDove } from 'react-icons/fa';
 
 
 
@@ -69,6 +68,7 @@ const AdminUser = props => {
     const { user, token } = isAuthenticated();
 
     const [ favStudents, setFavStudents ] =  useState([]);
+
     const [run, setRun] = useState(false);
 
     const [ interviewstudents, setInterviewstudents ] =  useState([]);
@@ -120,6 +120,12 @@ const AdminUser = props => {
       setInterviewstudents(getGroupInterviewList(props.match.params.userId));
     }, [run]);
 
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+  
+
 
     const columns = React.useMemo(
      () => [
@@ -165,7 +171,7 @@ const AdminUser = props => {
            <div>
            {text.favorites.map((c,i) =>
              <div>
-             {c == props.match.params.userId ? <span class=" badge badge-warning">●</span> : ""}
+             {c == props.match.params.userId ? "●" : ""}
              </div>
            )}
            </div>
@@ -175,9 +181,22 @@ const AdminUser = props => {
            Filter: "",
            accessor: (text, i) =>
            <div>
-             <AddInterview student={text} userIdFromTable={props.match.params.userId} />
+             <AddInterview student={text} userIdFromTable={props.match.params.userId} run={run} />
            </div>
          },
+
+         {
+          Header: '面接status',
+          Filter: "",
+          accessor: (text, i) =>
+          <div>
+             {text.interviews.map((c,i) =>
+             <div>
+              {c.status}
+             </div>
+           )}
+          </div>
+        },
     ],
       []
     );
@@ -223,6 +242,7 @@ const AdminUser = props => {
       <SiteWrapper>
       <Page.Content>
       <Grid.Row>
+      <Grid.Col width={12} lg={3} sm={12}>
       <div class="card">
                     <div class="card-body ">
                       <h2 class="mb-3">{user1.name}</h2>
@@ -232,15 +252,52 @@ const AdminUser = props => {
                          <b>営業担当: </b>{user1.salesrep }<br/>
                          <b>フェーズ: </b>{user1.round} <br/>
                          <b>フェーズメモ: </b>{user1.phase}
-                      </p>
+                      </p> <Button href={`/admin/user/update/${user1._id}`} >Update</Button>
                     </div>
                   </div>
-                  {favStudentsCard()}
-                  {interviewCard()}
-      </Grid.Row>
-      <Grid.Row>
-    
+
+                  <div class="card">
+                    <div class="card-body ">
+                    <p>
+                        <b>事業内容: </b> {user1.descriptionSix!== null ? "...": ""}<br/>
+                        <b>選考ステップ: </b> {user1.descriptionOne !== null ? "...": ""} <br/>
+                         <b>２次面接内容 : </b>{user1.descriptionTwo !== null ? "...": ""} <br/>
+                         <b>フェーズ: </b>{user1.descriptionThree !== null ? "...": ""} <br/>
+                         <b>最終面接内容: </b>{user1.descriptionFour !== null ? "...": ""} <br/>
+                         <b>参考: </b>{user1.descriptionFive !== null ? "...": ""} <br/></p>
+                         <Button variant="primary" onClick={handleShow}>
+                            View More
+                        </Button>
+
+                        <Modal show={show} onHide={handleClose}>
+                          <Modal.Header closeButton>
+                           
+                          </Modal.Header>
+                          <Modal.Body style={{whiteSpace: "pre-wrap"}}> 
+                             <b>事業内容: </b> {user1.descriptionSix}<br/><br/>
+                        <b>選考ステップ: </b> {user1.descriptionOne} <br/><br/>
+                         <b>２次面接内容 : </b>{user1.descriptionTwo} <br/><br/>
+                         <b>フェーズ: </b>{user1.descriptionThree} <br/><br/>
+                         <b>最終面接内容: </b>{user1.descriptionFour} <br/><br/>
+                         <b>参考: </b>{user1.descriptionFive} <br/><br/>
+                     </Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                              Close
+                            </Button>
+                            <Button variant="primary" onClick={handleClose}>
+                              Save Changes
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
+                    
+                    </div>
+                  </div>
+                  </Grid.Col>
+     
+      <Grid.Col width={12} lg={9} sm={12}>
     <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
+    </Grid.Col>
       </Grid.Row>
       </Page.Content>
     </SiteWrapper>

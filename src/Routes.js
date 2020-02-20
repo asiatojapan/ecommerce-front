@@ -31,12 +31,12 @@ import InterviewStudentsDay2 from './user/InterviewStudentsDay2';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
 import Profile from './user/Profile';
-import Quixote from './pdf/Quixote';
 import Faq from './user/Faq';
 import CheckoutPreview from './core/CheckoutPreview';
 import Checkout from './core/Checkout';
 import Orders from './user/Orders';
 import Order from './user/Order';
+import Resume from './pdf/Resume';
 
 document.body.style.backgroundColor = "#f5f7fb";
 
@@ -71,11 +71,11 @@ const Routes = () => {
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
     <PrivateRoute path="/interview/:interviewId" exact component={Interview}/>
-    <PrivateRoute path="/quixote" exact component={Quixote} />
     <AdminRoute path="/admin/student/:studentId" exact component={AStudent} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
+      <PrivateRoute path="/resume" exact component={Resume} />
       <PrivateRoute path="/user/interviewitem/:interviewId" exact component={UpdateInterviewItem} />
     </Switch>
     </BrowserRouter>

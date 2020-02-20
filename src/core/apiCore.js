@@ -89,16 +89,6 @@ export const read = productId => {
         .catch(err => console.log(err));
 };
 
-export const listRelated = productId => {
-    return fetch(`${API}/products/related/${productId}`, {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
 
 export const createLike = (userId, student, token) => {
   return fetch(`${API}/like/${userId}`, {
@@ -306,6 +296,16 @@ export const updateInterviewItem = (interviewId, interviewItemId, userId, token,
             Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const listRelated = studentId => {
+    return fetch(`${API}/students/related/${studentId}`, {
+        method: "GET"
     })
         .then(response => {
             return response.json();

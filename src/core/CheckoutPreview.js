@@ -21,11 +21,13 @@ import {
 const CheckoutPreview = () => {
     const [items, setItems] = useState([]);
     const [run, setRun] = useState(false);
+    const [loading, setLoading] = useState(true)
 
     const { user, token } = isAuthenticated();
    
     const init = userId => {
         getFavStudents(user._id).then(data => {
+            setLoading(false)
             setItems(data);
         });
     };
@@ -60,6 +62,10 @@ const CheckoutPreview = () => {
 
     return (
         <SiteWrapper>
+                     <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
+      <div className="my-3 my-md-5"></div>
             <div className="my-3 my-md-5"></div>
             <Container>
             <div className="progressbox">

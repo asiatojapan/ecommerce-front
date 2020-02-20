@@ -309,7 +309,7 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
   const { user, token } = isAuthenticated();
-
+  const [loading, setLoading] = useState(true)
 
   const [ likedstudents, setLikedstudents ] =  useState([]);
 
@@ -320,6 +320,7 @@ const ManageUsers = () => {
               console.log(data.error);
           } else {
               setUsers(data);
+              setLoading(false)
           }
       });
   };
@@ -411,17 +412,10 @@ const ManageUsers = () => {
     },
 
     {
-      Header: '面接',
+      Header: '面接数',
       Filter: "",
       accessor: (text, i) =>
-      <div> {text.interviews.length}</div>
-    },
-
-    {
-      Header: '面接',
-      Filter: "",
-      accessor: (text, i) =>
-      <div> {text.interviews.length}</div>
+      <div> {text.interviews.filter(x => x.status == "選考").length}</div>
     },
 
     {
@@ -430,7 +424,6 @@ const ManageUsers = () => {
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item to={`/admin/profile/${text._id}`}>View </Dropdown.Item>
-        <Dropdown.Item to={`/admin/user/update/${text._id}`} >Update</Dropdown.Item>
         <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
                 Delete
             </a></Dropdown.Item>
@@ -452,6 +445,9 @@ const ManageUsers = () => {
 
     return (
     <SiteWrapper>
+       <div class="loading" style={{ display: loading ? "" : "none" }}>
+          <div class="loaderSpin"></div>
+      </div>
       <Container>
       <div class="card-header"><h3 class="card-title"> Users </h3>
       <div class="card-options">

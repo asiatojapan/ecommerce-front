@@ -22,6 +22,7 @@ import {
 const Checkout = () => {
     const [items, setItems] = useState([]);
     const [run, setRun] = useState(false);
+    const [loading, setLoading] = useState(true)
 
     const [redirectToProfile, setRedirectToProfile] = useState(false)
     const [error, setError] = useState(false)
@@ -30,6 +31,7 @@ const Checkout = () => {
    
     const init = userId => {
         getFavStudents(user._id).then(data => {
+            setLoading(false)
             setItems(data);
         });
     };
@@ -108,6 +110,9 @@ const Checkout = () => {
 
     return (
         <SiteWrapper>
+             <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
             <div className="my-3 my-md-5"></div>
             <div style={{ display: redirectToProfile ? 'none' : '' }} >
             <Container>

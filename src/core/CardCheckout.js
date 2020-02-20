@@ -12,7 +12,6 @@ import {
   Icon,
   Card, Dropdown, Avatar, Text, Button, Badge
 } from "tabler-react";
-import {PdfDocument} from "../pdf/PdfDocument";
 
 const CardCheckout = ({student,indivRank,
   showRemoveItemButton = false,

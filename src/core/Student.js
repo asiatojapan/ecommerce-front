@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout2 from './Layout';
-import { readStudent } from './apiCore';
+import { readStudent, listRelated } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
 import {
@@ -18,11 +17,12 @@ import {
   Badge,
 } from "tabler-react";
 
-import {PdfDocument} from "../pdf/PdfDocument";
 
 const Student = props => {
     const [student, setStudent] = useState({});
+    const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true)
 
     const loadSingleStudent = studentId => {
         readStudent(studentId).then(data => {
@@ -30,9 +30,17 @@ const Student = props => {
                 setError(data.error);
             } else {
                 setStudent(data);
-            }
-        });
-    };
+                listRelated(data._id).then(data => {
+                  if (data.error) {
+                      setError(data.error);
+                  } else {
+                      setRelatedStudent(data);
+                      setLoading(false);
+                    }
+                  });
+              }
+          });
+      };
 
     useEffect(() => {
         const studentId = props.match.params.studentId;
@@ -41,13 +49,25 @@ const Student = props => {
 
     return (
       <SiteWrapper>
+                 <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
+     
+      
       <Page.Content>
-      <Grid.Row>
-      <Grid.Col lg={9}>
-      <div class="card card-sm">
+      <ol class="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href="#">{student.studentid}</a></li>
+</ol>   
+        <Grid.Row>
+      
+      <Grid.Col width={12} lg={9} sm={12}>
+      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
           <div class="d-block">
-            <div className="iframe-container">
-            {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} ></iframe> </div> }
+            <div className="embed-container">
+              
+            {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> </div> }
 
                         </div>
                         </div>
@@ -62,7 +82,7 @@ const Student = props => {
                         </Tag.List>
                         </div>
                       </div>
-                      <div class="card">
+                      <div class="card" style={{border: "None"}}>
                       <div class="card-header"><div class="card-title">Basic Info</div>
                       </div>
                       <div class="card-body">
@@ -88,7 +108,8 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card">
+                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
                       <div class="card-header"><div class="card-title">Education</div>
                       </div>
                       <div class="card-body">
@@ -113,7 +134,8 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card">
+                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
                       <div class="card-header"><div class="card-title">Internship</div>
                       </div>
                       <div class="card-body">
@@ -125,7 +147,8 @@ const Student = props => {
 
 
 
-                      <div class="card">
+                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
                       <div class="card-header"><div class="card-title">言語</div>
                       </div>
                       <div class="card-body">
@@ -138,7 +161,7 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card">
+                      <div class="card" style={{border: "None"}}>
                       <div class="card-header"><div class="card-title">IT Skills</div>
                       </div>
                       <div class="card-body">
@@ -150,7 +173,8 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card">
+                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
                       <div class="card-header"><div class="card-title">その他PR</div>
                       </div>
                       <div class="card-body">
@@ -167,28 +191,42 @@ const Student = props => {
 
 
       </Grid.Col>
-      <Grid.Col lg={3}>
-      <div class="card">
+      
+      <Grid.Col width={12} lg={3} sm={12} >
+        <div>
+        <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
       <div class="card-body">
         <AddFav2 student={props.match.params.studentId} />
       </div>
       </div>
 
-      <div class="card">
+      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
+     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
       <div class="card-header"><div class="card-title">Downloads</div>
       </div>
       <div class="card-body">
       <div class="mb-2">
-      <PdfDocument student={student}/>
-      <button href={student.upload_fyp} class="btn btn-bitbucket ml-2">
+      {student.upload_fyp === null ? "":  <a href={student.upload_fyp} class="btn btn-bitbucket ml-2">
         FYP
-        </button>
+        </a>}
       </div>
       </div>
+      </div>
+
+      <h4>You may also like </h4>
+      {relatedStudent.map((s, i) => (
+          <div className="list-list" key={i} style={{padding: "0"}}> 
+             
+             <img src={s.videoImg} style={{height: "60px"}}/> 
+             <a href={`/student/${s._id}`}>   {s.studentid} </a>
+            
+                        </div>
+      ))}
       </div>
         </Grid.Col>
        </Grid.Row>
-     </Page.Content>
+      </Page.Content>
     </SiteWrapper>
     );
 };

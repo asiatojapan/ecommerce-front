@@ -3,44 +3,29 @@ import { Link, Redirect } from 'react-router-dom';
 import { Card } from 'antd';
 import  AddFav  from './AddFav';
 import { FaFileDownload } from 'react-icons/fa';
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import { isAuthenticated } from '../auth';
 import styled from 'styled-components'
-import {PdfDocument} from "../pdf/PdfDocument";
-import axios from 'axios';
 import {
   Icon,
 } from "tabler-react";
 
+
+const VidImg = styled.img `
+  sposition: relative;
+    float: right;
+    height: 104px;
+    margin: 0 0 16px 16px;
+    overflow: hidden;
+    background-position: 50%;
+    background-size: cover;
+    border: 1px solid #f2f2f2;
+    border-radius: 4px;
+`
+
 const List = ({student, setFavCount,
   favCount}) => {
 
-  const [videoThumb, setVideoThumb] = useState("");
-
-  const getVideoThumb = () => {
-    const url = "https://vimeo.com/api/v2/video/" + student.video.slice(-9) + ".json" || '';
-      axios
-      .get(url)
-      .then((results) => {
-        setVideoThumb(results.data[0].thumbnail_medium)
-      })
-  }
-  useEffect(() => {
-  }, []);
-
-  function VideoThumbnail(video) {
-    const videothumb = "gello"
-    
-    function getThumb() {
-    const url = "https://vimeo.com/api/v2/video/" + video.video.slice(-9) + ".json" || '';
-      axios
-      .get(url)
-      .then((results) => {
-        return (results.data[0].thumbnail_medium)
-      })}
-    return ( 
-      <img src={getThumb()} />
-    )
-  }
 
   const handleSetFavCount = e => {
     setFavCount(e);
@@ -53,9 +38,10 @@ const List = ({student, setFavCount,
         borderColor: student.rec_users.indexOf(user._id)>-1 ? '#5bbaff' : 'none',
         boxShadow: student.rec_users.indexOf(user._id)>-1 ? "0 0 10px #5bbaff" : ""
       }}>
+        {student.videoImg == null?  "" : <img class="list-VidImg" src={`${student.videoImg}`} /> }
     <div className="list-TextItem">
-
     <a className="list-TextNoteTitle" href={`/student/${student._id}`}>   {student.comments == null?  "" : student.comments.substring(0,50) + "..." } </a>
+
     <div className="list-Desc">
     <div class="mt-1">
     <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
@@ -68,6 +54,9 @@ const List = ({student, setFavCount,
     </div>
     <div>
     <Icon prefix="fe" name="book" />  <strong>大学・学部: </strong>{student.university}・{student.faculty} ({student.education_bg})
+    <div>
+    <Icon prefix="fe" name="book" />  <strong>日本語: </strong>{student.japanese}・{student.jlpt === "None" ? "" : <span>{"JLPT: " + student.jlpt}</span>}
+    </div>
     </div>
     </div>
     </div>

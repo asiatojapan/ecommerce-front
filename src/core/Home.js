@@ -8,10 +8,10 @@ import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { it_skills } from "./it_skills";
 import { getStudents, getCategories, getFilteredStudents,getFavStudents } from './apiCore';
-import { PDFDownloadLink, Document } from '@react-pdf/renderer'
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper';
-import LoadingButton from '../templates/LoadingButton';
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import PdfDocument from "../pdf/Resume";
 import {
   Page,
   Avatar,
@@ -131,6 +131,7 @@ const Home = () => {
   }
 
   const handleFilters = (filters, filterBy) => {
+      setLoading(true)
       console.log(filters, filterBy);
       const newFilters = { ...myFilters };
       newFilters.filters[filterBy] = filters;
