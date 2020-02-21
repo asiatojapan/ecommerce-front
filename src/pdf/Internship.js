@@ -3,14 +3,7 @@ import _ from 'lodash';
 
 import Title from './Title';
 import List, { Item } from './List';
-import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import ipaexg from './fonts/ipaexg.ttf'
-
-Font.register( {
-  family: 'Ipaexg',
-  src: ipaexg,
-});
-
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   container: {
@@ -26,8 +19,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   date: {
-    fontFamily: "Ipaexg",
     fontSize: 11,
+    fontFamily: 'Lato Italic',
   },
   detailContainer: {
     flexDirection: 'row',
@@ -42,12 +35,11 @@ const styles = StyleSheet.create({
     flexGrow: 9,
   },
   bulletPoint: {
-    fontFamily: "Ipaexg",
     fontSize: 10,
   },
   details: {
-    fontFamily: "Ipaexg",
     fontSize: 10,
+    fontFamily: 'Lato',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -64,10 +56,10 @@ const styles = StyleSheet.create({
     justifySelf: 'flex-end',
   },
   title: {
-    fontFamily: "Ipaexg",
     fontSize: 11,
     color: 'black',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontFamily: 'Lato Bold',
   },
 });
 

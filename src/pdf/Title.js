@@ -1,16 +1,10 @@
 import React from 'react';
 
-import { Text, StyleSheet, Font } from '@react-pdf/renderer';
-import ipaexg from './fonts/ipaexg.ttf'
-
-Font.register( {
-  family: 'Ipaexg',
-  src: ipaexg,
-});
+import { Text, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   title: {
-    fontFamily: "Ipaexg",
+    fontFamily: 'Lato Bold',
     fontSize: 14,
     marginBottom: 10,
     textTransform: 'uppercase',

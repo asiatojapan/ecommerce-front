@@ -1,44 +1,92 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
-import { PDFViewer } from '@react-pdf/renderer';
-import Ipaexg from "./fonts/ipaexg.ttf"
 
-Font.register({ family: 'Ipaexg', src: Ipaexg });
+import ReactPDF, {
+  Text,
+  Document,
+  Font,
+  Page,
+  StyleSheet,
+  Image,
+  View,
+} from '@react-pdf/renderer';
+import Header from './Header';
+import PersonalDetails from './PersonalDetails';
+import Education from './Education';
+import Languages from './Languages';
+import Experience from './Experience';
+import Skills from './Skills';
 
-// Create styles
 const styles = StyleSheet.create({
   page: {
-    fontFamily: 'Ipaexg',
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4'
+    padding: 30,
   },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
-  }
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    '@media max-width: 400': {
+      flexDirection: 'column',
+    },
+  },
+  image: {
+    marginBottom: 10,
+  },
+  leftColumn: {
+    flexDirection: 'column',
+    width: 170,
+    paddingTop: 30,
+    paddingRight: 15,
+    '@media max-width: 400': {
+      width: '100%',
+      paddingRight: 0,
+    },
+    '@media orientation: landscape': {
+      width: 200,
+    },
+  },
+  footer: {
+    fontSize: 12,
+    fontFamily: 'Lato Bold',
+    textAlign: 'center',
+    marginTop: 25,
+    paddingTop: 10,
+    borderWidth: 3,
+    borderColor: 'gray',
+    borderStyle: 'dashed',
+    '@media orientation: landscape': {
+      marginTop: 10,
+    },
+  },
 });
 
-// Create Document Component
-const MyDocument = (props) => (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text>へ</Text>
+const Resume = props => (
+  <Page {...props} style={styles.page}>
+    <Header studentData={props.studentData} />
+    <View style={styles.container}>
+      <View style={styles.leftColumn}>
+        {
+          props.studentData.videoImg ? 
+            <Image
+              src={props.studentData.videoImg}
+              style={styles.image}
+            /> :
+            null
+        }
+        <PersonalDetails studentData={props.studentData} />
+        <Education studentData={props.studentData} />
+        <Languages studentData={props.studentData} />
+        <Skills studentData={props.studentData} />
       </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
+      <Experience studentData={props.studentData} />
+    </View>
+    <Text style={styles.footer}>STUDY GO WORK JAPAN</Text>
+  </Page>
+);
+
+export default (props) => (
+  <Document
+    author="STUDY GO WORK JAPAN<"
+    title={ props.student.studentid }
+  >
+    <Resume size="A4" studentData={props.student} />
   </Document>
 );
-
-
-const Resume = (props) => (
-  <PDFViewer>
-    <MyDocument studentData={props.studentData} />
-  </PDFViewer>
-);
-
-
-export default Resume;

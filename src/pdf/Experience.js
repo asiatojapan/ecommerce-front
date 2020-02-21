@@ -2,13 +2,7 @@ import React from 'react';
 
 import Title from './Title';
 import List, { Item } from './List';
-import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import ipaexg from './fonts/ipaexg.ttf'
-
-Font.register( {
-  family: 'Ipaexg',
-  src: ipaexg,
-});
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,8 +18,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   date: {
-    fontFamily: "Ipaexg",
     fontSize: 11,
+    fontFamily: 'Lato Italic',
   },
   detailContainer: {
     flexDirection: 'row',
@@ -40,12 +34,11 @@ const styles = StyleSheet.create({
     flexGrow: 9,
   },
   bulletPoint: {
-    fontFamily: "Ipaexg",
     fontSize: 10,
   },
   details: {
-    fontFamily: "Ipaexg",
     fontSize: 10,
+    fontFamily: 'Lato',
   },
   headerContainer: {
     flexDirection: 'row',
@@ -62,14 +55,19 @@ const styles = StyleSheet.create({
     justifySelf: 'flex-end',
   },
   title: {
-    fontFamily: "Ipaexg",
     fontSize: 11,
     color: 'black',
     textDecoration: 'none',
+    fontFamily: 'Lato Bold',
   },
 });
 
 const ExperienceEntry = ({ japaneseTitle, englishTitle, details }) => {
+
+  if (!details) {
+    return null;
+  }
+
   const title = `${japaneseTitle} (${englishTitle})`;
   return (
     <View style={styles.entryContainer}>
@@ -91,6 +89,11 @@ const ExperienceEntry = ({ japaneseTitle, englishTitle, details }) => {
 
 const experienceData = (studentData) => [
   {
+    japaneseTitle: '学歴備考',
+    englishTitle: 'Experience',
+    details: studentData.qualification,
+  },
+  {
     japaneseTitle: '研究テーマ',
     englishTitle: 'Research Theme',
     details: studentData.research,
@@ -104,17 +107,14 @@ const experienceData = (studentData) => [
     japaneseTitle: 'その他PR',
     englishTitle: 'Additional Comments',
     details: studentData.other_pr,
-  },
-  {
-    japaneseTitle: '日本で働きたい理由',
-    englishTitle: 'Why Work in Japan?',
-    details: studentData.why_work_in_japan,
   }
 ];
 
 const Experience = ({studentData}) => (
   <View style={styles.container}>
-    <Title>Experience</Title>
+    {
+      //<Title>学歴備考 (Experience)</Title>
+    }
     {experienceData(studentData).map(({ japaneseTitle, englishTitle, details }) => (
       <ExperienceEntry
         japaneseTitle={japaneseTitle}

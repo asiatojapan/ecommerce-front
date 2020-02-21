@@ -1,12 +1,6 @@
 import React from 'react';
 
-import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import ipaexg from './fonts/ipaexg.ttf'
-
-Font.register( {
-  family: 'Ipaexg',
-  src: ipaexg,
-});
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   item: {
@@ -19,8 +13,8 @@ const styles = StyleSheet.create({
   },
   itemContent: {
     flex: 1,
-    fontFamily: "Ipaexg",
     fontSize: 10,
+    fontFamily: 'Lato',
   },
 });
 

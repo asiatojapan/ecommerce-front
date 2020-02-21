@@ -1,18 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 
-import { Link, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-
-import ipaexg from './fonts/ipaexg.ttf'
-
-Font.register( {
-  family: 'Ipaexg',
-  src: ipaexg,
-});
+import { Link, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
   container: {
-    fontFamily: "Ipaexg",
     flexDirection: 'row',
     borderBottomWidth: 2,
     borderBottomColor: '#112131',
@@ -20,7 +12,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
   },
   detailColumn: {
-    fontFamily: "Ipaexg",
     flexDirection: 'column',
     flexGrow: 9,
   },
@@ -31,18 +22,18 @@ const styles = StyleSheet.create({
     justifySelf: 'flex-end',
   },
   name: {
-    fontFamily: "Ipaexg",
     fontSize: 24,
     textTransform: 'uppercase',
+    fontFamily: 'Lato Bold',
   },
   subtitle: {
-    fontFamily: "Ipaexg",
     fontSize: 10,
     justifySelf: 'flex-end',
     textTransform: 'uppercase',
+    fontFamily: 'Lato',
   },
   link: {
-    fontFamily: "Ipaexg",
+    fontFamily: 'Lato',
     fontSize: 10,
     color: 'black',
     textDecoration: 'none',
@@ -56,12 +47,19 @@ export default props => {
   return (
     <View style={styles.container}>
       <View style={styles.detailColumn}>
-        <Text style={styles.name}>事前確認用エントリーシート {studentData.studentid}</Text>
-        <Text style={styles.subtitle}>{studentData.tags.map(tag => "| " + _.trim(tag)) + " "}</Text>
+        <Text style={styles.name}>{studentData.studentid}</Text>
+        <Text style={styles.subtitle}>Study Go Work JAPAN</Text>
+        {
+          // <Text style={styles.subtitle}>{studentData.tags.map(tag => "| " + _.trim(tag)) + " "}</Text>
+        }
       </View>
-      <View style={styles.linkColumn}>
-        <Text style={styles.subtitle}>JOB博 in Study Go Work JAPAN</Text>
-      </View>
+      {
+        /*
+          <View style={styles.linkColumn}>
+            <Text style={styles.subtitle}>Study Go Work JAPAN</Text>
+          </View>
+        */
+      }
     </View>
   );
 }

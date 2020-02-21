@@ -33,7 +33,15 @@ import Notifications, {notify} from 'react-notify-toast';
 import styled from 'styled-components'
 
 
+import { BlobProvider, pdf, Font } from "@react-pdf/renderer";
+import Resume from "../pdf/Resume";
 
+import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
+import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
+import fontPathExtraBold from '../pdf/fonts/Koruri-Extrabold.ttf'
+import fontPathLight from '../pdf/fonts/Koruri-Light.ttf'
+import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
+  
 const CardColumn = styled.div`
 display: grid;
 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -42,7 +50,6 @@ grid-gap: 1rem;`
 
 const Home = () => {
   const { user, token } = isAuthenticated();
-  const [students, setStudents] = useState([]);
   const [favCount, setFavCount] = useState();
   const [myFilters, setMyFilters] = useState({
       filters: { categories: [], it_skills: [] }
@@ -50,10 +57,65 @@ const Home = () => {
   const [categorieslist, setCategorieslist] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [resumeLoading, setResumeLoading] = useState(true);
   const [limit, setLimit] = useState(15);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
+
+  const [studentsData, setStudentDataWithPDF] = useState([]);
+
+
+  async function createPDF(results) {
+    const studentDataArrPDF = [];
+    let i = 0;
+    //console.log(results)
+    while (i < results.length) {
+      // eslint-disable-next-line no-await-in-loop
+      await pdf(<Resume student={results[i]} />)
+        .toBlob()
+        // eslint-disable-next-line no-loop-func
+        .then(blobProp => {
+          studentDataArrPDF.push({
+            ...results[i],
+            url: URL.createObjectURL(blobProp),
+          });
+        });
+      i += 1;
+    }
+    setFilteredResults(studentDataArrPDF);
+    setResumeLoading(false)
+  }
+
+  async function createExtraPDF(results) {
+    const studentDataArrPDF = [];
+    let i = 0;
+    //console.log(results)
+    while (i < results.length) {
+      // eslint-disable-next-line no-await-in-loop
+      await pdf(<Resume student={results[i]} />)
+        .toBlob()
+        // eslint-disable-next-line no-loop-func
+        .then(blobProp => {
+          studentDataArrPDF.push({
+            ...results[i],
+            url: URL.createObjectURL(blobProp),
+          });
+        });
+      i += 1;
+    }
+    setFilteredResults(studentDataArrPDF);
+  }
+
+  const createPDFLinkButton = (studentData, trigger) => {
+    const { url } = studentData;
+
+    return url ? 
+      <a href={url} target="_blank">
+        {trigger}
+      </a> :  null
+  };
+
 
   const init = () => {
       getCategories().then(data => {
@@ -74,6 +136,7 @@ const Home = () => {
               setFilteredResults(data.data);
               setSize(data.size);
               setSkip(0);
+              createPDF(data.data)
           }
       });
   };
@@ -82,7 +145,7 @@ const Home = () => {
     getFavStudents(user._id).then(data => {
         setFavCount(data.length);
     });
-};
+    };
 
   
 
@@ -95,6 +158,7 @@ const Home = () => {
         } else {
             setFilteredResults([...filteredResults, ...data.data]);
             setSize(data.size);
+            createPDF([...filteredResults, ...data.data])
             setSkip(toSkip);
         }
     });
@@ -132,7 +196,7 @@ const Home = () => {
 
   const handleFilters = (filters, filterBy) => {
       setLoading(true)
-      console.log(filters, filterBy);
+      // console.log(filters, filterBy);
       const newFilters = { ...myFilters };
       newFilters.filters[filterBy] = filters;
 
@@ -168,19 +232,6 @@ const Home = () => {
      return array;
  };
 
-
-  const loadStudents = () => {
-      getStudents().then(data => {
-          if (data.error) {
-              console.log(data.error);
-          } else {
-              setStudents(data);
-          }
-      });
-  };
-
-
-
     return (
       <SiteWrapper> 
          <div class="loading" style={{ display: loading ? "" : "none" }}>
@@ -215,7 +266,7 @@ const Home = () => {
                {filteredResults.map((student, i) => (
       <div>
           <List student={student} setFavCount={handleSetFavCount}
-            favCount={favCount}/>
+            favCount={favCount} resumeLink={student.url} resumeLoading={resumeLoading}/> 
         </div>
         ))}
 

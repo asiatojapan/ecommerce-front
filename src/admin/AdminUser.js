@@ -192,7 +192,7 @@ const AdminUser = props => {
           <div>
              {text.interviews.map((c,i) =>
              <div>
-              {c.status}
+             {c.company == props.match.params.userId ? <span>{c.status} </span>: ""} 
              </div>
            )}
           </div>

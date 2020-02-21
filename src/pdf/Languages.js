@@ -1,30 +1,23 @@
 import React from 'react';
 import _ from 'lodash';
 
-import { Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Text, View, StyleSheet } from '@react-pdf/renderer';
 import Title from './Title';
-import ipaexg from './fonts/ipaexg.ttf'
-
-Font.register( {
-  family: 'Ipaexg',
-  src: ipaexg,
-});
-
 
 const styles = StyleSheet.create({
   container: {
     marginBottom: 10,
   },
   school: {
-    fontFamily: "Ipaexg",
+    fontFamily: 'Lato Bold',
     fontSize: 10,
   },
   degree: {
-    fontFamily: "Ipaexg",
+    fontFamily: 'Lato',
     fontSize: 10,
   },
   candidate: {
-    fontFamily: "Ipaexg",
+    fontFamily: 'Lato Italic',
     fontSize: 10,
   },
 });
@@ -35,12 +28,18 @@ export default props => {
   return(
     <View style={styles.container}>
       <Title>Languages</Title>
-      <Text style={styles.degree}>日本語: {_.upperCase(studentData.japanese)} (JLPT: {studentData.jlpt ? _.upperCase(studentData.jlpt) : "-"})</Text>
+      <Text style={styles.degree}>日本語: {_.upperCase(studentData.japanese)}  {studentData.jlpt ? "(JLPT: " + studentData.jlpt +")" : null}</Text>
+      { 
+        studentData.jlpt_next ? 
+        <Text style={styles.degree}>次回のJLPT受験予約: {studentData.jlpt_next}</Text> :
+        null
+      }  
       <Text style={styles.degree}>英語: {_.upperCase(studentData.english)} </Text>
-      {
-      //Have not configured for other languages 
-      }
-      <Text style={styles.degree}>その他言語: { studentData.otherLanguages ? _.upperCase(studentData.otherLanguages) : "-" } </Text>
+      { 
+        studentData.other_languages ? 
+        <Text style={styles.degree}>その他言語: {studentData.other_languages}</Text> :
+        null
+      }  
     </View>
   );
 }

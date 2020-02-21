@@ -394,13 +394,6 @@ const ManageStudent = () => {
     } ]},
    
     {
-      Header: 'おすすめ',
-      Filter: "",
-      accessor: (text, i) =>
-      <div> {text.rec_users.length == null? "" : text.rec_users.length}
-    </div>
-    },
-    {
       Header: 'Like',
       columns: [
     {

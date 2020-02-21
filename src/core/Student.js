@@ -56,8 +56,8 @@ const Student = props => {
       
       <Page.Content>
       <ol class="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
-  <li class="breadcrumb-item"><a href="#">Home</a></li>
-  <li class="breadcrumb-item active" aria-current="page"><a href="#">{student.studentid}</a></li>
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item active" aria-current="page"><a href={student.studentid}>{student.studentid}</a></li>
 </ol>   
         <Grid.Row>
       
@@ -207,7 +207,7 @@ const Student = props => {
       </div>
       <div class="card-body">
       <div class="mb-2">
-      {student.upload_fyp === null ? "":  <a href={student.upload_fyp} class="btn btn-bitbucket ml-2">
+      {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="btn btn-bitbucket ml-2">
         FYP
         </a>}
       </div>

@@ -56,9 +56,11 @@ const CardCheckout = ({student,indivRank,
   return (
      <div className="list-list" style={{padding: "1rem", border: "1px solid #eee"}} >
          {showRemoveButton(showRemoveItemButton)}
+         <div class="row">
+         <img src={student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
                     <div class="row row-sm align-items-center">
                       <div class="col">
-                        <h4 class="card-title mb-2">
+                        <h4>
                           <Link to={`/student/${student._id}`}> {student.studentid} </Link>
                         </h4>
                         <div className="list-Desc" style={{marginBottom: "0px"}}>
@@ -73,6 +75,7 @@ const CardCheckout = ({student,indivRank,
                       </div>
                   <div class="col-auto">
                   {showRankButton(showRankItemButton)}
+                  </div>
               </div>
             </div>
           </div>

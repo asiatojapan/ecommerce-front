@@ -16,13 +16,15 @@ const CardStudent = ({interview, student}) => {
   const { user, token } = isAuthenticated();
 
   return (
-    <div class="list-list" style={{backgroundColor: "#fff"}}>
+    <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
+      <div class="row">
+        <img src={student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
+      
           <ul className="list-unstyled list-separated" style={{margin: "0"}}>
                    <li className="list-separated-item">
                      <Grid.Row className="align-items-center">
-
                        <Grid.Col>
-                       <Text muted className="d-block item-except h-1x">
+                       <Text className="d-block item-except h-1x">
                            {student.studentid}
                          </Text>
                          <div>
@@ -35,11 +37,13 @@ const CardStudent = ({interview, student}) => {
                      </Grid.Row>
                    </li>
                  </ul>
+                 </div>
                { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
                  <div>
                    <InterviewItem interview={interview} item={item}/>
                  </div>
                ) : ""}
+               
                </div>
 
 

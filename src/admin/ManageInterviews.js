@@ -456,18 +456,18 @@ const columns = React.useMemo(
          </div>
        )
      },
-    {
-    Header: 'Student',
-    Filter: SelectColumnFilter,
-    accessor: (text, i) =>
-    <div>{text.students.map((student,i)=> <div>{student.studentid}</div>)}</div>
+
+     {
+      Header: 'Student',
+      Filter: SelectColumnFilter,
+      accessor: "students[0].studentid"
     },
-    {
-    Header: 'Company',
-    Filter: SelectColumnFilter,
-    accessor: (text, i) =>
-    <div>{text.companies.map((user,i)=> <div>{user.name}</div>)}</div>
-    },
+
+      {
+        Header: 'Company',
+        Filter: SelectColumnFilter,
+        accessor: "companies[0].name"
+      },
     {
     Header: 'InterviewType',
     accessor: "interviewType",

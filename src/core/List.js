@@ -10,9 +10,35 @@ import {
   Icon,
 } from "tabler-react";
 
+import { BlobProvider, pdf, Font } from "@react-pdf/renderer";
+import Resume from "../pdf/Resume";
+
+import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
+import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
+import fontPathExtraBold from '../pdf/fonts/Koruri-Extrabold.ttf'
+import fontPathLight from '../pdf/fonts/Koruri-Light.ttf'
+import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
+
+
+Font.register( {
+    family: 'Open Sans',
+    src: fontPathRegular,
+  });
+  Font.register( {
+    family: 'Lato',
+    src: fontPathRegular,
+  });
+  Font.register( {
+    family: 'Lato Italic',
+    src: fontPathSemiBold,
+  });
+  Font.register( {
+    family: 'Lato Bold',
+    src: fontPathBold,
+  });
 
 const VidImg = styled.img `
-  sposition: relative;
+  position: relative;
     float: right;
     height: 104px;
     margin: 0 0 16px 16px;
@@ -24,12 +50,35 @@ const VidImg = styled.img `
 `
 
 const List = ({student, setFavCount,
-  favCount}) => {
+  favCount, resumeLoading}) => {
+
+    const [studentData, setStudentDataWithPDF] = useState("");
+
+    async function createPDF(student) {
+        await pdf(<Resume student={student} />)
+          .toBlob()
+          // eslint-disable-next-line no-loop-func
+          .then(blobProp => {
+            return setStudentDataWithPDF(URL.createObjectURL(blobProp))
+        });
+    }
+  
+    const createPDFLinkButton = (studentData, trigger) => {
+      console.log(studentData)
+      const { url } = studentData;
+  
+      return url ? 
+        <a href={url} target="_blank">
+          {trigger}
+        </a> :  null
+    };
+  
 
 
   const handleSetFavCount = e => {
     setFavCount(e);
   };
+
 
   const { user, token } = isAuthenticated();
 
@@ -72,8 +121,13 @@ const List = ({student, setFavCount,
       <span class="tag expanded tag-blue">#{skill}</span>
       ))}
       </div>
+      <a href={student.url} target="_blank" class="btn btn-primary"
+    >
+      {resumeLoading ? 'Loading…' : student.studentid }
+    </a>
     <AddFav student={student} setFavCount={handleSetFavCount}
             favCount={favCount} />
+
     </div>
     </div>
 

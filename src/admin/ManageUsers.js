@@ -387,13 +387,8 @@ const ManageUsers = () => {
     {
       Header: '営業担当',
       Filter: SelectColumnFilter,
-      accessor: (text) =>
-      <div>
-      {text.salesrep.map((c,i)=>
-      <div>
-      {c.name}
-      </div>)}
-      </div>,
+      accessor: "salesrep[0].name"
+    
     },
 
 
