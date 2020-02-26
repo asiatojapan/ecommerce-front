@@ -69,10 +69,6 @@ const AdminUser = props => {
 
     const [ favStudents, setFavStudents ] =  useState([]);
 
-    const [run, setRun] = useState(false);
-
-    const [ interviewstudents, setInterviewstudents ] =  useState([]);
-
     const loadSingleUser = (userId) => {
         readUser(userId).then(data => {
             if (data.error) {
@@ -116,9 +112,6 @@ const AdminUser = props => {
         loadFavStudents(props.match.params.userId);
     }, []);
 
-    useEffect(() => {
-      setInterviewstudents(getGroupInterviewList(props.match.params.userId));
-    }, [run]);
 
     const [show, setShow] = useState(false);
 
@@ -165,23 +158,19 @@ const AdminUser = props => {
            </div>
          },
          {
-           Header: 'Liked',
-           Filter: "",
-           accessor: (text, i) =>
-           <div>
-           {text.favorites.map((c,i) =>
-             <div>
-             {c == props.match.params.userId ? "●" : ""}
-             </div>
-           )}
-           </div>
-         },
+          Header: 'Faved',
+          Filter: "",
+          accessor: (text, i) =>
+          <div> {text.favUsers.length == null? "" : 
+          <div> {text.favUsers.map((t, i) => <span class="badge bg-blue">{t.name}</span>)}</div> }
+        </div> 
+        },
          {
            Header: '面接',
            Filter: "",
            accessor: (text, i) =>
            <div>
-             <AddInterview student={text} userIdFromTable={props.match.params.userId} run={run} />
+             <AddInterview student={text} userIdFromTable={props.match.params.userId}  />
            </div>
          },
 

@@ -5,7 +5,7 @@ import { createRec, destroyRec } from "./apiAdmin";
 import { list, readStudent, getStudents } from "../core/apiCore";
 import { read } from "../user/apiUser"
 
-const AddRec = ({student, userIdFromTable, handleUpdate})  => {
+const AddRec = ({student, userIdFromTable})  => {
     const [rec, setRec] = useState(false);
 
     const { token } = isAuthenticated();

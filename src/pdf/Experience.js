@@ -2,6 +2,7 @@ import React from 'react';
 
 import Title from './Title';
 import List, { Item } from './List';
+import _ from 'lodash';
 import { Text, View, StyleSheet } from '@react-pdf/renderer';
 
 const styles = StyleSheet.create({
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato Italic',
   },
   detailContainer: {
-    flexDirection: 'row',
+    width: '100%',
   },
   detailLeftColumn: {
     flexDirection: 'column',
@@ -79,10 +80,15 @@ const ExperienceEntry = ({ japaneseTitle, englishTitle, details }) => {
           <Text style={styles.date}> </Text>
         </View>
       </View>
-      <List>
-          <Text style={styles.details}>{details}</Text>
-        
-      </List>
+      <View style={styles.detailContainer}>
+          {details.split('\n').map((item, key) => {
+            if(item.length == 0) {
+              return <Text>{"\n"}</Text>;
+            }
+
+            return <Text style={styles.details} key={key}>{_.startCase(item)}</Text>
+          })}
+      </View>
     </View>
   );
 };
@@ -107,12 +113,13 @@ const experienceData = (studentData) => [
     japaneseTitle: 'その他PR',
     englishTitle: 'Additional Comments',
     details: studentData.other_pr,
-  }
+  } 
 ];
 
 const Experience = ({studentData}) => (
   <View style={styles.container}>
     {
+      
       //<Title>学歴備考 (Experience)</Title>
     }
     {experienceData(studentData).map(({ japaneseTitle, englishTitle, details }) => (

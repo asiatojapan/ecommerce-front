@@ -20,7 +20,7 @@ import {
 
 const CheckoutPreview = () => {
     const [items, setItems] = useState([]);
-    const [run, setRun] = useState(false);
+    const [run, setRun] = useState(true);
     const [loading, setLoading] = useState(true)
 
     const { user, token } = isAuthenticated();
@@ -43,7 +43,7 @@ const CheckoutPreview = () => {
                 <h2>Your cart has {`${items.length}`} items</h2>
                 <hr />
                 {items.map((s, index) => 
-                    <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run}/>
+                    <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading}/>
                 )} 
                 <Link to="/" class="btn btn-dark">Continue shopping</Link>
             </div>
@@ -62,7 +62,7 @@ const CheckoutPreview = () => {
 
     return (
         <SiteWrapper>
-                     <div class="loading" style={{ display: loading ? "" : "none" }}>
+    <div class="loading" style={{ display: loading ? "" : "none" }}>
             <div class="loaderSpin"></div>
         </div>
       <div className="my-3 my-md-5"></div>

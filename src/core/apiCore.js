@@ -252,7 +252,7 @@ export const getFavStudents = (userId) => {
 };
 
 export const getOrders = (userId) => {
-    return fetch(`${API}/order/list/${userId}`, {
+    return fetch(`${API}/order/mylist/${userId}`, {
         method: "GET"
     })
         .then(response => {

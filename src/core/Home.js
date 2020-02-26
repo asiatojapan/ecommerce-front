@@ -280,7 +280,7 @@ const Home = () => {
             {favCount === 0 ? 
             <div>
           {Position()}
-          </div>: <a href="/user/students"><div class="count-bar"><div class="heart"><i class="fe fe-heart"></i>{favCount} </div></div></a>} 
+          </div>: <a href="/user/students"><div class="count-bar"><div class="heart">{favCount} </div></div></a>} 
           <Notifications options={{zIndex: 200, width: "100%"}} />
         </SiteWrapper>
     );

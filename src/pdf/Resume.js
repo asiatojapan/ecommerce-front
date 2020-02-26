@@ -45,11 +45,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     fontSize: 12,
-    fontFamily: 'Lato Bold',
+    fontFamily: 'Lato',
     textAlign: 'center',
-    marginTop: 25,
-    paddingTop: 10,
-    borderWidth: 3,
+    marginTop: 0,
+    padding: 5,
+    borderWidth: 1,
     borderColor: 'gray',
     borderStyle: 'dashed',
     '@media orientation: landscape': {

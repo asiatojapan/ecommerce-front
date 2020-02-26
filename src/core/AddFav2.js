@@ -4,17 +4,13 @@ import { Link } from "react-router-dom";
 import { createFav, destroyFav,readStudent } from "./apiCore";
 import { read } from "../user/apiUser"
 
-const AddFav2 = ({student, handleUpdate})  => {
+const AddFav2 = ({student, handleUpdate })  => {
     const [ fav, setFav ] = useState(false);
-
-    const [ favUsers, setFavUsers ] =  useState([]);
-
     const { user, token } = isAuthenticated();
 
     const {
         user: { round }
     } = isAuthenticated();
-
 
     useEffect(() => {
           readStudent(student).then(data => {
@@ -46,22 +42,13 @@ const AddFav2 = ({student, handleUpdate})  => {
     const newLikeForm = () => {
           return (
             <div>
-              {fav && user.round === "Phase II" && (
-                 <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text} </button>
+              {fav && (
+                 <button className="saveBtn" onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text}  </button>
               )}
 
-              {fav && user.round !== "Phase II" && (
-                 <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
+              {!fav && (
+                 <button className="saveBtn outline " onClick={ clickSubmit } href="#0"> {text}</button>
               )}
-
-              {!fav && user.round === "Phase II" && (
-                 <button className="btn btn-sm btn-outline-danger " onClick={ clickSubmit } href="#0"> {text} </button>
-              )}
-
-              {!fav && user.round !== "Phase II" && (
-                 <button className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0"> {text} </button>
-              )}
-
             </div>)
     };
 

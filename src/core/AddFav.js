@@ -12,9 +12,6 @@ import Notifications, {notify} from 'react-notify-toast';
 const AddFav = ({student, setFavCount,
   favCount})  => {
     const [ fav, setFav ] = useState(false);
-
-    const [ favUsers, setFavUsers ] =  useState([]);
-
     const { user, token } = isAuthenticated();
 
     const {
@@ -81,21 +78,14 @@ const AddFav = ({student, setFavCount,
     const newLikeForm = () => {
           return (
       <div>
-        {fav && user.round === "Phase II" && (
+        {fav  && (
            <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text} </button>
         )}
-
-        {fav && user.round !== "Phase II" && (
-           <button className="btn btn-sm btn-danger" onClick={ clickDelete } href="#0"> <i class="fe fe-check"></i> {text} </button>
-        )}
-
-        {!fav && user.round === "Phase II" && (
+        {!fav && (
            <button className="btn btn-sm btn-outline-danger " onClick={ clickSubmit } href="#0"> {text} </button>
         )}
 
-        {!fav && user.round !== "Phase II" && (
-           <button className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0"> {text} </button>
-        )}
+      
 
       </div>)
     };

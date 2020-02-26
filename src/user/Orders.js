@@ -20,17 +20,21 @@ import { render } from "react-dom";
 const Orders = () => {
     const {  user: { _id, name, email, role, round } } = isAuthenticated();
 
-    const [ success, setSuccess] = useState(false);
-
-
     const [ orders, setOrders] = useState([]);
 
     const { user, token } = isAuthenticated();
 
-    const [ favStudents, setFavStudents ] =  useState([]);
-   
+    const [ loading, setLoading] =  useState(true);
+
+    const formatter = new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit"
+    });
+
     const init = userId => {
         getOrders(user._id).then(data => {
+            setLoading(false)
             setOrders(data);
         });
     };
@@ -47,10 +51,14 @@ const Orders = () => {
         </div>
 
        {orders.map((o,i) => 
-        <div class="list-list">
-          {o.students.map((p, pIndex) => <div> {p._id}{p.name} </div>)}
-          
-          {o.students.length} < a href={`/order/${o._id}`}> See </a></div> )}
+        <div class="list-list">  
+          <h4 style={{}}>{o.students.length} 学生<div class="list-floatLeft"> {formatter.format(new Date(Date.parse(o.createdAt)))}
+          </div> </h4> <hr/>  
+          {o.students.map((p, pIndex) => 
+           <CardCheckout key={pIndex} student={p} showRemoveItemButton={false} 
+           showRankItemButton={false} showDetailsButton={false} showRankOutcomeButton={true} />
+         )}
+           </div> )}
       
     </div>
 
@@ -58,6 +66,9 @@ const Orders = () => {
 
       <SiteWrapper>
       <Page.Content>
+      <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
       <div className="my-3 my-md-5">
       <Container>
       {favList()}

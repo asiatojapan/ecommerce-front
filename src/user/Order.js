@@ -19,7 +19,6 @@ import { render } from "react-dom";
 
 const Order = props => {
   const [order, setOrder] = useState({});
-  const [relatedProduct, setRelatedProduct] = useState([]);
   const [error, setError] = useState(false);
 
   const loadSingleOrder = orderId => {

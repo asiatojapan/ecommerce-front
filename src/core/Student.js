@@ -16,6 +16,7 @@ import {
   Container,
   Badge,
 } from "tabler-react";
+import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 
 
 const Student = props => {
@@ -47,6 +48,28 @@ const Student = props => {
         loadSingleStudent(studentId);
     }, [props]);
 
+    const [headerStyle, setHeaderStyle] = useState({
+      transition: 'all 200ms ease-in'
+    })
+    
+    useScrollPosition(
+      ({ prevPos, currPos }) => {
+        
+        const isVisible = currPos.y > 0.1
+    
+        const shouldBeStyle = {
+          visibility: isVisible ? 'hidden' : 'visible',
+          transform: isVisible ? 'none' : 'translate(0, 0)'
+        }
+    
+        if (JSON.stringify(shouldBeStyle) === JSON.stringify(headerStyle)) return
+    
+        setHeaderStyle(shouldBeStyle)
+      },
+      [headerStyle]
+    )
+
+
     return (
       <SiteWrapper>
                  <div class="loading" style={{ display: loading ? "" : "none" }}>
@@ -56,9 +79,9 @@ const Student = props => {
       
       <Page.Content>
       <ol class="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
-  <li class="breadcrumb-item"><a href="/">Home</a></li>
-  <li class="breadcrumb-item active" aria-current="page"><a href={student.studentid}>{student.studentid}</a></li>
-</ol>   
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page"><a href={student.studentid}>{student.studentid}</a></li>
+      </ol>   
         <Grid.Row>
       
       <Grid.Col width={12} lg={9} sm={12}>
@@ -102,14 +125,23 @@ const Student = props => {
                       <div class="mb-2">
                       <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
                       </div>
-                      <div class="mb-2">
+                      <div class="mb-3">
                       <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty} ({student.education_bg})
+                      </div>
+
+                      <div class="mb-2">
+                      
+                      <Tag.List>
+                      {student.entry_timing?
+                        student.entry_timing.map((skill) => (
+                            <Tag color="secondary">{skill}</Tag>)) : ""}
+                      </Tag.List>
                       </div>
                       </div>
                       </div>
 
                       <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
+                        boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
                       <div class="card-header"><div class="card-title">Education</div>
                       </div>
                       <div class="card-body">
@@ -153,8 +185,12 @@ const Student = props => {
                       </div>
                       <div class="card-body">
                       <div class="mb-2">
-                      <strong>日本語: </strong> {student.japanese}
+                      <strong>日本語: </strong> {student.japanese} (JLPT: {student.jlpt})
                       </div>
+                      {student.jlpt_next == null ? "":
+                      <div class="mb-2">
+                      <strong>次回のJLPT受験予定: </strong> {student.jlpt_next} 
+                      </div>}
                       <div class="mb-2">
                       <strong>英語: </strong> {student.english}
                       </div>
@@ -194,12 +230,7 @@ const Student = props => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-        <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
-      <div class="card-body">
-        <AddFav2 student={props.match.params.studentId} />
-      </div>
-      </div>
+      
 
       <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
      boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
@@ -226,7 +257,27 @@ const Student = props => {
       </div>
         </Grid.Col>
        </Grid.Row>
+       
       </Page.Content>
+      <div id="application-ticket" style={{ ...headerStyle }}>
+        <div class="outer" >
+        <div class="inner">
+        <div class="project-info">
+        <div class="project-title">
+        自由な社風で若手が多く活躍するベンチャーで、一緒に青春しませんか？
+        </div>
+        </div>
+        <div class="action-buttons">
+        <div class="action-button">
+        <div class="bookmark-selector new-bookmark-button-new-style unsaved" data-project-id="417037" data-ref="bookmark" data-status="unsaved" >
+        <AddFav2 student={props.match.params.studentId} />
+        </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
     </SiteWrapper>
     );
 };
