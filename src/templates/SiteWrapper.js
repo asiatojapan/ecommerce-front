@@ -64,7 +64,7 @@ const SiteWrapper = ({ history, children }) => (
             </NavDropdown>
             
             </Nav>
-            <a className="btn btn-outline-primary" href="/checkout/preview"> <i class="fe fe-star"></i> {" "}Your Cart
+            <a className="resumeGradient unlikeBtn smaller" href="/checkout/preview"> 検討リスト
             </a>
         </Navbar.Collapse>
       </Navbar> )}

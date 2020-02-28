@@ -38,19 +38,22 @@ const CheckoutPreview = () => {
 
     const showItems = items => {
         return (
+            <Grid.Col width={12} lg={9} sm={12}>
             <div class="list-list">
             <h3 class="card-title"></h3>
-                <h2>Your cart has {`${items.length}`} items</h2>
+                <h2>現在検討中の学生<text style={{color: "#278bfa", fontWeight: "600"}}>{`${items.length}`}</text>名</h2>
                 <hr />
                 {items.map((s, index) => 
                     <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading}/>
                 )} 
                 <Link to="/" class="btn btn-dark">Continue shopping</Link>
             </div>
+            </Grid.Col>
         );
     };
 
     const noItemsMessage = () => (
+        <Grid.Col width={12} lg={9} sm={12}>
         <div class="list-list text-center p-5">
         <h2>
             Your cart is empty. 
@@ -58,43 +61,61 @@ const CheckoutPreview = () => {
             <Link to="/" class="btn btn-dark">Continue shopping</Link>
         
         </div>
+        </Grid.Col>
     );
+    const phaseI = () => (
+    <div>
+        <div className="progressbox">
+        <div class="progresscontainer">
+            <ul class="progressbar">
+            <li class="active">検討中リスト</li>
+            <li>確認画面</li>
+            <li>申請</li>
+            </ul>
+        </div>
+    </div>
+        <Grid.Row>
+        {items.length > 0 ? showItems(items) : noItemsMessage()}
+        <Grid.Col width={12} lg={3} sm={12}>
+        {items.length > 11 ? 
+            <div class="alert alert-success" role="alert">
+            <i class="fe fe-check-circle"></i> 名以上選抜すると10% OFF
+            </div> : 
+            <div class="alert alert-red" role="alert">
+            Add another {12 - items.length} students to qualify for the 10% discount!
+            </div>
+            }
+          
+             <Link to="/checkout" class="unlikeBtn resumeGradient fullWidth">確認画面へ
+             </Link>
+          
+        </Grid.Col>
+        </Grid.Row>
+        </div>
+    )
+
+    const phaseElse = () => (
+        <div class="p-5 page text-center">
+        <div class="container">
+            <h1 class="h1 mt-0 mb-4 display-1 text-muted mb-5">
+            <i class="fe fe-check-circle"></i>
+                </h1>
+            <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
+            <Link to="/user/orders" class="resumeGradient unlikeBtn"> Your orders へ</Link>
+            </div>
+            </div>
+   
+    )
 
     return (
         <SiteWrapper>
-    <div class="loading" style={{ display: loading ? "" : "none" }}>
-            <div class="loaderSpin"></div>
-        </div>
-      <div className="my-3 my-md-5"></div>
+            <div class="loading" style={{ display: loading ? "" : "none" }}>
+                    <div class="loaderSpin"></div>
+                </div>
             <div className="my-3 my-md-5"></div>
-            <Container>
-            <div className="progressbox">
-                <div class="progresscontainer">
-                    <ul class="progressbar">
-                    <li class="active">Cart Check</li>
-                    <li>ランク</li>
-                    <li> 申請</li>
-                    </ul>
-                </div>
-            </div>
-            <Grid.Row>
-            <Grid.Col width={12} lg={9} sm={12}>
-            {items.length > 0 ? showItems(items) : noItemsMessage()}
-            </Grid.Col>
-            <Grid.Col width={12} lg={3} sm={12}>
-            {items.length > 11 ? 
-                <div class="alert alert-success" role="alert">
-                <i class="fe fe-check-circle"></i> You have qualified for the 10% discount
-                </div> : 
-                <div class="alert alert-danger" role="alert">
-                Add another {12 - items.length} students to qualify for the 10% discount!
-                </div>
-                }
-              
-                 <Link to="/checkout" class="btn btn-dark btn-block">Go to Checkout</Link>
-              
-            </Grid.Col>
-            </Grid.Row>
+                    <div className="my-3 my-md-5"></div>
+                    <Container>
+              {user.round === "Phase I" ? phaseI() : phaseElse() }
             </Container>
     </SiteWrapper>
     );

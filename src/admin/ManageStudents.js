@@ -11,6 +11,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import Modal from 'react-bootstrap/Modal';
 import Table2 from 'react-bootstrap/Table';
 import ImportStudents from "./ImportStudents";
+import UpdateCSVStudents from "./UpdateCSVStudents";
 
 import {
   Dropdown,
@@ -525,6 +526,7 @@ const clickPending = e => {
        <Link to={`/admin/create/student`} className="btn btn-sm btn-secondary"> + Add Students </Link> <br/>
 
        <ImportStudents/>
+       <UpdateCSVStudents/>
         </div>
         </div>
         <div>

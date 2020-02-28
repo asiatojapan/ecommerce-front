@@ -31,7 +31,7 @@ const Checkout = () => {
    
     const init = userId => {
         getFavStudents(user._id).then(data => {
-            setLoading(false)
+            setLoading(false);
             setItems(data);
         });
     };
@@ -64,9 +64,20 @@ const Checkout = () => {
               setError(true)
             } else {
               setRedirectToProfile(true);
+              changePhase();
             }
         });
     };
+
+    const changePhase = () => {
+            var data = window.localStorage.getItem('jwt');
+            if (data != null) {
+                let jwt= JSON.parse(data);
+                jwt.user.round = "Phase II";
+                window.localStorage.setItem('jwt', JSON.stringify(jwt));
+                console.log(jwt.user)
+            } 
+    }
 
     const showItems = items => {
         return (
@@ -81,7 +92,7 @@ const Checkout = () => {
                 <div class="alert alert-success" role="alert">
                 <i class="fe fe-check-circle"></i> You have qualified for the 10% discount
                 </div> : 
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-red" role="alert">
                 Add another {12 - items.length} students to qualify for the 10% discount!
                 </div>
                 }
@@ -108,37 +119,55 @@ const Checkout = () => {
         </div>
     );
 
+    const phaseI = () => (
+        <div>
+        <div className="progressbox">
+        <div class="progresscontainer">
+            <ul class="progressbar">
+            <a href="/checkout/preview" style={{color: "#495057"}}> <li> 検討中リスト</li></a>
+            <li class="active">確認画面</li>
+            <li class="active">申請</li>
+            </ul>
+        </div>
+    </div>
+        <Grid.Row>
+        <Grid.Col width={12} lg={9} sm={12}>
+        {items.length > 0 ? showItems(items) : noItemsMessage()}
+        </Grid.Col>
+        <Grid.Col width={12} lg={3} sm={12}>
+        <div style={{ position: "sticky",
+            top: "0", paddingTop: "1rem"}}>
+        <button type="button" class="unlikeBtn resumeGradient fullWidth" 
+        onClick={() => { if (window.confirm('Are you sure you wish to submit?')) buy() } }>
+            ASIA to JAPANに申請
+        </button>
+        </div>
+        </Grid.Col>
+        </Grid.Row>
+    </div>
+    )
+
+    const phaseElse = () => (
+        <div class="p-5 page text-center">
+        <div class="container">
+            <h1 class="h1 mt-0 mb-4 display-1 text-muted mb-5">
+            <i class="fe fe-check-circle"></i>
+                </h1>
+            <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
+            <Link to="/user/orders" class="resumeGradient unlikeBtn"> Your orders へ</Link>
+            </div>
+            </div>
+    )
+
     return (
         <SiteWrapper>
              <div class="loading" style={{ display: loading ? "" : "none" }}>
             <div class="loaderSpin"></div>
-        </div>
+             </div>
             <div className="my-3 my-md-5"></div>
             <div style={{ display: redirectToProfile ? 'none' : '' }} >
             <Container>
-            <div className="progressbox">
-                <div class="progresscontainer">
-                    <ul class="progressbar">
-                    <li> <a href="/checkout/preview" style={{color: "#495057"}}>Cart Check</a></li>
-                    <li class="active">ランク</li>
-                    <li class="active"> 申請</li>
-                    </ul>
-                </div>
-            </div>
-            <Grid.Row>
-            <Grid.Col width={12} lg={9} sm={12}>
-            {items.length > 0 ? showItems(items) : noItemsMessage()}
-            </Grid.Col>
-            <Grid.Col width={12} lg={3} sm={12}>
-            <div style={{ position: "sticky",
-                 top: "0", paddingTop: "2rem"}}>
-            <button type="button" class="btn btn-dark btn-block" 
-            onClick={() => { if (window.confirm('Are you sure you wish to submit?')) buy() } }>
-                ASIA to JAPANに申請
-            </button>
-            </div>
-            </Grid.Col>
-            </Grid.Row>
+            {user.round === "Phase I" ? phaseI() : phaseElse() }
             </Container>
             </div>
             <div style={{ display: redirectToProfile ? '' : 'none' }} >
@@ -147,8 +176,8 @@ const Checkout = () => {
                     <h1 class="h1 mt-0 mb-4 display-1 text-muted mb-5">
                     <i class="fe fe-check-circle"></i>
                         </h1>
-                    <h2 class="h2 mt-0 mb-6">We have received your submission!</h2>
-                    <Link to="/" class="btn btn-outline-secondary"> <i class="fe fe-arrow-left mr-2"></i> Go back</Link>
+                    <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
+                    <Link to="/" class="btn btn-outline-secondary"> <i class="fe fe-arrow-left mr-2"></i> TOP へ</Link>
                     </div>
                     </div>
             </div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import SiteWrapper from '../templates/SiteWrapper';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
 import {Select, Input, Button, DatePicker } from 'antd';

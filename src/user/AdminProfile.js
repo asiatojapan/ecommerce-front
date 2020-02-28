@@ -2,7 +2,6 @@ import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
 import { readStudent } from "../core/apiCore";
 import { Link } from "react-router-dom";
-import  AdminMenu from "./AdminMenu";
 import { Descriptions, Badge, Card, Col, Row  } from 'antd';
 import "../styles.css";
 

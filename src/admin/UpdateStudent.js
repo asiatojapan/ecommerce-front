@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Layout2 from '../core/Layout';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter} from 'react-router-dom';
 import { readStudent } from '../core/apiCore';

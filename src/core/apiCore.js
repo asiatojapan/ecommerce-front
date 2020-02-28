@@ -43,13 +43,25 @@ export const getCategories = () => {
         .catch(err => console.log(err));
 };
 
+export const getPushList = (userId) => {
+    return fetch(`${API}/list/push/${userId}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
 
-export const getFilteredStudents = (userId, skip, limit, filters = {}) => {
+
+export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round) => {
     const data = {
         limit,
+        status,
         skip,
         filters,
-        userId
+        userId,
+        round
     };
     return fetch(`${API}/students/by/search`, {
         method: "POST",

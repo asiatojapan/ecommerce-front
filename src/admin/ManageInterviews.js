@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from "../auth";
-import { List } from 'antd';
 import { getInterviews, deleteInterview, deleteInterviewItem } from "./apiAdmin";
-import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
 import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
 import UpdateInterviewItem from "./UpdateInterviewItem";
-import Table2 from 'react-bootstrap/Table';
 
 import AddInterviewItem from "./AddInterviewItem";
 import {

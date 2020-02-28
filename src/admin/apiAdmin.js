@@ -445,3 +445,87 @@ export const deleteInterviewItem = (interviewId, userId, token, itemId) => {
         })
         .catch(err => console.log(err));
 };
+
+export const createPush = (studentId, _id, token) => {
+    const data = {
+        _id
+    };
+    return fetch(`${API}/push/${studentId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
+  export const destroyPush = (studentId, _id, token) => {
+    const data = {
+        _id
+    };
+    return fetch(`${API}/unpush/${studentId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
+  export const createHide = (studentId, _id, token) => {
+    const data = {
+        _id
+    };
+    return fetch(`${API}/hide/${studentId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
+  export const destroyHide = (studentId, _id, token) => {
+    const data = {
+        _id
+    };
+    return fetch(`${API}/unhide/${studentId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };

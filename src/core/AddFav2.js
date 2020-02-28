@@ -37,18 +37,18 @@ const AddFav2 = ({student, handleUpdate })  => {
         destroyFav(student, user, token);
     };
 
-    const text = fav ? 'Saved' : 'Save'
+    const text = fav ? '検討リスト追加済' : '検討リスト追加'
 
     const newLikeForm = () => {
           return (
             <div>
-              {fav && (
-                 <button className="saveBtn" onClick={ clickDelete } href="#0"><i class="fe fe-check"></i> {text}  </button>
-              )}
+           {fav  && (
+           <button className="unlikeBtn" onClick={ clickDelete } href="#0"><i class="fe fe-check" style={{marginRight: "10px"}}></i> {text} </button>
+        )}
+        {!fav && (
+           <button className="likeBtn " onClick={ clickSubmit } href="#0"> {text} </button>
+        )}
 
-              {!fav && (
-                 <button className="saveBtn outline " onClick={ clickSubmit } href="#0"> {text}</button>
-              )}
             </div>)
     };
 

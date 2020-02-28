@@ -1,47 +1,35 @@
-import React, { useState, useEffect }  from "react";
-import { isAuthenticated, getUser } from "../auth";
-import { getMyInterviews, getGroupInterviewList, getGroupInterviewPerson, readStudent } from "../core/apiCore";
-import { Link } from "react-router-dom";
-import CardStudent from '../templates/CardStudent';
-import SiteWrapper from '../templates/SiteWrapper'
-import UpdateInterviewItem from "../user/UpdateInterviewItem"
-import {
-  Page,
-  Avatar,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Table,
-  List,
-  Progress,
-  Container,
-  Badge,
-} from "tabler-react";
+import React from "react";
+import { isAuthenticated } from "../auth";
+import UpdateInterviewItem from "../user/UpdateInterviewItem";
 import "../styles.css";
 
 const InterviewItem = ({item, interview}) => {
 
-    const { user, token } = isAuthenticated();
 
     return (
-      <div class="card-footer p-0 d-flex align-items-center">
+      <div class="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
+        <div class="col-3 col-md-3 ml-5">
+          {item.time_period} 
+              <h3> {item.time}</h3>
+       </div>
+        <div class="col-md-6 text-right">
 
-                    <div class="strong">
-                    <span class="bg-secondary text-white stamp px-2 mr-3">{item.time}
-                    </span>
-                    </div>
-                    <div class="mr-3 lh-sm">
-                    <div class="strong">
-                      Japanese Level: {item.japanese_level} <br />
-                    </div>
-                  </div>
-                  <div class="ml-auto">
-                  {item.phase}/ {item.time_period} / <strong>{item.time}</strong> /   <strong>{item.result}</strong>
-                  </div>
-                  <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /> 
-              
-      </div>
+        <table class="table table-borderless">
+
+      <tbody>
+        <tr>
+          <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 日本語力 </span><br/>{item.japanese_level}</td>
+          <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Skill level </span><br/>{item.skill_match}</td>
+          <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Character </span><br/>{item.character_match}</td>
+          <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Result </span><br/>{item.result}</td>
+        </tr>
+      </tbody>
+    </table>
+
+</div>
+<div class="col text-right">
+<UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /></div>
+</div>
     );
 };
 

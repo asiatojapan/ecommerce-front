@@ -14,7 +14,7 @@ import {
   Card, Dropdown, Avatar, Text, Button, Badge
 } from "tabler-react";
 
-const CardCheckout = ({student,indivRank,
+const CardCheckout = ({student,indivRank,rank,
   showRemoveItemButton = false,
   showDetailsButton = true,
   showRankItemButton = false,
@@ -49,20 +49,23 @@ const CardCheckout = ({student,indivRank,
       showDetailsButton && (
         <div  style={{marginBottom: "0px"}}>
         <div>
-        <Icon prefix="fe" name="user" /><strong>  性別・年齢: </strong> {student.gender === "male" ? "男性": "女性"}・{student.age}
+        <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "male" ? "男性": "女性"}・{student.age}
         </div>
         <div>
-        <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
+        <Icon prefix="fe" name="globe" /> <strong>国籍・地域: </strong>{student.country}
         </div>
         </div>
       )
     )
   }
 
-  const showRankButton = showRankItemtButton => {
+  const showRankButton = showRankItemButton => {
     return (
       showRankItemButton && (
+        <div style={{display: "table-cell",
+        verticalAlign: "middle"}}>
         <AddRank favStudent={student} handleRankChange={handleSetRankChange} />
+        </div>
       )
     );
   }
@@ -70,35 +73,7 @@ const CardCheckout = ({student,indivRank,
   const showRankOutcome = showRankOutcomeButton => {
     return (
       showRankOutcomeButton && (
-        <div style={{display: "table-cell",
-        verticalAlign: "middle"}}>
-      <Form.SelectGroup pills name="japanese">
-        <Form.SelectGroupItem
-          label="1"
-          name="japanese"
-          value="1"
-        />
-        <Form.SelectGroupItem
-        label="2"
-        name="japanese"
-          value="2"
-        />
-        <Form.SelectGroupItem
-        label="3"
-        name="japanese"
-          value="3"
-        />
-        <Form.SelectGroupItem
-        label="4"
-        name="japanese"
-          value="4"
-        />
-        <Form.SelectGroupItem
-        label="5"
-        name="japanese"
-          value="5"
-        />
-      </Form.SelectGroup></div>
+        <span class="avatar bg-blue-lt avatar-lg">{rank}</span>
       )
     )
   }
@@ -110,7 +85,7 @@ const CardCheckout = ({student,indivRank,
 
 
   return (
-     <div className="list-list" style={{padding: "0rem", border: "1px solid #eee"}} >
+     <div className="list-list" style={{padding: "0 10px 0 0", border: "1px solid #eee"}} >
          {showRemoveButton(showRemoveItemButton)}
          <div class="d-flex flex-column">
     <div class="d-flex align-items-center mt-auto"> 
@@ -119,7 +94,7 @@ const CardCheckout = ({student,indivRank,
     <Link to={`/student/${student._id}`}> {student.studentid} </Link>
     {showDetails(showDetailsButton)}
     </div>
-    <div class="ml-auto" style={{display:"table"}}> 
+    <div class="ml-auto"> 
     {showRankButton(showRankItemButton)}
     {showRankOutcome(showRankOutcomeButton)}
     </div>

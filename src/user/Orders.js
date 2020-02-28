@@ -47,7 +47,7 @@ const Orders = () => {
     const favList = () => 
     <div>
        <div class="list-list">
-       <h3 class="card-title">Your Orders</h3>
+       <div style={{fontSize: "26px", fontWeight: "500"}} >Your Orders</div>
         </div>
 
        {orders.map((o,i) => 
@@ -56,7 +56,8 @@ const Orders = () => {
           </div> </h4> <hr/>  
           {o.students.map((p, pIndex) => 
            <CardCheckout key={pIndex} student={p} showRemoveItemButton={false} 
-           showRankItemButton={false} showDetailsButton={false} showRankOutcomeButton={true} />
+           showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={true} rank={p.rank} />
+           
          )}
            </div> )}
       

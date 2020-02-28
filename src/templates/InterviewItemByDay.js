@@ -1,81 +1,89 @@
-import React, { useState, useEffect }  from "react";
-import { isAuthenticated, getUser } from "../auth";
-import { getMyInterviews, getGroupInterviewList, getGroupInterviewPerson, readStudent } from "../core/apiCore";
+import React  from "react";
 import { Link } from "react-router-dom";
-import CardStudent from '../templates/CardStudent';
-import SiteWrapper from '../templates/SiteWrapper'
-import UpdateInterviewItem from "../user/UpdateInterviewItem"
+import UpdateInterviewItem from "../user/UpdateInterviewItem";
+import {
+  Icon,
+} from "tabler-react";
 import "../styles.css";
 import styled from 'styled-components';
 
 const InterviewItemByDay = ({item, interview}) => {
 
-    const { user, token } = isAuthenticated();
 
-    const passed = item.result === "合格"
-    const failed = item.result === "不合格"
+    const skill = ()=>  (
+            <div class="ml-auto align-items-center"> 
+            <div class="row align-items-center">
+              <div class="col">
+              <table class="table table-borderless">
 
-    const Card = styled.div`
-          position: relative;
-          background: #fff;
-          padding: 20px 20px;
-          margin-bottom: 20px;
-          position: relative;
-          background: #fff;
-          margin-bottom: 20px;
-          border: 1;
-          color: #323232;
-          overflow: hidden;
-          text-align: left;
-          transition: all .2s ease-out;
-          box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
-      `;
-
-    const CardFailed = styled.div`
-          position: relative;
-          background: #fff;
-          padding: 20px 20px;
-          margin-bottom: 20px;
-          border-radius: 20px;
-          position: relative;
-          background: #fff;
-          margin-bottom: 20px;
-          border: 0;
-          color: #323232;
-          overflow: hidden;
-          text-align: left;
-          transition: all .2s ease-out;
-          box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
-        `;
+      <tbody>
+      <tr>
+        <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 日本語力 </span><br/>{item.japanese_level}</td>
+        <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Skill level </span><br/>{item.skill_match}</td>
+        <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Character </span><br/>{item.character_match}</td>
+        <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Result </span><br/>{item.result}</td>
+      </tr>
+      </tbody>
+      </table>
+      </div>
+      <div class="col-auto m-3">
+      <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} />
+      </div>
+      </div>
+      </div>
+    )
 
     const children = (
-                <div class="card-body p-2 d-flex align-items-center">
-                  <span class="bg-secondary text-white stamp px-2 mr-3">{item.category}
-                    </span>
-                  <div class="mr-3 lh-sm">
-                  <h3 class="mb-0">
-                      <strong> {item.time}</strong>
-                    <Link class="text-blue ml-3"
-                    to={`/student/${interview.student._id}`} target="_blank">
-                    {interview.student.name} ({interview.student.studentid}) </Link></h3>
-                    <div> {item.result} / 日本語 {item.japanese_level} / Character {item.character_match} / スキル {item.skill_match} </div>
-                  </div>
-                  <div class="ml-auto">
-                   {item.company_form === true ?
-                      <div>
-                      <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /> 
-                      </div>:
-                     <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /> }
-                    </div>
-                </div>
+
+      <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
+        <div class="d-flex justify-content-between align-items-center"> 
+        <img src={interview.student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
+        <div class="ml-3">
+        <div>
+        <Link to={`/student/${interview.student._id}`} target="_blank"  style={{fontSize: "16px"}}>
+                            <b> {interview.student.studentid} </b> {interview.student.name} </Link>
+        <div style={{marginBottom: "0px"}}>
+          <div>
+          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "male" ? "男性": "女性"}・{interview.student.age}
+          </div>
+          <div>
+          <Icon prefix="fe" name="globe" /> <strong>国籍・地域: </strong>{interview.student.country}
+          </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="ml-auto align-items-center"> 
+               <div class="row align-items-center">
+                 <div class="col">
+                 <table class="table table-borderless">
+   
+         <tbody>
+         <tr>
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 日本語力 </span><br/>{item.japanese_level}</td>
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Skill level </span><br/>{item.skill_match}</td>
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Character </span><br/>{item.character_match}</td>
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Result </span><br/>{item.result}</td>
+         </tr>
+         </tbody>
+         </table>
+         </div>
+         <div class="col-auto m-3">
+         <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} />
+         </div>
+         </div>
+         </div>
+</div>
+</div>
+              
     )
 
     const display = () => {
        
           return (
-              <Card>
+              <div>
                {children}
-             </Card>
+             </div>
            ) 
        
     }

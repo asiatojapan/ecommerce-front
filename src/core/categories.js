@@ -33,7 +33,7 @@ export const categories = [
     },
     {
         _id: 8,
-        name: "化学/バイオ/メディカル系ル"
+        name: "化学/バイオ/メディカル系"
     },
     {
         _id: 9,

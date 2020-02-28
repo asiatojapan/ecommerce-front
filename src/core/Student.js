@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { readStudent, listRelated } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
+
+import { isAuthenticated } from '../auth';
 import {
   Page,
   Avatar,
@@ -17,13 +19,38 @@ import {
   Badge,
 } from "tabler-react";
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
+import { pdf,  Font, BlobProvider } from "@react-pdf/renderer";
+import Resume from "../pdf/PersonalResume";
+import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
+import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
+import fontPathExtraBold from '../pdf/fonts/Koruri-Extrabold.ttf'
+import fontPathLight from '../pdf/fonts/Koruri-Light.ttf'
+import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
 
+
+Font.register( {
+    family: 'Open Sans',
+    src: fontPathRegular,
+  });
+  Font.register( {
+    family: 'Lato',
+    src: fontPathRegular,
+  });
+  Font.register( {
+    family: 'Lato Italic',
+    src: fontPathSemiBold,
+  });
+  Font.register( {
+    family: 'Lato Bold',
+    src: fontPathBold,
+  });
 
 const Student = props => {
     const [student, setStudent] = useState({});
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
+    const { user, token } = isAuthenticated();
 
     const loadSingleStudent = studentId => {
         readStudent(studentId).then(data => {
@@ -31,6 +58,7 @@ const Student = props => {
                 setError(data.error);
             } else {
                 setStudent(data);
+                 createPDF(data)
                 listRelated(data._id).then(data => {
                   if (data.error) {
                       setError(data.error);
@@ -51,6 +79,28 @@ const Student = props => {
     const [headerStyle, setHeaderStyle] = useState({
       transition: 'all 200ms ease-in'
     })
+
+    
+  const [resumeLink, setResumeLink] = useState();
+
+
+  async function createPDF(results) {
+      await pdf(<Resume studentData={results} />)
+        .toBlob()
+        // eslint-disable-next-line no-loop-func
+        .then(blobProp => {
+          setResumeLink(URL.createObjectURL(blobProp));
+        });
+  }
+
+  const createPDFLinkButton = (studentData, trigger) => {
+    const url  = resumeLink;
+    return url ? 
+      <a href={url} target="_blank">
+        {trigger}
+      </a> :  null
+  };
+
     
     useScrollPosition(
       ({ prevPos, currPos }) => {
@@ -85,8 +135,7 @@ const Student = props => {
         <Grid.Row>
       
       <Grid.Col width={12} lg={9} sm={12}>
-      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
+      <div class="list-list" style={{padding: "0px"}}>
           <div class="d-block">
             <div className="embed-container">
               
@@ -105,7 +154,8 @@ const Student = props => {
                         </Tag.List>
                         </div>
                       </div>
-                      <div class="card" style={{border: "None"}}>
+
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">Basic Info</div>
                       </div>
                       <div class="card-body">
@@ -140,8 +190,7 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-                        boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">Education</div>
                       </div>
                       <div class="card-body">
@@ -166,8 +215,7 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">Internship</div>
                       </div>
                       <div class="card-body">
@@ -179,8 +227,7 @@ const Student = props => {
 
 
 
-                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">言語</div>
                       </div>
                       <div class="card-body">
@@ -197,7 +244,7 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card" style={{border: "None"}}>
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">IT Skills</div>
                       </div>
                       <div class="card-body">
@@ -209,8 +256,7 @@ const Student = props => {
                       </div>
                       </div>
 
-                      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">その他PR</div>
                       </div>
                       <div class="card-body">
@@ -231,24 +277,21 @@ const Student = props => {
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
       
-
-      <div class="card card-sm" style={{border: "None", borderColor: "#e2e3e7",
-     boxShadow: "0 5px 30px -15px rgba(0,0,0,.2)"}}>
-      <div class="card-header"><div class="card-title">Downloads</div>
-      </div>
-      <div class="card-body">
-      <div class="mb-2">
-      {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="btn btn-bitbucket ml-2">
+      {createPDFLinkButton(
+              student,
+              <button class="likeBtn fullWidth" >レジュメ</button>
+            )}
+    
+        {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         FYP
         </a>}
-      </div>
-      </div>
-      </div>
+
+        <hr/>
 
       <h4>You may also like </h4>
       {relatedStudent.map((s, i) => (
           <div className="list-list" key={i} style={{padding: "0"}}> 
-             
+         
              <img src={s.videoImg} style={{height: "60px"}}/> 
              <a href={`/student/${s._id}`}>   {s.studentid} </a>
             
@@ -259,6 +302,7 @@ const Student = props => {
        </Grid.Row>
        
       </Page.Content>
+      {user.round === "Phase II" ? null :
       <div id="application-ticket" style={{ ...headerStyle }}>
         <div class="outer" >
         <div class="inner">
@@ -269,15 +313,15 @@ const Student = props => {
         </div>
         <div class="action-buttons">
         <div class="action-button">
-        <div class="bookmark-selector new-bookmark-button-new-style unsaved" data-project-id="417037" data-ref="bookmark" data-status="unsaved" >
-        <AddFav2 student={props.match.params.studentId} />
-        </div>
+           <AddFav2 student={props.match.params.studentId} /> 
+
 
         </div>
         </div>
         </div>
         </div>
-        </div>
+        </div> }
+       
     </SiteWrapper>
     );
 };

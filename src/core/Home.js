@@ -1,33 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Card2 from './Card';
 import List from './List';
-import { Link, Redirect } from 'react-router-dom';
 import { isAuthenticated } from '../auth';
 import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { it_skills } from "./it_skills";
-import { getStudents, getCategories, getFilteredStudents,getFavStudents } from './apiCore';
-import CardStudent from '../templates/CardStudent';
+import {  getCategories, getFilteredStudents,getFavStudents, getPushList } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper';
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import PdfDocument from "../pdf/Resume";
 import {
-  Page,
-  Avatar,
-  Icon,
   Grid,
-  Text,
-  Notification,
-  Table,
-  Alert,
-  Progress,
-  Container,
-  Badge,
+  Container
 } from "tabler-react";
 import "../styles.css";
 import "tabler-react/dist/Tabler.css";
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Notifications, {notify} from 'react-notify-toast';
 import styled from 'styled-components'
@@ -54,7 +39,7 @@ const Home = () => {
   const [myFilters, setMyFilters] = useState({
       filters: { categories: [], it_skills: [] }
   });
-  const [categorieslist, setCategorieslist] = useState([]);
+  const [pushList, setPushList] = useState();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [resumeLoading, setResumeLoading] = useState(true);
@@ -63,7 +48,7 @@ const Home = () => {
   const [size, setSize] = useState(0);
   const [filteredResults, setFilteredResults] = useState([]);
 
-  const [studentsData, setStudentDataWithPDF] = useState([]);
+  // const [studentsData, setStudentDataWithPDF] = useState([]);
 
 
   async function createPDF(results) {
@@ -107,28 +92,20 @@ const Home = () => {
     setFilteredResults(studentDataArrPDF);
   }
 
-  const createPDFLinkButton = (studentData, trigger) => {
-    const { url } = studentData;
+  const phaseIII = () => {
+    getPushList(user._id).then(data => {
+        if (data.error) {
+            setError(data.error);
+        } else {
+            setPushList(data);
+        }
+    });
+   };
 
-    return url ? 
-      <a href={url} target="_blank">
-        {trigger}
-      </a> :  null
-  };
+  const status = user.round === "Phase IV" ? "来日決定" : "リスト";
 
-
-  const init = () => {
-      getCategories().then(data => {
-          if (data.error) {
-              setError(data.error);
-          } else {
-              setCategorieslist(data);
-          }
-      });
-  };
-
-  const loadFilteredResults = newFilters => {
-      getFilteredStudents(user._id, skip, limit, newFilters).then(data => {
+  const loadFilteredResults = (newFilters, pushList) => {
+      getFilteredStudents(user._id, skip, limit, status, newFilters, user.round ).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -136,15 +113,16 @@ const Home = () => {
               setFilteredResults(data.data);
               setSize(data.size);
               setSkip(0);
-              createPDF(data.data)
+             // createPDF(data.data)
           }
       });
+
   };
 
   const getFavCount = userId => {
     getFavStudents(user._id).then(data => {
         setFavCount(data.length);
-    });
+        });
     };
 
   
@@ -152,13 +130,13 @@ const Home = () => {
   const loadMore = () => {
     let toSkip = skip + limit;
     // console.log(newFilters);
-    getFilteredStudents(user._id, toSkip, limit, myFilters.filters).then(data => {
+    getFilteredStudents(user._id, toSkip, limit, status, myFilters.filters, user.round).then(data => {
         if (data.error) {
             setError(data.error);
         } else {
             setFilteredResults([...filteredResults, ...data.data]);
             setSize(data.size);
-            createPDF([...filteredResults, ...data.data])
+            // createPDF([...filteredResults, ...data.data])
             setSkip(toSkip);
         }
     });
@@ -166,7 +144,6 @@ const Home = () => {
 
 
   useEffect(() => {
-      init();
       loadFilteredResults(skip, limit, myFilters.filters);
       getFavCount(user._id);
   }, []);
@@ -276,11 +253,10 @@ const Home = () => {
         </Grid.Row>
         </Container>
         </div>
-        
-            {favCount === 0 ? 
+        {favCount === 0 ? 
             <div>
           {Position()}
-          </div>: <a href="/user/students"><div class="count-bar"><div class="heart">{favCount} </div></div></a>} 
+          </div>: <a href="/checkout/preview"><div class="count-bar"><div class="heart">{favCount} </div></div></a>} 
           <Notifications options={{zIndex: 200, width: "100%"}} />
         </SiteWrapper>
     );

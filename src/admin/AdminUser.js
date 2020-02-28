@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
 import { updateUser, deleteUser,readUser } from './apiAdmin';
 import { getStudents, getMyInterviews, getFavStudents,getGroupInterviewList  } from '../core/apiCore';
 import AddRec from "./AddRec";
+import AddPush from "./AddPush";
+import AddHide from "./AddHide";
 import AddInterview from "./AddInterview";
 import SiteWrapper from '../templates/SiteWrapper'
 import Modal from 'react-bootstrap/Modal';
@@ -92,6 +93,7 @@ const AdminUser = props => {
                 console.log(data.error);
             } else {
                 setStudents(data);
+                setLoading(false);
             }
         });
     };
@@ -150,13 +152,21 @@ const AdminUser = props => {
              </div>
            },
          {
-           Header: 'おすすめ', 
+           Header: '推薦', 
            Filter: "",
            accessor: (text, i) =>
            <div>
            <AddRec student={text} userIdFromTable={props.match.params.userId} />
            </div>
          },
+         {
+          Header: '推薦2', 
+          Filter: "",
+          accessor: (text, i) =>
+          <div>
+          <AddPush student={text} userIdFromTable={props.match.params.userId} />
+          </div>
+        },
          {
           Header: 'Faved',
           Filter: "",
@@ -186,6 +196,16 @@ const AdminUser = props => {
            )}
           </div>
         },
+
+
+        {
+          Header: 'Hide',
+          Filter: "",
+          accessor: (text, i) =>
+          <div>
+          <AddHide student={text} userIdFromTable={props.match.params.userId} />
+          </div>
+        },
     ],
       []
     );
@@ -201,6 +221,7 @@ const AdminUser = props => {
     };
 
     const [selectedRows, setSelectedRows] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const selectedRowKeys = Object.values(selectedRows);
 
@@ -229,6 +250,10 @@ const AdminUser = props => {
 )
     return (
       <SiteWrapper>
+               <div class="loading" style={{ display: loading ? "" : "none" }}>
+            <div class="loaderSpin"></div>
+        </div>
+     
       <Page.Content>
       <Grid.Row>
       <Grid.Col width={12} lg={3} sm={12}>

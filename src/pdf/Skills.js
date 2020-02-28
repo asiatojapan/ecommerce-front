@@ -22,7 +22,7 @@ const SkillEntry = ({ name, skills }) => (
   <View>
     <Text style={styles.title}>{name}</Text>
     <List>
-      {[...skills].map((skill, i) => (
+      {[...skills, ""].map((skill, i) => (
         <Item key={i}>{_.trim(skill)}</Item>
       ))}
     </List>

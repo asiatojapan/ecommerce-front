@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import  AdminMenu from "../user/AdminMenu";
 import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { createStudent, getCategories } from './apiAdmin';
@@ -13,6 +12,8 @@ const AddStudent = ({ history }) => {
     const [values, setValues] = useState({
       name: '',
       studentid: '',
+      email: "",
+      password: "",
       gender: '',
       age: '',
       country: '',
@@ -46,6 +47,8 @@ const AddStudent = ({ history }) => {
     const {
         name,
         studentid,
+        email,
+        password,
         gender,
         age,
         country,
@@ -143,6 +146,16 @@ const AddStudent = ({ history }) => {
           <label class="form-label">Student Id</label>
            <input type="text" onChange={handleChange("studentid")} value={values.studentid} name="name"  class="form-control"/>
         </div>
+        <div class="mb-2">
+          <label class="form-label">Email</label>
+           <input type="text" onChange={handleChange("email")} value={email} name="name"  class="form-control"/>
+        </div>
+
+        <div class="mb-2">
+          <label class="form-label">Password</label>
+           <input type="text" onChange={handleChange("password")} value={password} name="name"  class="form-control"/>
+        </div>
+
 
         <div class="mb-2">
           <label class="form-label">Age</label>

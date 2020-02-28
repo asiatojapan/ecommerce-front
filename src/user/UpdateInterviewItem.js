@@ -119,8 +119,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
       <div>
-      <button className="btn btn-primary ml-3" onClick={handleShow}>
-       Done?
+      <button className="resumeGradient unlikeBtn smaller" onClick={handleShow}>
+       Submit
      </button>
           <Modal show={show} onHide={handleClose}>
                  <form onSubmit={handleSubmit(clickSubmit)}>
@@ -239,7 +239,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                               value="不合格"
                             />
                             <Form.SelectGroupItem
-                              icon="check"
+                              icon="circle"
                               name="result"
                               value="合格"
                             />

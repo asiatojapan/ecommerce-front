@@ -85,8 +85,8 @@ const Resume = props => (
 export default (props) => (
   <Document
     author="STUDY GO WORK JAPAN"
-    title={ props.student.studentid }
+    title={ props.studentid }
   >
-    <Resume size="A4" studentData={props.student} />
+    <Resume size="A4" studentData={props.studentData} />
   </Document>
 );

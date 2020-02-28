@@ -1,8 +1,6 @@
 import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
-import { getMyInterviews, getGroupInterviewList } from "../core/apiCore";
-import UserLayout from "./UserLayout";
-import { Link } from "react-router-dom";
+import { getGroupInterviewList } from "../core/apiCore";
 import CardStudent from '../templates/CardStudent';
 import SiteWrapper from '../templates/SiteWrapper'
 import InterviewNav from '../templates/InterviewNav'
