@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
-import { Link, Redirect, withRouter} from 'react-router-dom';
+import { Redirect, withRouter} from 'react-router-dom';
 import { readStudent } from '../core/apiCore';
-import { updateStudent, getCategories } from './apiAdmin';
+import { updateStudent } from './apiAdmin';
 import SiteWrapper from '../templates/SiteWrapper'
 import {
   Container,
@@ -34,8 +34,6 @@ const UpdateStudent = ({ match, history }) => {
       other_pr: '',
       video: '',
       videoImg: '',
-      categories_list: [],
-      categories: [],
       loading: false,
       error: false,
       createdStudent: '',
@@ -43,15 +41,11 @@ const UpdateStudent = ({ match, history }) => {
       formData: ''
     });
 
-    const [categories_list, setCategoriesList] = useState([]);
-    const [defaultChecked, setDefaultChecked] = useState(false);
-
     const {
         name,
         studentid,
         loading,
         error,
-        categories,
         createdStudent,
         redirectToProfile,
         formData
@@ -61,7 +55,7 @@ const UpdateStudent = ({ match, history }) => {
 
 
     const init = studentId => {
-        readStudent(studentId).then(data => {
+        readStudent(studentId, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -92,21 +86,9 @@ const UpdateStudent = ({ match, history }) => {
                     other_pr: data.other_pr,
                     video: data.video,
                     videoImg: data.videoImg,
-                    categories: data.categories,
                     upload_fyp: data.upload_fyp,
                     formData: new FormData()
                 });
-                initCategories();
-            }
-        });
-    };
-
-    const initCategories = () => {
-        getCategories().then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                setCategoriesList(data);
             }
         });
     };
@@ -121,43 +103,6 @@ const UpdateStudent = ({ match, history }) => {
           formData.set(name, value);
           setValues({ ...values, [name]: value });
     };
-
-    const [checked, setCheked] = useState([]);
-
-    const defaultChecking = c => () => {
-      const v = checked.indexOf(c._id === -1)
-      const currentCategoryId = v;
-      const newCheckedCategoryId = [...checked];
-
-      if (currentCategoryId === -1) {
-          newCheckedCategoryId.push(c);
-      } else {
-          newCheckedCategoryId.splice(currentCategoryId, 1);
-      }
-    }
-
-    const handleToggle = c => () => {
-        // return the first index or -1
-        const v = checked.indexOf(c._id === -1)
-
-        const currentCategoryId = v;
-        const newCheckedCategoryId = [...checked];
-        // if currently checked was not already in checked state > push
-        // else pull/take off
-        //  console.log(newCheckedCategoryId)
-        if (currentCategoryId === -1) {
-            newCheckedCategoryId.push(c);
-        } else {
-            newCheckedCategoryId.splice(currentCategoryId, 1);
-        }
-        // console.log(newCheckedCategoryId);
-        setCheked(newCheckedCategoryId);
-        setValues({
-            ...values,
-            categories: newCheckedCategoryId
-        });
-    };
-
 
 
     const clickSubmit = event => {
@@ -204,7 +149,7 @@ const UpdateStudent = ({ match, history }) => {
       <form onSubmit={clickSubmit}>
       <div class="card">
         <div class="card-header">
-         <h4 class="card-title">Add Student</h4>
+         <h4 class="card-title">Update Student</h4>
         </div>
         <div class="card-body">
   

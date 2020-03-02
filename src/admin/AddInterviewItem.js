@@ -109,9 +109,9 @@ import Modal from 'react-bootstrap/Modal';
        <Modal.Header closeButton> Add Interview Item
        </Modal.Header>
        <Modal.Body>
-          <div class="mb-2">
+        <div class="mb-2">
            <h3>{student.name}</h3> 
-            <h3>{company.name}</h3>
+           <h3>{company.name}</h3>
         </div>
 
           <div class="mb-2">

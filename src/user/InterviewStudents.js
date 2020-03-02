@@ -33,7 +33,7 @@ const InterviewStudents = () => {
     const [loading, setLoading] = useState(true)
 
     const loadInterviews = () => {
-        getGroupInterviewList(user._id).then(data => {
+        getGroupInterviewList(user._id, token).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {

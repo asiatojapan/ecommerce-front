@@ -51,7 +51,8 @@ const ImportStudents = () => {
         event.preventDefault();
         setValues({ ...values, error: '' });
 
-        axios.post(`${API}/students/import`, formData, {
+
+        axios.post(`${API}/students/import/${user._id}`, formData,  {headers: { Authorization: "Bearer " + token }
         }).then(res => { // then print response status
 
           setValues({

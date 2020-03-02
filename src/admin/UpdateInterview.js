@@ -1,24 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { updateInterview, getInterview, getUsers } from './apiAdmin';
 import { getStudents } from '../core/apiCore';
-import SiteWrapper from '../templates/SiteWrapper'
-
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {
-  Page,
-  Dropdown,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
-} from "tabler-react";
+
 
 const UpdateInterview = ({ interviewId, match, history }) => {
     const [values, setValues] = useState({
@@ -27,7 +13,6 @@ const UpdateInterview = ({ interviewId, match, history }) => {
         studentStatus: "",
         companyStatus: "",
         status: "",
-        result: "",
         companyRank: "",
         companyRate: "",
         reason: "",
@@ -36,14 +21,29 @@ const UpdateInterview = ({ interviewId, match, history }) => {
         error: false,
         success: false,
         redirectToProfile: false,
+        formData: ''
     });
 
     const [ users, setUsers] = useState([]);
     const [ students, setStudents] = useState([]);
-
     const { user, token } = isAuthenticated();
 
-    const { company, student, name, interviewType, studentStatus, companyStatus, status, companyRank, companyRate, reason,  error, success, redirectToProfile} = values;
+    const { 
+        company, 
+        student, 
+        name, 
+        interviewType,
+        studentStatus, 
+        companyStatus, 
+        status, 
+        companyRank, 
+        companyRate, 
+        reason,  
+        formData,
+        error, 
+        success, 
+        redirectToProfile
+    } = values;
 
     const init = interviewId => {
         // console.log(userId);
@@ -53,7 +53,8 @@ const UpdateInterview = ({ interviewId, match, history }) => {
             } else {
                 setValues({ ...values, company: data.company, student: data.student,
                 interviewType: data.interviewType, studentStatus: data.studentStatus, companyStatus: data.companyStatus, 
-            status: data.status, companyRate: data.companyRank, companyRate: data.companyRate, reason: data.reason});
+                status: data.status, companyRate: data.companyRank, companyRate: data.companyRate, reason: data.reason, 
+                formData: new FormData()});
             }
         });
         initUsers();
@@ -61,7 +62,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
     };
 
     const initUsers = () => {
-        getUsers().then(data => {
+        getUsers(user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -71,7 +72,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
     };
 
     const initStudents = () => {
-        getStudents().then(data => {
+        getStudents(user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -84,21 +85,32 @@ const UpdateInterview = ({ interviewId, match, history }) => {
         init(interviewId);
     }, []);
 
-    const handleChange = name => e => {
-        setValues({ ...values, error: false, [name]: e.target.value });
-    };
+    const handleChange = name => event => {
+        const value = name === 'upload_fyp' ? event.target.files[0] : event.target.value;
+        formData.set(name, value);
+        setValues({ ...values, [name]: value });
+  };
 
-    const clickSubmit = e => {
-        e.preventDefault();
-        updateInterview(interviewId,  user._id, token, {company, student, interviewType, companyStatus, studentStatus, status}).then(data => {
+
+    const clickSubmit = event => {
+        event.preventDefault();
+        setValues({ ...values, error: '', loading: true });
+
+        updateInterview(interviewId,  user._id, token, formData).then(data => {
             if (data.error) {
-                // console.log(data.error);
-                alert(data.error);
+                setValues({ ...values, error: data.error });
             } else {
               setValues({
                   ...values,
-                  company: data.company, student: data.student, interviewType: data.interviewType, studentStatus: data.studentStatus, companyStatus: data.companyStatus, 
-                  status: data.status, companyRate: data.companyRate, companyRate: data.companyRank, reason: data.reason,
+                  company: "", 
+                  student: "", 
+                  interviewType: "", 
+                  studentStatus: "", 
+                  companyStatus: "", 
+                  status: "", 
+                  companyRate: "", 
+                  companyRate: "", 
+                  reason: "",
                   success: true,
                   redirectToProfile: true
               });
@@ -112,61 +124,28 @@ const UpdateInterview = ({ interviewId, match, history }) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const redirectUser = () => {
+        if (redirectToProfile) {
+            if (!error) {
+                    window.location.reload();
+            }
+        }
+    };
 
-        const showError = () => (
-            <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-                {error}
-            </div>
-        );
-
-        const showSuccess = () => (
-            <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
-                User has been updated!
-            </div>
-        );
-
-            const redirectUser = () => {
-                if (redirectToProfile) {
-                    if (!error) {
-                          window.location.reload();
-                    }
-                }
-            };
-
-    const interviewUpdate = (company, student, interviewType, companyStatus, studentStatus, status) => (
+    const interviewUpdate = () => (
       <div>
       <a onClick={handleShow}>
        Update
      </a>
 
      <Modal show={show} onHide={handleClose}>
-     <form>
-       <Modal.Header closeButton> Update Interview
+     <form onSubmit={clickSubmit}>
+       <Modal.Header> Update Interview
        </Modal.Header>
        <Modal.Body>
-          <div class="mb-2">
-              <div class="form-label">企業</div>
-              <select placeholder="企業" onChange={handleChange("company")} value={company} class="form-control">
-                {users && users.map((c, i) => (
-                    <option key={i} value={c._id}>
-                          {c.name}
-                    </option>))}
-                </select>
-          </div>
-
-          <div class="mb-2">
-              <div class="form-label">学生</div>
-              <select placeholder="企業" onChange={handleChange("student")} value={student} class="form-control">
-                {students && students.map((c, i) => (
-                    <option key={i} value={c._id}>
-                          {c.studentid}
-                    </option>))}
-                </select>
-          </div>
-
-          <div class="mb-2">
+           <div class="mb-2">
               <div class="form-label">Interview Type</div>
-              <select placeholder="Type" onChange={handleChange("interviewType")} value={interviewType} class="form-control">
+              <select placeholder="Select English level" onChange={handleChange("interviewType")} value={values.interviewType} name="interviewType" class="form-control">       
                     <option value=""> Select </option>
                     <option value="Nil"> Nil </option>
                     <option value="Japan"> 日本 </option>
@@ -177,7 +156,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
           <div class="mb-2">
               <div class="form-label">Company Status</div>
-              <select placeholder="選考" onChange={handleChange("companyStatus")} value={companyStatus} class="form-control">
+              <select placeholder="選考" onChange={handleChange("companyStatus")} value={values.companyStatus} class="form-control">
                   <option value="">Select</option>
                     <option value="Nil"> Nil </option>
                     <option value="Asking"> Ask </option>
@@ -189,7 +168,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
           <div class="mb-2">
               <div class="form-label">Student Status</div>
-              <select placeholder="選考" onChange={handleChange("studentStatus")} value={studentStatus} class="form-control">
+              <select placeholder="選考" onChange={handleChange("studentStatus")} value={values.studentStatus} class="form-control">
                   <option value="">Select</option>
                     <option value="Nil"> Nil </option>
                     <option value="Asking"> Ask </option>
@@ -201,7 +180,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
           <div class="mb-2">
             <label class="form-label">Status</label>
-            <select placeholder="status" onChange={handleChange("status")} value={status} class="form-control">
+            <select placeholder="status" onChange={handleChange("status")} value={values.status} class="form-control">
                   <option value="">Select</option>
                   <option value="選考"> 選考</option>
                   <option value="終わる"> 終わる </option>
@@ -211,8 +190,9 @@ const UpdateInterview = ({ interviewId, match, history }) => {
           
     </Modal.Body>
     <Modal.Footer>
-        <button type="submit" onClick={clickSubmit} class="btn btn-primary ml-auto">Submit</button>
-    </Modal.Footer>
+    <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
+                      <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+                    </Modal.Footer>
     </form>
   </Modal>
   </div>
@@ -220,7 +200,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     return (
       <span>
-          {interviewUpdate(company, student, interviewType,  companyStatus, studentStatus, status)}
+          {interviewUpdate()}
           {redirectUser()}
       </span>
     );

@@ -57,11 +57,10 @@ export const updateInterview = (interviewId, userId, token, interview) => {
     return fetch(`${API}/interview/${interviewId}/${userId}`, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(interview)
+        body: interview
     })
         .then(response => {
             return response.json();
@@ -198,8 +197,8 @@ export const updateStudent = (studentId, userId, token, student) => {
 };
 
 
-export const getUsers = (token) => {
-    return fetch(`${API}/users`, {
+export const getUsers = (userId, token) => {
+    return fetch(`${API}/users/${userId}`, {
       method: "GET",
       headers: {
           Accept: "application/json",
@@ -386,17 +385,18 @@ export const destroyRec = (studentId, _id, token) => {
       });
 };
 
-export const getCheckStudents = (userId, status) => {
-    console.log(userId)
+export const updateStatus = (userId, status, adminId, token) => {
+
   const data = {
       status,
       userId
   };
-    return fetch(`${API}/students/bulkupdate`, {
+    return fetch(`${API}/students/bulkupdate/${adminId}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(data)
     })
@@ -408,16 +408,17 @@ export const getCheckStudents = (userId, status) => {
         });
 };
 
-export const updateInviteStatus = (userId, inviteStatus) => {
+export const updateInviteStatus = (userId, inviteStatus, adminId, token) => {
   const data = {
       inviteStatus,
       userId
   };
-    return fetch(`${API}/students/bulkupdate/invitestatus`, {
+    return fetch(`${API}/students/bulkupdate/invitestatus/${adminId}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(data)
     })
@@ -429,9 +430,14 @@ export const updateInviteStatus = (userId, inviteStatus) => {
         });
 };
 
-export const getInterviews = () => {
-    return fetch(`${API}/interviews`, {
-        method: "GET"
+export const getInterviews = (userId, token) => {
+    return fetch(`${API}/interviews/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
     })
         .then(response => {
             return response.json();

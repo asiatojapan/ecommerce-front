@@ -33,7 +33,7 @@ const Orders = () => {
     });
 
     const init = userId => {
-        getOrders(user._id).then(data => {
+        getOrders(user._id, token).then(data => {
             setLoading(false)
             setOrders(data);
         });

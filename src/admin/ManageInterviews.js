@@ -387,7 +387,7 @@ const ManageInterviews = () => {
   const [loading, setLoading] = useState(true)
 
   const loadInterviews = () => {
-      getInterviews().then(data => {
+      getInterviews(user._id, token).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -491,7 +491,7 @@ const columns = React.useMemo(
       accessor: (text, i) =>
       <div>{text.interviewItems.length == null ? "" : 
         <div>{text.interviewItems.map((item, i) => 
-        <div>{item.time_period}/{item.time}/{item.category}/ {item.result} 
+        <div>{item.time_period}/{item.time}
         <UpdateInterviewItem interviewItemId={item._id} interviewId={text._id} />
         <button className="btn btn-outline-danger btn-sm" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroyItem(text._id, item._id) } } >
                 削除

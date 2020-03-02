@@ -311,11 +311,8 @@ const ManageUsers = () => {
   const { user, token } = isAuthenticated();
   const [loading, setLoading] = useState(true)
 
-  const [ likedstudents, setLikedstudents ] =  useState([]);
-
-
   const loadUsers = userId => {
-      getUsers(token).then(data => {
+      getUsers(user._id, token).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {

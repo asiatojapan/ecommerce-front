@@ -143,7 +143,7 @@ const AddStudent = ({ history }) => {
         </div>
 
         <div class="mb-2">
-          <label class="form-label">Student Id</label>
+          <label class="form-label">Student ID</label>
            <input type="text" onChange={handleChange("studentid")} value={values.studentid} name="name"  class="form-control"/>
         </div>
         <div class="mb-2">
@@ -220,7 +220,7 @@ const AddStudent = ({ history }) => {
 
 
         <div class="mb-2">
-          <label class="form-label">Student Id</label>
+          <label class="form-label">Major</label>
            <input type="text" onChange={handleChange("major")} value={values.major} name="major"  class="form-control"/>
         </div>
 

@@ -51,7 +51,7 @@ const UpdateCSVStudents = () => {
         event.preventDefault();
         setValues({ ...values, error: '' });
 
-        axios.post(`${API}/students/update`, formData, {
+        axios.post(`${API}/students/update/${user._id}`, formData, { headers: { Authorization: "Bearer " + token }
         }).then(res => { // then print response status
 
           setValues({

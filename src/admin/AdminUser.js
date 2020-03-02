@@ -71,7 +71,7 @@ const AdminUser = props => {
     const [ favStudents, setFavStudents ] =  useState([]);
 
     const loadSingleUser = (userId) => {
-        readUser(userId).then(data => {
+        readUser(userId, token).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {

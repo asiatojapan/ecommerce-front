@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from "../auth";
 import { getStudents } from '../core/apiCore';
-import { deleteStudent, getCheckStudents, updateInviteStatus } from "./apiAdmin";
+import { deleteStudent, updateStatus, updateInviteStatus } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
@@ -313,7 +313,7 @@ const ManageStudent = () => {
   const [loading, setLoading] = useState(true);
   const { user, token } = isAuthenticated();
   const loadStudents = () => {
-      getStudents().then(data => {
+      getStudents(user._id, token).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -487,8 +487,8 @@ const ManageStudent = () => {
       setError("");
       setSuccess(false);
       // make request to api to create category
-      getCheckStudents(selectedRows.map(
-        d => d.original._id), name ).then(data => {
+      updateStatus(selectedRows.map(
+        d => d.original._id), name, user._id, token).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -505,7 +505,7 @@ const ManageStudent = () => {
     setSuccess(false);
     // make request to api to create category
     updateInviteStatus(selectedRows.map(
-      d => d.original._id), name ).then(data => {
+      d => d.original._id), name, user._id, token ).then(data => {
         if (data.error) {
             setError(data.error);
         } else {

@@ -148,9 +148,14 @@ export const createUnlike = (userId, student, token) => {
       });
 };
 
-export const getMyInterviews = (userId) => {
+export const getMyInterviews = (userId, token) => {
     return fetch(`${API}/interviews/mylist/${userId}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
     })
         .then(response => {
             return response.json();
@@ -277,9 +282,13 @@ export const getFavStudents = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const getOrders = (userId) => {
+export const getOrders = (userId, token) => {
     return fetch(`${API}/order/mylist/${userId}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();
@@ -307,6 +316,7 @@ export const readInterview = interviewId => {
         })
         .catch(err => console.log(err));
 };
+
 
 export const updateInterviewItem = (interviewId, interviewItemId, userId, token, interview) => {
   const data = {
