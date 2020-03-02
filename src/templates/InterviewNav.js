@@ -20,6 +20,12 @@ type navItem = {|
 const navBarItems: Array<navItem> = [
 
   {
+    value: "All",
+    to: "/user/interviews",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
     value: "Day 1",
     to: "/user/interviews/day1",
     LinkComponent: withRouter(NavLink),
@@ -28,12 +34,6 @@ const navBarItems: Array<navItem> = [
   {
     value: "Day 2",
     to: "/user/interviews/day2",
-    LinkComponent: withRouter(NavLink),
-    useExact: true,
-  },
-  {
-    value: "All",
-    to: "/user/interviews",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },

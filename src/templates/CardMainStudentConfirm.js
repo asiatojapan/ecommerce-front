@@ -44,7 +44,7 @@ const CardMainStudentConfirm = ({student, indivRank }) => {
                         <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
                         </div>
                         </div>
-                          {student.status === "来日" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
+                          {student.status === "来日決定" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
                        
                       </div>
                   <div class="col-auto">

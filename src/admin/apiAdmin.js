@@ -387,11 +387,33 @@ export const destroyRec = (studentId, _id, token) => {
 };
 
 export const getCheckStudents = (userId, status) => {
+    console.log(userId)
   const data = {
       status,
       userId
   };
     return fetch(`${API}/students/bulkupdate`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+export const updateInviteStatus = (userId, inviteStatus) => {
+  const data = {
+      inviteStatus,
+      userId
+  };
+    return fetch(`${API}/students/bulkupdate/invitestatus`, {
         method: "POST",
         headers: {
             Accept: "application/json",

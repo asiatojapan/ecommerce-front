@@ -465,6 +465,11 @@ const columns = React.useMemo(
         Filter: SelectColumnFilter,
         accessor: "companies[0].name"
       },
+  {
+        Header: 'StudentType',
+        Filter: SelectColumnFilter,
+        accessor: "students[0].inviteStatus"
+      },
     {
     Header: 'InterviewType',
     accessor: "interviewType",

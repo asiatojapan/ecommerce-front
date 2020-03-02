@@ -27,8 +27,8 @@ const CardStudent = ({interview, student}) => {
         </div>
     </div>
     </div>
-    <div class="ml-auto"> 
-    {student.status === "来日" ?  <div> <span class="text-success">●</span> 来日決定　</div>:　<div><span class="text-primary"></span> </div>}
+    <div class="ml-auto" style={{marginRight: "10px"}}> 
+    {student.status === "来日決定" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
                        
     </div>
     </div>

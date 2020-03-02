@@ -5,7 +5,7 @@ import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { it_skills } from "./it_skills";
-import {  getCategories, getFilteredStudents,getFavStudents, getPushList } from './apiCore';
+import {  getCategories, getFilteredStudents, getFavStudents, getPushList } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper';
 import {
   Grid,
@@ -102,10 +102,10 @@ const Home = () => {
     });
    };
 
-  const status = user.round === "Phase IV" ? "来日決定" : "リスト";
+  const status = user.round === "Phase IV" ? "来日決定" : "リスト掲載";
 
   const loadFilteredResults = (newFilters, pushList) => {
-      getFilteredStudents(user._id, skip, limit, status, newFilters, user.round ).then(data => {
+      getFilteredStudents(user._id, skip, limit, status, newFilters, user.round, token).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -120,7 +120,7 @@ const Home = () => {
   };
 
   const getFavCount = userId => {
-    getFavStudents(user._id).then(data => {
+    getFavStudents(user._id, token).then(data => {
         setFavCount(data.length);
         });
     };
@@ -130,7 +130,7 @@ const Home = () => {
   const loadMore = () => {
     let toSkip = skip + limit;
     // console.log(newFilters);
-    getFilteredStudents(user._id, toSkip, limit, status, myFilters.filters, user.round).then(data => {
+    getFilteredStudents(user._id, toSkip, limit, status, myFilters.filters, user.round, token).then(data => {
         if (data.error) {
             setError(data.error);
         } else {

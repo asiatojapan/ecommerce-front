@@ -13,7 +13,7 @@ const AddFav2 = ({student, handleUpdate })  => {
     } = isAuthenticated();
 
     useEffect(() => {
-          readStudent(student).then(data => {
+          readStudent(student, token).then(data => {
               const found = data.favorites.some(el => el === user._id)
               if (found) {
                 setFav(true)

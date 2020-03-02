@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { createInterviewItem, getInterview, getUsers } from './apiAdmin';
-import { getStudents } from '../core/apiCore';
-import SiteWrapper from '../templates/SiteWrapper'
-
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {
-  Page,
-  Dropdown,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
-} from "tabler-react";
+
 
   const AddInterviewItem = ({interviewId, userIdFromTable, handleUpdate }) => {
     const [values, setValues] = useState({

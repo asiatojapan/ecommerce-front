@@ -12,9 +12,13 @@ export const getProducts = sortBy => {
         .catch(err => console.log(err));
 };
 
-export const getStudents = () => {
+export const getStudents = (userId, token) => {
     return fetch(`${API}/students`, {
-        method: "GET",
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();
@@ -22,9 +26,13 @@ export const getStudents = () => {
         .catch(err => console.log(err));
 };
 
-export const readStudent = studentId => {
+export const readStudent = (studentId, token) => {
     return fetch(`${API}/student/${studentId}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();
@@ -54,7 +62,7 @@ export const getPushList = (userId) => {
 };
 
 
-export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round) => {
+export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round, token) => {
     const data = {
         limit,
         status,
@@ -67,7 +75,9 @@ export const getFilteredStudents = (userId, skip, limit, status, filters = {}, r
         method: "POST",
         headers: {
             Accept: "application/json",
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json"
+
         },
         body: JSON.stringify(data)
     })
@@ -253,9 +263,13 @@ export const destroyFav = (studentId, user, token) => {
         .catch(err => console.log(err));
 };
 
-export const getFavStudents = (userId) => {
+export const getFavStudents = (userId, token) => {
     return fetch(`${API}/students/favorites/${userId}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();
@@ -315,9 +329,13 @@ export const updateInterviewItem = (interviewId, interviewItemId, userId, token,
         .catch(err => console.log(err));
 };
 
-export const listRelated = studentId => {
+export const listRelated = (studentId, token) => {
     return fetch(`${API}/students/related/${studentId}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();

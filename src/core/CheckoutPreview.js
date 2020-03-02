@@ -26,7 +26,7 @@ const CheckoutPreview = () => {
     const { user, token } = isAuthenticated();
    
     const init = userId => {
-        getFavStudents(user._id).then(data => {
+        getFavStudents(user._id, token).then(data => {
             setLoading(false)
             setItems(data);
         });

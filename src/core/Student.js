@@ -51,15 +51,16 @@ const Student = props => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
     const { user, token } = isAuthenticated();
+    
 
     const loadSingleStudent = studentId => {
-        readStudent(studentId).then(data => {
+        readStudent(studentId, token).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
                 setStudent(data);
-                 createPDF(data)
-                listRelated(data._id).then(data => {
+                createPDF(data)
+                listRelated(data._id, token).then(data => {
                   if (data.error) {
                       setError(data.error);
                   } else {

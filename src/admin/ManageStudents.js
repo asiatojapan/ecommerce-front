@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from "../auth";
 import { getStudents } from '../core/apiCore';
-import { deleteStudent, getCheckStudents } from "./apiAdmin";
+import { deleteStudent, getCheckStudents, updateInviteStatus } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
@@ -425,15 +425,22 @@ const ManageStudent = () => {
     
     },
      ] },
-
-
+     {
+      Header: 'フェーズ',
+      columns: [
 
     {
-      Header: 'フェーズ',
+      Header: 'リストフェーズ',
       accessor: "status",
       Filter: SelectColumnFilter,
     },
 
+    {
+      Header: '招待フェーズ',
+      accessor: "inviteStatus",
+      Filter: SelectColumnFilter,
+    },
+  ] },
     {
       Header: "Actions",
       Filter: "",
@@ -457,40 +464,57 @@ const ManageStudent = () => {
 
   const selectedRowKeys = Object.values(selectedRows);
 
-  const clickList = e => {
-      getCheckStudents(selectedRows.map(
-                          d => d.original._id), "リスト");
-                          window.location.reload();
-  };
-
-  const clickInvite = e => {
-      getCheckStudents(selectedRows.map(
-                          d => d.original._id), "来日可否");
-                          window.location.reload();
-  };
-
-  const clickYes = e => {
-    getCheckStudents(selectedRows.map(
-                        d => d.original._id), "来日決定");
-                        window.location.reload();
-};
-
-const clickPending = e => {
-  getCheckStudents(selectedRows.map(
-                      d => d.original._id), "Shortlist");
-                      window.location.reload();
-};
-
-  const clickFailed = e => {
-      getCheckStudents(selectedRows.map(
-                          d => d.original._id), "NG");
-                            window.location.reload();
-  };
+  const [name, setName] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false); 
+  const handleShow = () => setShow(true); 
+
+  const handleClose1 = () => setShow1(false)
+  const handleShow1 = () => setShow1(true)
+
+  const handleChange = e => {
+    setError("");
+    setName(e.target.value);
+};
+
+  const clickSubmitPhase = e => {
+      e.preventDefault();
+      setError("");
+      setSuccess(false);
+      // make request to api to create category
+      getCheckStudents(selectedRows.map(
+        d => d.original._id), name ).then(data => {
+          if (data.error) {
+              setError(data.error);
+          } else {
+              setError("");
+              setSuccess(true);
+              window.location.reload();
+          }
+      });
+  };
+
+  const clickSubmit = e => {
+    e.preventDefault();
+    setError("");
+    setSuccess(false);
+    // make request to api to create category
+    updateInviteStatus(selectedRows.map(
+      d => d.original._id), name ).then(data => {
+        if (data.error) {
+            setError(data.error);
+        } else {
+            setError("");
+            setSuccess(true);
+            window.location.reload();
+        }
+    });
+};
 
 
   useEffect(() => {
@@ -506,23 +530,61 @@ const clickPending = e => {
       <Container>
        <div class="card-header"><h3 class="card-title">Students </h3>
        <div class="card-options">
-       <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
-        フェーズ
+       <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow1}>
+       フェーズ (リストview)
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton> フェーズ変更
+      <Modal show={show1} onHide={handleClose1}>
+        <Modal.Header closeButton> フェーズ (リストview)
         </Modal.Header>
         <Modal.Body>
         <div class="btn-list">
-        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickList() } } >リスト掲載</button>
-        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickInvite() } } >来日可否</button>
-        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickYes() } } >来日決定</button>
-        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickPending() } } >Shortlist</button>
-        <button className="btn btn-primary" onClick={() => { if (window.confirm('Are you sure you wish add this phase?')) clickFailed() } } >NG</button>
-        </div>
+        <form onSubmit={clickSubmitPhase}>
+            <div className="form-group">
+                <label className="text-muted">Name</label>
+                <select onChange={handleChange} value={name} className="form-control">
+                    <option>Please select</option>
+                    <option value="リスト掲載">リスト掲載</option>
+                    <option value="来日決定">来日決定</option>
+                    <option value="NG">NG</option>
+                    <option value="Offer">内定</option>
+          </select>
+            </div>
+            <button className="btn btn-primary">Update Phase</button>
+        </form>
+          </div>
         </Modal.Body>
       </Modal>
+
+      <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
+        招待
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton> 招待変更
+        </Modal.Header>
+        <Modal.Body>
+        <div class="btn-list">
+        <form onSubmit={clickSubmit}>
+            <div className="form-group">
+                <label className="text-muted">Name</label>
+                <select onChange={handleChange} value={name} className="form-control">
+                    <option>Please select</option>
+                    <option value="Nil">Nil</option>
+                    <option value="来日可否">来日可否</option>
+                    <option value="来日決定">来日決定</option>
+                    <option value="Shortlist">Shortlist</option>
+                    <option value="Skype">Skype</option>
+                    <option value="結果待ち">結果待ち</option>
+                    <option value="NG">NG</option>
+          </select>
+            </div>
+            <button className="btn btn-primary">Update Phase</button>
+        </form>
+          </div>
+        </Modal.Body>
+      </Modal>
+
        <Link to={`/admin/create/student`} className="btn btn-sm btn-secondary"> + Add Students </Link> <br/>
 
        <ImportStudents/>

@@ -82,13 +82,13 @@ const AdminUser = props => {
 
 
     const loadFavStudents = userId => {
-        getFavStudents(userId).then(data => {
+        getFavStudents(userId, token).then(data => {
             setFavStudents(data);
         });
     };
 
     const loadStudents = () => {
-        getStudents().then(data => {
+        getStudents(user._id, token).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
