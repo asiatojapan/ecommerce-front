@@ -40,7 +40,7 @@ const List = ({student, setFavCount,
     <div>
     <Icon prefix="fe" name="disc" />  <strong>大学・学部: </strong>{student.university}・{student.faculty} ({student.education_bg})
     <div>
-    <Icon prefix="fe" name="book" />  <strong>日本語: </strong>{student.japanese}・{student.jlpt === "None" ? "" : <span>{"JLPT: " + student.jlpt}</span>}
+    <Icon prefix="fe" name="book" />  <strong>日本語: </strong>{student.japanese} {student.jlpt === "None" ? "" : <span>{"・JLPT: " + student.jlpt}</span>}
     </div>
     {student.it_skills.length > 0 ? <div>
     <Icon prefix="fe" name="monitor" />  <strong>ITスキル: </strong>

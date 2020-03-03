@@ -4,6 +4,7 @@ import { isAuthenticated } from '../auth';
 import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
+import { japanese } from "./japanese";
 import { it_skills } from "./it_skills";
 import {  getCategories, getFilteredStudents, getFavStudents, getPushList } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper';
@@ -226,6 +227,14 @@ const Home = () => {
                                    handleFilters(filters, "tags")} />
                 
                   </div>
+
+                  <div class="list-list">
+                       <h3 class="card-title">Japanese</h3>
+                      
+                               <Checkbox2 categories={japanese} handleFilters={filters =>
+                           handleFilters(filters, "japanese")} />
+                      </div>
+            
 
                 <div class="list-list">
                        <h3 class="card-title">IT Skills</h3>

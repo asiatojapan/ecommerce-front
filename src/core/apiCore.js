@@ -1,17 +1,6 @@
 import { API } from "../config";
 import queryString from "query-string";
 
-
-export const getProducts = sortBy => {
-    return fetch(`${API}/products?sortBy=${sortBy}&order=desc&limit=100`, {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
 export const getStudents = (userId, token) => {
     return fetch(`${API}/students`, {
         method: 'GET',
@@ -101,16 +90,6 @@ export const list = params => {
         .catch(err => console.log(err));
 };
 
-export const read = productId => {
-    return fetch(`${API}/product/${productId}`, {
-        method: "GET"
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-
 
 export const createLike = (userId, student, token) => {
   return fetch(`${API}/like/${userId}`, {
@@ -163,9 +142,14 @@ export const getMyInterviews = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const getGroupInterviewList = (userId) => {
+export const getGroupInterviewList = (userId, token) => {
     return fetch(`${API}/interviews/group/${userId}`, {
-        method: "GET"
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
     })
         .then(response => {
             return response.json();
@@ -326,7 +310,6 @@ export const updateInterviewItem = (interviewId, interviewItemId, userId, token,
     return fetch(`${API}/interviewitem/${interviewId}/${userId}`, {
         method: 'PUT',
         headers: {
-            // content type?
             'Content-Type': 'application/json',
             Accept: 'application/json',
             Authorization: `Bearer ${token}`

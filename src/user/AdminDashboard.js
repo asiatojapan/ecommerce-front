@@ -37,7 +37,7 @@ const AdminDashboard = () => {
 
 
     const loadUsers = () => {
-        getMyUsers(user._id).then(data => {
+        getMyUsers(user._id, token).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {

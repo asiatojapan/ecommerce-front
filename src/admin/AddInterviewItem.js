@@ -28,7 +28,7 @@ import Modal from 'react-bootstrap/Modal';
     const { company, student, name, time, phase, result, time_period, category, error, success, redirectToProfile} = values;
 
     const init = () => {
-        getInterview(interviewId).then(data => {
+        getInterview(interviewId, user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {

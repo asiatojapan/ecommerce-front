@@ -47,7 +47,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     const init = interviewId => {
         // console.log(userId);
-        getInterview(interviewId).then(data => {
+        getInterview(interviewId, user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {

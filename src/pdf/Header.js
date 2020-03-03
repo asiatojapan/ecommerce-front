@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
 export default props => {
   const { studentData } = props;
   return (
-    <View style={styles.container}>
+    <View style={styles.container} fixed>
       <View style={styles.detailColumn}>
         <Text style={styles.name}>{studentData.studentid}</Text>
         <Text style={styles.subtitle}>Study Go Work JAPAN</Text>

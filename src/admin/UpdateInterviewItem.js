@@ -47,7 +47,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
-        getInterview(interviewId).then(data => {
+        getInterview(interviewId, user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {

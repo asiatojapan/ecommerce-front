@@ -22,6 +22,17 @@ const isActive = (history, path) => {
     }
 };
 
+const NavDropdown = styled.a` 
+  text-decoration: none;
+  /* background-color: #467fcf; */
+}
+.dropdown-item:hover, .dropdown-item:focus {
+  /* color: #16181b; */
+  text-decoration: none;
+  background-color: #f8f9fa;
+}
+
+`
 
 const SiteWrapper = ({ history, children }) => (
   <Fragment> 
@@ -45,19 +56,8 @@ const SiteWrapper = ({ history, children }) => (
              <Nav.Link href="/admin/interviews">Interviews</Nav.Link>
              </Fragment>
              )}
-              {isAuthenticated() && isAuthenticated().user.role === 0 && (
-              <Fragment>
-                 <Nav.Link href={`/`}>List</Nav.Link>
-             <Nav.Link href="/user/orders">Orders</Nav.Link>
-             <Nav.Link href="/user/interviews">Interviews</Nav.Link>
-             </Fragment>
-             )}
           </Nav>
-        
           <Nav>  
-
-          <Nav.Link href={`/profile/${user._id}`}>Profile</Nav.Link>
-          {isAuthenticated() && isAuthenticated().user.role === 1 && (
           <NavDropdown title={user.name} id="basic-nav-dropdown">
               <Dropdown.Header style={{fontWeight: "700", color:"#000"}}> Your Profile</Dropdown.Header>
               <NavDropdown.Divider />
@@ -73,16 +73,10 @@ const SiteWrapper = ({ history, children }) => (
             </button>
             </Dropdown.Header>
             </NavDropdown>
-            )}
+            
             </Nav>
-            <a className="unlikeBtn smaller" href="/checkout/preview" style={{marginRight: "10px"}}> 検討リスト
+            <a className="resumeGradient unlikeBtn smaller" href="/checkout/preview"> 検討リスト
             </a>
-            <button className="likeBtn smaller"
-                  onClick={() =>
-                          signout(() => {
-                              history.push("/");})}
-                  >  Log Out
-            </button>
         </Navbar.Collapse>
       </Navbar> )}
       <div style={{padding: "2rem 0rem"}}>

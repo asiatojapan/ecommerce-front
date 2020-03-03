@@ -60,17 +60,9 @@ const styles = StyleSheet.create({
 
 const Resume = props => (
   <Page {...props} style={styles.page}>
-    <Header studentData={props.studentData} />
+    <Header studentData={props.studentData}/ >
     <View style={styles.container}>
       <View style={styles.leftColumn}>
-        {
-          props.studentData.videoImg ? 
-            <Image
-              src={props.studentData.videoImg}
-              style={styles.image}
-            /> :
-            null
-        }
         <PersonalDetails studentData={props.studentData} />
         <Education studentData={props.studentData} />
         <Languages studentData={props.studentData} />

@@ -222,9 +222,14 @@ export const getSalesRep = () => {
         .catch(err => console.log(err));
 };
 
-export const getMyUsers = (userId) => {
+export const getMyUsers = (userId, token) => {
     return fetch(`${API}/users/myusers/${userId}`, {
-      method: 'GET'
+      method: 'GET',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+    }
   })
       .then(response => {
           return response.json();
@@ -445,9 +450,14 @@ export const getInterviews = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const getInterview = interviewId => {
-    return fetch(`${API}/interview/${interviewId}`, {
-        method: 'GET'
+export const getInterview = (interviewId, userId, token) => {
+    return fetch(`${API}/interview/${interviewId}/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
     })
         .then(response => {
             return response.json();
