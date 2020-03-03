@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   school: {
-    fontFamily: 'Lato Bold',
+    fontFamily: 'Lato',
     fontSize: 10,
   },
   degree: {
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   candidate: {
-    fontFamily: 'Lato Italic',
+    fontFamily: 'Lato',
     fontSize: 10,
   },
 });

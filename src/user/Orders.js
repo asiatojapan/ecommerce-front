@@ -1,7 +1,8 @@
 import React, { useState, useEffect }  from "react";
 import { isAuthenticated, getUser } from "../auth";
-import { getFavStudents, createSubmit, createOrder, getOrders } from "../core/apiCore";
-import { Link } from "react-router-dom";
+import { getOrders } from "../core/apiCore";
+import Accordion from 'react-bootstrap/Accordion';
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
 import CardCheckout from '../core/CardCheckout';
 import {
   Container,
@@ -32,6 +33,8 @@ const Orders = () => {
       day: "2-digit"
     });
 
+
+
     const init = userId => {
         getOrders(user._id, token).then(data => {
             setLoading(false)
@@ -43,22 +46,45 @@ const Orders = () => {
         init();
     }, []);
 
+    const CustomToggle = ({ children, eventKey }) => {
+        const decoratedOnClick = useAccordionToggle(eventKey)
+      
+        return (
+          <button
+            type="button"
+            style={{ backgroundColor: 'white' }}
+            onClick={decoratedOnClick}
+          >
+            {children}
+          </button>
+        );
+      }
+    
+
 
     const favList = () => 
     <div>
        <div class="list-list">
-       <div style={{fontSize: "26px", fontWeight: "500"}} >Your Orders</div>
+       <div style={{fontSize: "26px", fontWeight: "500"}} >面接予定の学生</div>
         </div>
 
        {orders.map((o,i) => 
         <div class="list-list">  
           <h4 style={{}}>{o.students.length} 学生<div class="list-floatLeft"> {formatter.format(new Date(Date.parse(o.createdAt)))}
           </div> </h4> <hr/>  
-          {o.students.map((p, pIndex) => 
+          <CardCheckout student={o.students[0]} showRemoveItemButton={false} 
+           showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={false} />  <div style={{background: "linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255))", height: "110px", width: "100%"}}> </div>
+        
+          <Accordion defaultActiveKey="0">
+          <CustomToggle eventKey="1">View All</CustomToggle>
+            <Accordion.Collapse eventKey="1">
+            <div>{o.students.map((p, pIndex) => 
            <CardCheckout key={pIndex} student={p} showRemoveItemButton={false} 
-           showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={true} rank={p.rank} />
-           
-         )}
+           showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={false} rank={p.rank} />
+         )}</div>
+            </Accordion.Collapse>
+        </Accordion>
+    
            </div> )}
       
     </div>

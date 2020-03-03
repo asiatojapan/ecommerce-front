@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   itemContent: {
-    flex: 1,
+    flexGrow: 9,
     fontSize: 10,
     fontFamily: 'Lato',
   },
@@ -22,7 +22,6 @@ const List = ({ children }) => children;
 
 export const Item = ({ children }) => (
   <View style={styles.item}>
-    <Text style={styles.bulletPoint}>•</Text>
     <Text style={styles.itemContent}>{children}</Text>
   </View>
 );

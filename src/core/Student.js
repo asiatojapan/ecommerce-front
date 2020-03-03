@@ -176,9 +176,18 @@ const Student = props => {
                       <div class="mb-2">
                       <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
                       </div>
-                      <div class="mb-3">
+                      <div class="mb-2">
                       <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty} ({student.education_bg})
                       </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="book-open" />  <strong>卒業: </strong> {student.grad_year} / {student.grad_month}
+                      </div>
+
+
+                      { student.github ? 
+                      <div class="mb-3">
+                      <Icon prefix="fe" name="github" />  <strong>Github: </strong>{student.github}
+                      </div> : null }
 
                       <div class="mb-2">
                       
@@ -195,19 +204,6 @@ const Student = props => {
                       <div class="card-header"><div class="card-title">Education</div>
                       </div>
                       <div class="card-body">
-
-                      <div class="mb-2">
-                      <strong><h4>{student.university}  </h4></strong>
-                      </div>
-                      <div class="mb-2">
-                      <strong>{student.faculty} ({student.education_bg})</strong>
-                      </div>
-                      <div class="mb-2">
-                      {student.major}
-                      </div>
-                      <div class="mb-2 text-muted">
-                      {student.grad_year} - {student.grad_month}
-                      </div>
                       <div class="hr-text">研究テーマ</div>
                       <div class="mb-2 pre-wrap">　
                       {student.research}
@@ -242,20 +238,28 @@ const Student = props => {
                       <div class="mb-2">
                       <strong>英語: </strong> {student.english}
                       </div>
+                      { student.other_languages == null ?  "": 
+                      <div class="mb-2">
+                      <strong>Other Languages: </strong> {student.other_languages}
+                      </div> }
                       </div>
                       </div>
-
+                        
+                      {student.it_skills ?
                       <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">IT Skills</div>
                       </div>
                       <div class="card-body">
                       <Tag.List>
-                      {student.it_skills?
+                      {student.it_skills ?
                         student.it_skills.map((skill) => (
                             <Tag color="secondary">{skill}</Tag>)) : ""}
                       </Tag.List>
-                      </div>
-                      </div>
+            
+                     </div>
+                        </div> : ""
+}
+                      
 
                       <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">その他PR</div>
@@ -280,7 +284,7 @@ const Student = props => {
       
       {createPDFLinkButton(
               student,
-              <button class="likeBtn fullWidth" >レジュメ</button>
+              <button class="unlikeBtn resumeGradient fullWidth" >レジュメ</button>
             )}
     
         {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
@@ -289,7 +293,7 @@ const Student = props => {
 
         <hr/>
 
-      <h4>You may also like </h4>
+      <h4>この学生と似ている学生</h4>
       {relatedStudent.map((s, i) => (
           <div className="list-list" key={i} style={{padding: "0"}}> 
          
@@ -309,7 +313,7 @@ const Student = props => {
         <div class="inner">
         <div class="project-info">
         <div class="project-title">
-        自由な社風で若手が多く活躍するベンチャーで、一緒に青春しませんか？
+        一生懸命日本語を勉強した学生にチャンスをくだいさい
         </div>
         </div>
         <div class="action-buttons">

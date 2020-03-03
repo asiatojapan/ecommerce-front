@@ -8,7 +8,7 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 0,
     paddingLeft: 15,
     '@media max-width: 400': {
       paddingTop: 10,

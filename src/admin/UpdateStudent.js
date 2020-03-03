@@ -14,6 +14,9 @@ const UpdateStudent = ({ match, history }) => {
       name: '',
       studentid: '',
       gender: '',
+      address: "",
+      skype: "",
+      email: "",
       age: '',
       japanese: '',
       english: '',
@@ -23,6 +26,7 @@ const UpdateStudent = ({ match, history }) => {
       faculty: '',
       it_skills: '',
       entry_timing: '',
+      other_languages: "",
       jlpt: '',
       jlpt_next: '',
       github: '',
@@ -68,6 +72,10 @@ const UpdateStudent = ({ match, history }) => {
                     age: data.age,
                     country: data.country,
                     japanese: data.japanese,
+                    address: data.address,
+                    email: data.email,
+                    skype: data.skype,
+                    other_languages: data.other_languages,
                     english: data.english,
                     comments: data.comments,
                     university: data.university,
@@ -167,6 +175,21 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">Age</label>
              <input type="text" onChange={handleChange("age")} value={values.age} name="Age"  class="form-control"/>
           </div>
+
+          <div class="mb-2">
+            <label class="form-label">Email</label>
+             <input type="text" onChange={handleChange("email")} value={values.email} name="Email"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Skype Id</label>
+             <input type="text" onChange={handleChange("skype")} value={values.skype} name="Skype"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Address</label>
+             <input type="text" onChange={handleChange("address")} value={values.address} name="Address"  class="form-control"/>
+          </div>
   
           <div class="mb-2">
           <label class="form-label">Gender</label>
@@ -217,6 +240,11 @@ const UpdateStudent = ({ match, history }) => {
             <option value="D"> D </option>
             <option value="E"> E </option>
             </select>  </div>
+
+            < div class="mb-2">
+            <label class="form-label">Other Languages</label>
+             <input type="text" onChange={handleChange("other_languages")} value={values.other_languages} name="other_languages"  class="form-control"/>
+          </div>
   
           <div class="mb-2">
             <label class="form-label">University</label>

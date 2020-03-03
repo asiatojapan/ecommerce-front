@@ -8,12 +8,6 @@ import { Text, View, StyleSheet } from '@react-pdf/renderer';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 30,
-    paddingLeft: 15,
-    '@media max-width: 400': {
-      paddingTop: 10,
-      paddingLeft: 0,
-    },
   },
   entryContainer: {
     marginBottom: 10,
@@ -56,7 +50,7 @@ const styles = StyleSheet.create({
     justifySelf: 'flex-end',
   },
   title: {
-    fontSize: 11,
+    fontSize: 14,
     color: 'black',
     textDecoration: 'none',
     fontFamily: 'Lato Bold',

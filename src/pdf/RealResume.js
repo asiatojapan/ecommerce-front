@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactPDF, {
   Text,
   Document,
@@ -9,13 +8,13 @@ import ReactPDF, {
   Image,
   View,
 } from '@react-pdf/renderer';
-import Header from './Header';
 import PersonalDetails from './PersonalDetails';
 import Education from './Education';
 import Languages from './Languages';
 import Experience from './Experience';
 import Skills from './Skills';
 import PrivateInfo from './PrivateInfo';
+import HeaderWithName from './HeaderWithName';
 
 const styles = StyleSheet.create({
   page: {
@@ -31,6 +30,7 @@ const styles = StyleSheet.create({
   image: {
     marginBottom: 10,
     marginRight: 20,
+    width: "auto"
   },
   leftColumn: {
     flexDirection: 'column',
@@ -83,7 +83,18 @@ const styles = StyleSheet.create({
 
 const Resume = props => (
   <Page {...props} style={styles.page}>
-    <Header studentData={props.studentData} />
+    <HeaderWithName studentData={props.studentData} />
+    <View style={styles.row}>
+    {
+          props.studentData.videoImg ? 
+            <Image
+              src={props.studentData.videoImg}
+              style={styles.image}
+            /> :
+            null
+        } 
+    <PrivateInfo studentData={props.studentData} />
+      </View>
     <View style={styles.row}>
         <View style={styles.colLeft}>
           <PersonalDetails studentData={props.studentData} />

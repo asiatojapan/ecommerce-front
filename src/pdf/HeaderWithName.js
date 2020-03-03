@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifySelf: 'flex-end',
   },
   name: {
-    fontSize: 24,
+    fontSize: 20,
     textTransform: 'uppercase',
     fontFamily: 'Lato Bold',
   },
@@ -55,7 +55,7 @@ export default props => {
         src={logo}
       />
       <View style={styles.detailColumn}>
-        <Text style={styles.name}>{studentData.studentid} </Text>
+        <Text style={styles.name}>{studentData.studentid}　{studentData.name}</Text>
         <Text style={styles.subtitle}>Study Go Work JAPAN</Text>
         {
           // <Text style={styles.subtitle}>{studentData.tags.map(tag => "| " + _.trim(tag)) + " "}</Text>

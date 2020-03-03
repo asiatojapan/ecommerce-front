@@ -51,7 +51,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
-        getInterview(interviewId).then(data => {
+      getInterview(interviewId, user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
@@ -120,7 +120,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
       <div>
       <button className="resumeGradient unlikeBtn smaller" onClick={handleShow}>
-       Submit
+       評価をメモする
      </button>
           <Modal show={show} onHide={handleClose}>
                  <form onSubmit={handleSubmit(clickSubmit)}>

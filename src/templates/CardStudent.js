@@ -6,8 +6,7 @@ import {
   Icon
 } from "tabler-react";
 
-const CardStudent = ({interview, student}) => {
-
+const CardStudent = ({interview, student, resumeLoading}) => {
 
   return (
     <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
@@ -28,15 +27,18 @@ const CardStudent = ({interview, student}) => {
     </div>
     </div>
     <div class="ml-auto" style={{marginRight: "10px"}}> 
-    {student.status === "来日決定" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}
-                       
+    {student.status === "来日決定" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}   
+    {<a href={interview.url} target="_blank" class="btn btn-primary btn-sm"
+    >
+      {resumeLoading ? 'Loading…' : student.studentid }
+    </a>}
     </div>
     </div>
     { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
-                 <div>
-                   <InterviewItem interview={interview} item={item}/>
-                 </div>
-               ) : ""}
+   <div>
+        <InterviewItem interview={interview} item={item}/>
+      </div>
+    ) : ""}
     </div>
   </div>
 

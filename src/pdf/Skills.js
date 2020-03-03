@@ -16,28 +16,43 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginBottom: 10,
   },
+  list: {
+    fontSize: 9,
+    flexDirection: 'row',
+    width: 170,
+  },
+  item: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  bulletPoint: {
+    width: 10,
+    fontSize: 10,
+  },
+  itemContent: {
+    fontSize: 10,
+    fontFamily: 'Lato',
+  },
 });
 
 const SkillEntry = ({ name, skills }) => (
-  <View>
-    <Text style={styles.title}>{name}</Text>
-    <List>
-      {[...skills, ""].map((skill, i) => (
-        <Item key={i}>{_.trim(skill)}</Item>
+   <View style={styles.item}>
+      {skills.map((skill, i) => (
+        <Text style={styles.itemContent} break>{_.trim(skill)}, </Text>
       ))}
-    </List>
   </View>
 );
 
 export default props => {
   const { studentData } = props;
   return(
-  <View>
-    <Title>Skills</Title>
+    <View>
+    {studentData.it_skills.length > 0 ?<Title>Skills</Title> : null }
     <SkillEntry
       name="IT Skills"
       skills={studentData.it_skills}
-    />
+    /> 
+    {studentData.github == null ? null : <Text style={styles.itemContent}> Github: {studentData.github} </Text>  }
   </View>
   );
 }

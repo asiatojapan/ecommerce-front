@@ -70,9 +70,10 @@ const CardCheckout = ({student,indivRank,rank,
     );
   }
 
-  const showRankOutcome = showRankOutcomeButton => {
+
+  const showRankOutcome = (showRankOutcomeButton) => {
     return (
-      showRankOutcomeButton && (
+      showRankOutcomeButton &&  (
         <span class="avatar bg-blue-lt avatar-lg">{rank}</span>
       )
     )
@@ -96,7 +97,8 @@ const CardCheckout = ({student,indivRank,rank,
     </div>
     <div class="ml-auto"> 
     {showRankButton(showRankItemButton)}
-    {showRankOutcome(showRankOutcomeButton)}
+   
+    {showRankOutcome(showRankOutcomeButton, rank)} 
     </div>
     </div>
     </div>
