@@ -113,8 +113,9 @@ const AddUser = ({history}) => {
               <div class="form-label">Role</div>
               <select placeholder="Role" onChange={handleChange("role")} value={role}  class="form-control">
                 <option value=""> Select </option>
-                <option value="0"> User </option>
+                <option value="0"> Registered User </option>
                 <option value="1"> Admin </option>
+                <option value="2"> Unregistered User </option>
                 </select>
           </div>
 

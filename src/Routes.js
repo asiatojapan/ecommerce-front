@@ -3,6 +3,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import Home from "./core/Home";
+import Welcome from "./user/Welcome"
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import Dashboard from './user/UserDashboard';
@@ -30,9 +31,21 @@ import Checkout from './core/Checkout';
 import Orders from './user/Orders';
 import Order from './user/Order';
 import RealStudent from './user/RealStudent';
+import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
+import { Router } from 'react-router-dom';
+
+const history = createBrowserHistory();
 
 document.body.style.backgroundColor = "#fff";
 
+ReactGA.initialize('UA-124318785-3');
+
+history.listen((location) => {
+  ReactGA.set({ page: location.pathname });
+  ReactGA.pageview(location.pathname)
+}
+);
 
 const Routes = () => {
   return (
@@ -41,6 +54,7 @@ const Routes = () => {
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
     <Route path="/create/like" exact component={AddLike} />
+    <Route path="/register" exact component={Welcome} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/user/orders" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>

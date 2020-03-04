@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import moment from 'moment'
 import { isAuthenticated } from "../auth";
 import { deleteUser, getUsers } from "./apiAdmin";
 import { Link } from "react-router-dom";
@@ -373,13 +374,31 @@ const ManageUsers = () => {
       sortType: 'basic',
     },
     {
+      Header: 'Created At',
+      accessor: (text) =>
+      <div>
+      { moment(text.createdAt).format('YYYY/MM/DD')}
+      </div>,
+      id: 'created_at',
+      sortType: 'basic',
+    },
+    {
+      Header: 'Last Login',
+      accessor: (text) =>
+      <div>
+      { moment(text.last_login_date).format('YYYY/MM/DD')}
+      </div>,
+      id: 'login_at',
+      sortType: 'basic',
+    },
+    {
+      Header: 'Login Count',
+      accessor: 'login_count',
+    },
+    {
       Header: 'Phase',
       accessor: "round",
       Filter: SelectColumnFilter,
-    },
-    {
-      Header: 'Phase Memo',
-      accessor: "phase"
     },
     {
       Header: '営業担当',
