@@ -27,12 +27,18 @@ const Orders = () => {
 
     const [ loading, setLoading] =  useState(true);
 
+    const [expanded, setExpanded] = useState(false)
+
     const formatter = new Intl.DateTimeFormat("en-GB", {
       year: "numeric",
       month: "long",
       day: "2-digit"
     });
 
+    const showButton = () => {
+      console.log(expanded)
+      setExpanded(!expanded)
+    }
 
 
     const init = userId => {
@@ -48,15 +54,12 @@ const Orders = () => {
 
     const CustomToggle = ({ children, eventKey }) => {
         const decoratedOnClick = useAccordionToggle(eventKey)
-      
         return (
-          <button
+          <a
             type="button"
-            style={{ backgroundColor: 'white' }}
-            onClick={decoratedOnClick}
-          >
-            {children}
-          </button>
+            onClick={decoratedOnClick} 
+          >{children}<i class="fe fe-chevrons-down" style={{"fontSize": "26px", "color": "#278bfa"}}></i>
+          </a>
         );
       }
     
@@ -69,23 +72,26 @@ const Orders = () => {
         </div>
 
        {orders.map((o,i) => 
-        <div class="list-list">  
-          <h4 style={{}}>{o.students.length} 学生<div class="list-floatLeft"> {formatter.format(new Date(Date.parse(o.createdAt)))}
-          </div> </h4> <hr/>  
-          <CardCheckout student={o.students[0]} showRemoveItemButton={false} 
-           showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={false} />  <div style={{background: "linear-gradient(rgba(255, 255, 255, 0), rgb(255, 255, 255))", height: "110px", width: "100%"}}> </div>
-        
-          <Accordion defaultActiveKey="0">
-          <CustomToggle eventKey="1">View All</CustomToggle>
+      <Accordion defaultActiveKey="0">
+          <div class="list-list">  
+          <div style={{"display": "inline-block"}}>
+          <text style={{"fontSize": "18px"}} >
+          {formatter.format(new Date(Date.parse(o.createdAt)))} </text> <br/>
+          <text style={{"color": "#278bfa"}} >{o.students.length} 学生  </text>
+           </div> 
+          <div class="list-floatLeft" style={{"marginTop": "0.7em"}}> 
+           <CustomToggle eventKey="1"></CustomToggle>
+         
+           </div>  
+
             <Accordion.Collapse eventKey="1">
-            <div>{o.students.map((p, pIndex) => 
+            <div> <hr/>{o.students.map((p, pIndex) => 
            <CardCheckout key={pIndex} student={p} showRemoveItemButton={false} 
            showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={false} rank={p.rank} />
          )}</div>
             </Accordion.Collapse>
-        </Accordion>
-    
-           </div> )}
+           </div>
+           </Accordion> )}
       
     </div>
 

@@ -734,5 +734,18 @@ a.list-TextNoteTitle {
 }
 
 
+.largeModal {
+  width: 90%;
+  max-width: 90% !important;
+}
 
-
+.linkButton {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  /*input has OS specific font-family*/
+  color: #278bfa;
+  text-decoration: none;
+  cursor: pointer;
+}

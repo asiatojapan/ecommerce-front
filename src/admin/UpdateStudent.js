@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticated } from '../auth';
 import { Redirect, withRouter} from 'react-router-dom';
-import { readStudent } from '../core/apiCore';
+import { readStudentDetails } from '../core/apiCore';
 import { updateStudent } from './apiAdmin';
 import SiteWrapper from '../templates/SiteWrapper'
 import {
@@ -59,7 +59,7 @@ const UpdateStudent = ({ match, history }) => {
 
 
     const init = studentId => {
-        readStudent(studentId, token).then(data => {
+        readStudentDetails(studentId, user._id, token).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -259,7 +259,7 @@ const UpdateStudent = ({ match, history }) => {
   
   
           <div class="mb-2">
-            <label class="form-label">Student Id</label>
+            <label class="form-label">Major</label>
              <input type="text" onChange={handleChange("major")} value={values.major} name="major"  class="form-control"/>
           </div>
   

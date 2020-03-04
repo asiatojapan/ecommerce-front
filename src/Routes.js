@@ -29,6 +29,7 @@ import CheckoutPreview from './core/CheckoutPreview';
 import Checkout from './core/Checkout';
 import Orders from './user/Orders';
 import Order from './user/Order';
+import RealStudent from './user/RealStudent';
 
 document.body.style.backgroundColor = "#fff";
 
@@ -64,6 +65,7 @@ const Routes = () => {
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
       <PrivateRoute path="/user/interviewitem/:interviewId" exact component={UpdateInterviewItem} />
+      <PrivateRoute path="/interview/student/:studentId" exact component={RealStudent}/>
     </Switch>
     </BrowserRouter>
   );

@@ -5,9 +5,8 @@ import {
   Icon,
 } from "tabler-react";
 import "../styles.css";
-import styled from 'styled-components';
 
-const InterviewItemByDay = ({item, interview}) => {
+const InterviewItemByDay = ({item, interview, resumeLoading}) => {
 
 
     const skill = ()=>  (
@@ -37,10 +36,12 @@ const InterviewItemByDay = ({item, interview}) => {
 
       <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
         <div class="d-flex justify-content-between align-items-center"> 
-        <img src={interview.student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
+        <img src={interview.student.videoImg} style={{height: "140px", marginRight: "1rem"}}/> 
         <div class="ml-3">
         <div>
-        <Link to={`/student/${interview.student._id}`} target="_blank"  style={{fontSize: "16px"}}>
+        {interview.student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <text style={{color: "#659c2d"}}> 来日決定 </text> </div>　: ""} 
+  
+        <Link to={`/interview/student/${interview.student._id}`} target="_blank"  style={{fontSize: "16px"}}>
                             <b> {interview.student.studentid} </b> {interview.student.name} </Link>
         <div style={{marginBottom: "0px"}}>
           <div>

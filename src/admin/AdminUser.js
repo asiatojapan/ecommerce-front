@@ -299,13 +299,18 @@ const AdminUser = props => {
                             <Button variant="secondary" onClick={handleClose}>
                               Close
                             </Button>
-                            <Button variant="primary" onClick={handleClose}>
-                              Save Changes
-                            </Button>
                           </Modal.Footer>
                         </Modal>
                     
                     </div>
+                  </div>
+
+
+                  <div class="card">
+                    <div class="card-body ">
+                      <h2 class="mb-3">Orders</h2>
+                      
+                          </div>
                   </div>
                   </Grid.Col>
      

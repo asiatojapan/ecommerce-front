@@ -38,16 +38,9 @@ const SiteWrapper = ({ history, children }) => (
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {isAuthenticated() && isAuthenticated().user.role === 1 && (
-              <Fragment>
-             <Nav.Link href="/admin/students">Students</Nav.Link>
-             <Nav.Link href="/admin/users">Users</Nav.Link>
-             <Nav.Link href="/admin/interviews">Interviews</Nav.Link>
-             </Fragment>
-             )}
               {isAuthenticated() && isAuthenticated().user.role === 0 && (
               <Fragment>
-                 <Nav.Link href={`/`}>List</Nav.Link>
+            <Nav.Link href={`/`}>Home</Nav.Link>
              <Nav.Link href="/user/orders">Orders</Nav.Link>
              <Nav.Link href="/user/interviews">Interviews</Nav.Link>
              </Fragment>
@@ -56,14 +49,14 @@ const SiteWrapper = ({ history, children }) => (
         
           <Nav>  
 
-          <Nav.Link href={`/profile/${user._id}`}>Profile</Nav.Link>
           {isAuthenticated() && isAuthenticated().user.role === 1 && (
           <NavDropdown title={user.name} id="basic-nav-dropdown">
               <Dropdown.Header style={{fontWeight: "700", color:"#000"}}> Your Profile</Dropdown.Header>
               <NavDropdown.Divider />
-              <NavDropdown.Item href={`/profile/${user._id}`} style={{ color: "#fff"}}>Account</NavDropdown.Item>
-              <NavDropdown.Item href="/user/orders">Orders</NavDropdown.Item>
-              <NavDropdown.Item href="/user/interviews">Interviews</NavDropdown.Item>
+              <NavDropdown.Item href={`/profile/${user._id}`} >Account</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/students">All Students</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/users">All Users</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/interviews">All Interviews</NavDropdown.Item>
               <NavDropdown.Divider />
               <Dropdown.Header> <button className="btn btn-outline-primary"
                   onClick={() =>

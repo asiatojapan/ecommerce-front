@@ -29,6 +29,20 @@ export const readStudent = (studentId, token) => {
         .catch(err => console.log(err));
 };
 
+export const readStudentDetails = (studentId, userId, token) => {
+    return fetch(`${API}/${userId}/student/details/${studentId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 
 export const getCategories = () => {
     return fetch(`${API}/categories`, {

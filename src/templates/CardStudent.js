@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { isAuthenticated } from '../auth';
 import InterviewItem from "./InterviewItem";
 import {
   Icon
 } from "tabler-react";
 
-const CardStudent = ({interview, student, resumeLoading}) => {
+const CardStudent = ({interview, student}) => {
 
   return (
-    <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
+    <div className="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
            <div class="d-flex flex-column">
-    <div class="d-flex align-items-center mt-auto"> 
-    <img src={student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
-    <div class="ml-3">
+    <div className="d-flex align-items-center mt-auto"> 
+    <img src={student.videoImg} style={{height: "140px", marginRight: "1rem"}}/> 
+    <div className="ml-3">
       <div>
-    <Link to={`/student/${student._id}`} style={{fontSize: "16px"}}> <b>{student.studentid}</b> {student.name} </Link> 
-    <div  style={{marginBottom: "0px"}}>
+      {student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <text style={{color: "#659c2d"}}> 来日決定 </text> </div>　: ""} 
+      <Link to={`/interview/student/${interview.student._id}`} target="_blank"  style={{fontSize: "16px"}}>
+                            <b> {interview.student.studentid} </b> {interview.student.name} </Link>
+      
+    <div style={{marginBottom: "0px"}}>
         <div>
         <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "male" ? "男性": "女性"}・{student.age}
         </div>
@@ -27,11 +29,6 @@ const CardStudent = ({interview, student, resumeLoading}) => {
     </div>
     </div>
     <div class="ml-auto" style={{marginRight: "10px"}}> 
-    {student.status === "来日決定" ? <div> <span class="text-success">●</span> <text class="text-success"> 来日決定 </text> </div>　: ""}   
-    {<a href={interview.url} target="_blank" class="btn btn-primary btn-sm"
-    >
-      {resumeLoading ? 'Loading…' : student.studentid }
-    </a>}
     </div>
     </div>
     { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>

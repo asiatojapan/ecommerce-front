@@ -46,7 +46,7 @@ const CheckoutPreview = () => {
                 {items.map((s, index) => 
                     <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading}/>
                 )} 
-                <Link to="/" class="btn btn-dark">追加で学生と選ぶ</Link>
+                <Link to="/" class="likeBtn fullWidth">追加で学生と選ぶ</Link>
             </div>
             </Grid.Col>
         );
@@ -58,7 +58,7 @@ const CheckoutPreview = () => {
         <h2>
         <h2>現在検討中の学生<text style={{color: "#278bfa", fontWeight: "600"}}>0</text>名</h2>
             </h2>
-            <Link to="/" class="btn btn-dark">追加で学生と選ぶ</Link>
+            <Link to="/" class="likeBtn fullWidth">追加で学生と選ぶ</Link>
         
         </div>
         </Grid.Col>
