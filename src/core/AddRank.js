@@ -19,7 +19,7 @@ const AddRank = ({  handleRankChange }) => {
 
   const newCategoryFom = () => (
       <form> 
-          <input style={{display: 'none' }} onChange={handleChange} value={rank}
+      <input style={{display: 'none' }} onChange={handleChange} value={rank}
       name="jrank"
       ref={register({ required: true, maxLength: 10 })}
     />{errors.japaneseVali && <div class="text-red">This field is required</div>}

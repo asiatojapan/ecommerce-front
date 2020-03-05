@@ -45,7 +45,7 @@ const InterviewNav =({ history, children }) => {
         <Container>
           <div>
           <div class="list-list">
-          <div style={{fontSize: "26px", fontWeight: "500"}} >Interviews</div>
+          <div style={{fontSize: "26px", fontWeight: "500"}} >面接</div>
           <Nav
             itemsObjects={navBarItems}
           />

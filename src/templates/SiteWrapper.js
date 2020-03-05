@@ -41,8 +41,8 @@ const SiteWrapper = ({ history, children }) => (
               {isAuthenticated() && isAuthenticated().user.role === 0 && (
               <Fragment>
             <Nav.Link href={`/`}>Home</Nav.Link>
-             <Nav.Link href="/user/orders">Orders</Nav.Link>
-             <Nav.Link href="/user/interviews">Interviews</Nav.Link>
+             <Nav.Link href="/user/orders">面接予定の学生</Nav.Link>
+             <Nav.Link href="/user/interviews">面接予定</Nav.Link>
              </Fragment>
              )}
           </Nav>

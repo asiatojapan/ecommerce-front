@@ -43,6 +43,7 @@ const Home = () => {
   const [pushList, setPushList] = useState();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [resumeLoading, setResumeLoading] = useState(true);
   const [limit, setLimit] = useState(15);
   const [skip, setSkip] = useState(0);
@@ -129,6 +130,7 @@ const Home = () => {
   
 
   const loadMore = () => {
+    setButtonLoading(true)
     let toSkip = skip + limit;
     // console.log(newFilters);
     getFilteredStudents(user._id, toSkip, limit, status, myFilters.filters, user.round, token).then(data => {
@@ -139,6 +141,7 @@ const Home = () => {
             setSize(data.size);
             // createPDF([...filteredResults, ...data.data])
             setSkip(toSkip);
+            setButtonLoading(false)
         }
     });
   };
@@ -154,8 +157,8 @@ const Home = () => {
      return (
          size > 0 &&
          size >= limit && (
-             <button onClick={loadMore} className="btn btn-warning mb-5">
-                 Load more
+             <button onClick={loadMore} className="unlikeBtn fullWidth resumeGradient">
+                <i class="fa fa-circle-o-notch fa-spin" style={{marginRight: "10px", display: (!buttonLoading)? "none" : ""}}> {" "} </i> Load more
              </button>
          )
      );

@@ -4,6 +4,7 @@ import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import Home from "./core/Home";
 import Welcome from "./user/Welcome"
+import Error from "./user/Error"
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
 import Dashboard from './user/UserDashboard';
@@ -32,6 +33,7 @@ import Orders from './user/Orders';
 import Order from './user/Order';
 import RealStudent from './user/RealStudent';
 import ReactGA from 'react-ga';
+import GA from './utils/GoogleAnalytics'
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 
@@ -47,14 +49,16 @@ history.listen((location) => {
 }
 );
 
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 const Routes = () => {
   return (
     <BrowserRouter>
+    { GA.init() && <GA.RouteTracker /> }  
     <Switch>
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
     <Route path="/create/like" exact component={AddLike} />
-    <Route path="/register" exact component={Welcome} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/user/orders" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>
@@ -80,6 +84,7 @@ const Routes = () => {
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
       <PrivateRoute path="/user/interviewitem/:interviewId" exact component={UpdateInterviewItem} />
       <PrivateRoute path="/interview/student/:studentId" exact component={RealStudent}/>
+      <Route path="*" component={Error} />
     </Switch>
     </BrowserRouter>
   );

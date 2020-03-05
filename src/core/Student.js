@@ -165,7 +165,7 @@ const Student = props => {
                       <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
                       </div>
                       <div class="mb-2">
-                      <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender? "男性": "女性"}
+                      <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender === "Male" ? "男性": "女性"}
                       </div>
                       <div class="mb-2">
                       <Icon prefix="fe" name="user" /><strong>  年齢: </strong> {student.age}

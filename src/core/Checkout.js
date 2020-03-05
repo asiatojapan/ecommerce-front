@@ -111,10 +111,13 @@ const Checkout = () => {
     const noItemsMessage = () => (
         <div class="list-list text-center p-5">
         <h2>
-            Your cart is empty. 
+        <h2>
+        <h2>現在検討中の学生<text style={{color: "#278bfa", fontWeight: "600"}}>0</text>名</h2>
             </h2>
-            
-            <Link to="/" class="btn btn-dark">Continue shopping</Link>
+            <Link to="/" class="likeBtn fullWidth">追加で学生と選ぶ</Link>
+        
+            </h2>
+        
         
         </div>
     );
@@ -154,7 +157,7 @@ const Checkout = () => {
             <i class="fe fe-check-circle"></i>
                 </h1>
             <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
-            <Link to="/user/orders" class="resumeGradient unlikeBtn"> Your orders へ</Link>
+            <Link to="/user/orders" class="resumeGradient unlikeBtn"> 面接予定 へ</Link>
             </div>
             </div>
     )

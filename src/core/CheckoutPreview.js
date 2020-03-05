@@ -101,7 +101,7 @@ const CheckoutPreview = () => {
             <i class="fe fe-check-circle"></i>
                 </h1>
             <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
-            <Link to="/user/orders" class="resumeGradient unlikeBtn"> Your orders へ</Link>
+            <Link to="/user/orders" class="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
             </div>
             </div>
    
