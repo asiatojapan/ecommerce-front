@@ -123,8 +123,12 @@ const Signin = () => {
                                                 class="form-control"
                                                 value={password}
                                             /></div>  Admin: <br/>
-                                            a@a2.com <br/>
+                                            lumjiahui@asiatojapan.com <br/>
+                                            atoJ2018<br/>
+                                            Unregistered User:<br/>
+                                            tester@a.com<br/>
                                             password1
+
                                         <div class="form-footer"><button class="btn btn-block btn-primary" type="submit"  onClick={clickSubmit}>Login</button>
                                     </div>
                                 </div>
