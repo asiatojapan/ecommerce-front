@@ -62,7 +62,7 @@ const InterviewStudents = () => {
             } else {
                 setLoading(false)
                 setInterviews(data);
-                createPDF(data)
+                // createPDF(data)
             }
         });
     };

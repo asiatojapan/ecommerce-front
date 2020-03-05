@@ -41,7 +41,7 @@ const InterviewStudents = () => {
                 console.log(data.error);
             } else {
               setLoading(false)
-                setInterviews(data);
+              setInterviews(data);
             }
         });
     };

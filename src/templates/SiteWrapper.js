@@ -68,8 +68,9 @@ const SiteWrapper = ({ history, children }) => (
             </NavDropdown>
             )}
             </Nav>
+            {isAuthenticated() && isAuthenticated().user.role !== 2 && (
             <a className="unlikeBtn smaller" href="/checkout/preview" style={{marginRight: "10px"}}> 検討リスト
-            </a>
+            </a>)}
             <button className="likeBtn smaller"
                   onClick={() =>
                           signout(() => {

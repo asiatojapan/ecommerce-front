@@ -101,7 +101,7 @@ const Signin = () => {
             <div class="container">
                 <div class="row">
                     <div class="col col-login mx-auto">
-                            <form class="card" autocomplete="off">
+                            <form class="list-list" autocomplete="off" style={{padding: "0em"}}>
                                 <div class="card-body p-6">
                                 <div class="text-center mb-6">
                                 <img src={Logo} class="text-center" height="100px" alt="logo"/></div>
@@ -129,7 +129,7 @@ const Signin = () => {
                                             tester@a.com<br/>
                                             password1
 
-                                        <div class="form-footer"><button class="btn btn-block btn-primary" type="submit"  onClick={clickSubmit}>Login</button>
+                                        <div class="form-footer"><button class="unlikeBtn resumeGradient fullWidth" type="submit"  onClick={clickSubmit}>Login</button>
                                     </div>
                                 </div>
                             </form>

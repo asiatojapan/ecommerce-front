@@ -3,7 +3,7 @@ import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import Home from "./core/Home";
-import Welcome from "./user/Welcome"
+import Restricted from "./user/Restricted"
 import Error from "./user/Error"
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
@@ -12,7 +12,6 @@ import AdminDashboard from './user/AdminDashboard';
 import AddStudent from './admin/AddStudent';
 import AddFullInterview from './admin/AddFullInterview';
 import AddUser from './admin/AddUser';
-import AddLike from './core/AddLike';
 import Interview from './core/Interview';
 import ManageInterviews from './admin/ManageInterviews';
 import UpdateInterview from './admin/UpdateInterview';
@@ -58,7 +57,7 @@ const Routes = () => {
     <Switch>
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
-    <Route path="/create/like" exact component={AddLike} />
+    <Route path="/restricted" exact component={Restricted} />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/user/orders" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>

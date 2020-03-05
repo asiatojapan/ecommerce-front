@@ -6,8 +6,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuthenticated() ? (
-                <Component {...props} />
+            isAuthenticated() ? ( 
+                isAuthenticated().user.role === 2 ? 
+                ( <Redirect
+                        to={{
+                            pathname: "/restricted",
+                            state: { from: props.location }
+                        }}
+                    /> ) : 
+                (<Component {...props} />)
             ) : (
                 <Redirect
                     to={{
