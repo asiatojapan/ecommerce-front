@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
-import { isAuthenticated } from '../auth';
-import { importUsers } from './apiAdmin';
+import {  Redirect, withRouter } from 'react-router-dom';
+import { isAuthenticates } from "../auth";
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -18,13 +17,10 @@ const ImportUsers = () => {
         redirectToProfile: false,
     });
 
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
     const {
-      name,
-      file,
       formData,
       error,
-      createdStudent,
       redirectToProfile,
     } = values;
 
@@ -52,7 +48,7 @@ const ImportUsers = () => {
         setValues({ ...values, error: '' });
 
 
-        axios.post(`${API}/users/import/${user._id}`, formData,  { headers: { Authorization: "Bearer " + token }
+        axios.post(`${API}/users/import/${darwin_uid}`, formData,  { headers: { Authorization: "Bearer " + darwin_myTk }
         }).then(res => { // then print response status
 
           setValues({

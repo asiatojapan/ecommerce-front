@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import SiteWrapper from '../templates/SiteWrapper';
-import { isAuthenticated } from '../auth';
+import { isAuthenticates } from '../auth';
 import { Link, Redirect } from 'react-router-dom';
-import {Select, Input, Button, DatePicker } from 'antd';
-import { PageHeader } from 'antd';
+import {Select, Input } from 'antd';
 import {
     Container,
-    Grid,
-    Column, Form, Avatar
+    Grid, Form, Avatar
   } from "tabler-react";
 import { read, update, updateUser } from './apiUser';
-const { Option } = Select;
-const { TextArea } = Input;
 
 const Profile = ({ match }) => {
     const [values, setValues] = useState({
@@ -22,12 +18,12 @@ const Profile = ({ match }) => {
         success: false
     });
 
-    const { token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
     const { name, email, password, error, success } = values;
 
     const init = userId => {
         // console.log(userId);
-        read(userId, token).then(data => {
+        read(userId, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
@@ -46,7 +42,7 @@ const Profile = ({ match }) => {
 
     const clickSubmit = e => {
         e.preventDefault();
-        update(match.params.userId, token, { name, email, password }).then(data => {
+        update(match.params.userId, darwin_myTk, { name, email, password }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);

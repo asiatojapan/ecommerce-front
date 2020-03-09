@@ -44,8 +44,8 @@ const InterviewNav =({ history, children }) => {
       <SiteWrapper>
         <Container>
           <div>
-          <div class="list-list">
-          <div style={{fontSize: "26px", fontWeight: "500"}} >面接</div>
+          <div className="list-list">
+          <h2>面接予定</h2>
           <Nav
             itemsObjects={navBarItems}
           />

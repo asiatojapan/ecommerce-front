@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect, withRouter  } from 'react-router-dom';
-import { isAuthenticated } from "../auth";
+import { Link, withRouter  } from 'react-router-dom';
+import { isAuthenticated, isAuthenticates } from "../auth";
 import SiteWrapper from '../templates/SiteWrapper';
 import CardCheckout from "./CardCheckout"
-import { getFavStudents, createSubmit, createOrder, getOrders } from "./apiCore";
-import Modal from 'react-bootstrap/Modal';
+import { getFavStudents, createOrder, } from "./apiCore";
 import {
-    Page,
-    Avatar,
-    Icon,
     Grid,
-    Text,
-    Notification,
-    Table,
-    Alert,
-    Progress,
     Container,
-    Badge,
   } from "tabler-react";
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
 
-const Checkout = () => {
+const mapStateToProps = ({ session }) => ({
+session
+});
+
+const mapDispatchToProps = dispatch => ({
+logout: () => dispatch(logout())
+});
+    
+const Checkout = ({ logout, session })=> {
     const [items, setItems] = useState([]);
     const [run, setRun] = useState(false);
     const [loading, setLoading] = useState(true)
@@ -27,17 +27,17 @@ const Checkout = () => {
     const [redirectToProfile, setRedirectToProfile] = useState(false)
     const [error, setError] = useState(false)
 
-    const { user, token } = isAuthenticated();
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
    
-    const init = userId => {
-        getFavStudents(user._id, token).then(data => {
+    const init = () => {
+        getFavStudents(darwin_uid, darwin_myTk).then(data => {
             setLoading(false);
             setItems(data);
         });
     };
 
     const handleSetRank = (e) => {
-        console.log(e)
+       //  console.log(e)
         items.map((student, i) => {
           if (student._id === e.studentId) {
               items[i].rank = e.rank
@@ -56,15 +56,14 @@ const Checkout = () => {
         var y = d.getFullYear() 
           const createOrderData = {
             students: items,
-            transaction_id: y + month + " " + user.name,
+            transaction_id: y + month + " " + session.name,
           };
-          createOrder(user._id, token, createOrderData).then(data => {
+          createOrder(darwin_uid, darwin_myTk, createOrderData).then(data => {
             if (data.error) {
               console.log(data.error);
               setError(true)
             } else {
               setRedirectToProfile(true);
-              changePhase();
             }
         });
     };
@@ -82,17 +81,17 @@ const Checkout = () => {
     const showItems = items => {
         return (
             <div>
-            <div class="alert alert-secondary" role="alert" >
+            <div className="alert alert-secondary" role="alert" >
             <strong> 注文を確定する前に：</strong> <br/>
 
             パートナーポイントプログラムとは、Amazon.co.jpでのご購入の際に、対象クレジットカードのポイントでお支払いいただけるサービスです。利用可能なポイントを確認する場合、またはこの注文に使用するポイント数を変更する場合は、お支払い方法選択ページをご覧ください。
             nts
                 </div>
                 {items.length > 11 ? 
-                <div class="alert alert-success" role="alert">
-                <i class="fe fe-check-circle"></i> You have qualified for the 10% discount
+                <div className="alert alert-success" role="alert">
+                <i className="fe fe-check-circle"></i> You have qualified for the 10% discount
                 </div> : 
-                <div class="alert alert-red" role="alert">
+                <div className="alert alert-red" role="alert">
                 Add another {12 - items.length} students to qualify for the 10% discount!
                 </div>
                 }
@@ -109,27 +108,20 @@ const Checkout = () => {
     };
 
     const noItemsMessage = () => (
-        <div class="list-list text-center p-5">
-        <h2>
-        <h2>
-        <h2>現在検討中の学生<text style={{color: "#278bfa", fontWeight: "600"}}>0</text>名</h2>
-            </h2>
-            <Link to="/" class="likeBtn fullWidth">追加で学生と選ぶ</Link>
-        
-            </h2>
-        
-        
+        <div className="list-list text-center p-5">
+        <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>0</span>名</h2>
+        <Link to="/" className="likeBtn fullWidth">追加で学生と選ぶ</Link>
         </div>
     );
 
     const phaseI = () => (
         <div>
         <div className="progressbox">
-        <div class="progresscontainer">
-            <ul class="progressbar">
+        <div className="progresscontainer">
+            <ul className="progressbar">
             <a href="/checkout/preview" style={{color: "#495057"}}> <li> 検討中リスト</li></a>
-            <li class="active">確認画面</li>
-            <li class="active">申請</li>
+            <li className="active">確認画面</li>
+            <li className="active">申請</li>
             </ul>
         </div>
     </div>
@@ -140,7 +132,7 @@ const Checkout = () => {
         <Grid.Col width={12} lg={3} sm={12}>
         <div style={{ position: "sticky",
             top: "0", paddingTop: "1rem"}}>
-        <button type="button" class="unlikeBtn resumeGradient fullWidth" 
+        <button type="button" className="unlikeBtn resumeGradient fullWidth" 
         onClick={() => { if (window.confirm('Are you sure you wish to submit?')) buy() } }>
             ASIA to JAPANに申請
         </button>
@@ -151,36 +143,36 @@ const Checkout = () => {
     )
 
     const phaseElse = () => (
-        <div class="p-5 page text-center">
-        <div class="container">
-            <h1 class="h1 mt-0 mb-4 display-1 text-muted mb-5">
-            <i class="fe fe-check-circle"></i>
+        <div className="p-5 page text-center">
+        <div className="container">
+            <h1 className="h1 mt-0 mb-4 display-1 text-muted mb-5">
+            <i className="fe fe-check-circle"></i>
                 </h1>
-            <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
-            <Link to="/user/orders" class="resumeGradient unlikeBtn"> 面接予定 へ</Link>
+            <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
+            <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
             </div>
             </div>
     )
 
     return (
         <SiteWrapper>
-             <div class="loading" style={{ display: loading ? "" : "none" }}>
-            <div class="loaderSpin"></div>
+             <div className="loading" style={{ display: loading ? "" : "none" }}>
+            <div className="loaderSpin"></div>
              </div>
             <div className="my-3 my-md-5"></div>
             <div style={{ display: redirectToProfile ? 'none' : '' }} >
             <Container>
-            {user.round === "Phase I" ? phaseI() : phaseElse() }
+            {session.round === "Phase I" ? phaseI() : phaseElse() }
             </Container>
             </div>
             <div style={{ display: redirectToProfile ? '' : 'none' }} >
-            <div class="p-5 page text-center">
-                <div class="container">
-                    <h1 class="h1 mt-0 mb-4 display-1 text-muted mb-5">
-                    <i class="fe fe-check-circle"></i>
+            <div className="p-5 page text-center">
+                <div className="container">
+                    <h1 className="h1 mt-0 mb-4 display-1 text-muted mb-5">
+                    <i className="fe fe-check-circle"></i>
                         </h1>
-                    <h2 class="h2 mt-0 mb-6">申請ありがとうございます</h2>
-                    <Link to="/" class="btn btn-outline-secondary"> <i class="fe fe-arrow-left mr-2"></i> TOP へ</Link>
+                    <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
+                    <Link to="/" className="link" className="btn btn-outline-secondary"> <i className="fe fe-arrow-left mr-2"></i> TOP へ</Link>
                     </div>
                     </div>
             </div>
@@ -188,4 +180,7 @@ const Checkout = () => {
     );
 };
 
-export default withRouter(Checkout);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Checkout);

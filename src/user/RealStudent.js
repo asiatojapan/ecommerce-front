@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { readStudentDetails, getGroupInterviewList } from '../core/apiCore';
-import { isAuthenticated } from '../auth';
+import { readStudentDetails } from '../core/apiCore';
+import { isAuthenticates } from '../auth';
 import {
   Container,  
   Icon,
   Grid,
   Tag,
 } from "tabler-react";
-import { pdf,  Font, BlobProvider } from "@react-pdf/renderer";
+import { pdf,  Font } from "@react-pdf/renderer";
 import Resume from "../pdf/RealResume";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
 import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
@@ -35,12 +35,12 @@ const RealStudent = (props) => {
     const [student, setStudent] = useState({});
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
  
 
 
     const loadSingleStudent = studentId => {
-        readStudentDetails(studentId, user._id, token).then(data => {
+        readStudentDetails(studentId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
@@ -105,7 +105,7 @@ const RealStudent = (props) => {
                       <Icon prefix="fe" name="user" /> <strong>Name: </strong> {student.name}
                       </div>
                       <div class="mb-2">
-                      <Icon prefix="fe" name="user" /><strong> 性別: </strong> {student.gender? "男性": "女性"}
+                      <Icon prefix="fe" name="user" /><strong> 性別: </strong> {student.gender === "Male" ? "男性": "女性"}
                       </div>
                       <div class="mb-2">
                       <Icon prefix="fe" name="user" /><strong>  年齢: </strong> {student.age}
@@ -115,6 +115,9 @@ const RealStudent = (props) => {
                       </div>
                       <div class="mb-2">
                       <Icon prefix="fe" name="mail" />  <strong>Email: </strong>{student.email}
+                      </div>
+                      <div class="mb-2">
+                      <Icon prefix="fe" name="at-sign" />  <strong>Skype ID: </strong>{student.skype}
                       </div>
                       <div class="mb-2">
                       <Icon prefix="fe" name="home" />  <strong>Address: </strong>{student.address}
@@ -127,14 +130,15 @@ const RealStudent = (props) => {
                       <div class="mb-2">
                       <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty} ({student.education_bg})
                       </div>
+                      <div className="mb-2">
+                      <Icon prefix="fe" name="book-open" />  <strong>学科: </strong>{student.major}
+                      </div>
                       <div class="mb-2">
                       <Icon prefix="fe" name="book-open" />  <strong>卒業: </strong> {student.grad_year} / {student.grad_month}
                       </div>
                       
-
-
                       { student.github ? 
-                      <div class="mb-3">
+                      <div class="mb-4">
                       <Icon prefix="fe" name="github" />  <strong>Github: </strong>{student.github}
                       </div> : null }
 
@@ -170,11 +174,19 @@ const RealStudent = (props) => {
                         </div>
                       </div>
 
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">研究テーマ</div>
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">Education</div>
                       </div>
-                      <div class="card-body">
-                      <div class="mb-2 pre-wrap">　
+                      <div className="card-body">
+                      {student.qualification ? "" :
+                      <> 
+                      <div className="hr-text">学歴備考</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.qualification}
+                      </div> 
+                      </>}
+                      <div className="hr-text">研究テーマ</div>
+                      <div className="mb-2 pre-wrap">　
                       {student.research}
                       </div>
 
@@ -215,19 +227,23 @@ const RealStudent = (props) => {
                       </div>
                         
                       {student.it_skills ?
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">IT Skills</div>
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">IT Skills</div>
                       </div>
-                      <div class="card-body">
+                      <div className="card-body">
                       <Tag.List>
                       {student.it_skills ?
-                        student.it_skills.map((skill) => (
-                            <Tag color="secondary">{skill}</Tag>)) : ""}
+                        student.it_skills.map((skill,i) => (
+                            <Tag key={i} color="secondary">{skill}</Tag>)) : ""}
                       </Tag.List>
-            
+                      <div className="hr-text">Other IT Skills</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.other_it_skills}
+                      </div>
                      </div>
-                        </div> : ""
-                        }
+                     </div> : ""
+                      }
+                      
                       
 
                       <div class="list-list" style={{padding: "0px"}}>
@@ -248,8 +264,8 @@ const RealStudent = (props) => {
 
 
       
-      <Grid.Col width={12} lg={3} sm={12}>
-      <div class="list-list" style={{padding: "0px"}}>
+                      <Grid.Col width={12} lg={3} sm={12}>
+                      <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">Downloads</div>
                       </div>
                       <div class="card-body">

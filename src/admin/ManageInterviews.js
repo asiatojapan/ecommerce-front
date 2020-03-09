@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from "../auth";
+import { isAuthenticates } from "../auth";
 import { getInterviews, deleteInterview, deleteInterviewItem } from "./apiAdmin";
 import SiteWrapper from '../templates/SiteWrapper'
-import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table'
+import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
@@ -10,16 +10,8 @@ import UpdateInterviewItem from "./UpdateInterviewItem";
 
 import AddInterviewItem from "./AddInterviewItem";
 import {
-  Page,
   Dropdown,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
   Container,
-  Badge,
 } from "tabler-react";
 import styled from 'styled-components'
 
@@ -383,11 +375,11 @@ return (
 
 const ManageInterviews = () => {
   const [interviews, setInterviews] = useState([]);
-  const { user, token } = isAuthenticated();
+  const { darwin_uid, darwin_myTk} = isAuthenticates();
   const [loading, setLoading] = useState(true)
 
   const loadInterviews = () => {
-      getInterviews(user._id, token).then(data => {
+      getInterviews(darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -398,7 +390,7 @@ const ManageInterviews = () => {
   };
 
   const destroy = interviewId => {
-      deleteInterview(interviewId, user._id, token).then(data => {
+      deleteInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -409,7 +401,7 @@ const ManageInterviews = () => {
 
 
   const destroyItem = (interviewId, itemId) => {
-    deleteInterviewItem(interviewId, user._id, token, itemId).then(data => {
+    deleteInterviewItem(interviewId, darwin_uid, darwin_myTk, itemId).then(data => {
         if (data.error) {
             console.log(data.error);
         } else {

@@ -15,7 +15,7 @@ export const read = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const update = (userId, token, user) => {
+export const update = (userId, token, user, userProfile) => {
     return fetch(`${API}/user/${userId}`, {
         method: "PUT",
         headers: {

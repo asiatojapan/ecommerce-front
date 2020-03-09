@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
+import { isAuthenticates } from "../auth";
 import { withRouter } from 'react-router-dom';
-import { createInterviewItem, getInterview, getUsers } from './apiAdmin';
+import { createInterviewItem, getInterview  } from './apiAdmin';
 import Modal from 'react-bootstrap/Modal';
 
 
-  const AddInterviewItem = ({interviewId, userIdFromTable, handleUpdate }) => {
+  const AddInterviewItem = ({interviewId }) => {
     const [values, setValues] = useState({
         name: "",
         time: "",
@@ -20,20 +20,16 @@ import Modal from 'react-bootstrap/Modal';
         redirectToProfile: false,
     });
 
-    const [ users, setUsers] = useState([]);
-    const [ students, setStudents] = useState([]);
-
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
 
     const { company, student, name, time, phase, result, time_period, category, error, success, redirectToProfile} = values;
 
     const init = () => {
-        getInterview(interviewId, user._id, token).then(data => {
+        getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
                 setValues({ ...values, company: data.company, student: data.student });
-                console.log(data.student)
             }
         });
     };
@@ -49,7 +45,7 @@ import Modal from 'react-bootstrap/Modal';
 
     const clickSubmit = e => {
         e.preventDefault();
-        createInterviewItem(interviewId, user._id, token, {time, phase, result, time_period, category }).then(data => {
+        createInterviewItem(interviewId, darwin_uid, darwin_myTk, {time, phase, result, time_period, category }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -109,15 +105,15 @@ import Modal from 'react-bootstrap/Modal';
        <Modal.Header closeButton> Add Interview Item
        </Modal.Header>
        <Modal.Body>
-        <div class="mb-2">
+        <div className="mb-2">
            <h3>{student.name}</h3> 
            <h3>{company.name}</h3>
         </div>
 
-          <div class="mb-2">
-              <div class="form-label">時間</div>
-              <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
-              <option value="">Select</option>
+          <div className="mb-2">
+              <div className="form-label">時間</div>
+              <select placeholder="時間" onChange={handleChange("time")} value={time} className="form-control">
+                        <option value="">Select</option>
                     <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
                     <option value="10:00"> 10:00 </option>
@@ -134,9 +130,9 @@ import Modal from 'react-bootstrap/Modal';
           </div>
 
 
-          <div class="mb-2">
-              <div class="form-label">選考</div>
-              <select placeholder="選考" onChange={handleChange("phase")} value={phase} class="form-control">
+          <div className="mb-2">
+              <div className="form-label">選考</div>
+              <select placeholder="選考" onChange={handleChange("phase")} value={phase} className="form-control">
                   <option value="">Select</option>
                     <option value="1次"> 1次 </option>
                     <option value="2次"> 2次 </option>
@@ -146,9 +142,9 @@ import Modal from 'react-bootstrap/Modal';
                 </select>
           </div>
 
-          <div class="mb-2">
-            <label class="form-label">結果</label>
-            <select placeholder="結果" onChange={handleChange("result")} value={result} class="form-control">
+          <div className="mb-2">
+            <label className="form-label">結果</label>
+            <select placeholder="結果" onChange={handleChange("result")} value={result} className="form-control">
                 <option value="">Select</option>
                   <option value="Nil"> </option>
                   <option value="合格"> ● </option>
@@ -159,9 +155,9 @@ import Modal from 'react-bootstrap/Modal';
               </select>
           </div>
 
-          <div class="mb-2">
-            <label class="form-label">Day</label>
-            <select placeholder="time_period" onChange={handleChange("time_period")} value={time_period} class="form-control">
+          <div className="mb-2">
+            <label className="form-label">Day</label>
+            <select placeholder="time_period" onChange={handleChange("time_period")} value={time_period} className="form-control">
                   <option value="">Select</option>
                   <option value="1日"> 1日</option>
                   <option value="2日"> 2日 </option>
@@ -169,9 +165,9 @@ import Modal from 'react-bootstrap/Modal';
               </select>
           </div>
 
-          <div class="mb-2">
-            <label class="form-label">Category</label>
-            <select placeholder="category" onChange={handleChange("category")} value={category} class="form-control">
+          <div className="mb-2">
+            <label className="form-label">Category</label>
+            <select placeholder="category" onChange={handleChange("category")} value={category} className="form-control">
                   <option value="">Select</option>
                   <option value="面接"> 面接</option>
                   <option value="試験"> 試験 </option>
@@ -181,7 +177,7 @@ import Modal from 'react-bootstrap/Modal';
           </div>
     </Modal.Body>
     <Modal.Footer>
-        <button type="submit" onClick={clickSubmit} class="btn btn-primary ml-auto">Submit</button>
+        <button type="submit" onClick={clickSubmit} className="btn btn-primary ml-auto">Submit</button>
     </Modal.Footer>
     </form>
   </Modal>

@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
+import { isAuthenticates } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import {Form, Select, Input, Button, DatePicker } from 'antd';
-import { PageHeader } from 'antd';
 import { getSalesRep } from "./apiAdmin";
-import { read, update, updateUser } from '../user/apiUser';
+import { read, update } from '../user/apiUser';
 import SiteWrapper from '../templates/SiteWrapper';
 
 import {
   Page,
-  Dropdown,
-  Icon,
   Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
 } from "tabler-react";
 
 const UpdateUser = ({ match, history }) => {
@@ -44,14 +34,17 @@ const UpdateUser = ({ match, history }) => {
     });
 
     const [users, setUsers] = useState([]);
-    const { token } = isAuthenticated();
+
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
+
+
     const { name, email, password, role, phase, round, sales_rep,  error, success,
       logo, descriptionOne,
       descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl } = values;
 
     const init = userId => {
         // console.log(userId);
-        read(userId, token).then(data => {
+        read(userId, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
@@ -91,9 +84,9 @@ const UpdateUser = ({ match, history }) => {
 
     const clickSubmit = e => {
         e.preventDefault();
-        update(match.params.userId, token, { name, email, role, phase, round, sales_rep, password,
+        update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
           logo, descriptionOne,
-          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl }).then(data => {
+          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl }, darwin_uid ).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);

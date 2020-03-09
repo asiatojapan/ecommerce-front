@@ -1,12 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./index";
+import { isAuthenticates } from "./index";
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
 
-const AdminRoute = ({ component: Component, ...rest }) => (
+const mapStateToProps = ({ session }) => ({
+  session
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+const AdminRoute = ({ component: Component,  logout, session, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuthenticated() && isAuthenticated().user.role === 1 ? (
+            isAuthenticates() && session.role === 1 ? (
                 <Component {...props} />
             ) : (
                 <Redirect
@@ -20,4 +30,8 @@ const AdminRoute = ({ component: Component, ...rest }) => (
     />
 );
 
-export default AdminRoute;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AdminRoute);
+

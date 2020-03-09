@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { isAuthenticated } from '../auth';
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -7,24 +6,22 @@ import {
 
 const AddRank = ({  handleRankChange }) => {
   const [rank, setRank] = useState("");
-  const [error, setError] = useState(false);
-  const { register, handleSubmit, watch, errors, control } = useForm();
+  const { register, errors } = useForm();
   
 
   const handleChange = e => {
-      setError("");
       setRank(e.target.value);
       handleRankChange(e.target.value)
   };
 
   const newCategoryFom = () => (
-      <form> 
+    <>
       <input style={{display: 'none' }} onChange={handleChange} value={rank}
       name="jrank"
       ref={register({ required: true, maxLength: 10 })}
-    />{errors.japaneseVali && <div class="text-red">This field is required</div>}
+         />{errors.japaneseVali && <div className="text-red">This field is required</div>}
             <form style={{marginBottom: "0"}}>
-            <label class="form-label">ニーズ合致度</label>
+            <label className="form-label">ニーズ合致度</label>
                           <Form.SelectGroup pills onChange={handleChange} name="japanese" >
                             <Form.SelectGroupItem
                               label="1"
@@ -53,7 +50,8 @@ const AddRank = ({  handleRankChange }) => {
                             />
                           </Form.SelectGroup>
                         </form>
-            </form>
+          
+        </>
   );
 
   return (

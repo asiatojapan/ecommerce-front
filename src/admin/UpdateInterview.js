@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
+import { isAuthenticates } from '../auth';
 import { withRouter } from 'react-router-dom';
 import { updateInterview, getInterview, getUsers } from './apiAdmin';
 import { getStudents } from '../core/apiCore';
@@ -26,7 +26,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     const [ users, setUsers] = useState([]);
     const [ students, setStudents] = useState([]);
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
 
     const { 
         company, 
@@ -47,7 +47,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
     const init = interviewId => {
         // console.log(userId);
-        getInterview(interviewId, user._id, token).then(data => {
+        getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
@@ -62,7 +62,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
     };
 
     const initUsers = () => {
-        getUsers(user._id, token).then(data => {
+        getUsers(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -72,7 +72,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
     };
 
     const initStudents = () => {
-        getStudents(user._id, token).then(data => {
+        getStudents(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -96,7 +96,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
 
-        updateInterview(interviewId,  user._id, token, formData).then(data => {
+        updateInterview(interviewId, darwin_uid, darwin_myTk, formData).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {

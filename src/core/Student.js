@@ -2,29 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { readStudent, listRelated } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
-
-import { isAuthenticated } from '../auth';
-import {
-  Page,
-  Avatar,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Tag,
-  Table,
-  Alert,
-  Progress,
-  Container,
-  Badge,
-} from "tabler-react";
+import { isAuthenticated, isAuthenticates } from '../auth';
+import { Page, Icon, Grid, Tag } from "tabler-react";
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import { pdf,  Font, BlobProvider } from "@react-pdf/renderer";
 import Resume from "../pdf/PersonalResume";
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
 import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
-import fontPathExtraBold from '../pdf/fonts/Koruri-Extrabold.ttf'
-import fontPathLight from '../pdf/fonts/Koruri-Light.ttf'
 import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
 
 
@@ -45,22 +31,40 @@ Font.register( {
     src: fontPathBold,
   });
 
-const Student = props => {
+
+
+const mapStateToProps = ({ session }) => ({
+  session
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+interface RouterProps {
+  match: any;
+}
+
+type Props = RouterProps;
+
+
+const Student = ({ logout, session, match }: Props) => {
     const [student, setStudent] = useState({});
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
-    const { user, token } = isAuthenticated();
     
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const loadSingleStudent = studentId => {
-        readStudent(studentId, token).then(data => {
+    const loadSingleStudent = () => {
+       // console.log(studentId)
+        readStudent(match.params.studentId, darwin_myTk).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
                 setStudent(data);
                 createPDF(data)
-                listRelated(data._id, token).then(data => {
+                listRelated(data._id, darwin_myTk).then(data => {
                   if (data.error) {
                       setError(data.error);
                   } else {
@@ -73,9 +77,8 @@ const Student = props => {
       };
 
     useEffect(() => {
-        const studentId = props.match.params.studentId;
-        loadSingleStudent(studentId);
-    }, [props]);
+        loadSingleStudent();
+    }, []);
 
     const [headerStyle, setHeaderStyle] = useState({
       transition: 'all 200ms ease-in'
@@ -97,7 +100,7 @@ const Student = props => {
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
     return url ? 
-      <a href={url} target="_blank">
+      <a className="link" href={url} target="_blank">
         {trigger}
       </a> :  null
   };
@@ -123,154 +126,168 @@ const Student = props => {
 
     return (
       <SiteWrapper>
-                 <div class="loading" style={{ display: loading ? "" : "none" }}>
-            <div class="loaderSpin"></div>
+        <div className="loading" style={{ display: loading ? "" : "none" }}>
+            <div className="loaderSpin"></div>
         </div>
      
       
       <Page.Content>
-      <ol class="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><a href={student.studentid}>{student.studentid}</a></li>
+      <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
+        <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
+        <li className="breadcrumb-item active" aria-current="page"><a className="link" href={student.studentid}>{student.studentid}</a></li>
       </ol>   
         <Grid.Row>
       
       <Grid.Col width={12} lg={9} sm={12}>
-      <div class="list-list" style={{padding: "0px"}}>
-          <div class="d-block">
+      <div className="list-list" style={{padding: "0px"}}>
+          <div className="d-block">
             <div className="embed-container">
               
-            {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> </div> }
+            {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} frameBorder="0" allowFullScreen></iframe> </div> }
 
                         </div>
                         </div>
-                        <div class="card-body">
+                        <div className="card-body">
                           <h4>{student.comments}</h4>
                         </div>
-                        <div class="card-footer">
+                        <div className="card-footer">
                         <Tag.List>
                         {student.tags?
-                          student.tags.map((skill) => (
-                              <Tag color="azure">#{skill}</Tag>)) : ""}
+                          student.tags.map((skill, i) => (
+                              <Tag key={i} color="azure">#{skill}</Tag>)) : ""}
                         </Tag.List>
                         </div>
                       </div>
 
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">Basic Info</div>
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">Basic Info</div>
                       </div>
-                      <div class="card-body">
+                      <div className="card-body">
 
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender === "Male" ? "男性": "女性"}
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <Icon prefix="fe" name="user" /><strong>  年齢: </strong> {student.age}
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <Icon prefix="fe" name="book" />  <strong>大学: </strong>{student.university}
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <Icon prefix="fe" name="book-open" />  <strong>学部: </strong>{student.faculty} ({student.education_bg})
                       </div>
-                      <div class="mb-2">
+                      <div className="mb-2">
+                      <Icon prefix="fe" name="book-open" />  <strong>学科: </strong>{student.major}
+                      </div>
+                      <div className="mb-2">
                       <Icon prefix="fe" name="book-open" />  <strong>卒業: </strong> {student.grad_year} / {student.grad_month}
                       </div>
 
 
                       { student.github ? 
-                      <div class="mb-3">
+                      <div className="mb-3">
                       <Icon prefix="fe" name="github" />  <strong>Github: </strong>{student.github}
                       </div> : null }
 
-                      <div class="mb-2">
+                      <div className="mb-2">
                       
                       <Tag.List>
                       {student.entry_timing?
-                        student.entry_timing.map((skill) => (
-                            <Tag color="secondary">{skill}</Tag>)) : ""}
+                        student.entry_timing.map((skill, i) => (
+                            <Tag key={i} color="secondary">{skill}</Tag>)) : ""}
                       </Tag.List>
                       </div>
                       </div>
                       </div>
 
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">Education</div>
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">Education</div>
                       </div>
-                      <div class="card-body">
-                      <div class="hr-text">研究テーマ</div>
-                      <div class="mb-2 pre-wrap">　
+                      <div className="card-body">
+                      {student.qualification ? "" :
+                      <> 
+                      <div className="hr-text">学歴備考</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.qualification}
+                      </div> 
+                      </>}
+                      <div className="hr-text">研究テーマ</div>
+                      <div className="mb-2 pre-wrap">　
                       {student.research}
                       </div>
 
                       </div>
                       </div>
-
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">Internship</div>
+                      
+                      {student.internship ? "":
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">Internship</div>
                       </div>
-                      <div class="card-body">
-                      <div class="mb-2 pre-wrap">　
+                      <div className="card-body">
+                      <div className="mb-2 pre-wrap">　
                       {student.internship}
                       </div>
                       </div>
+                      </div>}
+
+
+
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">言語</div>
                       </div>
-
-
-
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">言語</div>
-                      </div>
-                      <div class="card-body">
-                      <div class="mb-2">
+                      <div className="card-body">
+                      <div className="mb-2">
                       <strong>日本語: </strong> {student.japanese} (JLPT: {student.jlpt})
                       </div>
                       {student.jlpt_next == null ? "":
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <strong>次回のJLPT受験予定: </strong> {student.jlpt_next} 
                       </div>}
-                      <div class="mb-2">
+                      <div className="mb-2">
                       <strong>英語: </strong> {student.english}
                       </div>
                       { student.other_languages == null ?  "": 
-                      <div class="mb-2">
-                      <strong>Other Languages: </strong> {student.other_languages}
+                      <div className="mb-2">
+                      <strong>その他言語: </strong> {student.other_languages}
                       </div> }
                       </div>
                       </div>
                         
                       {student.it_skills ?
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">IT Skills</div>
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">IT Skills</div>
                       </div>
-                      <div class="card-body">
+                      <div className="card-body">
                       <Tag.List>
                       {student.it_skills ?
-                        student.it_skills.map((skill) => (
-                            <Tag color="secondary">{skill}</Tag>)) : ""}
+                        student.it_skills.map((skill,i) => (
+                            <Tag key={i} color="secondary">{skill}</Tag>)) : ""}
                       </Tag.List>
-            
+                      <div className="hr-text">Other IT Skills</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.other_it_skills}
+                      </div>
                      </div>
-                        </div> : ""
-}
+                     </div> : ""
+                      }
                       
 
-                      <div class="list-list" style={{padding: "0px"}}>
-                      <div class="card-header"><div class="card-title">その他PR</div>
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">その他PR</div>
                       </div>
-                      <div class="card-body">
-                      <div class="hr-text">働きたい理由</div>
-                      <div class="mb-2 pre-wrap">　
+                      <div className="card-body">
+                      <div className="hr-text">働きたい理由</div>
+                      <div className="mb-2 pre-wrap">　
                       {student.why_work_in_japan}
                       </div>
-                      <div class="hr-text">その他PR</div>
-                      <div class="mb-2 pre-wrap">　
+                      <div className="hr-text">その他PR</div>
+                      <div className="mb-2 pre-wrap">　
                       {student.other_pr}
                       </div>
                       </div>
@@ -281,13 +298,10 @@ const Student = props => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-      
-      {createPDFLinkButton(
-              student,
-              <button class="unlikeBtn resumeGradient fullWidth" >レジュメ</button>
+          {createPDFLinkButton(student,
+              <button className="unlikeBtn resumeGradient fullWidth" >レジュメ</button>
             )}
-    
-        {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
+        {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         FYP
         </a>}
 
@@ -298,29 +312,26 @@ const Student = props => {
           <div className="list-list" key={i} style={{padding: "0"}}> 
          
              <img src={s.videoImg} style={{height: "60px"}}/> 
-             <a href={`/student/${s._id}`}>   {s.studentid} </a>
-            
-                        </div>
-      ))}
+             <a className="link" href={`/student/${s._id}`} style={{fontSize: "16px", padding: "10px", fontWeight: "600"}}> {s.studentid} </a>
+               </div>
+             ))}
       </div>
         </Grid.Col>
        </Grid.Row>
        
       </Page.Content>
-      {user.round === "Phase II" ? null :
+      {session.round === "Phase II" ? null :
       <div id="application-ticket" style={{ ...headerStyle }}>
-        <div class="outer" >
-        <div class="inner">
-        <div class="project-info">
-        <div class="project-title">
-        一生懸命日本語を勉強した学生にチャンスをくだいさい
-        </div>
-        </div>
-        <div class="action-buttons">
-        <div class="action-button">
-           <AddFav2 student={props.match.params.studentId} /> 
-
-
+        <div className="outer" >
+          <div className="inner">
+            <div className="project-info">
+            <div className="project-title">
+            一生懸命日本語を勉強した学生にチャンスをくだいさい
+            </div>
+          </div>
+         <div className="action-buttons">
+        <div className="action-button">
+           <AddFav2 student={match.params.studentId} /> 
         </div>
         </div>
         </div>
@@ -331,4 +342,7 @@ const Student = props => {
     );
 };
 
-export default Student;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Student);

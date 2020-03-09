@@ -12,6 +12,7 @@ const Error = () => {
                 <div class="row">
                     <div class="col text-center col-login mx-auto">
                     <h1>お探しのページが見つかりません。</h1>
+                    <a className="likeBtn" href="/"> Head to safety? </a>
                     </div>
                 </div>
             </div>

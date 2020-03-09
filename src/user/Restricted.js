@@ -8,9 +8,9 @@ const Restricted = () => {
   return (
     <SiteWrapper>
         <div className="page" style={{height: "70vh"}}>
-            <div class="container">
-                <div class="row text-center">
-                <div class="col text-center col-login mx-auto">
+            <div className="container">
+                <div className="row text-center">
+                <div className="col text-center col-login mx-auto">
                     <h1>Your access has expired.</h1>
                       Please register with us at <a href="https://asiatojapan.com/"> ASIAtoJAPAN</a> or talk to one of our consultants.
                     </div>

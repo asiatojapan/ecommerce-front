@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { isAuthenticates } from "../auth";
+import { Redirect, withRouter } from 'react-router-dom';
 import { createStudent, getCategories } from './apiAdmin';
-import Checkbox from "../core/Checkbox";
 import SiteWrapper from '../templates/SiteWrapper'
 import {
   Container,
@@ -43,7 +42,7 @@ const AddStudent = ({ history }) => {
         formData: ''
     });
 
-    const { user, token } = isAuthenticated();
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
     const {
         name,
         studentid,
@@ -105,7 +104,7 @@ const AddStudent = ({ history }) => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
 
-        createStudent(user._id, token, formData).then(data => {
+        createStudent(darwin_uid, darwin_myTk, formData).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { isAuthenticated} from "../auth";
+import { isAuthenticated, isAuthenticates } from "../auth";
 import { createHide, destroyHide } from "./apiAdmin";
 
 const AddHide = ({student, userIdFromTable})  => {
     const [hide, setHide] = useState(false);
-
-    const { token } = isAuthenticated();
+    const { darwin_myTk } = isAuthenticates();
 
     const init = userIdFromTable => {
         const found = student.hide_users.some(el => el === userIdFromTable)
@@ -26,14 +25,14 @@ const AddHide = ({student, userIdFromTable})  => {
         e.preventDefault();
         setHide(true);
         // make request to api to create category
-        createHide(student._id, userIdFromTable, token);
+        createHide(student._id, userIdFromTable, darwin_myTk);
     };
 
     const clickDelete = e => {
         e.preventDefault();
         setHide(false);
         // make request to api to create category
-        destroyHide(student._id, userIdFromTable, token);
+        destroyHide(student._id, userIdFromTable, darwin_myTk);
     };
 
     const text = hide ? 'x' : 'x '

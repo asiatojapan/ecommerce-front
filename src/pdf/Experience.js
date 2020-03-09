@@ -77,7 +77,7 @@ const ExperienceEntry = ({ japaneseTitle, englishTitle, details }) => {
       <View style={styles.detailContainer}>
           {details.split('\n').map((item, key) => {
             if(item.length == 0) {
-              return <Text>{"\n"}</Text>;
+              return <Text key={key}>{"\n"}</Text>;
             }
 
             return <Text style={styles.details} key={key}>{_.startCase(item)}</Text>

@@ -1,36 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { isAuthenticated, getUser } from "../auth";
-import { Link } from "react-router-dom";
+import { isAuthenticates } from "../auth";
 import { createFav, destroyFav } from "./apiCore";
-import { read } from "../user/apiUser"
-
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Notifications, {notify} from 'react-notify-toast';
+import {notify} from 'react-notify-toast';
 
-const AddFav = ({student, setFavCount,
-  favCount})  => {
+const AddFav = ({student, setFavCount, favCount})  => {
     const [ fav, setFav ] = useState(false);
-    const { user, token } = isAuthenticated();
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const {
-        user: { round }
-    } = isAuthenticated();
-
-
-    useEffect(() => {
-      const found = student.favorites.some(el => el === user._id)
+    const findFound = () => {
+      const found = student.favorites.some(el => el === darwin_uid)
       if (found) {
         setFav(true)
          }
       else {
         setFav(false)
       };
+    }
+
+    useEffect(() => {
+        findFound()
     }, []);
 
     
-  const FavToast = (getCount) => {
+    const FavToast = () => {
     const remainder = new Number(11  - favCount)
 
     const text = (!(remainder < 1) )? remainder + " student left to 10% discount" : "You have reached 12 students! Congratulations!"
@@ -48,13 +42,12 @@ const AddFav = ({student, setFavCount,
     notify.show(
         <div style={{fontSize: "16px", margin: "10px 100px",  }}>
          <b>{text}</b> 
-         <div class="progress">
-            <div class="progress-bar" role="progressbar" style={{width: rangeToPercent(favCount+1, 0, 12) + "%"}}> </div>
+         <div className="progress">
+            <div className="progress-bar" role="progressbar" style={{width: rangeToPercent(favCount+1, 0, 12) + "%"}}> </div>
           </div>
         </div>, "custom", 3000, myColor
       );
 }
-
 
 
     const clickSubmit = e => {
@@ -62,7 +55,7 @@ const AddFav = ({student, setFavCount,
         FavToast(favCount)
         e.preventDefault();
         setFav(true)
-        createFav(student._id, user, token);
+        createFav(student._id, darwin_uid, darwin_myTk);
     };
 
     const clickDelete = e => {
@@ -70,7 +63,7 @@ const AddFav = ({student, setFavCount,
         e.preventDefault();
         setFav(false)
         // make request to api to create category
-        destroyFav(student._id, user, token);
+        destroyFav(student._id, darwin_uid, darwin_myTk);
     };
 
     const text = fav ? '検討リスト追加済' : '検討リスト追加'
@@ -78,8 +71,8 @@ const AddFav = ({student, setFavCount,
     const newLikeForm = () => {
           return (
       <div>
-        {fav  && (
-           <button className="unlikeBtn" onClick={ clickDelete } href="#0"><i class="fe fe-check" style={{marginRight: "10px"}}></i> {text} </button>
+        {fav && (
+           <button className="unlikeBtn" onClick={ clickDelete } href="#0"><i className="fe fe-check" style={{marginRight: "10px"}}></i> {text} </button>
         )}
         {!fav && (
            <button className="likeBtn " onClick={ clickSubmit } href="#0"> {text} </button>

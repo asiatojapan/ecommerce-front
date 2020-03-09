@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment'
-import { isAuthenticated } from "../auth";
+import { isAuthenticates } from "../auth";
 import { deleteUser, getUsers } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
@@ -310,11 +310,11 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
 
 const ManageUsers = () => {
   const [users, setUsers] = useState([]);
-  const { user, token } = isAuthenticated();
+  const { darwin_uid, darwin_myTk } = isAuthenticates();
   const [loading, setLoading] = useState(true)
 
   const loadUsers = userId => {
-      getUsers(user._id, token).then(data => {
+      getUsers(darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -325,7 +325,7 @@ const ManageUsers = () => {
   };
 
   const destroy = userId => {
-      deleteUser(user._id, token).then(data => {
+      deleteUser(darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {

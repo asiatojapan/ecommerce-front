@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { isAuthenticates } from '../auth';
+import { withRouter } from 'react-router-dom';
 import { getInterview, getUsers } from '../admin/apiAdmin';
-import { getStudents, updateInterviewItem } from '../core/apiCore';
-import SiteWrapper from '../templates/SiteWrapper'
-import { useForm, Controller } from "react-hook-form";
-import Button from 'react-bootstrap/Button';
+import {  updateInterviewItem } from '../core/apiCore';
+import { useForm } from "react-hook-form";
 import Modal from 'react-bootstrap/Modal';
 import {
-  Page,
-  Dropdown,
-  Icon,
-  Grid,
-  Card,
   Form,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
 } from "tabler-react";
 
 const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) => {
@@ -43,15 +31,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         redirectToProfile: false,
     });
 
-    const [ users, setUsers] = useState([]);
-    const [ students, setStudents] = useState([]);
-
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
 
     const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
-      getInterview(interviewId, user._id, token).then(data => {
+      getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
@@ -77,7 +62,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const onSubmit = data => { console.log(data) }
 
     const clickSubmit = e => {
-        updateInterviewItem(interviewId, interviewItemId, user._id, token, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import List from './List';
-import { isAuthenticated } from '../auth';
+import { isAuthenticated, isAuthenticate, isAuthenticates } from '../auth';
 import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { japanese } from "./japanese";
 import { it_skills } from "./it_skills";
-import {  getCategories, getFilteredStudents, getFavStudents, getPushList } from './apiCore';
+import {  getFilteredStudents, getFavStudents, getPushList } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper';
 import {
   Grid,
@@ -16,31 +16,26 @@ import "../styles.css";
 import "tabler-react/dist/Tabler.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Notifications, {notify} from 'react-notify-toast';
-import styled from 'styled-components'
-
-
 import { BlobProvider, pdf, Font } from "@react-pdf/renderer";
 import Resume from "../pdf/Resume";
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
 
-import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
-import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
-import fontPathExtraBold from '../pdf/fonts/Koruri-Extrabold.ttf'
-import fontPathLight from '../pdf/fonts/Koruri-Light.ttf'
-import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
-  
-const CardColumn = styled.div`
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-grid-auto-rows: minmax(200px, auto);
-grid-gap: 1rem;`
+const mapStateToProps = ({ session }) => ({
+  session
+});
 
-const Home = () => {
-  const { user, token } = isAuthenticated();
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+const Home = ({ logout, session }) => {
+ 
+  const { darwin_myTk, darwin_uid } = isAuthenticates();
   const [favCount, setFavCount] = useState();
   const [myFilters, setMyFilters] = useState({
       filters: { categories: [], it_skills: [] }
   });
-  const [pushList, setPushList] = useState();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -74,40 +69,10 @@ const Home = () => {
     setResumeLoading(false)
   }
 
-  async function createExtraPDF(results) {
-    const studentDataArrPDF = [];
-    let i = 0;
-    //console.log(results)
-    while (i < results.length) {
-      // eslint-disable-next-line no-await-in-loop
-      await pdf(<Resume student={results[i]} />)
-        .toBlob()
-        // eslint-disable-next-line no-loop-func
-        .then(blobProp => {
-          studentDataArrPDF.push({
-            ...results[i],
-            url: URL.createObjectURL(blobProp),
-          });
-        });
-      i += 1;
-    }
-    setFilteredResults(studentDataArrPDF);
-  }
+  const status = session.round === "Phase IV" ? "来日決定" : "リスト掲載";
 
-  const phaseIII = () => {
-    getPushList(user._id).then(data => {
-        if (data.error) {
-            setError(data.error);
-        } else {
-            setPushList(data);
-        }
-    });
-   };
-
-  const status = user.round === "Phase IV" ? "来日決定" : "リスト掲載";
-
-  const loadFilteredResults = (newFilters, pushList) => {
-      getFilteredStudents(user._id, skip, limit, status, newFilters, user.round, token).then(data => {
+  const loadFilteredResults = (newFilters) => {
+      getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -121,8 +86,8 @@ const Home = () => {
 
   };
 
-  const getFavCount = userId => {
-    getFavStudents(user._id, token).then(data => {
+  const getFavCount = () => {
+    getFavStudents(darwin_uid, darwin_myTk).then(data => {
         setFavCount(data.length);
         });
     };
@@ -133,7 +98,7 @@ const Home = () => {
     setButtonLoading(true)
     let toSkip = skip + limit;
     // console.log(newFilters);
-    getFilteredStudents(user._id, toSkip, limit, status, myFilters.filters, user.round, token).then(data => {
+    getFilteredStudents(darwin_uid, toSkip, limit, status, myFilters.filters, session.round, darwin_myTk).then(data => {
         if (data.error) {
             setError(data.error);
         } else {
@@ -149,7 +114,7 @@ const Home = () => {
 
   useEffect(() => {
       loadFilteredResults(skip, limit, myFilters.filters);
-      getFavCount(user._id);
+      getFavCount(darwin_uid);
   }, []);
 
 
@@ -158,7 +123,7 @@ const Home = () => {
          size > 0 &&
          size >= limit && (
              <button onClick={loadMore} className="unlikeBtn fullWidth resumeGradient">
-                <i class="fa fa-circle-o-notch fa-spin" style={{marginRight: "10px", display: (!buttonLoading)? "none" : ""}}> {" "} </i> Load more
+                <i className="fa fa-circle-o-notch fa-spin" style={{marginRight: "10px", display: (!buttonLoading)? "none" : ""}}> {" "} </i> Load more
              </button>
          )
      );
@@ -170,7 +135,7 @@ const Home = () => {
     notify.show(
         <div style={{fontSize: "16px" }}>
           390円OFF適用。 対象商品をあと3 点追加で、500円OFF
-          <a class="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
+          <a className="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
         </div>, "custom", -1, myColor
       );
   }
@@ -215,34 +180,31 @@ const Home = () => {
 
     return (
       <SiteWrapper> 
-         <div class="loading" style={{ display: loading ? "" : "none" }}>
-            <div class="loaderSpin"></div>
+         <div className="loading" style={{ display: loading ? "" : "none" }}>
+            <div className="loaderSpin"></div>
         </div>
       <div className="my-3 my-md-5">
       <Container>
          <Grid.Row>
            <Grid.Col width={12} lg={3} sm={12}>
-                <div class="list-list">
-                    <h3 class="card-title">Tags</h3>
-                    <Checkbox2
-                               categories={categories}
+                <div className="list-list">
+                    <h3 className="card-title">Tags</h3>
+                    <Checkbox2 categories={categories}
                                handleFilters={filters =>
                                    handleFilters(filters, "tags")} />
                 
                   </div>
-
-                  <div class="list-list">
-                       <h3 class="card-title">Japanese</h3>
-                      
+                  <div className="list-list">
+                       <h3 className="card-title">Japanese</h3>
                                <Checkbox2 categories={japanese} handleFilters={filters =>
-                           handleFilters(filters, "japanese")} />
+                                handleFilters(filters, "japanese")} />
                       </div>
             
 
-                <div class="list-list">
-                       <h3 class="card-title">IT Skills</h3>
-                       <div class="mb-3">
-                        <div class="form-selectgroup">
+                <div className="list-list">
+                       <h3 className="card-title">IT Skills</h3>
+                       <div className="mb-3">
+                        <div className="form-selectgroup">
                                <ItCheckbox it_skills={it_skills} handleFilters={filters =>
                            handleFilters(filters, "it_skills")} />
                        </div>
@@ -253,10 +215,10 @@ const Home = () => {
 
         <Grid.Col width={12} lg={9} sm={12}>
                {filteredResults.map((student, i) => (
-      <div>
-          <List student={student} setFavCount={handleSetFavCount}
-            favCount={favCount} resumeLink={student.url} resumeLoading={resumeLoading}/> 
-        </div>
+                <div key={i}>
+                    <List key={i} student={student} setFavCount={handleSetFavCount}
+                        favCount={favCount} resumeLink={student.url} resumeLoading={resumeLoading}/> 
+                </div>
         ))}
 
         {loadMoreButton()}
@@ -268,10 +230,13 @@ const Home = () => {
         {favCount === 0 ? 
             <div>
           {Position()}
-          </div>: <a href="/checkout/preview"><div class="count-bar"><div class="heart">{favCount} </div></div></a>} 
+          </div>: <a href="/checkout/preview"><div className="count-bar"><div className="heart">{favCount} </div></div></a>} 
           <Notifications options={{zIndex: 200, width: "100%"}} />
         </SiteWrapper>
     );
 };
 
-export default Home;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Home);

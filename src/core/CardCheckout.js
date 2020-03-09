@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-import  AddFav from './AddFav';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import  AddRank from './AddRank';
-import { createFav, destroyFav,readStudent } from "./apiCore";
-import { FaFileDownload } from 'react-icons/fa';
-import { isAuthenticated } from '../auth';
-import {
-  Container,
-  Page,
-  Grid,
-  Icon,
-  Form,
-  Card, Dropdown, Avatar, Text, Button, Badge
-} from "tabler-react";
+import { destroyFav } from "./apiCore";
+import { isAuthenticates } from '../auth';
+import { Icon } from "tabler-react";
 
-const CardCheckout = ({student,indivRank,rank,
+const CardCheckout = ({student, indivRank,rank,
   showRemoveItemButton = false,
   showDetailsButton = true,
   showRankItemButton = false,
@@ -23,16 +14,14 @@ const CardCheckout = ({student,indivRank,rank,
   run = undefined,
   setLoading = f => f, loading = undefined }) => {
 
-  const { user, token } = isAuthenticated();
+  const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-  const [redirect, setRedirect] = useState(false);
-
-  const showRemoveButton = showRemoveItemtButton => {
+  const showRemoveButton = showRemoveItemButton => {
     return (
       showRemoveItemButton && (
         <span
           onClick={() => {
-            destroyFav(student._id, user, token);
+            destroyFav(student._id, darwin_uid, darwin_myTk);
             setRun(!run);
             setLoading(!loading);
             // run useEffect in parent Cart
@@ -74,7 +63,7 @@ const CardCheckout = ({student,indivRank,rank,
   const showRankOutcome = (showRankOutcomeButton) => {
     return (
       showRankOutcomeButton &&  (
-        <span class="avatar bg-blue-lt avatar-lg">{rank}</span>
+        <span className="avatar bg-blue-lt avatar-lg">{rank}</span>
       )
     )
   }
@@ -88,14 +77,14 @@ const CardCheckout = ({student,indivRank,rank,
   return (
      <div className="list-list" style={{padding: "0 10px 0 0", border: "1px solid #eee"}} >
          {showRemoveButton(showRemoveItemButton)}
-         <div class="d-flex flex-column">
-    <div class="d-flex align-items-center mt-auto"> 
+         <div className="d-flex flex-column">
+    <div className="d-flex align-items-center mt-auto"> 
     <img src={student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
-    <div class="ml-3">
-    <Link to={`/student/${student._id}`}> {student.studentid} </Link>
+    <div className="ml-3">
+    <Link className="link" to={`/student/${student._id}`}> {student.studentid} </Link>
     {showDetails(showDetailsButton)}
     </div>
-    <div class="ml-auto"> 
+    <div className="ml-auto"> 
     {showRankButton(showRankItemButton)}
    
     {showRankOutcome(showRankOutcomeButton, rank)} 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect, withRouter } from 'react-router-dom';
-import { isAuthenticated } from '../auth';
-import { importStudents } from './apiAdmin';
+import { Redirect, withRouter } from 'react-router-dom';
+import { isAuthenticates } from '../auth';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -18,7 +17,7 @@ const UpdateCSVStudents = () => {
         redirectToProfile: false,
     });
 
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
     const {
       name,
       file,
@@ -51,7 +50,7 @@ const UpdateCSVStudents = () => {
         event.preventDefault();
         setValues({ ...values, error: '' });
 
-        axios.post(`${API}/students/update/${user._id}`, formData, { headers: { Authorization: "Bearer " + token }
+        axios.post(`${API}/students/update/${darwin_uid}`, formData, { headers: { Authorization: "Bearer " + darwin_myTk }
         }).then(res => { // then print response status
 
           setValues({

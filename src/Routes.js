@@ -7,12 +7,8 @@ import Restricted from "./user/Restricted"
 import Error from "./user/Error"
 import PrivateRoute from './auth/PrivateRoute';
 import AdminRoute from './auth/AdminRoute';
-import Dashboard from './user/UserDashboard';
-import AdminDashboard from './user/AdminDashboard';
 import AddStudent from './admin/AddStudent';
-import AddFullInterview from './admin/AddFullInterview';
 import AddUser from './admin/AddUser';
-import Interview from './core/Interview';
 import ManageInterviews from './admin/ManageInterviews';
 import UpdateInterview from './admin/UpdateInterview';
 import UpdateInterviewItem from './user/UpdateInterviewItem';
@@ -34,8 +30,7 @@ import RealStudent from './user/RealStudent';
 import ReactGA from 'react-ga';
 import GA from './utils/GoogleAnalytics'
 import { createBrowserHistory } from 'history';
-import { Router } from 'react-router-dom';
-
+import Login from "./user/Login";
 const history = createBrowserHistory();
 
 document.body.style.backgroundColor = "#fff";
@@ -50,25 +45,26 @@ history.listen((location) => {
 
 ReactGA.pageview(window.location.pathname + window.location.search);
 
+
 const Routes = () => {
+  
   return (
     <BrowserRouter>
     { GA.init() && <GA.RouteTracker /> }  
     <Switch>
+    <Route path="/login" component={Login} />
+  
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
     <Route path="/restricted" exact component={Restricted} />
     <PrivateRoute path="/" exact component={Home}/>
-    <PrivateRoute path="/user/orders" exact component={Orders}/>
+    <PrivateRoute path="/user/history" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>
     <PrivateRoute path="/checkout" exact component={Checkout}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
-    <PrivateRoute path="/user/dashboard" exact component={Dashboard}/>
-    <AdminRoute path="/admin/dashboard" exact component={AdminDashboard} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
-    <AdminRoute path="/admin/create/interview" exact component={AddFullInterview} />
     <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
     <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
@@ -77,7 +73,6 @@ const Routes = () => {
     <AdminRoute path="/admin/students" exact component={ManageStudents} />
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <PrivateRoute path="/profile/:userId" exact component={Profile} />
-    <PrivateRoute path="/interview/:interviewId" exact component={Interview}/>
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />

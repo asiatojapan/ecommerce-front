@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
-import { Link, Redirect, withRouter } from 'react-router-dom';
+import { isAuthenticates } from '../auth';
+import { withRouter } from 'react-router-dom';
 import { getInterview, getUsers } from './apiAdmin';
 import { getStudents, updateInterviewItem } from '../core/apiCore';
-import SiteWrapper from '../templates/SiteWrapper'
-
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {
-  Page,
-  Dropdown,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
-} from "tabler-react";
 
 const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) => {
     const [values, setValues] = useState({
@@ -42,12 +27,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const [ users, setUsers] = useState([]);
     const [ students, setStudents] = useState([]);
 
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
 
     const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
-        getInterview(interviewId, user._id, token).then(data => {
+        getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
@@ -92,7 +77,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterviewItem(interviewId, interviewItemId, user._id, token, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -158,7 +143,9 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
           <div class="mb-2">
               <div class="form-label">時間</div>
               <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
-                    <option value="08:00"> 08:00 </option>
+              <option value="">Select</option>
+              
+              <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
                     <option value="10:00"> 10:00 </option>
                     <option value="11:00"> 11:00 </option>

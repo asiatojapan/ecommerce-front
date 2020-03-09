@@ -232,7 +232,6 @@ export const createFavItem = (userId, token, favItem) => {
 
 
 export const createFav = (studentId, userId, token) => {
-
   return fetch(`${API}/student/${studentId}/favorites`, {
       method: 'POST',
       headers: {
@@ -240,7 +239,7 @@ export const createFav = (studentId, userId, token) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(userId)
+      body: JSON.stringify({ _id: userId})
   })
       .then(response => {
           return response.json();

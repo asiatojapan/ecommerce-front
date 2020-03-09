@@ -1,13 +1,23 @@
-import React, { Component } from "react";
+import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { isAuthenticated } from "./index";
+import { isAuthenticates } from "./index";
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const mapStateToProps = ({ session }) => ({
+  session
+});
+
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+});
+
+const PrivateRoute  = ({ component: Component,  logout, session, ...rest }) => (
     <Route
         {...rest}
         render={props =>
-            isAuthenticated() ? ( 
-                isAuthenticated().user.role === 2 ? 
+            isAuthenticates() ? ( 
+                session.role === 2 ? 
                 ( <Redirect
                         to={{
                             pathname: "/restricted",
@@ -24,8 +34,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
                 />
             )
         }
-    />
-    
-);
+    /> 
+)
 
-export default PrivateRoute;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(PrivateRoute);

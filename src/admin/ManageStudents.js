@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from "../auth";
+import { isAuthenticates } from "../auth";
 import { getStudents } from '../core/apiCore';
 import { deleteStudent, updateStatus, updateInviteStatus } from "./apiAdmin";
 import { Link } from "react-router-dom";
@@ -311,9 +311,9 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
 const ManageStudent = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user, token } = isAuthenticated();
+  const { darwin_uid, darwin_myTk } = isAuthenticates();
   const loadStudents = () => {
-      getStudents(user._id, token).then(data => {
+      getStudents(darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -324,7 +324,7 @@ const ManageStudent = () => {
   };
 
   const destroy = studentId => {
-      deleteStudent(studentId, user._id, token).then(data => {
+      deleteStudent(studentId, darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -488,7 +488,7 @@ const ManageStudent = () => {
       setSuccess(false);
       // make request to api to create category
       updateStatus(selectedRows.map(
-        d => d.original._id), name, user._id, token).then(data => {
+        d => d.original._id), name, darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -505,7 +505,7 @@ const ManageStudent = () => {
     setSuccess(false);
     // make request to api to create category
     updateInviteStatus(selectedRows.map(
-      d => d.original._id), name, user._id, token ).then(data => {
+      d => d.original._id), name, darwin_uid, darwin_myTk ).then(data => {
         if (data.error) {
             setError(data.error);
         } else {

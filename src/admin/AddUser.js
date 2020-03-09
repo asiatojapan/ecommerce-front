@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { signup } from '../auth';
 import { getSalesRep } from "./apiAdmin";
 import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
-  Dropdown,
-  Icon,
   Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
 } from "tabler-react";
 
 const AddUser = ({history}) => {

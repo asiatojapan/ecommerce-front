@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
-import { Link, Redirect } from 'react-router-dom';
-import { updateUser, deleteUser,readUser } from './apiAdmin';
-import { getStudents, getMyInterviews, getFavStudents,getGroupInterviewList  } from '../core/apiCore';
+import { isAuthenticates } from "../auth";
+import { Link } from 'react-router-dom';
+import { deleteUser,readUser } from './apiAdmin';
+import { getStudents, getFavStudents   } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPush from "./AddPush";
 import AddHide from "./AddHide";
@@ -11,19 +11,10 @@ import SiteWrapper from '../templates/SiteWrapper'
 import Modal from 'react-bootstrap/Modal';
 import {
   Page,
-  Dropdown,
-  Icon,
   Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
-  Container,
-  Badge,
 } from "tabler-react";
 import { Button } from 'antd';
 import { Table } from "./ManageStudents";
-import { FaDove } from 'react-icons/fa';
 
 
 
@@ -59,6 +50,7 @@ function SelectColumnFilter({
 }
 
 
+
 const AdminUser = props => {
     const [students, setStudents] = useState([]);
     const data = students
@@ -66,12 +58,12 @@ const AdminUser = props => {
     const [user1, setUser1] = useState({});
     const [error, setError] = useState(false);
 
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
 
     const [ favStudents, setFavStudents ] =  useState([]);
 
-    const loadSingleUser = (userId) => {
-        readUser(userId, token).then(data => {
+    const loadSingleUser = (darwin_uid) => {
+        readUser(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
@@ -82,13 +74,13 @@ const AdminUser = props => {
 
 
     const loadFavStudents = userId => {
-        getFavStudents(userId, token).then(data => {
+        getFavStudents(darwin_uid, darwin_myTk).then(data => {
             setFavStudents(data);
         });
     };
 
     const loadStudents = () => {
-        getStudents(user._id, token).then(data => {
+        getStudents(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -98,9 +90,6 @@ const AdminUser = props => {
         });
     };
 
-    function handleUpdate(userId) {
-        loadFavStudents(userId);
-    }
 
     useEffect(() => {
         loadSingleUser(props.match.params.userId);
@@ -172,7 +161,7 @@ const AdminUser = props => {
           Filter: "",
           accessor: (text, i) =>
           <div> {text.favUsers.length == null? "" : 
-          <div> {text.favUsers.map((t, i) => <span class="badge bg-blue">{t.name}</span>)}</div> }
+          <div> {text.favUsers.map((t, i) => <span className="badge bg-blue">{t.name}</span>)}</div> }
         </div> 
         },
          {
@@ -211,7 +200,7 @@ const AdminUser = props => {
     );
 
     const destroy = userId => {
-        deleteUser(userId, user._id, token).then(data => {
+        deleteUser(userId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -227,21 +216,21 @@ const AdminUser = props => {
 
     const interviewCard= interviewstudents => {
       return (
-      <div class="card">
+      <div className="card">
         {console.log(interviewstudents)}
     </div>)
     }
 
     const favStudentsCard = () => (
-    <div class="card">
-        <div class="card-header"> <h3 class="card-title"> Fav </h3></div>
-                  <div class="card-body ">
-                  <div class="row mb-n3">
+    <div className="card">
+        <div className="card-header"> <h3 className="card-title"> Fav </h3></div>
+                  <div className="card-body ">
+                  <div className="row mb-n3">
                   {favStudents.map((c, i) =>
-                  <div class="col-6 row row-sm mb-3 align-items-center">
-          <div class="col text-truncate">
+                  <div className="col-6 row row-sm mb-3 align-items-center">
+          <div className="col text-truncate">
           <Link className="text-body d-block text-truncate" to={`/student/${c._id}`}> {c.studentid}</Link>
-            <small class="d-block text-muted text-truncate mt-n1">{c.name}</small>
+            <small className="d-block text-muted text-truncate mt-n1">{c.name}</small>
           </div>
         </div>)}
         </div>
@@ -250,17 +239,17 @@ const AdminUser = props => {
 )
     return (
       <SiteWrapper>
-               <div class="loading" style={{ display: loading ? "" : "none" }}>
-            <div class="loaderSpin"></div>
+               <div className="loading" style={{ display: loading ? "" : "none" }}>
+            <div className="loaderSpin"></div>
         </div>
      
       <Page.Content>
       <Grid.Row>
       <Grid.Col width={12} lg={3} sm={12}>
-      <div class="card">
-                    <div class="card-body ">
-                      <h2 class="mb-3">{user1.name}</h2>
-                      <p class="mb-4">
+      <div className="card">
+                    <div className="card-body ">
+                      <h2 className="mb-3">{user1.name}</h2>
+                      <p className="mb-4">
                         <b>Email: </b> {user1.email}<br/>
                         <b>Role: </b> {user1.role === 1 ? "Admin" : "User"}<br/>
                          <b>営業担当: </b>{user1.salesrep }<br/>
@@ -270,8 +259,8 @@ const AdminUser = props => {
                     </div>
                   </div>
 
-                  <div class="card">
-                    <div class="card-body ">
+                  <div className="card">
+                    <div className="card-body ">
                     <p>
                         <b>事業内容: </b> {user1.descriptionSix!== null ? "...": ""}<br/>
                         <b>選考ステップ: </b> {user1.descriptionOne !== null ? "...": ""} <br/>
@@ -306,9 +295,9 @@ const AdminUser = props => {
                   </div>
 
 
-                  <div class="card">
-                    <div class="card-body ">
-                      <h2 class="mb-3">Orders</h2>
+                  <div className="card">
+                    <div className="card-body ">
+                      <h2 className="mb-3">Orders</h2>
                       
                           </div>
                   </div>

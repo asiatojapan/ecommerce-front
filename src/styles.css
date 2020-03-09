@@ -8,6 +8,7 @@
   text-align: left;
   background-color: #fff;
   height: 100%;
+  font-family: 'Noto Sans Japanese', sans-serif;
 }
 
 main {
@@ -15,6 +16,7 @@ main {
     padding: 25px 25px;
     background-color: #f6f6f7;
     min-height: 100vh;
+    font-family: 'Noto Sans Japanese', sans-serif;
 }
 
 body {
@@ -146,14 +148,15 @@ display: none;
     position: fixed;
     left: 50%;
     top: 8.5%;
-    width: 525px;
+    width: 905px;
     transform: translate(-50%, -50%);
     /* margin: 30px 0; */
     padding: 20px 15px;
     font-size: 13px;
     line-height: 18px;
     color: #b71c1c;
-    background: rgba(183,28,28,.15);
+    z-index: 99;
+    background: rgb(255, 222, 222);
 }
 
 .page-main {
@@ -355,12 +358,24 @@ img.list-VidImg {
     float: right;
 }
 
+a.link {
+  color: #278bfa;;
+}
+
 a.list-TextNoteTitle {
    margin-bottom: 8px;
     font-weight: 700;
     word-break: break-all;
     font-size: 18px;
+    color: #278bfa;;
 }
+
+a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-TextNoteTitle:focus, a.list-TextNoteTitle:hover {
+  color: rgba(0,108,231,.88);
+  text-decoration: none;
+  outline: 0;
+}
+
 .list-Tags{
         font-size: 10px;
 }
@@ -748,4 +763,10 @@ a.list-TextNoteTitle {
   color: #278bfa;
   text-decoration: none;
   cursor: pointer;
+}
+
+.project-title {
+  font-size:  18px;
+  font-weight: 700;
+  color: #000;
 }

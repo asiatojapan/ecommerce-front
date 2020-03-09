@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { isAuthenticated } from '../auth';
+import { isAuthenticates } from '../auth';
 import { Redirect, withRouter} from 'react-router-dom';
 import { readStudentDetails } from '../core/apiCore';
 import { updateStudent } from './apiAdmin';
@@ -55,11 +55,11 @@ const UpdateStudent = ({ match, history }) => {
         formData
     } = values;
 
-    const { user, token } = isAuthenticated();
+    const { darwin_uid, darwin_myTk } = isAuthenticates();
 
 
     const init = studentId => {
-        readStudentDetails(studentId, user._id, token).then(data => {
+        readStudentDetails(studentId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {
@@ -117,7 +117,7 @@ const UpdateStudent = ({ match, history }) => {
         event.preventDefault();
         setValues({ ...values, error: '', loading: true });
 
-        updateStudent(match.params.studentId, user._id, token, formData).then(data => {
+        updateStudent(match.params.studentId, darwin_uid, darwin_myTk, formData).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error });
             } else {

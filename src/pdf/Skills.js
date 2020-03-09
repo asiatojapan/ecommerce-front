@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 const SkillEntry = ({ name, skills }) => (
    <View style={styles.item}>
       {skills.map((skill, i) => (
-        <Text style={styles.itemContent} break>{_.trim(skill)}, </Text>
+        <Text style={styles.itemContent} key={i} break>{_.trim(skill)}, </Text>
       ))}
   </View>
 );

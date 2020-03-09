@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { isAuthenticated, getUser } from "../auth";
-import { Link } from "react-router-dom";
-import { read } from "../user/apiUser"
-import { createInterview, deleteInterview } from "./apiAdmin";
+import { isAuthenticates } from "../auth";
+import { createInterview } from "./apiAdmin";
 
-const AddInterview = ({student, userIdFromTable, handleUpdate,  setRun = f => f,
+const AddInterview = ({student, userIdFromTable, setRun = f => f,
   run = undefined })  => {
 
     const [interview, setInterview] = useState(false);
 
-    const { user, token } = isAuthenticated();
+    const { darwin_myTk } = isAuthenticates();
     
-
+  
     const init = userIdFromTable => {
       const found = student.interviews.some(el => el.company === userIdFromTable)
       if (found) {
@@ -32,21 +30,15 @@ const AddInterview = ({student, userIdFromTable, handleUpdate,  setRun = f => f,
         setInterview(true)
         setRun(!run)
         // make request to api to create category
-        createInterview(student, userIdFromTable, token)
+        createInterview(student, userIdFromTable, darwin_myTk )
 
     };
-
-    const clickDelete = e => {
-        e.preventDefault();
-        setInterview(false);
-    };
-
 
     const text = interview ? '面接' : ' 面接'
 
     const newLikeForm = () => {
       if (interview) {
-        return  <a className="btn btn-sm btn-danger" href="#0"> <i class="fe fe-check"></i> {text}</a>
+        return  <a className="btn btn-sm btn-danger" href="#0"> <i className="fe fe-check"></i> {text}</a>
       } else {
         return  <a className="btn btn-sm btn-outline-danger" onClick={ clickSubmit } href="#0">{text}</a> }
     };

@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { isAuthenticated, getUser } from "../auth";
-import { Link } from "react-router-dom";
+import { isAuthenticates } from "../auth";
 import { createFav, destroyFav,readStudent } from "./apiCore";
-import { read } from "../user/apiUser"
 
-const AddFav2 = ({student, handleUpdate })  => {
+const AddFav2 = ({ student })  => {
     const [ fav, setFav ] = useState(false);
-    const { user, token } = isAuthenticated();
+    
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const {
-        user: { round }
-    } = isAuthenticated();
+    const findFound = () => {
+      readStudent(student, darwin_myTk).then(data => {
+        const found = data.favorites.some(el => el === darwin_uid)
+        if (found) {
+          setFav(true)
+           }
+        else {
+          setFav(false)
+        };
+    })
+    }
 
     useEffect(() => {
-          readStudent(student, token).then(data => {
-              const found = data.favorites.some(el => el === user._id)
-              if (found) {
-                setFav(true)
-                 }
-              else {
-                setFav(false)
-              };
-          })
+        findFound()
     }, []);
 
     const clickSubmit = e => {
         e.preventDefault();
         setFav(true)
-        createFav(student, user, token);
+        createFav(student, darwin_uid, darwin_myTk);
     };
 
     const clickDelete = e => {
         e.preventDefault();
         setFav(false)
         // make request to api to create category
-        destroyFav(student, user, token);
+        destroyFav(student, darwin_uid, darwin_myTk);
     };
 
     const text = fav ? '検討リスト追加済' : '検討リスト追加'
@@ -43,7 +42,7 @@ const AddFav2 = ({student, handleUpdate })  => {
           return (
             <div>
            {fav  && (
-           <button className="unlikeBtn" onClick={ clickDelete } href="#0"><i class="fe fe-check" style={{marginRight: "10px"}}></i> {text} </button>
+           <button className="unlikeBtn" onClick={ clickDelete } href="#0"><i className="fe fe-check" style={{marginRight: "10px"}}></i> {text} </button>
         )}
         {!fav && (
            <button className="likeBtn " onClick={ clickSubmit } href="#0"> {text} </button>
