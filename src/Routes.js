@@ -30,7 +30,6 @@ import RealStudent from './user/RealStudent';
 import ReactGA from 'react-ga';
 import GA from './utils/GoogleAnalytics'
 import { createBrowserHistory } from 'history';
-import Login from "./user/Login";
 const history = createBrowserHistory();
 
 document.body.style.backgroundColor = "#fff";
@@ -52,8 +51,6 @@ const Routes = () => {
     <BrowserRouter>
     { GA.init() && <GA.RouteTracker /> }  
     <Switch>
-    <Route path="/login" component={Login} />
-  
     <Route path="/signin" exact component={Signin}/>
     <Route path="/signup" exact component={Signup}/>
     <Route path="/restricted" exact component={Restricted} />
