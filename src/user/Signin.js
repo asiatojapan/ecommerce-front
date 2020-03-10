@@ -2,8 +2,18 @@ import React, { useState } from "react";
 import { Redirect, Link } from "react-router-dom";
 import {signin, authenticate, isAuthenticates} from "../auth"
 import Logo from '../templates/Logo.png'
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
 
-const Signin = () => {
+const mapStateToProps = ({ session }) => ({
+  session
+  });
+  
+const mapDispatchToProps = dispatch => ({
+  logout: () => dispatch(logout())
+  });
+      
+const Signin = ({ logout, session }) => {
     const [values, setValues] = useState({
         email: "2aaddd@a.com",
         password: "password6",
@@ -69,8 +79,8 @@ const Signin = () => {
                                                 className="form-control"
                                                 value={password}
                                             /></div>  Admin: <br/>
-                                            lumjiahui@asiatojapan.com <br/>
-                                            atoJ2019<br/>
+                                            jiahuilum@gmail.com <br/>
+                                            Password1<br/>
                                             Unregistered User:<br/>
                                             tester@a.com<br/>
                                             password1
@@ -88,7 +98,7 @@ const Signin = () => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-     return <Redirect to="/" />
+     return <Redirect to="/welcome" />
     }
   };
 
@@ -104,4 +114,8 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Signin);
+  

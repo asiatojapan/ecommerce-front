@@ -16,8 +16,6 @@ const AddUser = ({history}) => {
       role: '',
       phase: "",
       round: "",
-      sales_rep: "",
-      users: [],
       error: false,
       success: false,
       redirectToProfile: false
@@ -30,20 +28,6 @@ const AddUser = ({history}) => {
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
     };
-
-    const initUsers = () => {
-        getSalesRep().then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                setUsers(data);
-            }
-        });
-    };
-
-    useEffect(() => {
-        initUsers();
-    }, []);
 
 
     const clickSubmit = event => {
@@ -61,7 +45,6 @@ const AddUser = ({history}) => {
                     error: '',
                     role: "",
                     round: "",
-                    sales_rep: "",
                     redirectToProfile: true,
                     success: true
                 });
@@ -91,15 +74,7 @@ const AddUser = ({history}) => {
             <label class="form-label">Password</label>
             <input onChange={handleChange('password')} type="password" class="form-control" value={password} />
           </div>
-          <div class="mb-2">
-              <div class="form-label">営業担当</div>
-              <select placeholder="営業" onChange={handleChange("sales_rep")} value={sales_rep} class="form-control">
-                {users && users.map((c, i) => (
-                    <option key={i} value={c._id}>
-                          {c.name}
-                    </option>))}
-                </select>
-          </div>
+    
           <div class="mb-2">
               <div class="form-label">Role</div>
               <select placeholder="Role" onChange={handleChange("role")} value={role}  class="form-control">

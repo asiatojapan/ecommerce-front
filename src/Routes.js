@@ -20,6 +20,7 @@ import InterviewStudentsDay1 from './user/InterviewStudentsDay1';
 import InterviewStudentsDay2 from './user/InterviewStudentsDay2';
 import UpdateStudent from './admin/UpdateStudent';
 import Student from './core/Student';
+import Welcome from './user/Welcome';
 import Profile from './user/Profile';
 import CheckoutPreview from './core/CheckoutPreview';
 import Checkout from './core/Checkout';
@@ -61,6 +62,7 @@ const Routes = () => {
                 component={ResetPassword}
             />
     <PrivateRoute path="/" exact component={Home}/>
+    <PrivateRoute path="/welcome" exact component={Welcome}/>
     <PrivateRoute path="/user/history" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>
     <PrivateRoute path="/checkout" exact component={Checkout}/>
