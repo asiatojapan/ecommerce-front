@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { readStudent, listRelated } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
-import { isAuthenticated, isAuthenticates } from '../auth';
+import {  isAuthenticates } from '../auth';
 import { Page, Icon, Grid, Tag } from "tabler-react";
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import { pdf,  Font, BlobProvider } from "@react-pdf/renderer";
@@ -30,7 +30,6 @@ Font.register( {
     family: 'Lato Bold',
     src: fontPathBold,
   });
-
 
 
 const mapStateToProps = ({ session }) => ({

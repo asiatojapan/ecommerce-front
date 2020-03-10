@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import {signin, authenticate, isAuthenticates} from "../auth"
 import Logo from '../templates/Logo.png'
 
@@ -37,45 +37,45 @@ const Signin = () => {
     };
 
     const showError = () => (
-        <div class="login-form-errors" style={{ display: error ? "" : "none" }}>
+        <div className="login-form-errors" style={{ display: error ? "" : "none" }}>
               {error}
        </div>
     );
 
     const forms = () => (
-        <div class="page-single">
-            <div class="container">
-                <div class="row">
-                    <div class="col col-login mx-auto">
-                            <form class="list-list" autocomplete="off" style={{padding: "0em"}}>
-                                <div class="card-body p-6">
-                                <div class="text-center mb-6">
-                                <img src={Logo} class="text-center" height="100px" alt="logo"/></div>
-                                    <div class="card-title text-center">ASIA to JAPAN</div>
-                                    <div class="form-group">
-                                        <label class="form-label">Email Address</label>
+        <div className="page-single">
+            <div className="container">
+                <div className="row">
+                    <div className="col col-login mx-auto">
+                            <form className="list-list" autocomplete="off" style={{padding: "0em"}}>
+                                <div className="card-body p-6">
+                                <div className="text-center mb-6">
+                                <img src={Logo} className="text-center" height="100px" alt="logo"/></div>
+                                    <div className="card-title text-center">ASIA to JAPAN</div>
+                                    <div className="form-group">
+                                        <label className="form-label">Email Address</label>
                                         <input 
                                             placeholder="Email" onChange={handleChange("email")}
                                             type="email"
-                                            class="form-control" 
+                                            className="form-control" 
                                             name="email"
                                             value={email}
                                             /></div>
-                                        <div class="form-group"><label class="form-label">Password</label>
+                                        <div className="form-group"><label className="form-label">Password</label>
                                         <input
                                             type="password"
                                             placeholder="Password"   onChange={handleChange("password")}
                                                 type="password"
-                                                class="form-control"
+                                                className="form-control"
                                                 value={password}
                                             /></div>  Admin: <br/>
                                             lumjiahui@asiatojapan.com <br/>
-                                            atoJ2018<br/>
+                                            atoJ2019<br/>
                                             Unregistered User:<br/>
                                             tester@a.com<br/>
                                             password1
-
-                                        <div class="form-footer"><button class="unlikeBtn resumeGradient fullWidth" type="submit"  onClick={clickSubmit}>Login</button>
+                                          
+                                        <div className="form-footer"><button className="unlikeBtn resumeGradient fullWidth" type="submit"  onClick={clickSubmit}>Login</button>
                                     </div>
                                 </div>
                             </form>
@@ -94,8 +94,8 @@ const Signin = () => {
 
   return (
       <div className="page" style={{height: "100vh"}}>
-               <div class="loading" style={{ display: loading ? "" : "none" }}>
-            <div class="loaderSpin"></div>
+               <div className="loading" style={{ display: loading ? "" : "none" }}>
+            <div className="loaderSpin"></div>
         </div>
        {showError()}
        {forms()}

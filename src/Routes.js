@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import Signup from "./user/Signup";
 import Signin from "./user/Signin";
 import Home from "./core/Home";
 import Restricted from "./user/Restricted"
@@ -29,6 +28,8 @@ import Order from './user/Order';
 import RealStudent from './user/RealStudent';
 import ReactGA from 'react-ga';
 import GA from './utils/GoogleAnalytics'
+import ForgotPassword from "./user/ForgotPassword"
+import ResetPassword from "./user/ResetPassword";
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 
@@ -52,8 +53,13 @@ const Routes = () => {
     { GA.init() && <GA.RouteTracker /> }  
     <Switch>
     <Route path="/signin" exact component={Signin}/>
-    <Route path="/signup" exact component={Signup}/>
     <Route path="/restricted" exact component={Restricted} />
+    <AdminRoute path="/forgotpassword" exact component={ForgotPassword} />
+    <AdminRoute
+                exact
+                path="/reset-password/:resetPasswordToken"
+                component={ResetPassword}
+            />
     <PrivateRoute path="/" exact component={Home}/>
     <PrivateRoute path="/user/history" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>

@@ -7,14 +7,14 @@ const InterviewItem = ({item, interview}) => {
 
 
     return (
-      <div class="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
-        <div class="col-3 col-md-3 ml-5">
+      <div className="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
+        <div className="col-3 col-md-3 ml-5">
           {item.time_period} 
               <h3> {item.time}</h3>
        </div>
-        <div class="col-md-6 text-right">
+        <div className="col-md-6 text-right">
 
-        <table class="table table-borderless">
+        <table className="table table-borderless">
 
       <tbody>
         <tr>
@@ -27,7 +27,7 @@ const InterviewItem = ({item, interview}) => {
     </table>
 
 </div>
-<div class="col text-right">
+<div className="col text-right">
 <UpdateInterviewItem interviewId={interview._id} interviewItemId={item._id} /></div>
 </div>
     );

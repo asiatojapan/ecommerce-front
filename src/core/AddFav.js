@@ -27,7 +27,7 @@ const AddFav = ({student, setFavCount, favCount})  => {
     const FavToast = () => {
     const remainder = new Number(11  - favCount)
 
-    const text = (!(remainder < 1) )? remainder + " student left to 10% discount" : "You have reached 12 students! Congratulations!"
+    const text = (!(remainder < 1) )? remainder + " students left to 10% discount" : "You have reached 12 students! Congratulations!"
 
     function rangeToPercent(number, min, max){
       if (((number - min) / (max - min) * 100) > 100) {
@@ -38,13 +38,13 @@ const AddFav = ({student, setFavCount, favCount})  => {
       }
     }
 
-    let myColor = { width: "100%", background: '#000',text: "#fff", borderRadius: "20px", boxShadow: "1px 3px 1px #9E9E9E", };
+    let myColor = { width: "100%", background: '#278bfa',text: "#fff", borderRadius: "20px", boxShadow: "1px 3px 1px #9E9E9E", };
     notify.show(
-        <div style={{fontSize: "16px", margin: "10px 100px",  }}>
-         <b>{text}</b> 
-         <div className="progress">
-            <div className="progress-bar" role="progressbar" style={{width: rangeToPercent(favCount+1, 0, 12) + "%"}}> </div>
-          </div>
+        <div style={{fontSize: "16px", margin: "10px 10px",  }}>
+          <b>{text}</b> 
+          {/*<div className="progress">
+           // <div className="progress-bar" role="progressbar" style={{width: rangeToPercent(favCount+1, 0, 12) + "%"}}> </div>
+    // </div> */}
         </div>, "custom", 3000, myColor
       );
 }

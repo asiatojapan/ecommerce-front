@@ -224,6 +224,11 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                               value="不合格"
                             />
                             <Form.SelectGroupItem
+                              icon="triangle"
+                              name="result"
+                              value="三角"
+                            />
+                            <Form.SelectGroupItem
                               icon="circle"
                               name="result"
                               value="合格"

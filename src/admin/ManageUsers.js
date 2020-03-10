@@ -464,7 +464,9 @@ const ManageUsers = () => {
       <div class="card-header"><h3 class="card-title"> Users </h3>
       <div class="card-options">
       <ImportUsers/>
-      
+      <Link to="/forgotpassword">
+                                                <a className="btn btn-sm btn-secondary">Forgot password</a>
+                                            </Link>
      <Link to={`/admin/create/user`} className="btn btn-sm btn-secondary"> + Add Users </Link> <br/>
      </div>
      </div>

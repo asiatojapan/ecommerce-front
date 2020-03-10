@@ -5,16 +5,16 @@ import {
   Icon
 } from "tabler-react";
 
-const CardStudent = ({interview, student}) => {
+const CardStudent = ({interview, student, i}) => {
 
   return (
-    <div className="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
+    <div key={i} className="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
     <div className="d-flex flex-column">
     <div className="d-flex align-items-center mt-auto"> 
     <img src={student.videoImg} alt="img" style={{height: "140px", marginRight: "1rem"}}/> 
     <div className="ml-3">
       <div>
-      {student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <text style={{color: "#659c2d"}}> 来日決定 </text> </div>　: ""} 
+      {student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <span style={{color: "#659c2d"}}> 来日決定 </span> </div>　: ""} 
       <Link to={`/interview/student/${interview.student._id}`} target="_blank" className="link"  style={{fontSize: "16px"}}>
         <b> {interview.student.studentid} </b> {interview.student.name} </Link>
       

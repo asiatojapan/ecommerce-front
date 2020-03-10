@@ -172,7 +172,7 @@ const Checkout = ({ logout, session })=> {
                     <i className="fe fe-check-circle"></i>
                         </h1>
                     <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
-                    <Link to="/" className="link" className="btn btn-outline-secondary"> <i className="fe fe-arrow-left mr-2"></i> TOP へ</Link>
+                    <Link to="/" className="link"  className="btn btn-outline-secondary"> <i className="fe fe-arrow-left mr-2"></i> TOP へ</Link>
                     </div>
                     </div>
             </div>

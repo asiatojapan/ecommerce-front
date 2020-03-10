@@ -15,7 +15,7 @@ const InterviewItemByDay = ({item, interview, resumeLoading}) => {
         <img src={interview.student.videoImg} alt="img" style={{height: "140px", marginRight: "1rem"}}/> 
         <div class="ml-3">
         <div>
-        {interview.student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <text style={{color: "#659c2d"}}> 来日決定 </text> </div>　: ""} 
+        {interview.student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <span style={{color: "#659c2d"}}> 来日決定 </span> </div>　: ""} 
   
         <Link to={`/interview/student/${interview.student._id}`} target="_blank"  style={{fontSize: "16px"}} className="link" >
                             <b> {interview.student.studentid} </b> {interview.student.name} </Link>

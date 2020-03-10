@@ -425,6 +425,7 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
     transition: width 0.6s ease;
     padding: 5px 20px;
     font-size: 20px;
+    font-weight: 700;
     box-shadow: 0 1px 2px 0 rgba(0,0,0,.11);
   }
 
@@ -437,7 +438,7 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
     border-radius: 100px;
     right: 29px;
     z-index: -1;
-    background: rgb(40, 139, 250);
+    background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
     box-shadow: 0 1px 2px 0 rgb(130, 130, 130);
   }
 

@@ -131,7 +131,7 @@ const Home = ({ logout, session }) => {
 
 
  const Position = () => {
-    let myColor = { width: "100%", background: '#0E1717', text: "#FFFFFF" };
+    let myColor = { width: "100%", background: '#278bfa', text: "#FFFFFF" };
     notify.show(
         <div style={{fontSize: "16px" }}>
           390円OFF適用。 対象商品をあと3 点追加で、500円OFF

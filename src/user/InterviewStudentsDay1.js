@@ -12,6 +12,7 @@ import SiteWrapper from '../templates/SiteWrapper'
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { logout } from "../actions/session";
+import InterviewSchedule from "../pdf/interview/InterviewSchedule"
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -52,6 +53,7 @@ const InterviewStudents = ({ logout, session }) => {
                 setLoading(false)
                 setInterviews(data);
                 // createPDF(data)
+                //e.log(data)
             }
         });
     };
@@ -60,30 +62,38 @@ const InterviewStudents = ({ logout, session }) => {
   
 
     async function createPDF(results) {
-      const studentDataArrPDF = [];
-      let i = 0;
-      // console.log(results)
-      while (i < results.length) {
+      const interviewDataArrPDF = [];
+      let j = 0;
+  
+      while (j < results.length) {
         // eslint-disable-next-line no-await-in-loop
-        // console.log(results[i].student)
-        await pdf(<Resume studentData={results[i].student} />)
+        await pdf(<InterviewSchedule interviewData={results[j]} timePeriod="1日" />)
           .toBlob()
           // eslint-disable-next-line no-loop-func
           .then(blobProp => {
-            studentDataArrPDF.push({
-              ...results[i],
+            interviewDataArrPDF.push({
+              ...results[j],
               url: URL.createObjectURL(blobProp),
             });
           });
-        i += 1;
+  
+        j += 1;
       }
-      setInterviews(studentDataArrPDF)
+      setInterviews(interviewDataArrPDF)
       setResumeLoading(false)
     }
+    const createPDFLinkButton = (studentData, trigger) => {
+      const { url } = studentData;
+  
+      return url ? 
+        <a href={url} target="_blank">
+          {trigger}
+        </a> :  null
+    };
 
       useEffect(() => {
             loadInterviews();
-        }, []);
+      }, []);
 
 
         const noItemsMessage = () => (
@@ -107,7 +117,13 @@ const InterviewStudents = ({ logout, session }) => {
       <div class="loading" style={{ display: loading ? "" : "none" }}>
           <div class="loaderSpin"></div>
       </div>
-      {interviews.map((interview,i) => <div>
+      <div>
+          {createPDFLinkButton(
+            interviews,
+           <button type="button">Interview Schedule for </button>
+              )}
+            </div>
+      {interviews.map((interview,i) => <div>    
         { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
           <div> 
           { item.time_period === "1日"　?
