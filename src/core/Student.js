@@ -67,6 +67,7 @@ const Student = ({ logout, session, match }: Props) => {
                       setError(data.error);
                   } else {
                       setRelatedStudent(data);
+                      createPDF1(data)
                       setLoading(false)
                     }
                   });
@@ -107,19 +108,29 @@ const Student = ({ logout, session, match }: Props) => {
        // setLoading(false)
   }
 
-  function downloadFile(results, filename) {
-     pdf(<Resume studentData={results} />)
-      .toBlob()
-      // eslint-disable-next-line no-loop-func
-      .then(blobProp => {
-        if (window.navigator.msSaveBlob) { // for IE
-          window.navigator.msSaveBlob(blobProp, results.studentid + ".pdf");
-        } else { // for Non-IE (chrome, firefox etc.)
-          return (URL.createObjectURL(blobProp, {type: "application/pdf"}));
-        }
-      });
-      return false
+  function downloadFile(url, filename) {
+      if (window.navigator.msSaveBlob) {
+        pdf(<Resume studentData={student} />)
+        .toBlob()
+        // eslint-disable-next-line no-loop-func
+        .then(blobProp => {
+          window.navigator.msSaveBlob(blobProp, student.studentid + ".pdf");
+        });
+      }
+    
   }
+
+  function startDownload() {
+        var text = "g"
+        var blob = new Blob([text]);
+
+        if (window.navigator.msSaveBlob) {
+            window.navigator.msSaveBlob(blob, "BlobFile.txt");
+        }
+  
+  }
+  
+  
 
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
@@ -154,8 +165,7 @@ const Student = ({ logout, session, match }: Props) => {
         <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
-     
-      
+        <button id="download"  onclick={startDownload()}>Click to download</button>
       <Page.Content>
       <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
         <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
@@ -164,9 +174,7 @@ const Student = ({ logout, session, match }: Props) => {
         <Grid.Row>
     
       <Grid.Col width={12} lg={9} sm={12}>
-      <a href="./sample.txt" download="サンプル.txt"
-   onclick={downloadFile(student, student.name)}
-   >サンプルテキスト</a>
+ 
       <div className="list-list" style={{padding: "0px"}}>
           <div className="d-block">
             <div className="embed-container">
@@ -324,7 +332,11 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-
+        { navigator.userAgent.indexOf("MSIE") !== -1 ? 
+          "hello"  
+          :  
+          <>{createPDFLinkButton(student, <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>)}</>
+        };
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>}
