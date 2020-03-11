@@ -58,7 +58,7 @@ const CheckoutPreview = ({ logout, session }) => {
         <Grid.Col width={12} lg={9} sm={12}>
         <div className="list-list span-center p-5">
         <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>0</span>名</h2>
-            <Link to="/"  className="link likeBtn fullWidth">追加で学生と選ぶ</Link>
+            <Link to="/"  className="link likeBtn fullWidth">追加で学生を選ぶ</Link>
         </div>
         </Grid.Col>
     );
@@ -85,9 +85,8 @@ const CheckoutPreview = ({ logout, session }) => {
             Add another {12 - items.length} students to qualify for the 10% discount!
             </div>
             }
-             <Link to="/checkout" className="link unlikeBtn resumeGradient fullWidth">確認画面へ
+             <Link to="/checkout" className=" unlikeBtn resumeGradient fullWidth">確認画面へ
              </Link>
-          
         </Grid.Col>
         </Grid.Row>
         </div>
