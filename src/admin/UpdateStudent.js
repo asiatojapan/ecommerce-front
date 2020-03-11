@@ -305,33 +305,33 @@ const UpdateStudent = ({ match, history }) => {
           </div>
   
           <div class="mb-2">
-            <label class="form-label">学歴備考</label>
-             <input type="text" onChange={handleChange("education_bg")} value={values.education_bg} name="education_bg"  class="form-control"/>
+            <label class="form-label">学歴</label>
+             <input type="text" onChange={handleChange("education_bg")} value={values.education_bg} name="education_bg" rows="5" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label">学歴備考</label>
-             <input type="text" onChange={handleChange("qualification")} value={values.qualification} name="qualification"  class="form-control"/>
+            <textarea onChange={handleChange("qualification")} value={values.qualification} name="qualification" rows="5" class="form-control"/>
           </div>
   
           <div class="mb-2">
             <label class="form-label">研究テーマ</label>
-             <input type="text" onChange={handleChange("research")} value={values.research} name="research"  class="form-control"/>
+            <textarea onChange={handleChange("research")} value={values.research} name="research" rows="5" class="form-control"/>
           </div>
   
           <div class="mb-2">
             <label class="form-label">インターンシップ</label>
-             <input type="text" onChange={handleChange("internship")} value={values.internship} name="internship"  class="form-control"/>
+            <textarea onChange={handleChange("internship")} value={values.internship} name="internship" rows="5" class="form-control"/>
           </div>
   
           <div class="mb-2">
             <label class="form-label">日本で働きたい理由</label>
-             <input type="text" onChange={handleChange("why_work_in_japan")} value={values.why_work_in_japan} name="why_work_in_japan"  class="form-control"/>
+            <textarea onChange={handleChange("why_work_in_japan")} value={values.why_work_in_japan} name="why_work_in_japan" rows="5" class="form-control"/>
           </div>
   
           <div class="mb-2">
             <label class="form-label">その他PR</label>
-             <input type="text" onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr"  class="form-control"/>
+            <textarea onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr" rows="5" class="form-control"/>
           </div>
   
           <div class="mb-2">

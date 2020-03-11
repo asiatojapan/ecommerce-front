@@ -112,8 +112,9 @@ const Student = ({ logout, session, match }: Props) => {
       .toBlob()
       // eslint-disable-next-line no-loop-func
       .then(blobProp => {
+        console.log(blobProp)
         if (window.navigator && window.navigator.msSaveOrOpenBlob) { // for IE
-          window.navigator.msSaveOrOpenBlob(blobProp, "hello");
+            window.navigator.msSaveOrOpenBlob(blobProp, results.studentid);
         } else { // for Non-IE (chrome, firefox etc.)
             var a = document.createElement("a");
             document.body.appendChild(a);
@@ -134,6 +135,42 @@ const Student = ({ logout, session, match }: Props) => {
         {trigger}
       </a> :  null
   };
+
+  var download = function () {
+    // ダウンロードしたいコンテンツ、MIMEType、ファイル名
+    var content  = 'abc';
+    var mimeType = 'text/plain';
+    var name     = 'test.txt';
+  
+    // BOMは文字化け対策
+    var bom  = new Uint8Array([0xEF, 0xBB, 0xBF]);
+    var blob = new Blob([bom, content], {type : mimeType});
+  
+    var a = document.createElement('a');
+    a.download = name;
+    a.target   = '_blank';
+  
+    if (window.navigator.msSaveBlob) {
+      // for IE
+      window.navigator.msSaveBlob(blob, name)
+    }
+    else if (window.URL && window.URL.createObjectURL) {
+      // for Firefox
+      a.href = window.URL.createObjectURL(blob);
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+    else if (window.webkitURL && window.webkitURL.createObject) {
+      // for Chrome
+      a.href = window.webkitURL.createObjectURL(blob);
+      a.click();
+    }
+    else {
+      // for Safari
+      window.open('data:' + mimeType + ';base64,' + window.Base64.encode(content), '_blank');
+    }
+  }
 
     
     useScrollPosition(
@@ -326,6 +363,7 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
+          
           {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )}
