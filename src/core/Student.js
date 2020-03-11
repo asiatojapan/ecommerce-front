@@ -12,7 +12,7 @@ import { logout } from "../actions/session";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
 import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
 import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
-
+import * as ReactIs from 'react-is';
 
 Font.register( {
     family: 'Open Sans',
@@ -52,6 +52,7 @@ const Student = ({ logout, session, match }: Props) => {
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
+    const [blob, setBlob] = useState()
     
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
@@ -103,6 +104,7 @@ const Student = ({ logout, session, match }: Props) => {
         .toBlob()
         // eslint-disable-next-line no-loop-func
         .then(blobProp => {
+          setBlob(blobProp)
           setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
         });
        // setLoading(false)
@@ -129,11 +131,22 @@ const Student = ({ logout, session, match }: Props) => {
         }
   
   }
-  
-  
 
   const createPDFLinkButton = (studentData, trigger) => {
+    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+      window.navigator.msSaveOrOpenBlob(blob, trigger);
+    } else {
+      const url  = resumeLink;
+       return url ? 
+      <a className="link" href={url} target="_self" >
+        {trigger}
+      </a> :  null
+    }
+  };
+
+  const createPDFLinkButton1 = (studentData, trigger) => {
     const url  = resumeLink;
+    console.log(blob)
     return url ? 
     
       <a className="link" href={url} target="_self" >
@@ -159,13 +172,11 @@ const Student = ({ logout, session, match }: Props) => {
       [headerStyle]
     )
 
-
     return (
       <SiteWrapper>
         <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
-        <button id="download"  onclick={startDownload()}>Click to download</button>
       <Page.Content>
       <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
         <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
@@ -332,11 +343,8 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-        { navigator.userAgent.indexOf("MSIE") !== -1 ? 
-          "hello"  
-          :  
           <>{createPDFLinkButton(student, <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>)}</>
-        };
+
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>}
