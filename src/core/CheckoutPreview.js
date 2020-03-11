@@ -79,10 +79,10 @@ const CheckoutPreview = ({ logout, session }) => {
         <Grid.Col width={12} lg={3} sm={12}>
         {items.length > 11 ? 
             <div className="alert alert-success" role="alert">
-            <i className="fe fe-check-circle"></i> 名以上選抜すると10% OFF
+            <i className="fe fe-check-circle"></i> 12名選抜して頂きましたので成功報酬費用より 10% OFFいたします！
             </div> : 
             <div className="alert alert-red" role="alert">
-            Add another {12 - items.length} students to qualify for the 10% discount!
+           10% OFFまであと {12 - items.length} 名
             </div>
             }
              <Link to="/checkout" className=" unlikeBtn resumeGradient fullWidth">確認画面へ

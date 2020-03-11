@@ -75,6 +75,17 @@ const Student = ({ logout, session, match }: Props) => {
           });
       };
 
+    function _calculateAge(dateString) { // birthday is a date
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+      }
+      return age;
+    }
+
     useEffect(() => {
         loadSingleStudent();
     }, []);
@@ -141,8 +152,7 @@ const Student = ({ logout, session, match }: Props) => {
       <div className="list-list" style={{padding: "0px"}}>
           <div className="d-block">
             <div className="embed-container">
-              
-            {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} frameBorder="0" allowFullScreen></iframe> </div> }
+                   {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} frameBorder="0" allowFullScreen></iframe> </div> }
 
                         </div>
                         </div>
@@ -170,7 +180,7 @@ const Student = ({ logout, session, match }: Props) => {
                       <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender === "Male" ? "男性": "女性"}
                       </div>
                       <div className="mb-2">
-                      <Icon prefix="fe" name="user" /><strong>  年齢: </strong> {student.age}
+                      <Icon prefix="fe" name="user" /><strong>  年齢: </strong>  {_calculateAge(student.dob)}
                       </div>
                       <div className="mb-2">
                       <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}
@@ -209,22 +219,21 @@ const Student = ({ logout, session, match }: Props) => {
                       <div className="card-header"><div className="card-title">Education</div>
                       </div>
                       <div className="card-body">
-                      {student.qualification ? "" :
+                      {student.qualification ? 
                       <> 
                       <div className="hr-text">学歴備考</div>
                       <div className="mb-2 pre-wrap">　
                       {student.qualification}
                       </div> 
-                      </>}
+                      </> : null}
                       <div className="hr-text">研究テーマ</div>
                       <div className="mb-2 pre-wrap">　
                       {student.research}
                       </div>
-
                       </div>
                       </div>
                       
-                      {student.internship ? "":
+                      {student.internship ? 
                       <div className="list-list" style={{padding: "0px"}}>
                       <div className="card-header"><div className="card-title">Internship</div>
                       </div>
@@ -233,7 +242,7 @@ const Student = ({ logout, session, match }: Props) => {
                       {student.internship}
                       </div>
                       </div>
-                      </div>}
+                      </div> : ""}
 
 
 
@@ -244,17 +253,17 @@ const Student = ({ logout, session, match }: Props) => {
                       <div className="mb-2">
                       <strong>日本語: </strong> {student.japanese} (JLPT: {student.jlpt})
                       </div>
-                      {student.jlpt_next == null ? "":
+                      {student.jlpt_next ? 
                       <div className="mb-2">
                       <strong>次回のJLPT受験予定: </strong> {student.jlpt_next} 
-                      </div>}
+                      </div>: ""}
                       <div className="mb-2">
                       <strong>英語: </strong> {student.english}
                       </div>
-                      { student.other_languages == null ?  "": 
+                      { student.other_languages ?  
                       <div className="mb-2">
                       <strong>その他言語: </strong> {student.other_languages}
-                      </div> }
+                      </div> : "" }
                       </div>
                       </div>
                         
@@ -325,7 +334,7 @@ const Student = ({ logout, session, match }: Props) => {
           <div className="inner">
             <div className="project-info">
             <div className="project-title">
-            一生懸命日本語を勉強した学生にチャンスをくだいさい
+            一生懸命日本語を勉強した学生にチャンスをください
             </div>
           </div>
          <div className="action-buttons">

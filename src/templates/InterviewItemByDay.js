@@ -7,7 +7,16 @@ import {
 import "../styles.css";
 
 const InterviewItemByDay = ({item, interview, resumeLoading}) => {
-
+  function _calculateAge(dateString) { // birthday is a date
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+  }
     const children = (
 
       <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
@@ -21,7 +30,7 @@ const InterviewItemByDay = ({item, interview, resumeLoading}) => {
                             <b> {interview.student.studentid} </b> {interview.student.name} </Link>
         <div style={{marginBottom: "0px"}}>
           <div>
-          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "male" ? "男性": "女性"}・{interview.student.age}
+          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "male" ? "男性": "女性"}・{_calculateAge(interview.student.dob)}
           </div>
           <div>
           <Icon prefix="fe" name="globe" /> <strong>国籍・地域: </strong>{interview.student.country}

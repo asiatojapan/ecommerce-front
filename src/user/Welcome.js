@@ -10,8 +10,7 @@ const Welcome = () => {
                 <div class="row">
                     <div class="col text-center col-login mx-auto"><img src={Photo} />
                     <div style={{marginTop: "1rem"}}>
-                    <a className="likeBtn link" href="/checkout/preview" style={{marginRight: "5px"}}> 検討リストへ </a>
-                    <a className="resumeGradient unlikeBtn smaller" href="/" style={{marginLeft: "5px"}}> リストへ </a>
+                    <a className="resumeGradient unlikeBtn smaller" href="/" style={{marginLeft: "5px"}}> リスト一覧へ </a>
                     </div>
                     </div>
                 </div>

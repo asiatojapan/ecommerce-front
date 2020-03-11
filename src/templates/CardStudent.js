@@ -6,6 +6,16 @@ import {
 } from "tabler-react";
 
 const CardStudent = ({interview, student, i}) => {
+  function _calculateAge(dateString) { // birthday is a date
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+  }
 
   return (
     <div key={i} className="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
@@ -20,7 +30,7 @@ const CardStudent = ({interview, student, i}) => {
       
     <div style={{marginBottom: "0px"}}>
         <div>
-        <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{student.age}
+        <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{_calculateAge(student.dob)}
         </div>
         <div>
         <Icon prefix="fe" name="globe" /> <strong>国籍・地域: </strong>{student.country}

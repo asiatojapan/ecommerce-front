@@ -71,6 +71,8 @@ const Home = ({ logout, session }) => {
 
   const status = session.round === "Phase IV" ? "来日決定" : "リスト掲載";
 
+  
+
   const loadFilteredResults = (newFilters) => {
       getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk).then(data => {
           if (data.error) {
@@ -134,7 +136,7 @@ const Home = ({ logout, session }) => {
     let myColor = { width: "100%", background: '#278bfa', text: "#FFFFFF" };
     notify.show(
         <div style={{fontSize: "16px" }}>
-          390円OFF適用。 対象商品をあと3 点追加で、500円OFF
+          12名以上学生を選抜すると成功報酬費用が10%OFFとなります。　
           <a className="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
         </div>, "custom", -1, myColor
       );

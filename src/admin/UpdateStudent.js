@@ -5,7 +5,7 @@ import { readStudentDetails } from '../core/apiCore';
 import { updateStudent } from './apiAdmin';
 import SiteWrapper from '../templates/SiteWrapper'
 import {
-  Container,
+  Container, Form,
 } from "tabler-react";
 
 
@@ -16,6 +16,7 @@ const UpdateStudent = ({ match, history }) => {
       gender: '',
       address: "",
       skype: "",
+      dob: "",
       email: "",
       age: '',
       japanese: '',
@@ -70,6 +71,7 @@ const UpdateStudent = ({ match, history }) => {
                     studentid: data.studentid,
                     gender: data.gender,
                     age: data.age,
+                    dob: data.dob,
                     country: data.country,
                     japanese: data.japanese,
                     address: data.address,
@@ -127,6 +129,7 @@ const UpdateStudent = ({ match, history }) => {
                     studentid: '',
                     gender: '',
                     age: '',
+                    dob: "",
                     country: '',
                     japanese: '',
                     english: '',
@@ -175,6 +178,13 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">Age</label>
              <input type="text" onChange={handleChange("age")} value={values.age} name="Age"  class="form-control"/>
           </div>
+
+            
+          <div class="mb-2">
+            <label class="form-label">DOB</label>
+             <input type="text" onChange={handleChange("dob")} value={values.dob} name="Dob"  class="form-control"/>
+          </div>
+
 
           <div class="mb-2">
             <label class="form-label">Email</label>

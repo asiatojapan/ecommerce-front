@@ -27,7 +27,7 @@ const AddFav = ({student, setFavCount, favCount})  => {
     const FavToast = () => {
     const remainder = new Number(11  - favCount)
 
-    const text = (!(remainder < 1) )? remainder + " students left to 10% discount" : "You have reached 12 students! Congratulations!"
+    const text = (!(remainder < 1) )?　"10%OFF まであと "　+ remainder + " 名" : "12名選抜して頂きましたので成功報酬費用より 10% OFFいたします！"
 
     function rangeToPercent(number, min, max){
       if (((number - min) / (max - min) * 100) > 100) {

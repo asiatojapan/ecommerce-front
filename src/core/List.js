@@ -14,7 +14,19 @@ const mapDispatchToProps = dispatch => ({
 });
 
 
+
 const List = ({logout, session, student, setFavCount, favCount }) => {
+
+  function _calculateAge(dateString) { // birthday is a date
+    var today = new Date();
+    var birthDate = new Date(dateString);
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+  }
 
   const handleSetFavCount = e => {
     setFavCount(e);
@@ -35,7 +47,7 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
 
     <div className="list-Desc">
     <div className="mt-1">
-    <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{student.age}
+    <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{_calculateAge(student.dob)}
     </div>
     <div>
     <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}

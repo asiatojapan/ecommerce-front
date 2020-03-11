@@ -65,6 +65,7 @@ const AddStudent = ({ history }) => {
         major,
         faculty,
         video,
+        dob,
         upload_fyp,
         categories_list,
         categories,
@@ -159,6 +160,12 @@ const AddStudent = ({ history }) => {
         <div class="mb-2">
           <label class="form-label">Age</label>
            <input type="text" onChange={handleChange("age")} value={values.age} name="Age"  class="form-control"/>
+        </div>
+
+
+        <div class="mb-2">
+          <label class="form-label">DOB (YYYY/MM/DD)</label>
+           <input type="text" onChange={handleChange("dob")} value={values.dob} name="dob"  class="form-control"/>
         </div>
 
         <div class="mb-2">

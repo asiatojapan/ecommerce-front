@@ -82,17 +82,20 @@ const Checkout = ({ logout, session })=> {
         return (
             <div>
             <div className="alert alert-secondary" role="alert" >
-            <strong> 注文を確定する前に：</strong> <br/>
+            <strong> 申請する前に：</strong> <br/>
 
-            パートナーポイントプログラムとは、Amazon.co.jpでのご購入の際に、対象クレジットカードのポイントでお支払いいただけるサービスです。利用可能なポイントを確認する場合、またはこの注文に使用するポイント数を変更する場合は、お支払い方法選択ページをご覧ください。
-            nts
+                マッチング精度向上のために、選抜頂いた学生と貴社の採用ニーズとの合致度　(1＝低、5＝高）をご記入くださいませ。
+                <br/>
+                ご不明点ございましたら、弊社の担当営業にご連絡いただければと存じます。
+    
+    
                 </div>
                 {items.length > 11 ? 
                 <div className="alert alert-success" role="alert">
-                <i className="fe fe-check-circle"></i> You have qualified for the 10% discount
+                <i className="fe fe-check-circle"></i> 12名選抜して頂きましたので成功報酬費用より 10% OFFいたします！
                 </div> : 
                 <div className="alert alert-red" role="alert">
-                Add another {12 - items.length} students to qualify for the 10% discount!
+                10% OFFまであと {12 - items.length} 名
                 </div>
                 }
                 
@@ -110,7 +113,7 @@ const Checkout = ({ logout, session })=> {
     const noItemsMessage = () => (
         <div className="list-list text-center p-5">
         <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>0</span>名</h2>
-        <Link to="/" className="likeBtn fullWidth link">追加で学生と選ぶ</Link>
+        <Link to="/" className="likeBtn fullWidth link">追加で学生を選ぶ</Link>
         </div>
     );
 
