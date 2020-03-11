@@ -133,16 +133,19 @@ const Student = ({ logout, session, match }: Props) => {
 
   const createPDFLinkButton = (studentData, trigger) => {
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      const blobUrl = blob;
-      return blobUrl ? 
-      <button onclick={window.navigator.msSaveOrOpenBlob(blob, student.studentid)}></button> : null
-    } else {
+      const url = blob;
+      return url ? 
+      <a className="link" href={url} onCLick={window.navigator.msSaveOrOpenBlob(blob, student.studentid)} target="_self" >
+        {trigger}
+      </a> :  null
+      } else {
       const url  = resumeLink;
        return url ? 
       <a className="link" href={url} target="_self" >
         {trigger}
       </a> :  null
     }
+    
   };
 
   const createPDFLinkButton1 = (studentData, trigger) => {
