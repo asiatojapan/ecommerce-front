@@ -113,8 +113,8 @@ const Student = ({ logout, session, match }: Props) => {
       // eslint-disable-next-line no-loop-func
       .then(blobProp => {
         console.log(blobProp)
-        if (window.navigator && window.navigator.msSaveOrOpenBlob) { // for IE
-            window.navigator.msSaveOrOpenBlob(blobProp, results.studentid);
+        if (window.navigator.msSaveBlob) { // for IE
+            window.navigator.msSaveBlob(blobProp, results.studentid + ".pdf");
         } else { // for Non-IE (chrome, firefox etc.)
             setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
         }
@@ -337,7 +337,7 @@ const Student = ({ logout, session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
         <textarea id="text" placeholder="文字を入力してください。"></textarea>
-        <a id="download" href="#" onclick={startDownload("文字を入力してください")}>ダウンロード</a>
+         
           {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )}
