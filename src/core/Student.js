@@ -12,7 +12,6 @@ import { logout } from "../actions/session";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
 import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
 import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
-import * as ReactIs from 'react-is';
 
 Font.register( {
     family: 'Open Sans',
@@ -134,7 +133,9 @@ const Student = ({ logout, session, match }: Props) => {
 
   const createPDFLinkButton = (studentData, trigger) => {
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      window.navigator.msSaveOrOpenBlob(blob, trigger);
+      const blobUrl = blob;
+      return blobUrl ? 
+       window.navigator.msSaveOrOpenBlob(blob, trigger): null
     } else {
       const url  = resumeLink;
        return url ? 
