@@ -72,10 +72,12 @@ const AddFav = ({student, setFavCount, favCount})  => {
           return (
       <div>
         {fav && (
-           <button className="unlikeBtn" onClick={ clickDelete } href="#0"><i className="fe fe-check" style={{marginRight: "10px"}}></i> {text} </button>
+           <button className="unlikeBtn fixedWidth" onClick={ clickDelete } href="#0"> 
+          <i className="fa fa-star" style={{marginRight: "5px"}}></i> {text} </button>
         )}
         {!fav && (
-           <button className="likeBtn " onClick={ clickSubmit } href="#0"> {text} </button>
+           <button className="likeBtn fixedWidth" onClick={ clickSubmit } href="#0"> 
+           <i className="fa fa-star-o" style={{marginRight: "5px"}}></i> {text} </button>
         )}
 
       

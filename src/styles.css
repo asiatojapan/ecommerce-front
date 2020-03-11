@@ -771,3 +771,7 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
   font-weight: 700;
   color: #000;
 }
+
+.fixedWidth {
+  width: 150px
+}
