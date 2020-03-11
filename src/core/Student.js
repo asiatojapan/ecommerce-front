@@ -135,7 +135,7 @@ const Student = ({ logout, session, match }: Props) => {
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       const blobUrl = blob;
       return blobUrl ? 
-       window.navigator.msSaveOrOpenBlob(blob, trigger): null
+      <button onclick={window.navigator.msSaveOrOpenBlob(blob, student.studentid)}></button> : null
     } else {
       const url  = resumeLink;
        return url ? 
