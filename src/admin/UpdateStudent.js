@@ -39,6 +39,7 @@ const UpdateStudent = ({ match, history }) => {
       other_pr: '',
       video: '',
       videoImg: '',
+      country: "",
       loading: false,
       error: false,
       createdStudent: '',
@@ -70,6 +71,7 @@ const UpdateStudent = ({ match, history }) => {
                     name: data.name,
                     studentid: data.studentid,
                     gender: data.gender,
+                    country: data.country,
                     age: data.age,
                     dob: data.dob,
                     country: data.country,
@@ -147,6 +149,7 @@ const UpdateStudent = ({ match, history }) => {
                     other_pr: '',
                     video: '',
                     videoImg: '',
+                    country: "",
                     loading: false,
                     error: false,
                     redirectToProfile: true,
@@ -199,6 +202,12 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">Address</label>
              <input type="text" onChange={handleChange("address")} value={values.address} name="Address"  class="form-control"/>
+          </div>
+
+
+          <div class="mb-2">
+            <label class="form-label">Country</label>
+             <input type="text" onChange={handleChange("country")} value={values.country} name="Country"  class="form-control"/>
           </div>
   
           <div class="mb-2">
