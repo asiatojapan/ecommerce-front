@@ -325,10 +325,12 @@ const ManageUsers = () => {
   };
 
   const destroy = userId => {
-      deleteUser(darwin_uid, darwin_myTk).then(data => {
+      setLoading(true)
+      deleteUser(userId, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
+              setLoading(false)
               loadUsers();
           }
       });
@@ -465,8 +467,8 @@ const ManageUsers = () => {
       <div class="card-options">
       <ImportUsers/>
       <Link to="/forgotpassword">
-                                                <a className="btn btn-sm btn-secondary">Forgot password</a>
-                                            </Link>
+       <a className="btn btn-sm btn-secondary">Forgot password</a>
+      </Link>
      <Link to={`/admin/create/user`} className="btn btn-sm btn-secondary"> + Add Users </Link> <br/>
      </div>
      </div>

@@ -22,7 +22,7 @@ const Signin = ({ logout, session }) => {
         redirectToReferrer: false
     });
 
-    const { email, password, loading, error, redirectToReferrer } = values;
+    const { email, password, loading, error, redirectToReferrer, welcomePage } = values;
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
@@ -104,7 +104,7 @@ const Signin = ({ logout, session }) => {
 
   return (
       <div className="page" style={{height: "100vh"}}>
-               <div className="loading" style={{ display: loading ? "" : "none" }}>
+               <div className="loading" style={{ display: welcomePage ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
        {showError()}

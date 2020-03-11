@@ -85,7 +85,7 @@ const CheckoutPreview = ({ logout, session }) => {
             Add another {12 - items.length} students to qualify for the 10% discount!
             </div>
             }
-             <Link to="/checkout" className="link"  className="unlikeBtn resumeGradient fullWidth">確認画面へ
+             <Link to="/checkout" className="link unlikeBtn resumeGradient fullWidth">確認画面へ
              </Link>
           
         </Grid.Col>
@@ -100,7 +100,7 @@ const CheckoutPreview = ({ logout, session }) => {
             <i className="fe fe-check-circle"></i>
                 </h1>
             <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
-            <Link to="/user/history" className="link"  className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
+            <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
          </div>
     </div>
    
