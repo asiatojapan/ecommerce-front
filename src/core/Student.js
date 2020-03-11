@@ -62,12 +62,12 @@ const Student = ({ logout, session, match }: Props) => {
                 setError(data.error);
             } else {
                 setStudent(data);
-                createPDF(data)
                 listRelated(data._id, darwin_myTk).then(data => {
                   if (data.error) {
                       setError(data.error);
                   } else {
                       setRelatedStudent(data);
+                      setLoading(false)
                     }
                   });
               }
@@ -104,24 +104,22 @@ const Student = ({ logout, session, match }: Props) => {
         .then(blobProp => {
           setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
         });
-        setLoading(false)
+       // setLoading(false)
   }
 
-  async function createPDF(results) {
-    await pdf(<Resume studentData={results} />)
+  function downloadFile(results, filename) {
+     pdf(<Resume studentData={results} />)
       .toBlob()
       // eslint-disable-next-line no-loop-func
       .then(blobProp => {
-        console.log(blobProp)
         if (window.navigator.msSaveBlob) { // for IE
-            window.navigator.msSaveBlob(blobProp, results.studentid + ".pdf");
+          window.navigator.msSaveBlob(blobProp, results.studentid + ".pdf");
         } else { // for Non-IE (chrome, firefox etc.)
-            setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
+          return (URL.createObjectURL(blobProp, {type: "application/pdf"}));
         }
       });
-      setLoading(false)
-
-}
+      return false
+  }
 
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
@@ -132,19 +130,6 @@ const Student = ({ logout, session, match }: Props) => {
       </a> :  null
   };
 
-  function startDownload() {
-    var text = "ggg"
-    var blob = new Blob([text]);
-
-    if (window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blob, "BlobFile.txt");
-    } else {
-        var url = window.URL.createObjectURL(blob);
-        return <a className="link" href={url} target="_self" >
-        at
-      </a> 
-    }
-}
     
     useScrollPosition(
       ({ prevPos, currPos }) => {
@@ -177,8 +162,11 @@ const Student = ({ logout, session, match }: Props) => {
         <li className="breadcrumb-item active" aria-current="page">{student.studentid}</li>
       </ol>   
         <Grid.Row>
-      
+    
       <Grid.Col width={12} lg={9} sm={12}>
+      <a href="./sample.txt" download="サンプル.txt"
+   onclick={downloadFile(student, student.name)}
+   >サンプルテキスト</a>
       <div className="list-list" style={{padding: "0px"}}>
           <div className="d-block">
             <div className="embed-container">
@@ -336,11 +324,7 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-        <textarea id="text" placeholder="文字を入力してください。"></textarea>
-         
-          {createPDFLinkButton(student,
-              <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
-            )}
+
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>}
