@@ -28,6 +28,7 @@ const UpdateUser = ({ match, history }) => {
         descriptionFive: "",
         descriptionSix: "",
         homepageUrl: "",
+        specialPlan: "",
         error: false,
         success: false,
         redirectUser: false
@@ -39,7 +40,7 @@ const UpdateUser = ({ match, history }) => {
 
 
     const { name, email, password, role, phase, round, sales_rep,  error, success,
-      logo, descriptionOne,
+      logo, descriptionOne, specialPlan,
       descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl } = values;
 
     const init = userId => {
@@ -50,7 +51,7 @@ const UpdateUser = ({ match, history }) => {
             } else {
                 setValues({ ...values, name: data.name, email: data.email, role: data.role, phase: data.phase,
                 round: data.round, sales_rep: data.sales_rep,
-                logo: data.logo,
+                logo: data.logo, specialPlan: data.specialPlan,
                 descriptionOne: data.descriptionOne,
                 descriptionTwo: data.descriptionTwo,
                 descriptionThree: data.descriptionThree,
@@ -85,7 +86,7 @@ const UpdateUser = ({ match, history }) => {
     const clickSubmit = e => {
         e.preventDefault();
         update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
-          logo, descriptionOne,
+          logo, descriptionOne, specialPlan,
           descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl }, darwin_uid ).then(data => {
             if (data.error) {
                 // console.log(data.error);
@@ -99,6 +100,7 @@ const UpdateUser = ({ match, history }) => {
                   phase: data.phase,
                   round: data.round,
                   sales_rep: data.sales_rep,
+                  specialPlan: data.specialPlan,
                   success: true
               });
             }
@@ -164,6 +166,16 @@ const UpdateUser = ({ match, history }) => {
                     </select>
                   </div>
             </div>
+
+            <div class="mb-3">
+              <div class="form-label">Special Plan</div>
+              <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
+              <option value=""> Select </option>
+              <option value="true"> True </option>
+              <option value="false"> False </option>
+                </select>
+          </div>
+
 
 
             <div class="col-md-6 col-xl-6">

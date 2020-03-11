@@ -16,6 +16,7 @@ const AddUser = ({history}) => {
       role: '',
       phase: "",
       round: "",
+      specialPlan: "", 
       error: false,
       success: false,
       redirectToProfile: false
@@ -23,7 +24,7 @@ const AddUser = ({history}) => {
 
     const [users, setUsers] = useState([]);
 
-    const { name, email, password, role, phase, round, sales_rep, error, success, redirectToProfile } = values;
+    const { name, email, password, role, phase, round, specialPlan, sales_rep, error, success, redirectToProfile } = values;
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
@@ -33,7 +34,7 @@ const AddUser = ({history}) => {
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: false });
-        signup({ name, email, password, role, round, sales_rep }).then(data => {
+        signup({ name, email, password, role, round, sales_rep, specialPlan }).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
@@ -45,6 +46,7 @@ const AddUser = ({history}) => {
                     error: '',
                     role: "",
                     round: "",
+                    specialPlan: "", 
                     redirectToProfile: true,
                     success: true
                 });
@@ -93,6 +95,16 @@ const AddUser = ({history}) => {
               <option value="Phase II"> Phase II </option>
               <option value="Phase III"> Phase III </option>
               <option value="Phase IV"> Phase IV </option>
+                </select>
+          </div>
+
+
+          <div class="mb-3">
+              <div class="form-label">Special Plan</div>
+              <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
+              <option value=""> Select </option>
+              <option value="true"> True </option>
+              <option value="false"> False </option>
                 </select>
           </div>
 

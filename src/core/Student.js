@@ -110,7 +110,8 @@ const Student = ({ logout, session, match }: Props) => {
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
     return url ? 
-      <a className="link" href={url} target="_blank">
+    
+      <a className="link" href={url} target="_self">
         {trigger}
       </a> :  null
   };

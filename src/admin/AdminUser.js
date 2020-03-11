@@ -254,7 +254,8 @@ const AdminUser = props => {
                         <b>Role: </b> {user1.role === 1 ? "Admin" : "User"}<br/>
                          <b>営業担当: </b>{user1.salesrep }<br/>
                          <b>フェーズ: </b>{user1.round} <br/>
-                         <b>フェーズメモ: </b>{user1.phase}
+                         <b>フェーズメモ: </b>{user1.phase} <br/>
+                         <b>specialPlan: </b>{user1.specialPlan}<br/>
                       </p> <Button href={`/admin/user/update/${user1._id}`} >Update</Button>
                     </div>
                   </div>

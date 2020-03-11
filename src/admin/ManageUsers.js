@@ -368,6 +368,11 @@ const ManageUsers = () => {
       sortType: 'basic',
     },
     {
+      Header: 'Special',
+      accessor: 'specialPlan',
+      id: 'specialPlan'
+    },
+    {
       Header: 'Role',
       accessor: (text) =>
       <div>
@@ -376,6 +381,7 @@ const ManageUsers = () => {
       id: 'role',
       sortType: 'basic',
     },
+    
     {
       Header: 'Created At',
       accessor: (text) =>

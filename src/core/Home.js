@@ -16,7 +16,7 @@ import "../styles.css";
 import "tabler-react/dist/Tabler.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Notifications, {notify} from 'react-notify-toast';
-import { BlobProvider, pdf, Font } from "@react-pdf/renderer";
+import { pdf } from "@react-pdf/renderer";
 import Resume from "../pdf/Resume";
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
@@ -135,7 +135,7 @@ const Home = ({ logout, session }) => {
  const Position = () => {
     let myColor = { width: "100%", background: '#278bfa', text: "#FFFFFF" };
     notify.show(
-        <div style={{fontSize: "16px" }}>
+        <div style={{fontSize: "16px", display: (session.specialPlan)? "none" : ""}}>
           12名以上学生を選抜すると成功報酬費用が10%OFFとなります。　
           <a className="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
         </div>, "custom", -1, myColor
