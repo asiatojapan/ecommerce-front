@@ -116,10 +116,6 @@ const Student = ({ logout, session, match }: Props) => {
         if (window.navigator && window.navigator.msSaveOrOpenBlob) { // for IE
             window.navigator.msSaveOrOpenBlob(blobProp, results.studentid);
         } else { // for Non-IE (chrome, firefox etc.)
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display: none";
-            var csvUrl = URL.createObjectURL(blobProp);
             setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
         }
       });
@@ -136,7 +132,7 @@ const Student = ({ logout, session, match }: Props) => {
       </a> :  null
   };
 
-  var download = function () {
+  const download = () => {
     // ダウンロードしたいコンテンツ、MIMEType、ファイル名
     var content  = 'abc';
     var mimeType = 'text/plain';
@@ -363,7 +359,7 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-          
+          <button onClick={download()}>a</button>
           {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )}
