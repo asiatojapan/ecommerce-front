@@ -68,6 +68,7 @@ const AdminUser = props => {
                 setError(data.error);
             } else {
                 setUser1(data);
+               // console.log(data)
             }
         });
     };
@@ -256,6 +257,7 @@ const AdminUser = props => {
                          <b>フェーズ: </b>{user1.round} <br/>
                          <b>フェーズメモ: </b>{user1.phase} <br/>
                          <b>specialPlan: </b>{user1.specialPlan}<br/>
+                         <b>loginCount: </b>{user1.login_count}<br/>
                       </p> <Button href={`/admin/user/update/${user1._id}`} >Update</Button>
                     </div>
                   </div>

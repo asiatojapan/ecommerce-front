@@ -197,7 +197,7 @@ const Student = ({ logout, session, match }: Props) => {
       <Page.Content>
       <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
         <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
-        <li className="breadcrumb-item active" aria-current="page"><a className="link" href={student.studentid}>{student.studentid}</a></li>
+        <li className="breadcrumb-item active" aria-current="page">{student.studentid}</li>
       </ol>   
         <Grid.Row>
       
@@ -359,7 +359,6 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-          <button onClick={download()}>a</button>
           {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )}

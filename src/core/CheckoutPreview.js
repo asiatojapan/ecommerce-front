@@ -63,6 +63,19 @@ const CheckoutPreview = ({ logout, session }) => {
         </Grid.Col>
     );
 
+    const offer = () => {
+        if (items.length > 11 ) {
+            return ( <div className="alert alert-success" role="alert">
+            <i className="fe fe-check-circle"></i> 12名選抜して頂きましたので成功報酬費用より 10% OFFいたします！
+        </div> )}
+        else {
+           return( <div className="alert alert-red" role="alert">
+            10% OFFまであと {12 - items.length} 名
+            </div>)
+        }
+    }
+
+
     const phaseI = () => (
     <div>
         <div className="progressbox">
@@ -77,14 +90,9 @@ const CheckoutPreview = ({ logout, session }) => {
         <Grid.Row>
         {items.length > 0 ? showItems(items) : noItemsMessage()}
         <Grid.Col width={12} lg={3} sm={12}>
-        {items.length > 11 ? 
-            <div className="alert alert-success" role="alert">
-            <i className="fe fe-check-circle"></i> 12名選抜して頂きましたので成功報酬費用より 10% OFFいたします！
-            </div> : 
-            <div className="alert alert-red" role="alert">
-           10% OFFまであと {12 - items.length} 名
-            </div>
-            }
+
+        {session.specialPlan === true ? null : offer() }
+    
              <Link to="/checkout" className=" unlikeBtn resumeGradient fullWidth">確認画面へ
              </Link>
         </Grid.Col>
@@ -99,6 +107,7 @@ const CheckoutPreview = ({ logout, session }) => {
             <i className="fe fe-check-circle"></i>
                 </h1>
             <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
+            <h3>申請後、学生を追加する場合はASIAtoJAPANまでご連絡ください</h3>
             <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
          </div>
     </div>

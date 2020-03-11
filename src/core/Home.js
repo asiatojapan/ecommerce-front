@@ -135,7 +135,7 @@ const Home = ({ logout, session }) => {
  const Position = () => {
     let myColor = { width: "100%", background: '#278bfa', text: "#FFFFFF" };
     notify.show(
-        <div style={{fontSize: "16px", display: (session.specialPlan)? "none" : ""}}>
+        <div style={{fontSize: "16px"}}>
           12名以上学生を選抜すると成功報酬費用が10%OFFとなります。　
           <a className="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
         </div>, "custom", -1, myColor
@@ -231,7 +231,7 @@ const Home = ({ logout, session }) => {
         </div>
         {favCount === 0 ? 
             <div>
-          {Position()}
+        {session.specialPlan === true ? "" :  Position()}
           </div>: <a href="/checkout/preview"><div className="count-bar"><div className="heart">{favCount} </div></div></a>} 
           <Notifications options={{zIndex: 200, width: "100%"}} />
         </SiteWrapper>
