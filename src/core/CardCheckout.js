@@ -91,7 +91,7 @@ const CardCheckout = ({student, indivRank,rank,
     <div className="d-flex align-items-center mt-auto"> 
     <img src={student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 
     <div className="ml-3">
-    <Link className="link" to={`/student/${student._id}`}> {student.studentid} </Link>
+    <Link className="link" to={`/student/${student._id}`} target="_blank"> {student.studentid} </Link>
     {showDetails(showDetailsButton)}
     </div>
     <div className="ml-auto"> 

@@ -1,3 +1,6 @@
+import 'react-app-polyfill/ie9';
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
 import React from "react";
 import ReactDOM from "react-dom";
 import configureStore from "./store/store";
@@ -13,7 +16,7 @@ const renderApp = preloadedState => {
     <Provider store={store}>
         <Routes />
     </Provider>,
-document.getElementById("root")
+  document.getElementById("root")
   );
 };
 

@@ -307,10 +307,10 @@ const Student = ({ logout, session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
           {createPDFLinkButton(student,
-              <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "10px"}}>{" "}</i>  レジュメ</button>
+              <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )}
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
-        <i class="fe fe-download" style={{marginRight: "10px"}}></i> 卒業論文
+        <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>}
 
         <hr/>
