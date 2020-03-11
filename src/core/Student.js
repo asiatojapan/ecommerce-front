@@ -68,7 +68,6 @@ const Student = ({ logout, session, match }: Props) => {
                       setError(data.error);
                   } else {
                       setRelatedStudent(data);
-                      setLoading(false);
                     }
                   });
               }
@@ -103,15 +102,16 @@ const Student = ({ logout, session, match }: Props) => {
         .toBlob()
         // eslint-disable-next-line no-loop-func
         .then(blobProp => {
-          setResumeLink(URL.createObjectURL(blobProp));
+          setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
         });
+        setLoading(false)
   }
 
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
     return url ? 
     
-      <a className="link" href={url} target="_self">
+      <a className="link" href={url} target="_self" >
         {trigger}
       </a> :  null
   };

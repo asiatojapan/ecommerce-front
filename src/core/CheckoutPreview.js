@@ -48,7 +48,7 @@ const CheckoutPreview = ({ logout, session }) => {
                 {items.map((s, index) => 
                     <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading}/>
                 )} 
-                <Link to="/" className="link likeBtn fullWidth">追加で学生と選ぶ</Link>
+                <Link to="/" className="link likeBtn fullWidth">追加で学生を選ぶ</Link>
             </div>
             </Grid.Col>
         );
