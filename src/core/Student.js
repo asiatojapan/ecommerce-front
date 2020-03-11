@@ -97,7 +97,7 @@ const Student = ({ logout, session, match }: Props) => {
   const [resumeLink, setResumeLink] = useState();
 
 
-  async function createPDF(results) {
+  async function createPDF1(results) {
       await pdf(<Resume studentData={results} />)
         .toBlob()
         // eslint-disable-next-line no-loop-func
@@ -106,6 +106,25 @@ const Student = ({ logout, session, match }: Props) => {
         });
         setLoading(false)
   }
+
+  async function createPDF(results) {
+    await pdf(<Resume studentData={results} />)
+      .toBlob()
+      // eslint-disable-next-line no-loop-func
+      .then(blobProp => {
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) { // for IE
+          window.navigator.msSaveOrOpenBlob(blobProp, "hello");
+        } else { // for Non-IE (chrome, firefox etc.)
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            var csvUrl = URL.createObjectURL(blobProp);
+            setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
+        }
+      });
+      setLoading(false)
+
+}
 
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
