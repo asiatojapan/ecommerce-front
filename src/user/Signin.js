@@ -15,8 +15,8 @@ const mapDispatchToProps = dispatch => ({
       
 const Signin = ({ logout, session }) => {
     const [values, setValues] = useState({
-        email: "2aaddd@a.com",
-        password: "password6",
+        email: "",
+        password: "",
         error: "",
         loading: false,
         redirectToReferrer: false
@@ -78,13 +78,7 @@ const Signin = ({ logout, session }) => {
                                                 type="password"
                                                 className="form-control"
                                                 value={password}
-                                            /></div>  Admin: <br/>
-                                            jiahuilum@gmail.com <br/>
-                                            Password1<br/>
-                                            Unregistered User:<br/>
-                                            tester@a.com<br/>
-                                            password1
-                                          
+                                            /></div> 
                                         <div className="form-footer"><button className="unlikeBtn resumeGradient fullWidth" type="submit"  onClick={clickSubmit}>Login</button>
                                     </div>
                                 </div>

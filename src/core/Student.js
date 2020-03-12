@@ -103,11 +103,6 @@ const Student = ({ logout, session, match }: Props) => {
     if (window.navigator.msSaveOrOpenBlob) {
       return url ? 
       window.navigator.msSaveOrOpenBlob(url, student.studentid + ".pdf") :  null }
-    else {
-      return url? 
-      <a href={url} target="_blank">
-      {alert("hi")}
-    </a> : null }
   };
 
 
@@ -126,7 +121,7 @@ const Student = ({ logout, session, match }: Props) => {
     const createPDFLinkButton = (studentData, trigger) => {
       const url  = resumeLink;
       return url ? 
-        <a href={url} target="_blank">
+        <a href={url} className="link" target="_blank">
           {trigger}
         </a> :  null
     };
@@ -320,12 +315,11 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
-          <button onClick={()=> createPDFLinkButton1()}> Test </button>
-
-
-        {createPDFLinkButton(student,
+    
+          {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
-            )}
+            )} </>}
+    
 
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
