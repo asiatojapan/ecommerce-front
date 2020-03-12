@@ -125,18 +125,9 @@ const Student = ({ logout, session, match }: Props) => {
     if (window.navigator && window.navigator.msSaveOrOpenBlob) {
       const url = blob;
       return url ? 
-      <a className="link" href={url} onCLick={window.navigator.msSaveOrOpenBlob(blob, student.studentid)} target="_self" >
-        {trigger}
-      </a> :  null
-      } else {
-      const url  = resumeLink;
-       return url ? 
-      <a className="link" href={url} target="_self" >
-        {trigger}
-      </a> :  null
-    }
+      window.navigator.msSaveBlob(url, student.studentid + ".pdf") :  null
+      } 
   };
-
 
 
   async function createPDF(results) {
@@ -347,10 +338,13 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
+          <button onClick={()=> createPDFLinkButton1()}> Test </button>
+
+
         {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )}
-        
+
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>}
