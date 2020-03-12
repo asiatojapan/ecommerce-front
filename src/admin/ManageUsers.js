@@ -371,51 +371,35 @@ const ManageUsers = () => {
       Header: '特別',
       accessor: (text) =>
       <div>
-      {text.specialPlan === true ? "O": "X"}
+      {text.specialPlan === true ? <span class="badge bg-green"> O </span> : <span class="badge bg-red"> X </span>}
       </div>,
-      id: "sp"
+      id: "sp",
+      Filter: "",
     },
     {
       Header: 'Role',
-      accessor: "role",
-      id: 'role',
-      sortType: 'basic',
+      accessor: (text) =>
+      <div>
+      {text.role === 0 ? <span class="badge bg-green"> User </span> : text.role === 1 ? <span class="badge bg-blue"> Admin </span> : <span class="badge bg-red">  Unregistered </span> }
+      </div>,
+      id: "role",
+      Filter: "",
     },
     
-    {
-      Header: 'Created At',
-      accessor: (text) =>
-      <div>
-      { moment(text.createdAt).format('YYYY/MM/DD')}
-      </div>,
-      id: 'created_at',
-      sortType: 'basic',
-    },
-    {
-      Header: 'Last Login',
-      accessor: (text) =>
-      <div>
-      { moment(text.last_login_date).format('YYYY/MM/DD')}
-      </div>,
-      id: 'login_at',
-      sortType: 'basic',
-    },
-    {
-      Header: 'Login Count',
-      accessor: 'login_count',
-    },
     {
       Header: 'Phase',
-      accessor: "round",
-      Filter: SelectColumnFilter,
+      accessor: (text) =>
+      <div>
+      {text.round === "Phase I" ? 
+      <span class="badge bg-green"> Phase I </span> : 
+      text.round === "Phase II" ? 
+      <span class="badge bg-blue"> Phase II </span> : 
+      text.round === "Phase III" ? 
+      <span class="badge bg-red">  Phase III </span> :
+      <span class="badge bg-red">  Phase IV </span> }
+      </div>,
+      Filter: "",
     },
-    {
-      Header: '営業担当',
-      Filter: SelectColumnFilter,
-      accessor: "salesrep[0].name"
-    
-    },
-
 
     {
       Header: 'おすすめ',
@@ -437,7 +421,29 @@ const ManageUsers = () => {
       accessor: (text, i) =>
       <div> {text.interviews.filter(x => x.status == "選考").length}</div>
     },
-
+    {
+      Header: 'Created At',
+      accessor: (text) =>
+      <div>
+      { moment(text.createdAt).format('MM-DD-YY')}
+      </div>,
+      id: 'created_at',
+      Filter: "",
+    },
+    {
+      Header: 'Last Login',
+      accessor: (text) =>
+      <div>
+      { moment(text.last_login_date).format('MM-DD-YY')}
+      </div>,
+      id: 'login_at',
+      Filter: "",
+    },
+    {
+      Header: 'Login Count',
+      accessor: 'login_count',
+      Filter: "",
+    },
     {
       Header: "Actions",
       Filter: "",
@@ -450,7 +456,7 @@ const ManageUsers = () => {
       </DropdownButton>
       ,
       filterable : true
-    }
+    },
 ],
 
   []

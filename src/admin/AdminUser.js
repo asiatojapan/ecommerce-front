@@ -118,14 +118,15 @@ const AdminUser = props => {
 
        {
              Header: 'StudentID',
-             accessor: 'studentid',
-             id: 'sid',
-             sortType: 'basic'
+             accessor: "studentid",
+             id: "studentid"
+          
            },
        {
              Header: 'Name',
-             accessor: 'name',
-             id: 'name',
+             accessor: (text, i) => 
+             <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>,
+             id: "name"
            },
            {
                  Header: 'Status',
@@ -256,16 +257,16 @@ const AdminUser = props => {
                          <b>営業担当: </b>{user1.salesrep }<br/>
                          <b>フェーズ: </b>{user1.round} <br/>
                          <b>フェーズメモ: </b>{user1.phase} <br/>
-                         <b>specialPlan: </b>{user1.specialPlan === true ? "true":"false"}<br/>
-                         <b>loginCount: </b>{user1.login_count}<br/>
+                         <b>Special Plan: </b>{user1.specialPlan === true ? "True": "False"}<br/>
+                         <b>LoginCount: </b>{user1.login_count}<br/>
                          
-                      </p> <Button href={`/admin/user/update/${user1._id}`} >Update</Button>
+                      </p> <a href={`/admin/user/update/${user1._id}`} >Update</a>
                     </div>
                   </div>
 
                   <div className="card">
                     <div className="card-body ">
-                    <p>
+                      <p>
                         <b>事業内容: </b> {user1.descriptionSix!== null ? "...": ""}<br/>
                         <b>選考ステップ: </b> {user1.descriptionOne !== null ? "...": ""} <br/>
                          <b>２次面接内容 : </b>{user1.descriptionTwo !== null ? "...": ""} <br/>
@@ -281,29 +282,20 @@ const AdminUser = props => {
                            
                           </Modal.Header>
                           <Modal.Body style={{whiteSpace: "pre-wrap"}}> 
-                             <b>事業内容: </b> {user1.descriptionSix}<br/><br/>
+                        <b>事業内容: </b> {user1.descriptionSix}<br/><br/>
                         <b>選考ステップ: </b> {user1.descriptionOne} <br/><br/>
                          <b>２次面接内容 : </b>{user1.descriptionTwo} <br/><br/>
                          <b>フェーズ: </b>{user1.descriptionThree} <br/><br/>
                          <b>最終面接内容: </b>{user1.descriptionFour} <br/><br/>
                          <b>参考: </b>{user1.descriptionFive} <br/><br/>
-                     </Modal.Body>
+                       </Modal.Body>
                           <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
                               Close
                             </Button>
                           </Modal.Footer>
                         </Modal>
-                    
                     </div>
-                  </div>
-
-
-                  <div className="card">
-                    <div className="card-body ">
-                      <h2 className="mb-3">Orders</h2>
-                      
-                          </div>
                   </div>
                   </Grid.Col>
      
