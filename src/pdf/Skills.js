@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 const SkillEntry = ({ name, skills }) => (
    <View style={styles.item}>
       {skills.map((skill, i) => (
-        <Text style={styles.itemContent} key={i} break>{_.trim(skill)}, </Text>
+        <Text style={styles.itemContent} key={i} break>{_.trim(skill)} </Text>
       ))}
   </View>
 );
@@ -47,7 +47,7 @@ export default props => {
   const { studentData } = props;
   return(
     <View>
-    {studentData.it_skills.length > 0 ?<Title>Skills</Title> : null }
+    {studentData.it_skills.length > 0 ? <Title>Skills</Title> : null }
     <SkillEntry
       name="IT Skills"
       skills={studentData.it_skills}
