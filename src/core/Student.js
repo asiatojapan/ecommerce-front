@@ -62,7 +62,7 @@ const Student = ({ logout, session, match }: Props) => {
                 setError(data.error);
             } else {
                 setStudent(data);
-                console.log(data)
+                // console.log(data)
                 createPDF(data)
                 listRelated(data._id, darwin_myTk).then(data => {
                   if (data.error) {
@@ -98,35 +98,16 @@ const Student = ({ logout, session, match }: Props) => {
   const [resumeLink, setResumeLink] = useState();
 
 
-  async function createPDF1(results) {
-      await pdf(<Resume studentData={results} />)
-        .toBlob()
-        // eslint-disable-next-line no-loop-func
-        .then(blobProp => {
-          setBlob(blobProp)
-          setResumeLink(URL.createObjectURL(blobProp, {type: "application/pdf"}));
-          setLoading(false)
-        });
-  }
-
-  function downloadFile(url, filename) {
-      if (window.navigator.msSaveBlob) {
-        pdf(<Resume studentData={student} />)
-        .toBlob()
-        // eslint-disable-next-line no-loop-func
-        .then(blobProp => {
-          window.navigator.msSaveBlob(blobProp, student.studentid + ".pdf");
-        });
-      }
-    
-  }
-
   const createPDFLinkButton1 = (studentData, trigger) => {
-    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-      const url = blob;
+    const url = blob;
+    if (window.navigator.msSaveOrOpenBlob) {
       return url ? 
-      window.navigator.msSaveBlob(url, student.studentid + ".pdf") :  null
-      } 
+      window.navigator.msSaveOrOpenBlob(url, student.studentid + ".pdf") :  null }
+    else {
+      return url? 
+      <a href={url} target="_blank">
+      {alert("hi")}
+    </a> : null }
   };
 
 
@@ -135,6 +116,7 @@ const Student = ({ logout, session, match }: Props) => {
       .toBlob()
       // eslint-disable-next-line no-loop-func
       .then(blobProp => {
+        setBlob(blobProp)
         setResumeLink(URL.createObjectURL(blobProp));
         setLoading(false)
       });
