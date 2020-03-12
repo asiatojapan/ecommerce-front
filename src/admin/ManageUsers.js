@@ -368,16 +368,16 @@ const ManageUsers = () => {
       sortType: 'basic',
     },
     {
-      Header: 'Special',
-      accessor: 'specialPlan',
-      id: 'specialPlan'
+      Header: '特別',
+      accessor: (text) =>
+      <div>
+      {text.specialPlan === true ? "O": "X"}
+      </div>,
+      id: "sp"
     },
     {
       Header: 'Role',
-      accessor: (text) =>
-      <div>
-      {text.role === 1 ? "Admin" : "User"}
-      </div>,
+      accessor: "role",
       id: 'role',
       sortType: 'basic',
     },

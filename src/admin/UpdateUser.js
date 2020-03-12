@@ -148,13 +148,12 @@ const UpdateUser = ({ match, history }) => {
                 <input onChange={handleChange('email')} type="text" class="form-control" value={email} />
               </div>
               <div class="mb-2">
-                  <div class="form-label">営業担当</div>
-                  <select placeholder="営業" onChange={handleChange("sales_rep")} value={sales_rep} class="form-control">
-                    {users && users.map((c, i) => (
-                        <option key={i} value={c._id}>
-                              {c.name}
-                        </option>))}
-                    </select>
+              <div class="form-label">Special Plan</div>
+              <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
+              <option value=""> Select </option>
+              <option value="true"> True </option>
+              <option value="false"> False </option>
+                </select>
                 </div>
               <div class="mb-2">
                   <div class="form-label">Role</div>
@@ -167,14 +166,7 @@ const UpdateUser = ({ match, history }) => {
                   </div>
             </div>
 
-            <div class="mb-3">
-              <div class="form-label">Special Plan</div>
-              <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
-              <option value=""> Select </option>
-              <option value="true"> True </option>
-              <option value="false"> False </option>
-                </select>
-          </div>
+             
 
 
 

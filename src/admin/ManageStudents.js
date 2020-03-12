@@ -378,14 +378,6 @@ const ManageStudent = () => {
       filter: 'includes'
     },
     {
-      Header: 'FYP',
-      accessor: 'upload_fyp',
-      id: 'upload_fyp',
-      sortType: 'basic',
-      Filter: SelectColumnFilter,
-      filter: 'includes'
-    },
-    {
       Header: '国籍',
       accessor: 'country',
       id: 'country',
