@@ -5,6 +5,8 @@ import { Icon } from "tabler-react";
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
 
+import { Event } from "../utils/GoogleAnalytics";
+
 const mapStateToProps = ({ session }) => ({
   session
 });
@@ -42,7 +44,8 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
     <div className="list-TextItem">
 
     <div style={{margin: "10px   0px"}}>
-    <a className="list-TextNoteTitle" href={`/student/${student._id}`} target="_blank">   {student.comments == null?  "" : student.comments.substring(0,60) + "..." } </a>
+    <a className="list-TextNoteTitle" href={`/student/${student._id}`} target="_blank" onClick={()=> 
+       Event("PRODUCT", "Product added to cart", "PRODUCT_PAGE")}>   {student.comments == null?  "" : student.comments.substring(0,60) + "..." } </a>
     </div>
 
     <div className="list-Desc">

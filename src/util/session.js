@@ -49,16 +49,19 @@ export const checkLoggedIn = async () => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`
         },
-      });
-      const user  = await response.json();
-      let preloadedState = {};
-      if (user) {
-        preloadedState = {
-          session: user
-        };
+      })
+      try {
+        let user = await response.json();
+        let preloadedState = {};
+          if (user) {
+            preloadedState = {
+              session: user
+            }}
+          // console.log(preloadedState)
+          return preloadedState;
+      } catch(err) {
+        localStorage.removeItem('darwin_uid');
+        localStorage.removeItem('darwin_myTk');
       }
-      // console.log(preloadedState)
-      return preloadedState;
-      ;
   }
 };
