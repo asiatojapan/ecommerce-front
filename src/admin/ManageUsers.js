@@ -422,6 +422,13 @@ const ManageUsers = () => {
       <div> {text.interviews.filter(x => x.status == "選考").length}</div>
     },
     {
+      Header: '担当',
+      accessor: 'salesRep[0].name',
+      Filter: SelectColumnFilter,
+      id: "tantou",
+
+    },
+    {
       Header: 'Created At',
       accessor: (text) =>
       <div>
@@ -439,6 +446,7 @@ const ManageUsers = () => {
       id: 'login_at',
       Filter: "",
     },
+  
     {
       Header: 'Login Count',
       accessor: 'login_count',

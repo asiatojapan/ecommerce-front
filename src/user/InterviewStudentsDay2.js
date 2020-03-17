@@ -12,7 +12,7 @@ import SiteWrapper from '../templates/SiteWrapper'
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { logout } from "../actions/session";
-
+import _ from 'lodash';
 const mapStateToProps = ({ session }) => ({
   session
   });
@@ -100,6 +100,15 @@ const InterviewStudents = ({ logout, session }) => {
         </SiteWrapper>
       );
 
+      var result = _.flatMap(interviews, function (interview) { 
+        return _.map(interview.interviewItems, function (item) { 
+            return { interview: interview, ...item  };
+        });
+    });
+
+      const arr = _.sortBy(result, "time")
+
+
     return (
       <>
       {session.round === "Phase II" || session.round === "Phase II" ? noItemsMessage(): 
@@ -107,15 +116,15 @@ const InterviewStudents = ({ logout, session }) => {
       <div class="loading" style={{ display: loading ? "" : "none" }}>
           <div class="loaderSpin"></div>
       </div>
-      {interviews.map((interview,i) => <div>
-        { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
-          <div> 
-          { item.time_period === "2日"　?
-          <div class="mt-6">
-            <InterviewItemByDay key={i}item={item} interview={interview} resumeLoading={resumeLoading}/></div>
-            : "" }
-          </div>
-        ) : ""} </div> )}
+      {arr.map((item, i)=> 
+     <div>
+        { item.time_period === "2日"　?
+         <div class="mt-6">
+    <InterviewItemByDay key={i} item={item} interview={item.interview} />
+      </div> : null }
+      </div>
+     )}
+       
       </InterviewNav>
         }</>
     

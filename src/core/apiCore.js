@@ -171,6 +171,7 @@ export const getGroupInterviewList = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+
 export const getGroupInterviewPerson = (studentId, userId) => {
     return fetch(`${API}/interviews/group/${userId}/${studentId}`, {
         method: "GET"
@@ -320,6 +321,7 @@ export const updateInterviewItem = (interviewId, interviewItemId, userId, token,
       interviewItemId,
       interview
   };
+  console.log(data)
     return fetch(`${API}/interviewitem/${interviewId}/${userId}`, {
         method: 'PUT',
         headers: {

@@ -68,7 +68,7 @@ const AdminUser = props => {
                 setError(data.error);
             } else {
                 setUser1(data);
-                console.log(data)
+               //  console.log(data)
             }
         });
     };

@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { logout } from "../actions/session";
 import InterviewSchedule from "../pdf/interview/InterviewSchedule"
+import _ from 'lodash';
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -61,40 +62,9 @@ const InterviewStudents = ({ logout, session }) => {
     const [resumeLoading, setResumeLoading] = useState(true);
   
 
-    async function createPDF(results) {
-      const interviewDataArrPDF = [];
-      let j = 0;
-  
-      while (j < results.length) {
-        // eslint-disable-next-line no-await-in-loop
-        await pdf(<InterviewSchedule interviewData={results[j]} timePeriod="1日" />)
-          .toBlob()
-          // eslint-disable-next-line no-loop-func
-          .then(blobProp => {
-            interviewDataArrPDF.push({
-              ...results[j],
-              url: URL.createObjectURL(blobProp),
-            });
-          });
-  
-        j += 1;
-      }
-      setInterviews(interviewDataArrPDF)
-      setResumeLoading(false)
-    }
-    const createPDFLinkButton = (studentData, trigger) => {
-      const { url } = studentData;
-  
-      return url ? 
-        <a href={url} target="_blank">
-          {trigger}
-        </a> :  null
-    };
-
       useEffect(() => {
             loadInterviews();
       }, []);
-
 
         const noItemsMessage = () => (
           <SiteWrapper>
@@ -110,6 +80,14 @@ const InterviewStudents = ({ logout, session }) => {
         </SiteWrapper>
       );
 
+      var result = _.flatMap(interviews, function (interview) { 
+        return _.map(interview.interviewItems, function (item) { 
+            return { interview: interview, ...item  };
+        });
+    });
+
+      const arr = _.sortBy(result, "time")
+
     return (
       <>
       {session.round === "Phase II" || session.round === "Phase II" ? noItemsMessage(): 
@@ -118,20 +96,17 @@ const InterviewStudents = ({ logout, session }) => {
           <div class="loaderSpin"></div>
       </div>
       <div>
-          {createPDFLinkButton(
-            interviews,
-           <button type="button">Interview Schedule for </button>
-              )}
-            </div>
-      {interviews.map((interview,i) => <div>    
-        { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
-          <div> 
-          { item.time_period === "1日"　?
-          <div class="mt-6">
-            <InterviewItemByDay key={i}item={item} interview={interview} resumeLoading={resumeLoading}/></div>
-            : "" }
-          </div>
-        ) : ""} </div> )}
+     </div>
+     {arr.map((item, i)=> 
+     <div>
+        { item.time_period === "1日"　?
+         <div class="mt-6">
+    <InterviewItemByDay key={i} item={item} interview={item.interview} />
+      </div> : null }
+      </div>
+     )}
+       
+ 
       </InterviewNav>
         }</>
     

@@ -4,13 +4,10 @@ import UpdateInterviewItem from "../user/UpdateInterviewItem";
 import "../styles.css";
 
 const InterviewItem = ({item, interview}) => {
-
-
     return (
       <div className="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
         <div className="col-3 col-md-3 ml-5">
-          {item.time_period} 
-              <h3> {item.time}</h3>
+       <span style={{fontSize: "24px"}}> {item.time} ({item.time_period})</span>
        </div>
         <div className="col-md-6 text-right">
 

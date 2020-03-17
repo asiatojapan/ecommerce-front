@@ -212,9 +212,14 @@ export const getUsers = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const getSalesRep = () => {
-    return fetch(`${API}/users/salesrep`, {
-        method: 'GET'
+export const getSalesRep = (userId,token) => {
+    return fetch(`${API}/users/salesrep/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();

@@ -22,15 +22,15 @@ const InterviewItemByDay = ({item, interview, resumeLoading}) => {
       <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
         <div class="d-flex justify-content-between align-items-center"> 
         <img src={interview.student.videoImg} alt="img" style={{height: "140px", marginRight: "1rem"}}/> 
+        <h3>{item.time}</h3> 
         <div class="ml-3">
         <div>
         {interview.student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <span style={{color: "#659c2d"}}> 来日決定 </span> </div>　: ""} 
-  
         <Link to={`/interview/student/${interview.student._id}`} target="_blank"  style={{fontSize: "16px"}} className="link" >
-                            <b> {interview.student.studentid} </b> {interview.student.name} </Link>
+          <b> {interview.student.studentid} </b> {interview.student.name} </Link>
         <div style={{marginBottom: "0px"}}>
           <div>
-          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "male" ? "男性": "女性"}・{_calculateAge(interview.student.dob)}
+          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "Male" ? "男性": "女性"}・{_calculateAge(interview.student.dob)}
           </div>
           <div>
           <Icon prefix="fe" name="globe" /> <strong>国籍・地域: </strong>{interview.student.country}

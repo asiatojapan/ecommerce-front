@@ -775,3 +775,10 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
 .fixedWidth {
   width: 150px
 }
+
+.unlikeBtn:disabled {
+    opacity: .65;
+    color: #fff;
+    background-color: #3697ff;
+    border-color: #3697ff;
+}

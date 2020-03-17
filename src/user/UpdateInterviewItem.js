@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import {
   Form,
 } from "tabler-react";
+import { japanese } from '../core/japanese';
 
 const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) => {
 
@@ -33,7 +34,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
+    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, redirectToProfile} = values;
 
     const init = interviewId => {
       getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -44,7 +45,10 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 setValues({ ...values, studentname: data.student.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
-                  time_period: interviewItems[0].time_period,
+                  time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
+                  skill_match: interviewItems[0].skill_match,
+                  character_match: interviewItems[0].character_match,
+                  company_form: interviewItems[0].company_form
                  });
             }
         });
@@ -62,7 +66,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const onSubmit = data => { console.log(data) }
 
     const clickSubmit = e => {
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -87,6 +91,31 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         });
     };
 
+    const clickSave = e => {
+      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
+          if (data.error) {
+              // console.log(data.error);
+              alert(data.error);
+          } else {
+            setValues({
+                ...values,
+                company: data.company,
+                student: data.student,
+                name: data.name,
+                time: data.time,
+                phase: data.phase,
+                result: data.result,
+                category: data.category,
+                time_period: data.time_period,
+                japanese_level: data.japanese_level,
+                character_match: data.character_match,
+                skill_match: data.skill_match,
+                success: true,
+                redirectToProfile: true
+            });
+          }
+      });
+  };
 
     const [show, setShow] = useState(false);
 
@@ -104,11 +133,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
       <div>
-      <button className="resumeGradient unlikeBtn smaller" onClick={handleShow}>
-       評価をメモする
-     </button>
+        {company_form ? <button className="resumeGradient unlikeBtn smaller" disabled onClick={handleShow}>
+       評価済み
+     </button>: <button className="resumeGradient unlikeBtn smaller"  onClick={handleShow}>
+       評価をメモする 
+     </button>}
           <Modal show={show} onHide={handleClose}>
-                 <form onSubmit={handleSubmit(clickSubmit)}>
                    <Modal.Body closeButton>
                    <div class="container">
                        <h3 class="text-center mt-5 mb-5">How was your interview with <br/>
@@ -117,104 +147,50 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                         <input style={{display: 'none' }} onChange={handleChange('japanese_level')} value={japanese_level}
                           name="japaneseVali"
                           ref={register({ required: true, maxLength: 10 })}
-                        />
-                        <Form.Group label="日本語力"> {errors.japaneseVali && <div class="text-red">This field is required</div>}
-                          <Form.SelectGroup pills onChange={handleChange('japanese_level')} name="japanese">
-                            <Form.SelectGroupItem
-                              label="1"
-                              name="japanese"
-                              value="1"
-                            />
-                            <Form.SelectGroupItem
-                            label="2"
-                            name="japanese"
-                              value="2"
-                            />
-                            <Form.SelectGroupItem
-                            label="3"
-                            name="japanese"
-                              value="3"
-                            />
-                            <Form.SelectGroupItem
-                            label="4"
-                            name="japanese"
-                              value="4"
-                            />
-                            <Form.SelectGroupItem
-                            label="5"
-                            name="japanese"
-                              value="5"
-                            />
-                          </Form.SelectGroup>
-                        </Form.Group>
+                        />{errors.japaneseVali && <div class="text-red">This field is required</div>}
+                              <div class="mb-2">
+                              <div class="form-label">日本語力</div>
+                              <select placeholder="Role" onChange={handleChange("japanese_level")} value={japanese_level}  class="form-control">
+                              <option value=""> Select </option>
+                              <option value="1"> 1 </option>
+                              <option value="2"> 2 </option>
+                              <option value="3"> 3 </option>
+                              <option value="4"> 4 </option>
+                              <option value="5"> 5 </option>
+                              </select>
+                              </div>
 
-                        <Form.Group label="Skill Match">{errors.skillVali && <div class="text-red">This field is required</div>}
-                          <Form.SelectGroup pills  onChange={handleChange('skill_match')}>
-                            <Form.SelectGroupItem
-                              label="1"
-                              name="skill"
-                              value="1"
-                            />
-                            <Form.SelectGroupItem
-                            label="2"
-                            name="skill"
-                              value="2"
-                            />
-                            <Form.SelectGroupItem
-                            label="3"
-                            name="skill"
-                              value="3"
-                            />
-                            <Form.SelectGroupItem
-                            label="4"
-                            name="skill"
-                              value="4"
-                            />
-                            <Form.SelectGroupItem
-                            label="5"
-                            name="skill"
-                              value="5"
-                            />
-                          </Form.SelectGroup>
-                        </Form.Group>
-                        <input style={{display: 'none' }} onChange={handleChange('skill_match')} value={skill_match}
+                              <input style={{display: 'none' }} onChange={handleChange('skill_match')} value={skill_match}
                           name="skillVali"
                           ref={register({ required: true, maxLength: 10 })}
-                        />
+                        />{errors.skillVali && <div class="text-red">This field is required</div>}
+                              <div class="mb-2">
+                              <div class="form-label">Skill Match</div>
+                              <select placeholder="Role" onChange={handleChange("skill_match")} value={skill_match}  class="form-control">
+                              <option value=""> Select </option>
+                              <option value="1"> 1 </option>
+                              <option value="2"> 2 </option>
+                              <option value="3"> 3 </option>
+                              <option value="4"> 4 </option>
+                              <option value="5"> 5 </option>
+                              </select>
+                              </div>
 
-                        <Form.Group label="Character Match"> {errors.characterVali && <div class="text-red">This field is required</div>}
-                          <Form.SelectGroup pills onChange={handleChange('character_match')}>
-                            <Form.SelectGroupItem
-                              label="1"
-                              name="character"
-                              value="1"
-                            />
-                            <Form.SelectGroupItem
-                            label="2"
-                            name="character"
-                              value="2"
-                            />
-                            <Form.SelectGroupItem
-                            label="3"
-                            name="character"
-                              value="3"
-                            />
-                            <Form.SelectGroupItem
-                            label="4"
-                            name="character"
-                              value="4"
-                            />
-                            <Form.SelectGroupItem
-                            label="5"
-                            name="character"
-                              value="5"
-                            />
-                          </Form.SelectGroup>
-                        </Form.Group>
-                        <input style={{display: 'none' }} onChange={handleChange('character_match')} value={character_match}
+                              <input style={{display: 'none' }} onChange={handleChange('character_match')} value={character_match}
                           name="characterVali"
                           ref={register({ required: true, maxLength: 10 })}
-                        />
+                        />{errors.characterVali && <div class="text-red">This field is required</div>}
+                              <div class="mb-2">
+                              <div class="form-label">Character Match</div>
+                              <select placeholder="Role" onChange={handleChange("character_match")} value={character_match}  class="form-control">
+                              <option value=""> Select </option>
+                              <option value="1"> 1 </option>
+                              <option value="2"> 2 </option>
+                              <option value="3"> 3 </option>
+                              <option value="4"> 4 </option>
+                              <option value="5"> 5 </option>
+                              </select>
+                              </div>
 
                         <Form.Group label="合否">   {errors.resultVali && <div class="text-red">This field is required</div>}
                           <Form.SelectGroup onChange={handleChange('result')}>
@@ -244,9 +220,9 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                         </div>
                       </Modal.Body>
                       <Modal.Footer>
-                  <input type="submit" className="btn btn-primary btn-block"/>
+                        <button onClick={handleSubmit(clickSave)} className="likeBtn smaller">一時保存する</button>
+                        <button onClick={handleSubmit(clickSubmit)} className="resumeGradient  unlikeBtn smaller">評価を確定する</button>
               </Modal.Footer>
-              </form>
             </Modal>
             </div>
     );
