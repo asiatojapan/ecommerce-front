@@ -28,7 +28,7 @@ const CardStudent = ({interview, student, i}) => {
       <Link to={`/interview/student/${interview.student._id}`} target="_blank" className="link"  style={{fontSize: "16px"}}>
         <b> {interview.student.studentid} </b> {interview.student.name} </Link>
       
-    <div style={{marginBottom: "0px"}}>
+     <div style={{marginBottom: "0px"}}>
         <div>
         <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{_calculateAge(student.dob)}
         </div>

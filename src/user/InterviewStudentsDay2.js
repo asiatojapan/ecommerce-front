@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { logout } from "../actions/session";
 import _ from 'lodash';
+
 const mapStateToProps = ({ session }) => ({
   session
   });

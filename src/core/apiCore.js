@@ -251,14 +251,15 @@ export const createFav = (studentId, userId, token) => {
 };
 
 
-export const destroyFav = (studentId, user, token) => {
+export const destroyFav = (studentId, userId, token) => {
   return fetch(`${API}/student/${studentId}/favorites`,  {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
-        }
+        },
+        body: JSON.stringify({ _id: userId})
     })
         .then(response => {
             return response.json();
