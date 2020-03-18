@@ -36,8 +36,7 @@ const CheckoutPreview = ({ logout, session }) => {
 
     useEffect(() => {
         init();
-        console.log(run)
-    }, [true]);
+    }, [run]);
 
     const showItems = items => {
         return (

@@ -23,7 +23,7 @@ const CardCheckout = ({student, indivRank,rank,
           onClick={() => {
             destroyFav(student._id, darwin_uid, darwin_myTk);
             setRun(!run);
-            console.log(run)
+            // console.log(run)
             setLoading(!loading);
             // run useEffect in parent Cart
           }}
