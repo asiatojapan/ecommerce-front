@@ -12,6 +12,7 @@ const renderApp = preloadedState => {
   const store = configureStore(preloadedState);
   window.state = store.getState;
 
+
   ReactDOM.render(
     <Provider store={store}>
         <Routes />

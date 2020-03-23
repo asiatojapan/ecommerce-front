@@ -32,6 +32,11 @@ import GA from './utils/GoogleAnalytics'
 import ForgotPassword from "./user/ForgotPassword"
 import ResetPassword from "./user/ResetPassword";
 import { createBrowserHistory } from 'history';
+import Mugicha from "./mugicha/Home"
+import MugichaCompany from "./mugicha/Company"
+import MugichaStudent from "./mugicha/Student"
+import MugichaInterview from "./mugicha/Interview"
+
 const history = createBrowserHistory();
 
 document.body.style.backgroundColor = "#fff";
@@ -68,6 +73,11 @@ const Routes = () => {
     <PrivateRoute path="/checkout" exact component={Checkout}/>
     <PrivateRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
+    <AdminRoute path="/mugicha" exact component={Mugicha} />
+    <AdminRoute path="/mugicha/company/:userId" exact component={MugichaCompany} />
+    <AdminRoute path="/mugicha/student/:studentId" exact component={MugichaStudent} />
+    <AdminRoute path="/mugicha/interview/:interviewId" exact component={MugichaInterview} />
+   
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/admin/create/user" exact component={AddUser} />

@@ -68,15 +68,6 @@ const Checkout = ({ logout, session })=> {
         });
     };
 
-    const changePhase = () => {
-            var data = window.localStorage.getItem('jwt');
-            if (data != null) {
-                let jwt= JSON.parse(data);
-                jwt.user.round = "Phase II";
-                window.localStorage.setItem('jwt', JSON.stringify(jwt));
-                console.log(jwt.user)
-            } 
-    }
 
     const offer = () => {
         if (items.length > 11 ) {

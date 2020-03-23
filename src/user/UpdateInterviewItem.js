@@ -27,6 +27,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         japanese_level: "",
         skill_match: "",
         character_match: "",
+        companyComment: "", 
         error: false,
         success: false,
         redirectToProfile: false,
@@ -34,7 +35,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, redirectToProfile} = values;
+    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, companyComment, redirectToProfile} = values;
 
     const init = interviewId => {
       getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -48,6 +49,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
                   skill_match: interviewItems[0].skill_match,
                   character_match: interviewItems[0].character_match,
+                  companyComment: interviewItems[0].companyComment,
                   company_form: interviewItems[0].company_form
                  });
             }
@@ -62,11 +64,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         setValues({ ...values, error: false, [name]: e.target.value });
     };
 
-
-    const onSubmit = data => { console.log(data) }
-
     const clickSubmit = e => {
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -84,6 +83,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                   japanese_level: data.japanese_level,
                   character_match: data.character_match,
                   skill_match: data.skill_match,
+                  companyComment: data.companyComment,
                   success: true,
                   redirectToProfile: true
               });
@@ -92,7 +92,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSave = e => {
-      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
+      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment }).then(data => {
           if (data.error) {
               // console.log(data.error);
               alert(data.error);
@@ -131,7 +131,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 }
             };
 
-    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
+    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, companyComment) => (
       <div>
         {company_form ? <button className="resumeGradient unlikeBtn smaller" disabled onClick={handleShow}>
        評価済み
@@ -144,12 +144,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                        <h3 class="text-center mt-5 mb-5">How was your interview with <br/>
                        <strong> {studentname} </strong>? </h3>
                        <hr />
-                        <input style={{display: 'none' }} onChange={handleChange('japanese_level')} value={japanese_level}
+                              <div class="mb-2">
+                              <div class="form-label">日本語力</div>
+                              <input style={{display: 'none' }} onChange={handleChange('japanese_level')} value={japanese_level}
                           name="japaneseVali"
                           ref={register({ required: true, maxLength: 10 })}
                         />{errors.japaneseVali && <div class="text-red">This field is required</div>}
-                              <div class="mb-2">
-                              <div class="form-label">日本語力</div>
                               <select placeholder="Role" onChange={handleChange("japanese_level")} value={japanese_level}  class="form-control">
                               <option value=""> Select </option>
                               <option value="1"> 1 </option>
@@ -160,12 +160,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                               </select>
                               </div>
 
+                              <div class="mb-2">
+                              <div class="form-label">Skill Match</div>
                               <input style={{display: 'none' }} onChange={handleChange('skill_match')} value={skill_match}
                           name="skillVali"
                           ref={register({ required: true, maxLength: 10 })}
                         />{errors.skillVali && <div class="text-red">This field is required</div>}
-                              <div class="mb-2">
-                              <div class="form-label">Skill Match</div>
                               <select placeholder="Role" onChange={handleChange("skill_match")} value={skill_match}  class="form-control">
                               <option value=""> Select </option>
                               <option value="1"> 1 </option>
@@ -176,12 +176,13 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                               </select>
                               </div>
 
+                             
+                              <div class="mb-2">
+                              <div class="form-label">Character Match</div>
                               <input style={{display: 'none' }} onChange={handleChange('character_match')} value={character_match}
                           name="characterVali"
                           ref={register({ required: true, maxLength: 10 })}
                         />{errors.characterVali && <div class="text-red">This field is required</div>}
-                              <div class="mb-2">
-                              <div class="form-label">Character Match</div>
                               <select placeholder="Role" onChange={handleChange("character_match")} value={character_match}  class="form-control">
                               <option value=""> Select </option>
                               <option value="1"> 1 </option>
@@ -192,7 +193,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                               </select>
                               </div>
 
-                        <Form.Group label="合否">   {errors.resultVali && <div class="text-red">This field is required</div>}
+                        <Form.Group label="合否">    <input style={{display: 'none' }} onChange={handleChange('result')} value={result}
+                          name="resultVali"
+                          ref={register({ required: true, maxLength: 10 })}
+                        />
+
+{errors.resultVali && <div class="text-red">This field is required</div>}
                           <Form.SelectGroup onChange={handleChange('result')}>
                             <Form.SelectGroupItem
                               icon="x"
@@ -212,10 +218,10 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                           </Form.SelectGroup>
                         </Form.Group>
 
-                        <input style={{display: 'none' }} onChange={handleChange('result')} value={result}
-                          name="resultVali"
-                          ref={register({ required: true, maxLength: 10 })}
-                        />
+                              <div class="mb-2">
+                                <label class="form-label">コメント</label>
+                                <textarea  onChange={handleChange('companyComment')} type="text" class="form-control" value={companyComment} />
+                              </div>
 
                         </div>
                       </Modal.Body>
@@ -229,7 +235,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     return (
       <span>
-          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match)}
+          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment)}
           {redirectUser()}
       </span>
     );

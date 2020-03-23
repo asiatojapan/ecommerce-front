@@ -12,7 +12,7 @@ const CardCheckout = ({student, indivRank,rank,
   showRankOutcomeButton = false,
   setRun = f => f,
   run = undefined,
-  setLoading = f => f, loading = undefined }) => {
+  setLoading = f => f, loading = undefined, passedFunction }) => {
 
   const { darwin_myTk, darwin_uid } = isAuthenticates();
 
@@ -26,6 +26,21 @@ const CardCheckout = ({student, indivRank,rank,
             // console.log(run)
             setLoading(!loading);
             // run useEffect in parent Cart
+          }}
+          className="close"
+        >
+        </span>
+      )
+    );
+  }
+
+  const showRemoveButton1 = showRemoveItemButton => {
+    return (
+      showRemoveItemButton && (
+        <span
+          onClick={() => {
+            setLoading(true)
+            passedFunction(student._id);
           }}
           className="close"
         >
@@ -87,7 +102,8 @@ const CardCheckout = ({student, indivRank,rank,
 
   return (
      <div className="list-list" style={{padding: "0 10px 0 0", border: "1px solid #eee"}} >
-         {showRemoveButton(showRemoveItemButton)}
+      
+         {showRemoveButton1(showRemoveItemButton)}
          <div className="d-flex flex-column">
     <div className="d-flex align-items-center mt-auto"> 
     <img src={student.videoImg} style={{height: "100px", marginRight: "1rem"}}/> 

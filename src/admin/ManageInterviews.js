@@ -477,6 +477,16 @@ const columns = React.useMemo(
     accessor: "studentStatus",
     Filter: SelectColumnFilter,
     },
+    {
+      Header: 'Rank',
+      accessor: "companyRank",
+      Filter: SelectColumnFilter,
+      },
+      {
+        Header: 'Rate',
+        accessor: "companyRate",
+        Filter: SelectColumnFilter,
+        },
     { 
       Header: 'Interview',
       Filter: "",

@@ -1,0 +1,57 @@
+import { API } from "../config";
+import queryString from "query-string";
+
+export const list = params => {
+    const query = queryString.stringify(params);
+    console.log("query", query);
+    return fetch(`${API}/interviews/by/search?${query}`, {
+        method: "GET"
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+export const readStudentInterview = (studentId, token) => {
+    return fetch(`${API}/interviews/students/group/${studentId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const readInterview = (interviewId, userId, token) => {
+    return fetch(`${API}/interview/${interviewId}/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const readInterviewItem = (interviewId, interviewItemId, userId, token) => {
+    return fetch(`${API}/interview/${interviewId}/${interviewItemId}/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

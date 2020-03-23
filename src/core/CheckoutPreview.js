@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { isAuthenticated, isAuthenticates } from "../auth";
 import SiteWrapper from '../templates/SiteWrapper';
 import CardCheckout from "./CardCheckout"
-import { getFavStudents } from "./apiCore";
+import { getFavStudents, destroyFav } from "./apiCore";
 import {
     Grid,
     Container
@@ -22,7 +22,8 @@ logout: () => dispatch(logout())
   
 const CheckoutPreview = ({ logout, session }) => {
     const [items, setItems] = useState([]);
-    const [run, setRun] = useState(true);
+    const [items1, setItems1] = useState([]);
+    const [run, setRun] = useState(false);
     const [loading, setLoading] = useState(true)
 
     const { darwin_myTk, darwin_uid } = isAuthenticates();
@@ -30,13 +31,24 @@ const CheckoutPreview = ({ logout, session }) => {
     const init = () => {
         getFavStudents(darwin_uid, darwin_myTk).then(data => {
             setLoading(false)
-            setItems(data);
+            setItems(data)
+        });
+    };
+
+    const destroy = s => {
+        destroyFav(s, darwin_uid, darwin_myTk).then(data => {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                init();
+            }
+            setLoading(false)
         });
     };
 
     useEffect(() => {
-        init();
-    }, [run]);
+        init(); 
+    }, []);
 
     const showItems = items => {
         return (
@@ -46,8 +58,9 @@ const CheckoutPreview = ({ logout, session }) => {
                 <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>{`${items.length}`}</span>名</h2>
                 <hr />
                 {items.map((s, index) => 
-                    <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading}/>
-                )} 
+                   <> <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading} passedFunction={destroy}/>
+                  </>
+                  )} 
                 <Link to="/" className="link likeBtn fullWidth">追加で学生を選ぶ</Link>
             </div>
             </Grid.Col>
@@ -120,7 +133,7 @@ const CheckoutPreview = ({ logout, session }) => {
                     <div className="loaderSpin"></div>
                 </div>
             <div className="my-3 my-md-5"></div>
-                    <div className="my-3 my-md-5"></div>
+                    <div className="my-3 my-md-5"></div>   
                     <Container>
               {session.round === "Phase I" ? phaseI() : phaseElse() }
             </Container>
