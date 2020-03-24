@@ -36,6 +36,7 @@ import Mugicha from "./mugicha/Home"
 import MugichaCompany from "./mugicha/Company"
 import MugichaStudent from "./mugicha/Student"
 import MugichaInterview from "./mugicha/Interview"
+import MugichaCompanies from "./mugicha/Companies"
 
 const history = createBrowserHistory();
 
@@ -77,6 +78,7 @@ const Routes = () => {
     <AdminRoute path="/mugicha/company/:userId" exact component={MugichaCompany} />
     <AdminRoute path="/mugicha/student/:studentId" exact component={MugichaStudent} />
     <AdminRoute path="/mugicha/interview/:interviewId" exact component={MugichaInterview} />
+    <AdminRoute path="/mugicha/companies" exact component={MugichaCompanies} />
    
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />

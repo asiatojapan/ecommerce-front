@@ -32,48 +32,75 @@ const Interview = ({ match }) => {
         loadInterviews();
     }, []);
     
+    const listBreadCrumbs = () => {
+        return (
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/mugicha">Home</a></li>
+              <li class="breadcrumb-item"><a href={'/mugicha/student/' + studentData._id}> {studentData.studentid} {studentData.name} </a></li>
+              <li class="breadcrumb-item active" aria-current="page"> {companyData.name}</li>
+            </ol>
+          </nav>
+        );
+    };
+
     return (
         <>  
           <NavMugicha>
-          <div class="card">
-          <div class="card-body">
-          <Link to={`/student/${studentData._id}`} target="_blank" >  {studentData.studentid} {studentData.name} </Link> 
-           </div>
+        {listBreadCrumbs()}
+        
+          <div class="alert alert-primary clearfix">{companyData.name}
+           <h4 style={{marginBottom: "0"}}>{studentData.studentid} {studentData.name} </h4>   
+         <br/>
+        <Link to={`/student/${studentData._id}`} target="_blank" class="btn btn-google">  Profile </Link> 
+        <a href={studentData.video} target="_blank" class="btn btn-vimeo">  Vimeo </a> 
             </div>
+
+            <div class="card">
+            <div class="card-body">
+               <p> Company Rank: {interview.companyRank} 　<br/>
+                Company Rate: {interview.companyRate} 　<br/>
+                Company Reason: {interview.reason} 　<br/>
+                </p>
+            </div>
+            </div>
+    
+    <div class="table-responsive-sm">
           <table class="table table-bordered">
                 <thead>
                     <tr>
                     <th>企業</th>
                     <th>学生</th>
-                    <th>時間</th>
-                    <th>日</th>
-                    <th>Type</th>
-                    <th style={{width: "10%"}}>Type</th>
-                    <th style={{width: "10%"}}>結果</th>
+                    <th style={{width: "15%"}}></th>
+                    <th　style={{width: "5%"}}>日</th>
+                    <th style={{width: "7%"}}>時間</th>
+                    <th style={{width: "7%"}}>結果</th>
                     <th style={{width: "30%"}}> ATOJコメント</th>
                     <th style={{width: "30%"}}> 企業コメント</th>
-                    <th style={{width: "13%"}}> </th>
                     </tr>
-                </thead>
+                </thead> {interviewItem.map((i) => 
                 <tbody>
                     
-
-
+              
                 <td>
-                <Link to={`/mugicha/company/${companyData}`} >  {companyData.name} </Link>
+                <Link to={`/mugicha/company/${companyData._id}`} >  {companyData.name} </Link>
                 </td>
                 <td>
-                <Link to={`/mugicha/student/${studentData}`} >  {studentData.studentid} {studentData.name}  </Link>  
+                <Link to={`/mugicha/student/${studentData._id}`} >  {studentData.studentid} {studentData.name}  </Link>  
                 </td>
-                <td>{console.log(interviewItem)}
-                {interviewItem.map((i) => <>
-                {i.character_match}
-                {i.skill_match}
-                </>)}
-
-                </td>
-                </tbody>
+                    <td> Character match: {i.character_match} <br/> 
+                         Skill match: {i.skill_match} <br/> 
+                         Skill match: {i.skill_match} <br/> 
+                    </td>
+                    <td> {i.time_period}</td>
+                    <td> {i.time}</td>
+                    <td> {i.result}</td>
+                    <td> {i.atojComment}</td>
+                    <td> {i.companyComment}</td>
+       
+         </tbody>)}
         </table>    
+        </div>
         </NavMugicha>
       </>
     );

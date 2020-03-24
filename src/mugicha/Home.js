@@ -22,7 +22,6 @@ const Home = () => {
     const { category, search, results  } = data;
   
     const loadInterviews = () => {
-        const tempArr = []
         getInterviews(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
@@ -90,8 +89,6 @@ const Home = () => {
     };
 
     const listCompanies = () => {
-
-        
         const cats = [...new Set(interviews.map(q => q.companies[0].name))];
         return (
             <div>
@@ -112,20 +109,18 @@ const Home = () => {
     return (
         <>  
           <NavMugicha>
-              <div style={{padding: "1rem 0rem"}}>
-              <div className="container mb-3">{searchForm()}</div>
-                </div>
+          <div class="table-responsive-sm">
                 <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th>企業</th>
-                    <th>学生</th>
-                    <th>時間</th>
+                    <th style={{width: "10%"}}>企業</th>
+                    <th style={{width: "10%"}}>学生</th>
+                    <th style={{width: "10%"}}>時間</th>
                     <th style={{width: "10%"}}>日</th>
                     <th style={{width: "10%"}}>Type</th>
                     <th style={{width: "10%"}}>結果</th>
-                    <th style={{width: "30%"}}> ATOJコメント</th>
-                    <th style={{width: "13%"}}> </th>
+                    <th style={{width: "30%"}}>ATOJコメント</th>
+                    <th style={{width: "10%"}}> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -139,7 +134,7 @@ const Home = () => {
                  </>)}
                 </tbody>
         </table>    
-        {searchedProducts(results)}
+        </div>
         </NavMugicha>
       
       </>

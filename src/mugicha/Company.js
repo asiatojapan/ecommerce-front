@@ -47,15 +47,27 @@ const Company = ({  match }) => {
         loadInterviews();
         init(match.params.userId);
     }, []);
+
+
+    const listBreadCrumbs = () => {
+        return (
+            <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/mugicha">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page"> {values.name}</li>
+            </ol>
+          </nav>
+        );
+    };
     
     return (
         <>  
           <NavMugicha>
-          <div class="card">
-            <div class="card-body">
-                 <h5 class="card-title">{values.name}</h5>
+              {listBreadCrumbs()}
+          <div class="alert alert-primary clearfix">
+           <div class="float-left align-middle">{values.name}</div>   
             </div>
-            </div>
+            <div class="table-responsive-sm">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -66,7 +78,7 @@ const Company = ({  match }) => {
                     <th style={{width: "10%"}}>Type</th>
                     <th style={{width: "10%"}}>結果</th>
                     <th style={{width: "30%"}}> ATOJコメント</th>
-                    <th style={{width: "13%"}}> </th>
+                    <th style={{width: "8%"}}> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,6 +92,7 @@ const Company = ({  match }) => {
                  </>)}
                 </tbody>
         </table>    
+        </div>
         </NavMugicha>
       </>
     );

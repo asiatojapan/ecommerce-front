@@ -103,7 +103,6 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 <>
                  <td>
                 <Link to={`/mugicha/company/${company}`} >  {companyName} </Link>
-                <Link to={`/mugicha/interview/${interviewId}`} > Link </Link> 
                 </td>
                 <td>
                 <Link to={`/mugicha/student/${student}`} >  {studentId}  {studentName}</Link>  
@@ -126,6 +125,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 </td>
                 <td>
                      <button type="button" class="btn btn-link" onClick={clickEdit}> Edit </button>
+                     <br/>
+                    <Link to={`/mugicha/interview/${interviewId}`} > View More</Link> 
                 </td>
                 </>
             )
@@ -166,14 +167,17 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
             
             <td>
             <div class="input-group input-group-sm mb-3">
-            <input type="text" onChange={handleChange("atojComment")} value={atojComment} name="name"  class="form-control" 
-            aria-label="Small" aria-describedby="inputGroup-sizing-sm"/>
+            <textarea onChange={handleChange("atojComment")} value={atojComment} name="name"  class="form-control" 
+            aria-label="Small" aria-describedby="inputGroup-sizing-sm" rows="3"/>
             </div>
             </td>
             
             <td>
-            <button type="button" class="btn btn-link" onClick={clickEdit}> Cancel</button>
+            <button type="button" class="btn btn-link btn-sm" onClick={clickEdit}> Cancel</button>
+            <br/>
             <button type="button" class="btn btn-primary btn-sm" onClick={clickSubmit}> Save</button>
+            <br/>
+            <Link to={`/mugicha/interview/${interviewId}`} > View More</Link> 
            </td>
   
 </>

@@ -20,6 +20,7 @@ const Student = ({  match }) => {
                 setInterviews(data);
                 setLoading(false)
                 setStudentData(data[0].student)
+                console.log(data[0].student)
             }
         });
     };
@@ -28,14 +29,26 @@ const Student = ({  match }) => {
         loadInterviews();
     }, []);
     
+    const listBreadCrumbs = () => {
+        return (
+            <ol class="breadcrumb breadcrumb-arrows" aria-label="breadcrumbs">
+            <li class="breadcrumb-item"><a href="/mugicha">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{studentData.studentid} {studentData.name}</li>
+            </ol>
+        );
+    };
+    
+
     return (
         <>  
           <NavMugicha>
-          <div class="card">
-            <div class="card-body">
-                   <Link to={`/student/${studentData._id}`} target="_blank" >  {studentData.studentid} {studentData.name} </Link> 
+              {listBreadCrumbs()}
+          <div class="alert alert-primary clearfix">
+           <h4 class="float-left align-middle" style={{marginBottom: "0"}}>{studentData.studentid} {studentData.name} </h4>   
+        <Link to={`/student/${studentData._id}`} target="_blank" class="btn btn-google float-right">  Profile </Link> 
+        <a href={studentData.video} target="_blank" class="btn btn-vimeo float-right">  Vimeo </a> 
             </div>
-            </div>
+            <div class="table-responsive-sm">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -46,7 +59,7 @@ const Student = ({  match }) => {
                     <th style={{width: "10%"}}>Type</th>
                     <th style={{width: "10%"}}>結果</th>
                     <th style={{width: "30%"}}> ATOJコメント</th>
-                    <th style={{width: "13%"}}> </th>
+                    <th style={{width: "8%"}}> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,6 +73,7 @@ const Student = ({  match }) => {
                  </>)}
                 </tbody>
         </table>    
+        </div>
         </NavMugicha>
       </>
     );

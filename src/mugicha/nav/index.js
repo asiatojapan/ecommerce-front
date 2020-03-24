@@ -8,7 +8,7 @@ const NavMugicha = ({ children }) => {
   
     return (
         <>
-      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
+      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Navbar.Brand href="/mugicha">麦茶</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -22,7 +22,9 @@ const NavMugicha = ({ children }) => {
       </Navbar.Collapse>
       </Navbar>
       <Container>
+        <div style={{fontSize: "12px", marginTop: "1rem"}}>
         {children}
+        </div>
       </Container>
       </>
     );
