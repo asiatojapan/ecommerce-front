@@ -6,6 +6,7 @@ import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { japanese } from "./japanese";
 import { it_skills } from "./it_skills";
+import { entry_timing } from "./entry";
 import {  getFilteredStudents, getFavStudents, getPushList } from './apiCore';
 import SiteWrapper from '../templates/SiteWrapper';
 import {
@@ -71,7 +72,6 @@ const Home = ({ logout, session }) => {
 
   const status = session.round === "Phase IV" ? "来日決定" : "リスト掲載";
 
-  
 
   const loadFilteredResults = (newFilters) => {
       getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk).then(data => {
@@ -152,33 +152,11 @@ const Home = ({ logout, session }) => {
       setMyFilters(newFilters);
   };
 
-  const handleCategories = value => {
-    const data = categories;
-    let array = [];
-
-    for (let key in data) {
-        if (data[key]._id === parseInt(value)) {
-            array = data[key].array;
-        }
-    }
-    return array;
-  };
 
   const handleSetFavCount = e => {
     setFavCount(e);
   };
 
-  const handleItCategories = value => {
-     const data = it_skills;
-     let array = [];
-
-     for (let key in data) {
-         if (data[key]._id === parseInt(value)) {
-             array = data[key].array;
-         }
-     }
-     return array;
- };
 
     return (
       <SiteWrapper> 
@@ -212,6 +190,13 @@ const Home = ({ logout, session }) => {
                        </div>
                           </div>
                        </div>
+                      
+                      {session.role === 1 ? 
+                       <div className="list-list">
+                       <h3 className="card-title">入社</h3>
+                               <Checkbox2 categories={entry_timing} handleFilters={filters =>
+                                handleFilters(filters, "entry_timing")} />
+                      </div> : null}
             
            </Grid.Col>
 
@@ -229,10 +214,9 @@ const Home = ({ logout, session }) => {
         </Grid.Row>
         </Container>
         </div>
-        {favCount === 0 ? 
-            <div>
-        {session.specialPlan === true ? "" :  Position()}
-          </div>: <a href="/checkout/preview"><div className="count-bar"><div className="heart">{favCount} </div></div></a>} 
+        {session.specialPlan === true && session.role === 3 ? null :   
+        <> {favCount === 0 ? 
+            null : <a href="/checkout/preview"><div className="count-bar"><div className="heart">{favCount} </div></div></a>}  </>}
           <Notifications options={{zIndex: 200, width: "100%"}} />
         </SiteWrapper>
     );

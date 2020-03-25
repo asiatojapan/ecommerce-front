@@ -7,6 +7,7 @@ import { Page, Icon, Grid, Tag } from "tabler-react";
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import { pdf,  Font, BlobProvider } from "@react-pdf/renderer";
 import Resume from "../pdf/PersonalResume";
+import HalfResume from "../pdf/HalfResume";
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
@@ -52,6 +53,8 @@ const Student = ({ logout, session, match }: Props) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
     const [blob, setBlob] = useState()
+
+    const [blobHalfResume, setBlobHalfResume] = useState()
     
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
@@ -64,7 +67,7 @@ const Student = ({ logout, session, match }: Props) => {
                 setStudent(data);
                 // console.log(data)
                 createPDF(data)
-                listRelated(data._id, darwin_myTk).then(data => {
+                listRelated(data._id,  darwin_uid, darwin_myTk).then(data => {
                   if (data.error) {
                       setError(data.error);
                   } else {
@@ -98,6 +101,7 @@ const Student = ({ logout, session, match }: Props) => {
   const [resumeLink, setResumeLink] = useState();
 
 
+
   const createPDFLinkButton1 = (studentData, trigger) => {
     const url = blob;
     if (window.navigator.msSaveOrOpenBlob) {
@@ -115,7 +119,6 @@ const Student = ({ logout, session, match }: Props) => {
         setResumeLink(URL.createObjectURL(blobProp));
         setLoading(false)
       });
-      
 }
 
     const createPDFLinkButton = (studentData, trigger) => {
@@ -125,6 +128,7 @@ const Student = ({ logout, session, match }: Props) => {
           {trigger}
         </a> :  null
     };
+
 
     
     useScrollPosition(
@@ -276,7 +280,7 @@ const Student = ({ logout, session, match }: Props) => {
                       </div>
                       </div>
                         
-                      {student.it_skills ?
+                      {student.it_skills?
                       <div className="list-list" style={{padding: "0px"}}>
                       <div className="card-header"><div className="card-title">IT Skills</div>
                       </div>
@@ -284,14 +288,14 @@ const Student = ({ logout, session, match }: Props) => {
                       <Tag.List>
                       {student.it_skills ?
                         student.it_skills.map((skill,i) => (
-                            <Tag key={i} color="secondary">{skill}</Tag>)) : ""}
+                            <Tag key={i} color="secondary">{skill}</Tag>)) : null}
                       </Tag.List>
                       <div className="hr-text">Other IT Skills</div>
                       <div className="mb-2 pre-wrap">　
                       {student.other_it_skills}
                       </div>
                      </div>
-                     </div> : ""
+                     </div> : null
                       }
                       
 
@@ -315,17 +319,20 @@ const Student = ({ logout, session, match }: Props) => {
       
       <Grid.Col width={12} lg={3} sm={12} >
         <div>
+
+
+          
+
     
+          {session.role === 3 ? null : <>
           {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
             )} </>}
     
-
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
-        </a>}
+        </a>} <hr/></>}
 
-        <hr/>
 
       <h4>この学生と似ている学生</h4>
       {relatedStudent.map((s, i) => (
@@ -340,7 +347,7 @@ const Student = ({ logout, session, match }: Props) => {
        </Grid.Row>
        
       </Page.Content>
-      {session.round === "Phase II" ? null :
+      {session.round === "Phase II" || session.role === 3 ? null :
       <div id="application-ticket" style={{ ...headerStyle }}>
         <div className="outer" >
           <div className="inner">

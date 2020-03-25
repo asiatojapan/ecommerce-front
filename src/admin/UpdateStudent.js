@@ -42,6 +42,7 @@ const UpdateStudent = ({ match, history }) => {
       country: "",
       loading: false,
       error: false,
+      offerCompany: "",
       createdStudent: '',
       redirectToProfile: false,
       formData: ''
@@ -69,6 +70,7 @@ const UpdateStudent = ({ match, history }) => {
                 setValues({
                     ...values,
                     name: data.name,
+                    offerCompany: data.offerCompany,
                     studentid: data.studentid,
                     gender: data.gender,
                     country: data.country,
@@ -341,6 +343,11 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">その他PR</label>
             <textarea onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr" rows="5" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Company</label>
+            <input onChange={handleChange("offerCompany")} value={values.offerCompany} name="offerCompany" class="form-control"/>
           </div>
   
           <div class="mb-2">

@@ -17,19 +17,13 @@ const PrivateRoute  = ({ component: Component,  logout, session, ...rest }) => (
         {...rest}
         render={props =>
             isAuthenticates() ? ( 
-                session.role === 2 ?
+                session.role === 2 ? 
                 ( <Redirect
                         to={{
                             pathname: "/restricted",
                             state: { from: props.location }
                         }}
-                    /> ) :  
-                    session.role === 3 ?  ( <Redirect
-                        to={{
-                            pathname: "/noaccess",
-                            state: { from: props.location }
-                        }}
-                    /> ) :
+                    /> ) : 
                 (<Component {...props} />)
             ) : (
                 <Redirect

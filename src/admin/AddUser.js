@@ -3,6 +3,7 @@ import { Link, Redirect, withRouter } from 'react-router-dom';
 import { signup } from '../auth';
 import { getSalesRep } from "./apiAdmin";
 import SiteWrapper from '../templates/SiteWrapper'
+import { isAuthenticates } from '../auth';
 import {
   Page,
   Grid,
@@ -16,6 +17,7 @@ const AddUser = ({history}) => {
       role: '',
       phase: "",
       round: "",
+      sales_rep: "",
       specialPlan: "", 
       error: false,
       success: false,
@@ -24,11 +26,29 @@ const AddUser = ({history}) => {
 
     const [users, setUsers] = useState([]);
 
+
+    const { darwin_myTk, darwin_uid } = isAuthenticates();
+
     const { name, email, password, role, phase, round, specialPlan, sales_rep, error, success, redirectToProfile } = values;
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
     };
+
+
+    const initUsers = () => {
+        getSalesRep(darwin_uid, darwin_myTk).then(data => {
+            if (data.error) {
+                setValues({ ...values, error: data.error });
+            } else {
+                setUsers(data);
+            }
+        });
+    };
+
+    useEffect(() => {
+        initUsers();
+    }, []);
 
 
     const clickSubmit = event => {
@@ -80,10 +100,11 @@ const AddUser = ({history}) => {
           <div class="mb-2">
               <div class="form-label">Role</div>
               <select placeholder="Role" onChange={handleChange("role")} value={role}  class="form-control">
-                <option value=""> Select </option>
-                <option value="0"> Registered User </option>
-                <option value="1"> Admin </option>
-                <option value="2"> Unregistered User </option>
+              <option value=""> Select </option>
+                    <option value="0"> 参加企業 </option>
+                    <option value="3"> 閲覧企業​ </option>
+                    <option value="2"> Unregistered User </option>
+                    <option value="1"> Admin </option>
                 </select>
           </div>
 
@@ -98,6 +119,17 @@ const AddUser = ({history}) => {
                 </select>
           </div>
 
+          <div class="mb-2">
+                <div class="form-label">営業担当</div>
+                  <select placeholder="営業" onChange={handleChange("sales_rep")} value={sales_rep} class="form-control">
+                    {users && users.map((c, i) => (
+                        <option key={i} value={c._id}>
+                      
+                              {c.name}
+                        </option>))}
+                    </select>
+                    </div>
+
 
           <div class="mb-3">
               <div class="form-label">Special Plan</div>
@@ -107,6 +139,8 @@ const AddUser = ({history}) => {
               <option value="false"> False </option>
                 </select>
           </div>
+
+          
 
           </div>
           <div class="card-footer text-right">

@@ -366,8 +366,11 @@ const ManageStudent = () => {
         },
     {
           Header: 'Name',
-          accessor: 'name',
           id: 'name',
+          Filter: "",
+          accessor: (text, i) => <>
+          <Link to={`/student/${text._id}`}>{text.name}</Link>
+          </>
         },
     {
       Header: 'Age',
@@ -392,7 +395,18 @@ const ManageStudent = () => {
       sortType: 'basic',
       Filter: SelectColumnFilter,
       filter: 'includes'
-    } ]},
+    },
+    {
+      Header: '入社',
+      id: 'entry_timing',
+      sortType: 'basic',
+      Filter: "",
+      accessor: (text, i) => <>
+          {text.entry_timing.map((e) => <> 
+        {e}, </> )} </>
+          
+    },
+   ]},
    
     {
       Header: 'Like',

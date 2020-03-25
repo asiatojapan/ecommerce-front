@@ -35,7 +35,7 @@ const SiteWrapper = ({ logout, session, history, children }) => (
               {isAuthenticates() && session.role === 0 && (
               <Fragment> 
             <Nav.Link href={`/`} >Home </Nav.Link>
-            { isAuthenticates() && (session.round !== "Phase I" && session.round !== "Phase II") && 
+            { isAuthenticates() && (session.round !== "Phase I" && session.round !== "Phase II" ) && 
             ( <Nav.Link href="/user/interviews" >面接予定</Nav.Link>  )}
              </Fragment>
              )}
@@ -64,7 +64,7 @@ const SiteWrapper = ({ logout, session, history, children }) => (
             )}
             </Nav>
             {session.role !== 1 && (<Nav style={{margin: "0px 10px"}}>{session.name}</Nav>)}
-            {isAuthenticates() && session.role !== 2 && (
+            {isAuthenticates() && session.role !== 2 && session.role !== 3 && (
             <a className="unlikeBtn smaller" href="/checkout/preview" style={{marginRight: "10px"}}> 検討リスト
             </a>)}
             <button className="likeBtn smaller"

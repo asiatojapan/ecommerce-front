@@ -74,13 +74,16 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
       <div className="list-FooterTag tags">
      {student.tags.map((skill, i) => (
       <span className="tag expanded tag-secondary"  key={i}  style={{"color": "#444", "background": "#fff", "border": "1px solid #444"}}>#{skill}</span>
+      ))}<br/>
+      {student.entry_timing.map((skill, i) => (
+      <span className="tag expanded tag-secondary"  key={i}  style={{"color": "#278bfa", "background": "#fff", "border": "1px solid #278bfa"}}>#{skill}</span>
       ))}
       </div>
       {/*<a href={student.url} target="_blank" class="btn btn-primary btn-sm"
     >
       {resumeLoading ? 'Loading…' : student.studentid }
     </a> */}
-    {session.round === "Phase II" ? null : <AddFav student={student} setFavCount={handleSetFavCount}
+    {session.round === "Phase II" ||  session.role === 3  ? null : <AddFav student={student} setFavCount={handleSetFavCount}
       favCount={favCount} />  }
     </div>
     </div>

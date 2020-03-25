@@ -338,8 +338,8 @@ export const updateInterviewItem = (interviewId, interviewItemId, userId, token,
         .catch(err => console.log(err));
 };
 
-export const listRelated = (studentId, token) => {
-    return fetch(`${API}/students/related/${studentId}`, {
+export const listRelated = (studentId, userId, token) => {
+    return fetch(`${API}/students/related/${studentId}/${userId}`, {
         method: "GET",
         headers: {
             Accept: 'application/json',

@@ -2,9 +2,11 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import Signin from "./user/Signin";
 import Home from "./core/Home";
+import NoAccess from "./user/NoAccess"
 import Restricted from "./user/Restricted"
 import Error from "./user/Error"
 import PrivateRoute from './auth/PrivateRoute';
+import MainRoute from './auth/MainRoute';
 import AdminRoute from './auth/AdminRoute';
 import AddStudent from './admin/AddStudent';
 import AddUser from './admin/AddUser';
@@ -61,18 +63,19 @@ const Routes = () => {
     <Switch>
     <Route path="/signin" exact component={Signin}/>
     <Route path="/restricted" exact component={Restricted} />
+    <Route path="/noaccess" exact component={NoAccess} />
     <AdminRoute path="/forgotpassword" exact component={ForgotPassword} />
     <AdminRoute
                 exact
                 path="/reset-password/:resetPasswordToken"
                 component={ResetPassword}
             />
-    <PrivateRoute path="/" exact component={Home}/>
+    <MainRoute path="/" exact component={Home}/>
     <PrivateRoute path="/welcome" exact component={Welcome}/>
     <PrivateRoute path="/user/history" exact component={Orders}/>
     <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>
     <PrivateRoute path="/checkout" exact component={Checkout}/>
-    <PrivateRoute path="/student/:studentId" exact component={Student}/>
+    <MainRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
     <AdminRoute path="/mugicha" exact component={Mugicha} />
     <AdminRoute path="/mugicha/company/:userId" exact component={MugichaCompany} />
