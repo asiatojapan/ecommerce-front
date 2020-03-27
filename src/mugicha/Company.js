@@ -4,6 +4,11 @@ import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { getGroupInterviewList } from "../core/apiCore"
 import { read, update, updateUser } from '../user/apiUser';
 import { isAuthenticates } from "../auth";
+import Accordion from 'react-bootstrap/Accordion';
+
+import Card from 'react-bootstrap/Card';
+
+import Button from 'react-bootstrap/Button';
 
 const Company = ({  match }) => {
     const [interviews, setInterviews] = useState([]);
@@ -64,9 +69,12 @@ const Company = ({  match }) => {
         <>  
           <NavMugicha>
               {listBreadCrumbs()}
-          <div class="alert alert-primary clearfix">
-           <div class="float-left align-middle">{values.name}</div>   
-            </div>
+          <div class="alert clearfix">
+           <div class="align-middle"><h4> {values.name} </h4> </div>  
+           <a href={`/mugicha/companyprofile/${match.params.userId}`} > {values.name} Profile </a>
+           </div>
+
+           <hr/>
             <div class="table-responsive-sm">
             <table class="table table-bordered">
                 <thead>

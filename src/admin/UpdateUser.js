@@ -28,6 +28,7 @@ const UpdateUser = ({ match, history }) => {
         descriptionSix: "",
         homepageUrl: "",
         specialPlan: "",
+        jdLink: "",
         error: false,
         success: false,
         redirectUser: false
@@ -40,7 +41,7 @@ const UpdateUser = ({ match, history }) => {
 
     const { name, email, password, role, phase, round, sales_rep,  error, success,
       logo, descriptionOne, specialPlan,
-      descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl } = values;
+      descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, jdLink, homepageUrl } = values;
 
     const init = userId => {
         // console.log(userId);
@@ -57,6 +58,7 @@ const UpdateUser = ({ match, history }) => {
                 descriptionFour: data.descriptionFour,
                 descriptionFive: data.descriptionFive,
                 descriptionSix: data.descriptionSix,
+                jdLink: data.jdLink,
                 homepageUrl: data.homepageUrl });
             }
         });
@@ -209,6 +211,12 @@ const UpdateUser = ({ match, history }) => {
                   <label class="form-label">Homepage Url</label>
                   <input onChange={handleChange("homepageUrl")} value={homepageUrl} name="homepageUrl" class="form-control"/>
                 </div>
+
+                <div class="mb-2">
+                  <label class="form-label">Homepage Url</label>
+                  <input onChange={handleChange("jdLink")} value={jdLink} name="jdLink" class="form-control"/>
+                </div>
+
 
           <div class="mb-2">
             <label class="form-label"> 事業内容/Business Field	</label>

@@ -19,8 +19,8 @@ const Student = ({  match }) => {
             } else {
                 setInterviews(data);
                 setLoading(false)
-                setStudentData(data[0].student)
-                console.log(data[0].student)
+                if (data.length >0) {
+                setStudentData(data[0].student)}
             }
         });
     };

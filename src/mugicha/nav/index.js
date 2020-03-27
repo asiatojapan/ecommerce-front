@@ -22,7 +22,7 @@ const NavMugicha = ({ children }) => {
       </Navbar.Collapse>
       </Navbar>
       <Container>
-        <div style={{fontSize: "12px", marginTop: "1rem"}}>
+        <div style={{fontSize: "12px", marginTop: "1rem", marginBottom: "2rem"}}>
         {children}
         </div>
       </Container>

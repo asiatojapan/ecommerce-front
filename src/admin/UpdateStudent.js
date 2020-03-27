@@ -19,11 +19,14 @@ const UpdateStudent = ({ match, history }) => {
       dob: "",
       email: "",
       age: '',
+      grad_year: "",
+      grad_month: "",
       japanese: '',
       english: '',
       comments: '',
       university: '',
       major: '',
+      tags: "",
       faculty: '',
       it_skills: '',
       entry_timing: '',
@@ -39,6 +42,9 @@ const UpdateStudent = ({ match, history }) => {
       other_pr: '',
       video: '',
       videoImg: '',
+      profileImg: "",
+      reflections: "",
+      period: "",
       country: "",
       loading: false,
       error: false,
@@ -80,6 +86,9 @@ const UpdateStudent = ({ match, history }) => {
                     japanese: data.japanese,
                     address: data.address,
                     email: data.email,
+                    grad_year: data.grad_year,
+                    grad_month: data.grad_month,
+                    tags: data.tags,
                     skype: data.skype,
                     other_languages: data.other_languages,
                     english: data.english,
@@ -101,6 +110,9 @@ const UpdateStudent = ({ match, history }) => {
                     video: data.video,
                     videoImg: data.videoImg,
                     upload_fyp: data.upload_fyp,
+                    profileImg: data.profileImg,
+                    reflections: data.reflections,
+                    period: data.period,
                     formData: new FormData()
                 });
             }
@@ -283,11 +295,26 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">Major</label>
              <input type="text" onChange={handleChange("major")} value={values.major} name="major"  class="form-control"/>
           </div>
+
+          <div class="mb-2">
+            <label class="form-label">Grad Year</label>
+             <input type="text" onChange={handleChange("grad_year")} value={values.grad_year} name="grad_year"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Grad Month</label>
+             <input type="text" onChange={handleChange("grad_month")} value={values.grad_month} name="grad_month"  class="form-control"/>
+          </div>
   
   
           <div class="mb-2">
             <label class="form-label">It Skills</label>
              <input type="text" onChange={handleChange("it_skills")} value={values.it_skills} name="it_skills"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Tags</label>
+             <input type="text" onChange={handleChange("tags")} value={values.tags} name="tags"  class="form-control"/>
           </div>
   
           <div class="mb-2">
@@ -345,9 +372,25 @@ const UpdateStudent = ({ match, history }) => {
             <textarea onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr" rows="5" class="form-control"/>
           </div>
 
+          <hr/>
           <div class="mb-2">
             <label class="form-label">Offer Company</label>
             <input onChange={handleChange("offerCompany")} value={values.offerCompany} name="offerCompany" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Period</label>
+            <input onChange={handleChange("period")} value={values.period} name="period" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Profile Img</label>
+            <input onChange={handleChange("profileImg")} value={values.profileImg} name="profileImg" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Reflections</label>
+            <textarea onChange={handleChange("reflections")} value={values.reflections} name="reflections" rows="5" class="form-control"/>
           </div>
   
           <div class="mb-2">

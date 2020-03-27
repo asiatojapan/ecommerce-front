@@ -4,6 +4,7 @@ import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { list } from "./apiMugicha"
 import { getInterviews } from "../admin/apiAdmin";
 import { isAuthenticates } from "../auth";
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [interviews, setInterviews] = useState([]);
@@ -109,7 +110,13 @@ const Home = () => {
     return (
         <>  
           <NavMugicha>
-          <div class="table-responsive-sm">
+          
+  <div class="container">
+  <Link to={`/mugicha/students`} class="btn  mr-2">  View by Student </Link> 
+          <Link to={`/mugicha/companies`} class="btn ">  View by Company </Link> 
+           </div>
+           <hr/>
+<div class="table-responsive-sm">
                 <table class="table table-bordered">
                 <thead>
                     <tr>
