@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import NavMugicha from "./nav"
+import NavMugicha from "./Nav"
 import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { list } from "./apiMugicha"
 import { getInterviews } from "../admin/apiAdmin";
@@ -111,11 +111,19 @@ const Home = () => {
         <>  
           <NavMugicha>
           
-  <div class="container">
-  <Link to={`/mugicha/students`} class="btn  mr-2">  View by Student </Link> 
-          <Link to={`/mugicha/companies`} class="btn ">  View by Company </Link> 
-           </div>
-           <hr/>
+
+  <section class="text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading mb-0">Welcome to Mugicha! </h1>
+          <p>
+          <Link to={`/mugicha/students`}  className="btn btn-secondary my-2">  View by Student </Link>   
+               <Link to={`/mugicha/companies`} className="btn btn-secondary my-2" >  View by Company </Link> 
+      
+          </p>
+        </div>
+      </section>
+
+        
 <div class="table-responsive-sm">
                 <table class="table table-bordered">
                 <thead>
@@ -132,14 +140,29 @@ const Home = () => {
                 </thead>
                 <tbody>
                 {interviews.map((interview, i) =>  
-                    <>{interview.interviewItems.map((item, ii) => 
-                   <> 
+                
+                    <><tr>
+                        <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
+                        <td>  <Link to={`/mugicha/student/${interview.student}`} >  {interview.students[0].name} </Link> </td>
+                    
+                    {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                   <>
                     <UpdateInterviewItem companyName={interview.companies[0].name} studentId={interview.students[0].studentid}
                     studentName={interview.students[0].name} interviewItemId={item._id} interviewId={interview._id} />
                 </>
-                 )}
+                 )} </> : 
+                 <>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 </>}
+                 
+                 </tr>
                  </>)}
-                </tbody>
+        </tbody>
         </table>    
         </div>
         </NavMugicha>

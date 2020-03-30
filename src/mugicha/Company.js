@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import NavMugicha from "./nav"
+import NavMugicha from "./Nav"
 import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { getGroupInterviewList } from "../core/apiCore"
-import { read, update, updateUser } from '../user/apiUser';
+import { read} from '../user/apiUser';
 import { isAuthenticates } from "../auth";
-import Accordion from 'react-bootstrap/Accordion';
 
-import Card from 'react-bootstrap/Card';
-
-import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 const Company = ({  match }) => {
     const [interviews, setInterviews] = useState([]);
@@ -69,12 +66,17 @@ const Company = ({  match }) => {
         <>  
           <NavMugicha>
               {listBreadCrumbs()}
-          <div class="alert clearfix">
-           <div class="align-middle"><h4> {values.name} </h4> </div>  
-           <a href={`/mugicha/companyprofile/${match.params.userId}`} > {values.name} Profile </a>
-           </div>
-
-           <hr/>
+         
+           <section class="text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading mb-0">{values.name} </h1>
+          <p>
+          <a href={`/mugicha/companyprofile/${match.params.userId}`}class="btn btn-primary my-2"　> {values.name} Profile </a>
+          <a href={`/mugicha/company/${match.params.userId}`} className="btn btn-secondary my-2"> {values.name} 面接リスト </a>
+      
+          </p>
+        </div>
+      </section>
             <div class="table-responsive-sm">
             <table class="table table-bordered">
                 <thead>
@@ -89,16 +91,32 @@ const Company = ({  match }) => {
                     <th style={{width: "8%"}}> </th>
                     </tr>
                 </thead>
+
                 <tbody>
                 {interviews.map((interview, i) =>  
-                    <>{interview.interviewItems.map((item, ii) => 
-                   <> 
-                    <UpdateInterviewItem companyName={interview.company.name} studentId={interview.student.studentid}
+                
+                    <><tr>
+                        <td> <Link to={`/mugicha/company/${interview.company._id}`} >  {interview.company.name} </Link>  </td>
+                        <td>  <Link to={`/mugicha/student/${interview.student._id}`} >  {interview.student.name} </Link> </td>
+                    
+                    {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                   <>
+                  <UpdateInterviewItem companyName={interview.company.name} studentId={interview.student.studentid}
                     studentName={interview.student.name} interviewItemId={item._id} interviewId={interview._id} />
-                </>
-                 )}
+                     </>
+                 )} </> : 
+                 <>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 </>}
+                 
+                 </tr>
                  </>)}
-                </tbody>
+        </tbody>
         </table>    
         </div>
         </NavMugicha>

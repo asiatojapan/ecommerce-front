@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import NavMugicha from "./nav"
+import NavMugicha from "./Nav"
 import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { getGroupInterviewList } from "../core/apiCore"
 import { read, update, updateUser } from '../user/apiUser';
@@ -58,12 +58,17 @@ const Company = ({  match }) => {
         <>  
           <NavMugicha>
             {listBreadCrumbs()}
-            <div class="alert clearfix">
-                <div class="align-middle"><h4> {userData.name} </h4>    
-                <a href={`/mugicha/company/${match.params.userId}`} > {userData.name} Interview List </a>
-            </div>   
-           </div>   
-           <hr/>
+            <section class="text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading mb-0">{userData.name} </h1>
+          <p>
+          <a href={`/mugicha/companyprofile/${match.params.userId}`}class="btn btn-primary my-2"　> {userData.name} Profile </a>
+          <a href={`/mugicha/company/${match.params.userId}`} className="btn btn-secondary my-2"> {userData.name}  面接リスト </a>
+      
+          </p>
+        </div>
+      </section>
+           
 
               <ul class="list-group" style={{whiteSpace: "pre-wrap"}}>
 

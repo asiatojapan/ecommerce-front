@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import NavMugicha from "./nav"
+import NavMugicha from "./Nav"
 import { Link } from 'react-router-dom';
 import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { readStudentInterview } from './apiMugicha';
@@ -62,16 +62,32 @@ const Student = ({  match }) => {
                     <th style={{width: "8%"}}> </th>
                     </tr>
                 </thead>
+
                 <tbody>
                 {interviews.map((interview, i) =>  
-                    <>{interview.interviewItems.map((item, ii) => 
-                   <> 
-                    <UpdateInterviewItem companyName={interview.company.name} studentId={interview.student.studentid}
+                
+                    <><tr>
+                        <td> <Link to={`/mugicha/company/${interview.company._id}`} >  {interview.company.name} </Link>  </td>
+                        <td>  <Link to={`/mugicha/student/${interview.student._id}`} >  {interview.student.name} </Link> </td>
+                    
+                    {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                   <>
+                  <UpdateInterviewItem companyName={interview.company.name} studentId={interview.student.studentid}
                     studentName={interview.student.name} interviewItemId={item._id} interviewId={interview._id} />
-                </>
-                 )}
+                     </>
+                 )} </> : 
+                 <>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
+                 </>}
+                 
+                 </tr>
                  </>)}
-                </tbody>
+        </tbody>
         </table>    
         </div>
         </NavMugicha>

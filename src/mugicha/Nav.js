@@ -9,17 +9,17 @@ const NavMugicha = ({ children,  history }) => {
   
     return (
         <>
-      <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Navbar.Brand href="/mugicha">麦茶</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
           <Nav.Link href="/mugicha/companies">Companies</Nav.Link>
           <Nav.Link href="/mugicha/students">Students</Nav.Link>
+          <Nav.Link href="/">All Interviews</Nav.Link>
          </Nav>
         <Nav>
-          <Nav.Link href="/">Main</Nav.Link>
-          <button className="likeBtn smaller"
+          <button className="btn btn-light"
                   onClick={() =>
                           signout(() => {
                               history.push("/");})}
@@ -31,7 +31,6 @@ const NavMugicha = ({ children,  history }) => {
       <Container>
         <div style={{fontSize: "12px", marginTop: "1rem", marginBottom: "2rem"}}>
         {children}
-      
         </div>
       </Container>
       </>

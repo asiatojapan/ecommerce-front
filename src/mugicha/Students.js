@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import NavMugicha from "./nav"
+import NavMugicha from "./Nav"
 import { Link } from 'react-router-dom';
 import { getStudentsParticipating } from './apiMugicha';
 import { isAuthenticates } from "../auth";
-
+import Table from 'react-bootstrap/Table';
 const Students = ({  match }) => {
     const [students, setStudents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -40,8 +40,9 @@ const Students = ({  match }) => {
           <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
-          <div class="table-responsive-sm">
-          <table class="table table-bordered">
+        <div class="card">
+            <div class="table-responsive">
+        <table class="table table-vcenter card-table">
                 <thead>
                     <tr>
                     <th>学生 ID </th>
@@ -52,10 +53,8 @@ const Students = ({  match }) => {
                     </tr>
                 </thead> {students.map((student, i) => 
                 <tbody>
-                    
-              
-                    <td>
-               {student.studentid}
+                <td>
+                <Link to={`/student/${student._id}`} target="_blank" >  {student.studentid} </Link>   
                 </td>
                 <td>
                {student.name}
@@ -65,13 +64,11 @@ const Students = ({  match }) => {
                {student.inviteStatus}
                 </td>
                 <td>
-                <Link to={`/mugicha/student/${student._id}`} >  Interview List  </Link>  <br/>
-                <Link to={`/student/${student._id}`} >  Profile  </Link>  
-                </td>
-              
-       
+                <Link to={`/mugicha/student/${student._id}`} >  Interview List  </Link>  </td>
+
          </tbody>)}
-        </table>    
+        </table>
+        </div>
         </div>
         </NavMugicha>
       </>

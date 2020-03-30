@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import NavMugicha from "./nav"
-
+import NavMugicha from "./Nav"
 import { Link } from 'react-router-dom';
-import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
 import { getInterviews  } from "../admin/apiAdmin";
 import { getParticipatingUsers } from './apiMugicha';
 import { isAuthenticates } from "../auth";
+
+import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 
 const Companies = ({ match }) => {
@@ -60,16 +60,18 @@ const Companies = ({ match }) => {
     return (
         <>  
           <NavMugicha>
+              
           <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
-        <div class="table-responsive-sm">
-          <table class="table table-bordered">
+        <div class="card">
+            <div class="table-responsive">
+        <table class="table table-vcenter card-table">
                 <thead>
                     <tr>
                     <th>企業</th>
-                    <th>学生</th>
-                
+                    <th>Interview List</th>
+                    <th>Profile</th>
                     </tr>
                 </thead> {users.map((user, i) => 
                 <tbody>
@@ -79,7 +81,8 @@ const Companies = ({ match }) => {
                {user.name}
                 </td>
                 <td>
-                <Link to={`/mugicha/company/${user._id}`} >  Interview List  </Link>  <br/>
+                <Link to={`/mugicha/company/${user._id}`} >  Interview List  </Link> </td>
+                <td>
                 <Link to={`/mugicha/companyprofile/${user._id}`} >  Profile  </Link>  
                 </td>
               
@@ -87,19 +90,8 @@ const Companies = ({ match }) => {
          </tbody>)}
         </table>    
         </div>
-
-              {companyData.map((interview) =>
-              <><a href={"/mugicha/company/" + interview.company } >{interview.companies[0].name} </a>
-              <br/>
-              </>)}
-
-              <br/>
-
-              {studentData.map((interview) =>
-              <><a href={"/mugicha/student/" + interview.student } >{interview.students[0].studentid} {interview.students[0].name} </a>
-               <br/>
-              </>)}
-  
+        </div>
+        
         </NavMugicha>
       </>
     );

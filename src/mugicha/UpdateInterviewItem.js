@@ -101,13 +101,6 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
 
             const interviewList = () => (
                 <>
-                 <td>
-                <Link to={`/mugicha/company/${company}`} >  {companyName} </Link>
-                </td>
-                <td>
-                <Link to={`/mugicha/student/${student}`} >  {studentId}  {studentName}</Link>  
-                
-                </td>
                 <td>
                      {time}
                 </td>
@@ -134,13 +127,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
         
             const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment) => (
       <>
-             <td>
-                    <Link to={`/mugicha/company/${company}`} >  {companyName} </Link> 
-                </td>
-                <td>
-                <Link to={`/mugicha/student/${student}`} >  {studentId}  {studentName} </Link>  
-            
-                </td>
+         
                 <td>
                      {time}
                 </td>
@@ -184,12 +171,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
     );
 
     return (
-      <tr>
+      <>
            {isEditing ? 
           <>{interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment)} </> :
            <>{interviewList()}</> }
           {redirectUser()}
-      </tr>
+      </>
     );
 };
 
