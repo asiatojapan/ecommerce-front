@@ -133,7 +133,7 @@ const Checkout = ({ logout, session })=> {
         <div style={{ position: "sticky",
             top: "0", paddingTop: "1rem"}}>
         <button type="button" className="unlikeBtn resumeGradient fullWidth" 
-        onClick={() => { if (window.confirm('Are you sure you wish to submit?')) buy() } }>
+        onClick={() => { buy() } }>
             ASIA to JAPANに申請
         </button>
         </div>

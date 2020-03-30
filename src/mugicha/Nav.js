@@ -16,7 +16,7 @@ const NavMugicha = ({ children,  history }) => {
         <Nav className="mr-auto">
           <Nav.Link href="/mugicha/companies">Companies</Nav.Link>
           <Nav.Link href="/mugicha/students">Students</Nav.Link>
-          <Nav.Link href="/">All Interviews</Nav.Link>
+          <Nav.Link href="/mugicha">All Interviews</Nav.Link>
          </Nav>
         <Nav>
           <button className="btn btn-light"

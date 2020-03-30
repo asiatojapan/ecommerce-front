@@ -97,7 +97,7 @@ const Company = ({  match }) => {
                 
                     <><tr>
                         <td> <Link to={`/mugicha/company/${interview.company._id}`} >  {interview.company.name} </Link>  </td>
-                        <td>  <Link to={`/mugicha/student/${interview.student._id}`} >  {interview.student.name} </Link> </td>
+                        <td>  <Link to={`/mugicha/student/${interview.student._id}`} >  {interview.student.studentid}  {interview.student.name} </Link> </td>
                     
                     {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
                    <>

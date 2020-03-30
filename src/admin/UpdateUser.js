@@ -88,7 +88,7 @@ const UpdateUser = ({ match, history }) => {
         e.preventDefault();
         update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
           logo, descriptionOne, specialPlan,
-          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl }, darwin_uid ).then(data => {
+          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink }, darwin_uid ).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -214,7 +214,7 @@ const UpdateUser = ({ match, history }) => {
                 </div>
 
                 <div class="mb-2">
-                  <label class="form-label">Homepage Url</label>
+                  <label class="form-label">JD Url</label>
                   <input onChange={handleChange("jdLink")} value={jdLink} name="jdLink" class="form-control"/>
                 </div>
 
@@ -268,7 +268,7 @@ const UpdateUser = ({ match, history }) => {
       {showError()}
       {redirectUser()}
           {profileUpdate(name, email, password, role, round, phase, sales_rep, logo, descriptionOne,
-          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl)}
+          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink)}
           </Grid.Col>
           </Grid.Row>
           </Page.Content>

@@ -143,7 +143,7 @@ const Home = () => {
                 
                     <><tr>
                         <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
-                        <td>  <Link to={`/mugicha/student/${interview.student}`} >  {interview.students[0].name} </Link> </td>
+                        <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.students[0].studentid} {interview.students[0].name} </Link> </td>
                     
                     {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
                    <>
