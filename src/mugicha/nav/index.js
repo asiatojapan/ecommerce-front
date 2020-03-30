@@ -17,7 +17,7 @@ const NavMugicha = ({ children }) => {
           <Nav.Link href="/mugicha/students">Students</Nav.Link>
          </Nav>
         <Nav>
-          <Nav.Link href="/mugicha/results">Results</Nav.Link>
+          <Nav.Link href="/">Main</Nav.Link>
         </Nav>
       </Navbar.Collapse>
       </Navbar>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect, Link } from "react-router-dom";
-import {signin, authenticate, isAuthenticates} from "../auth"
+import {signin, authenticate, isAuthenticates, isAuthenticated} from "../auth"
 import Logo from '../templates/Logo.png'
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
@@ -22,6 +22,9 @@ const Signin = ({ logout, session }) => {
         redirectToReferrer: false
     });
 
+
+    const { user } = isAuthenticates();
+    const [role, setRole] = useState()
     const { email, password, loading, error, redirectToReferrer, welcomePage } = values;
 
     const handleChange = name => event => {
@@ -36,7 +39,8 @@ const Signin = ({ logout, session }) => {
                 setValues({ ...values, error: data.error, loading: false });
             } else {
                 authenticate(data, () => {
-                    // setAuthTokens(data.user.name);
+                    // console.log(data)
+                    setRole(data.user.role);
                     setValues({
                         ...values,
                         redirectToReferrer: true
@@ -92,7 +96,12 @@ const Signin = ({ logout, session }) => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-     return <Redirect to="/welcome" />
+        if (role === 4) {
+            // console.log(role)
+            return <Redirect to="/mugicha" />; 
+        } else {
+            return <Redirect to="/" />;
+        }
     }
   };
 

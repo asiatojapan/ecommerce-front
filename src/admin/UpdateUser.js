@@ -166,6 +166,7 @@ const UpdateUser = ({ match, history }) => {
                     <option value="3"> 閲覧企業​ </option>
                     <option value="2"> Unregistered User </option>
                     <option value="1"> Admin </option>
+                    <option value="4"> Mentor </option>
                     </select>
                   </div>
 

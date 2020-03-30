@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NavMugicha from "./nav"
 import { Link } from 'react-router-dom';
-import { getStudents } from "../core/apiCore"
 import { getStudentsParticipating } from './apiMugicha';
 import { isAuthenticates } from "../auth";
 
