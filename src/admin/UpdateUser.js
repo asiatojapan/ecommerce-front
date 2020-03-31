@@ -150,10 +150,10 @@ const UpdateUser = ({ match, history }) => {
               </div>
               <div class="mb-2">
                    <div class="form-label">Special Plan</div>
-              <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
-              <option value=""> Select </option>
-              <option value="true"> True </option>
-              <option value="false"> False </option>
+                    <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
+                    <option value=""> Select </option>
+                    <option value="true"> True </option>
+                    <option value="false"> False </option>
                 </select>
           </div>
                 </div>
