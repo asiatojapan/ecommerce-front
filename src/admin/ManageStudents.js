@@ -455,6 +455,12 @@ const ManageStudent = () => {
       Filter: SelectColumnFilter,
     },
   ] },
+  {
+      Header: 'Login Count',
+      accessor: "login_count",
+      Filter: SelectColumnFilter,
+  },
+
     {
       Header: "Actions",
       Filter: "",
