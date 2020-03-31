@@ -73,10 +73,10 @@ const Routes = () => {
                 component={ResetPassword}
             />
     <MainRoute path="/" exact component={Home}/>
-    <PrivateRoute path="/welcome" exact component={Welcome}/>
+    <MainRoute path="/welcome" exact component={Welcome}/>
     <PrivateRoute path="/user/history" exact component={Orders}/>
-    <PrivateRoute path="/checkout/preview" exact component={CheckoutPreview}/>
-    <PrivateRoute path="/checkout" exact component={Checkout}/>
+    <MainRoute path="/checkout/preview" exact component={CheckoutPreview}/>
+    <MainRoute path="/checkout" exact component={Checkout}/>
     <MainRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
     <AdminRoute path="/mugicha" exact component={Mugicha} />

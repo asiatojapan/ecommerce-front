@@ -321,9 +321,6 @@ const Student = ({ logout, session, match }: Props) => {
         <div>
 
 
-          
-
-    
           {session.role === 3 ? null : <>
           {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
               <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
@@ -347,7 +344,7 @@ const Student = ({ logout, session, match }: Props) => {
        </Grid.Row>
        
       </Page.Content>
-      {session.round === "Phase II" || session.role === 3 ? null :
+      {session.round === "Phase II" ? null :
       <div id="application-ticket" style={{ ...headerStyle }}>
         <div className="outer" >
           <div className="inner">

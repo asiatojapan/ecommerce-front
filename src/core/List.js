@@ -83,7 +83,7 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
     >
       {resumeLoading ? 'Loading…' : student.studentid }
     </a> */}
-    {session.round === "Phase II" ||  session.role === 3  ? null : <AddFav student={student} setFavCount={handleSetFavCount}
+    {session.round === "Phase II"  ? null : <AddFav student={student} setFavCount={handleSetFavCount}
       favCount={favCount} />  }
     </div>
     </div>

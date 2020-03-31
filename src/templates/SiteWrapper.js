@@ -32,7 +32,7 @@ const SiteWrapper = ({ logout, session, history, children }) => (
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav"> 
           <Nav className="mr-auto">
-              {isAuthenticates() && session.role === 0 && (
+          {isAuthenticates() && session.role === 0 && (
               <Fragment> 
             <Nav.Link href={`/`} >Home </Nav.Link>
             { isAuthenticates() && (session.round !== "Phase I" && session.round !== "Phase II" ) && 
@@ -64,7 +64,12 @@ const SiteWrapper = ({ logout, session, history, children }) => (
             )}
             </Nav>
             {session.role !== 1 && (<Nav style={{margin: "0px 10px"}}>{session.name}</Nav>)}
-            {isAuthenticates() && session.role !== 2 && session.role !== 3 && (
+            { isAuthenticates() && session.role === 4 && (
+           <a className="unlikeBtn smaller" href="/mugicha" style={{marginRight: "10px"}}>麦茶
+           </a>
+            )}
+
+            {isAuthenticates() && session.role !== 2 && session.role !== 4 && (
             <a className="unlikeBtn smaller" href="/checkout/preview" style={{marginRight: "10px"}}> 検討リスト
             </a>)}
             <button className="likeBtn smaller"

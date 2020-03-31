@@ -96,12 +96,7 @@ const Signin = ({ logout, session }) => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-        if (role === 4) {
-            // console.log(role)
-            return <Redirect to="/mugicha/students" />; 
-        } else {
-            return <Redirect to="/" />;
-        }
+            return <Redirect to="/welcome"/>;
     }
   };
 
