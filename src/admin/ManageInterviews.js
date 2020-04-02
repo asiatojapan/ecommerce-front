@@ -7,7 +7,7 @@ import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
 import UpdateInterviewItem from "./UpdateInterviewItem";
-
+import moment from 'moment'
 import AddInterviewItem from "./AddInterviewItem";
 import {
   Dropdown,
@@ -468,16 +468,6 @@ const columns = React.useMemo(
     Filter: SelectColumnFilter,
     },
     {
-    Header: 'Company Skype',
-    accessor: "companyStatus",
-    Filter: SelectColumnFilter,
-    },
-    {
-    Header: 'Student Skype',
-    accessor: "studentStatus",
-    Filter: SelectColumnFilter,
-    },
-    {
       Header: 'Rank',
       accessor: "companyRank",
       Filter: SelectColumnFilter,
@@ -506,6 +496,15 @@ const columns = React.useMemo(
       Header: 'Status',
       accessor: "status",
       Filter: SelectColumnFilter,
+      },
+      {
+        Header: 'Updated At',
+        accessor: (text) =>
+        <div>
+        { moment(text.updatedAt).format('MM-DD-YY hh:mm')}
+        </div>,
+        id: 'created_at',
+        Filter: "",
       },
     {
       Header: "Actions",

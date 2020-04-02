@@ -27,6 +27,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         japanese_level: "",
         skill_match: "",
         character_match: "",
+        atojComment: "",
         companyComment: "", 
         error: false,
         success: false,
@@ -35,7 +36,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, companyComment, redirectToProfile} = values;
+    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, companyComment, atojComment, redirectToProfile} = values;
 
     const init = interviewId => {
       getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -50,7 +51,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                   skill_match: interviewItems[0].skill_match,
                   character_match: interviewItems[0].character_match,
                   companyComment: interviewItems[0].companyComment,
-                  company_form: interviewItems[0].company_form
+                  company_form: interviewItems[0].company_form,
+                  atojComment: interviewItems[0].atojComment
                  });
             }
         });
@@ -65,7 +67,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSubmit = e => {
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment, atojComment }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -83,6 +85,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                   japanese_level: data.japanese_level,
                   character_match: data.character_match,
                   skill_match: data.skill_match,
+                  atojComment: data.atojComment,
                   companyComment: data.companyComment,
                   success: true,
                   redirectToProfile: true
@@ -92,7 +95,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSave = e => {
-      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment }).then(data => {
+      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment }).then(data => {
           if (data.error) {
               // console.log(data.error);
               alert(data.error);
@@ -131,7 +134,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 }
             };
 
-    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, companyComment) => (
+    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, companyComment, atojComment) => (
       <div>
         {company_form ? <button className="resumeGradient unlikeBtn smaller" disabled onClick={handleShow}>
        評価済み
@@ -198,7 +201,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                           ref={register({ required: true, maxLength: 10 })}
                         />
 
-{errors.resultVali && <div class="text-red">This field is required</div>}
+                        {errors.resultVali && <div class="text-red">This field is required</div>}
                           <Form.SelectGroup onChange={handleChange('result')}>
                             <Form.SelectGroupItem
                               icon="x"
@@ -235,7 +238,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     return (
       <span>
-          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment)}
+          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment)}
           {redirectUser()}
       </span>
     );

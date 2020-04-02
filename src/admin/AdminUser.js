@@ -253,11 +253,11 @@ const AdminUser = props => {
                       <h2 className="mb-3">{user1.name}</h2>
                       <p className="mb-4">
                         <b>Email: </b> {user1.email}<br/>
-                        <b>Role: </b> {user1.role === 1 ? "Admin" : user1.role === 2 ? "Unregistered User (期限切れた）" : user1.role === 0 ? "参加企業" : user1.role ===3? "閲覧企業" : "Mentor"}<br/>
+                        <b>Role: </b> {user1.role === 1 ? "Admin" : user1.role === 2 ? "Unregistered User (期限切れた）" : user1.role === 0 ? "参加企業" : user1.role ===3 ? "閲覧企業" : "Mentor"}<br/>
                          <b>営業担当: </b>{user1.salesrep }<br/>
                          <b>フェーズ: </b>{user1.round} <br/>
                          <b>フェーズメモ: </b>{user1.phase} <br/>
-                         <b>Special Plan: </b>{user1.specialPlan === true ? "True": "False"}<br/>
+                         <b>特別プラン: </b>{user1.specialPlan === true ? "あり": "なし"}<br/>
                          <b>LoginCount: </b>{user1.login_count}<br/>
                          
                       </p> <a href={`/admin/user/update/${user1._id}`} >Update</a>

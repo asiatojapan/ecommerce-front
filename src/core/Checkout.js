@@ -40,9 +40,9 @@ const Checkout = ({ logout, session })=> {
        //  console.log(e)
         items.map((student, i) => {
           if (student._id === e.studentId) {
-              items[i].rank = e.rank
-            items[i].name = student.name 
-            items[i].studentid = student.studentid }
+                items[i].rank = e.rank
+                items[i].name = student.name 
+                items[i].studentid = student.studentid }
         });
       };
 
@@ -94,7 +94,7 @@ const Checkout = ({ logout, session })=> {
     
                 </div>
 
-                {session.specialPlan === true ? null : offer() }
+                {session.specialPlan === true || session.role === 3 ? null : offer() }
         
                 {items.map((s, index) => 
                     <CardCheckout key={index} student={s} showRemoveItemButton={false} 
@@ -109,7 +109,7 @@ const Checkout = ({ logout, session })=> {
 
     const noItemsMessage = () => (
         <div className="list-list text-center p-5">
-        <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>0</span>名</h2>
+        <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}> 0 </span>名</h2>
         <Link to="/" className="likeBtn fullWidth link">追加で学生を選ぶ</Link>
         </div>
     );

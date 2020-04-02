@@ -111,7 +111,9 @@ const Home = () => {
         <>  
           <NavMugicha>
           
-
+          <div className="loading" style={{ display: loading ? "" : "none" }}>
+            <div className="loaderSpin"></div>
+        </div>
   <section class="text-center">
         <div class="container">
           <h1 class="jumbotron-heading mb-0">Welcome to Mugicha! </h1>
@@ -136,32 +138,29 @@ const Home = () => {
                     <th style={{width: "10%"}}>結果</th>
                     <th style={{width: "30%"}}>ATOJコメント</th>
                     <th style={{width: "10%"}}> </th>
+                    <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                {interviews.map((interview, i) =>  
-                
-                    <><tr>
-                        <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
-                        <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.students[0].studentid} {interview.students[0].name} </Link> </td>
-                    
-                    {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
-                   <>
-                    <UpdateInterviewItem companyName={interview.companies[0].name} studentId={interview.students[0].studentid}
-                    studentName={interview.students[0].name} interviewItemId={item._id} interviewId={interview._id} />
-                </>
-                 )} </> : 
-                 <>
+                {interviews.map((interview, i) =>  <>
+                {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                <tr>
+                     <UpdateInterviewItem companyName={interview.companies[0].name} studentId={interview.students[0].studentid}
+                     studentName={interview.students[0].name} interviewItemId={item._id} interviewId={interview._id} />
+               </tr>
+                  )} </> :
+                 <><tr>
+                    <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
+                    <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.students[0].studentid} {interview.students[0].name} </Link></td>
                  <td></td>
                  <td></td>
                  <td></td>
                  <td></td>
                  <td></td>
-                 <td></td>
-                 </>}
-                 
-                 </tr>
-                 </>)}
+                 <td><Link to={`/mugicha/interview/${interview._id}`} > View More </Link></td>
+                 </tr> </> }
+               </>
+               )}
         </tbody>
         </table>    
         </div>

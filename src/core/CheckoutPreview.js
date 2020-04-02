@@ -55,7 +55,7 @@ const CheckoutPreview = ({ logout, session }) => {
             <Grid.Col width={12} lg={9} sm={12}>
             <div className="list-list">
             <h3 className="card-title"></h3>
-                <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>{`${items.length}`}</span>名</h2>
+                <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}> {`${items.length}`} </span>名</h2>
                 <hr />
                 {items.map((s, index) => 
                    <> <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading} passedFunction={destroy}/>
@@ -70,7 +70,7 @@ const CheckoutPreview = ({ logout, session }) => {
     const noItemsMessage = () => (
         <Grid.Col width={12} lg={9} sm={12}>
         <div className="list-list span-center p-5">
-        <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}>0</span>名</h2>
+        <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}> 0 </span>名</h2>
             <Link to="/"  className="link likeBtn fullWidth">追加で学生を選ぶ</Link>
         </div>
         </Grid.Col>
@@ -104,10 +104,10 @@ const CheckoutPreview = ({ logout, session }) => {
         {items.length > 0 ? showItems(items) : noItemsMessage()}
         <Grid.Col width={12} lg={3} sm={12}>
 
-        {session.specialPlan === true ? null : offer() }
-    
+        {session.specialPlan === true || session.role === 3 ? null : offer() }
+        {items.length > 0 ? 
              <Link to="/checkout" className=" unlikeBtn resumeGradient fullWidth">確認画面へ
-             </Link>
+             </Link> : null}
         </Grid.Col>
         </Grid.Row>
         </div>

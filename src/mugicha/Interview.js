@@ -47,6 +47,7 @@ const Interview = ({ match }) => {
     return (
         <>  
           <NavMugicha>
+            
         {listBreadCrumbs()}
         
           <div class="alert alert-primary clearfix">{companyData.name}

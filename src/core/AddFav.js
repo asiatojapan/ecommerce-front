@@ -63,7 +63,7 @@ const AddFav = ({student, setFavCount, favCount, session})  => {
 
     const clickSubmit = e => {
         setFavCount(favCount + 1)
-        if (session.specialPlan !== true) 
+        if (session.specialPlan !== true && session.role === 0) 
         {FavToast(favCount)}
         e.preventDefault();
         setFav(true)
@@ -71,7 +71,7 @@ const AddFav = ({student, setFavCount, favCount, session})  => {
     };
 
     const clickDelete = e => {
-        if (session.specialPlan !== true) 
+        if (session.specialPlan !== true  &&  session.role === 0) 
         {setFavCount(favCount - 1)}
         e.preventDefault();
         setFav(false)

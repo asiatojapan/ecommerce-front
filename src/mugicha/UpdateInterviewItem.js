@@ -21,6 +21,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
         error: false,
         success: false,
         atojComment: "",
+        companyComment: "", 
+        company_form: "",
         redirectToProfile: false,
     });
 
@@ -28,7 +30,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
  
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, atojComment , redirectToProfile} = values;
+    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, atojComment , companyComment, company_form, redirectToProfile} = values;
 
     const init = interviewId => {
         getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -41,7 +43,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
                   character_match: interviewItems[0].character_match, skill_match: interviewItems[0].skill_match,
-                  atojComment: interviewItems[0].atojComment
+                  atojComment: interviewItems[0].atojComment, companyComment: interviewItems[0].companyComment, 
+                  company_form: interviewItems[0].company_form
                  });
             }
         });
@@ -62,7 +65,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  atojComment }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  atojComment, companyComment, company_form }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -80,6 +83,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                   japanese_level: data.japanese_level,
                   character_match: data.character_match,
                   atojComment: data.atojComment,
+                  companyComment: data.companyComment,
+                  company_form: data.company_form,
                   skill_match: data.skill_match,
                   success: true,
                   redirectToProfile: true
@@ -101,6 +106,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
 
             const interviewList = () => (
                 <>
+                 <td>
+                 <Link to={`/mugicha/company/${company}`} >  {companyName} </Link> 
+                </td>
+                <td>
+                <Link to={`/mugicha/student/${student}`} >  {studentId}  {studentName} </Link> 
+                </td>
                 <td>
                      {time}
                 </td>
@@ -116,18 +127,21 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 <td>
                     {atojComment}
                 </td>
-                <td>
-                     <button type="button" class="btn btn-link" onClick={clickEdit}> Edit </button>
-                     <br/>
-                    <Link to={`/mugicha/interview/${interviewId}`} > View More</Link> 
+                <td><Link to={`/mugicha/interview/${interviewId}`} >  View More </Link>
+                     <button type="button" class="btn btn-primary btn-sm" onClick={clickEdit}> Edit </button>   
                 </td>
                 </>
             )
 
         
             const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment) => (
-      <>
-         
+                    <>
+                 <td>
+                 <Link to={`/mugicha/company/${company}`} >  {companyName} </Link> 
+                </td>
+                <td>
+                <Link to={`/mugicha/student/${student}`} >  {studentId}  {studentName} </Link> 
+                </td>
                 <td>
                      {time}
                 </td>
@@ -160,11 +174,11 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
             </td>
             
             <td>
+                <div class="btn-list">
             <button type="button" class="btn btn-link btn-sm" onClick={clickEdit}> Cancel</button>
-            <br/>
+
             <button type="button" class="btn btn-primary btn-sm" onClick={clickSubmit}> Save</button>
-            <br/>
-            <Link to={`/mugicha/interview/${interviewId}`} > View More</Link> 
+           </div>
            </td>
   
 </>

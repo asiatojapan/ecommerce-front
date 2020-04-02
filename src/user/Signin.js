@@ -15,8 +15,8 @@ const mapDispatchToProps = dispatch => ({
       
 const Signin = ({ logout, session }) => {
     const [values, setValues] = useState({
-        email: "",
-        password: "",
+        email: "tester@a.com",
+        password: "password1",
         error: "",
         loading: false,
         redirectToReferrer: false

@@ -368,7 +368,7 @@ const ManageUsers = () => {
       sortType: 'basic',
     },
     {
-      Header: '特別',
+      Header: '特別プラン',
       accessor: (text) =>
       <div>
       {text.specialPlan === true ? <span class="badge bg-green"> O </span> : <span class="badge bg-red"> X </span>}

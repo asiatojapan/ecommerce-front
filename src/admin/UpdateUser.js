@@ -149,11 +149,11 @@ const UpdateUser = ({ match, history }) => {
                 <input onChange={handleChange('email')} type="text" class="form-control" value={email} />
               </div>
               <div class="mb-2">
-                   <div class="form-label">Special Plan</div>
+                   <div class="form-label">ASIAtoJAPAN特別プラン</div>
                     <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
                     <option value=""> Select </option>
-                    <option value="true"> True </option>
-                    <option value="false"> False </option>
+                    <option value="true"> あり </option>
+                    <option value="false"> なし </option>
                 </select>
           </div>
                 </div>
@@ -189,7 +189,7 @@ const UpdateUser = ({ match, history }) => {
                     <option value="Phase I"> Phase I </option>
                     <option value="Phase II"> Phase II </option>
                     <option value="Phase III"> Phase III </option>
-                    <option value="Phase IV"> Phase IV </option>
+                    <option value="Phase IV"> 来日学生だけ見える </option>
                       </select>
                   </div>
                   

@@ -214,7 +214,7 @@ const Home = ({ logout, session }) => {
         </Grid.Row>
         </Container>
         </div>
-        {session.specialPlan === true && session.role === 3 ? null :   
+        {session.specialPlan === true || session.role === 3 ? null :   
         <> {favCount === 0 ? 
             null : <a href="/checkout/preview"><div className="count-bar"><div className="heart">{favCount} </div></div></a>}  </>}
           <Notifications options={{zIndex: 200, width: "100%"}} />

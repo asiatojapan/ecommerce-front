@@ -64,29 +64,25 @@ const Student = ({  match }) => {
                 </thead>
 
                 <tbody>
-                {interviews.map((interview, i) =>  
-                
-                    <><tr>
-                        <td> <Link to={`/mugicha/company/${interview.company._id}`} >  {interview.company.name} </Link>  </td>
-                        <td>  <Link to={`/mugicha/student/${interview.student._id}`} > {interview.student.studentid}  {interview.student.name} </Link> </td>
-                    
-                    {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
-                   <>
-                  <UpdateInterviewItem companyName={interview.company.name} studentId={interview.student.studentid}
-                    studentName={interview.student.name} interviewItemId={item._id} interviewId={interview._id} />
-                     </>
-                 )} </> : 
-                 <>
+                {interviews.map((interview, i) =>  <>
+                {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                <tr>
+                     <UpdateInterviewItem companyName={interview.company.name} studentId={interview.student.studentid}
+                     studentName={interview.student.name} interviewItemId={item._id} interviewId={interview._id} />
+               </tr>
+                  )} </> :
+                 <><tr>
+                    <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.company.name} </Link>  </td>
+                    <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.student.studentid} {interview.students[0].name} </Link></td>
                  <td></td>
                  <td></td>
                  <td></td>
                  <td></td>
                  <td></td>
-                 <td></td>
-                 </>}
-                 
-                 </tr>
-                 </>)}
+                 <td><Link to={`/mugicha/interview/${interview._id}`} > View More </Link></td>
+                 </tr> </> }
+               </>
+               )}
         </tbody>
         </table>    
         </div>
