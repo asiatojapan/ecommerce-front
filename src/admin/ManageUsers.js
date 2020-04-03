@@ -380,7 +380,7 @@ const ManageUsers = () => {
       Header: 'Role',
       accessor: (text) =>
       <div>
-      {text.role === 0 ? <span class="badge bg-green"> User </span> : text.role === 1 ? <span class="badge bg-blue"> Admin </span> : 
+      {text.role === 0 ? <span class="badge bg-green"> 参加企業 </span> : text.role === 1 ? <span class="badge bg-blue"> Admin </span> : 
       text.role === 2 ? <span class="badge bg-red">  Unregistered </span> : text.role === 4? <span class="badge bg-teal">  Mentor </span> :  <span class="badge bg-yellow"> 閲覧企業 </span>  }
       </div>,
       id: "role",

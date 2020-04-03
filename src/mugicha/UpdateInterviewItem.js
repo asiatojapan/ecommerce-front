@@ -65,35 +65,43 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  atojComment, companyComment, company_form }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  atojComment, companyComment, company_form }).
+        then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
             } else {
               setValues({
-                  ...values,
-                  company: data.company,
-                  student: data.student,
-                  name: data.name,
-                  time: data.time,
-                  phase: data.phase,
-                  result: data.result,
-                  category: data.category,
-                  time_period: data.time_period,
-                  japanese_level: data.japanese_level,
-                  character_match: data.character_match,
-                  atojComment: data.atojComment,
-                  companyComment: data.companyComment,
-                  company_form: data.company_form,
-                  skill_match: data.skill_match,
-                  success: true,
-                  redirectToProfile: true
+                  ...values
               });
+              setIsEditing(!isEditing)
             }
         });
         };
 
-
+            const resultInNice = (result) => {
+                if (result === "Nil") {
+                    return "Nil"
+                }
+                else if (result === "合格") {
+                    return "●"
+                }
+                else if (result === "不合格") {
+                    return "X"
+                }
+                else if (result === "三角") {
+                    return "▲"
+                }
+                else if (result === "辞退") {
+                    return "辞退"
+                }
+                else if (result === "内定") {
+                    return "内定"
+                }
+                else {
+                    return ""
+                }
+            }
 
 
             const redirectUser = () => {
@@ -122,7 +130,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                     {category}
                 </td>
                 <td>
-                    {result}
+                    {resultInNice
+                    (result)}
                 </td>
                 <td>
                     {atojComment}
@@ -189,7 +198,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
            {isEditing ? 
           <>{interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment)} </> :
            <>{interviewList()}</> }
-          {redirectUser()}
+   
       </>
     );
 };

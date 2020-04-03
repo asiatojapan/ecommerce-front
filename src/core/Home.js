@@ -44,6 +44,7 @@ const Home = ({ logout, session }) => {
   const [limit, setLimit] = useState(15);
   const [skip, setSkip] = useState(0);
   const [size, setSize] = useState(0);
+  const [grid, setGrid] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
   // const [studentsData, setStudentDataWithPDF] = useState([]);
@@ -74,7 +75,7 @@ const Home = ({ logout, session }) => {
 
 
   const loadFilteredResults = (newFilters) => {
-      getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk).then(data => {
+      getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk, session.tags).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -94,13 +95,12 @@ const Home = ({ logout, session }) => {
         });
     };
 
-  
 
   const loadMore = () => {
     setButtonLoading(true)
     let toSkip = skip + limit;
     // console.log(newFilters);
-    getFilteredStudents(darwin_uid, toSkip, limit, status, myFilters.filters, session.round, darwin_myTk).then(data => {
+    getFilteredStudents(darwin_uid, toSkip, limit, status, myFilters.filters, session.round, darwin_myTk, session.tags).then(data => {
         if (data.error) {
             setError(data.error);
         } else {
@@ -201,13 +201,15 @@ const Home = ({ logout, session }) => {
            </Grid.Col>
 
         <Grid.Col width={12} lg={9} sm={12}>
+ 
                {filteredResults.map((student, i) => (
                 <div key={i}>
+                
                     <List key={i} student={student} setFavCount={handleSetFavCount}
                         favCount={favCount} resumeLink={student.url} resumeLoading={resumeLoading}/> 
                 </div>
         ))}
-
+     
         {loadMoreButton()}
 
         </Grid.Col>

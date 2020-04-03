@@ -29,6 +29,7 @@ const UpdateUser = ({ match, history }) => {
         homepageUrl: "",
         specialPlan: "",
         jdLink: "",
+        tags: "",
         error: false,
         success: false,
         redirectUser: false
@@ -40,7 +41,7 @@ const UpdateUser = ({ match, history }) => {
 
 
     const { name, email, password, role, phase, round, sales_rep,  error, success,
-      logo, descriptionOne, specialPlan,
+      logo, descriptionOne, specialPlan,tags,
       descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, jdLink, homepageUrl } = values;
 
     const init = userId => {
@@ -59,6 +60,7 @@ const UpdateUser = ({ match, history }) => {
                 descriptionFive: data.descriptionFive,
                 descriptionSix: data.descriptionSix,
                 jdLink: data.jdLink,
+                tags: data.tags,
                 homepageUrl: data.homepageUrl });
             }
         });
@@ -88,7 +90,7 @@ const UpdateUser = ({ match, history }) => {
         e.preventDefault();
         update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
           logo, descriptionOne, specialPlan,
-          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink }, darwin_uid ).then(data => {
+          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink, tags}, darwin_uid ).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -217,7 +219,11 @@ const UpdateUser = ({ match, history }) => {
                   <label class="form-label">JD Url</label>
                   <input onChange={handleChange("jdLink")} value={jdLink} name="jdLink" class="form-control"/>
                 </div>
-
+          
+          <div class="mb-2">
+            <label class="form-label">Tags</label>
+             <input type="text" onChange={handleChange("tags")} value={tags} name="tags"  class="form-control"/>
+          </div>
 
           <div class="mb-2">
             <label class="form-label"> 事業内容/Business Field	</label>

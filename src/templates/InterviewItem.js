@@ -4,6 +4,30 @@ import UpdateInterviewItem from "../user/UpdateInterviewItem";
 import "../styles.css";
 
 const InterviewItem = ({item, interview}) => {
+  const resultInNice = (result) => {
+    if (result === "Nil") {
+        return "Nil"
+    }
+    else if (result === "合格") {
+        return "●"
+    }
+    else if (result === "不合格") {
+        return "X"
+    }
+    else if (result === "三角") {
+        return "▲"
+    }
+    else if (result === "辞退") {
+        return "辞退"
+    }
+    else if (result === "内定") {
+        return "内定"
+    }
+    else {
+        return ""
+    }
+}
+
     return (
       <div className="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
         <div className="col-3 col-md-3 ml-5">
@@ -18,7 +42,7 @@ const InterviewItem = ({item, interview}) => {
           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 日本語力 </span><br/>{item.japanese_level}</td>
           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Skill level </span><br/>{item.skill_match}</td>
           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Character </span><br/>{item.character_match}</td>
-          <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Result </span><br/>{item.result}</td>
+          <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Result </span><br/>{resultInNice(item.result)}</td>
         </tr>
       </tbody>
     </table>

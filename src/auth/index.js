@@ -77,7 +77,6 @@ export const isAuthenticates = () => {
     }
 };
 
-
 export const getUser = userId => {
     return fetch(`${API}/user/${userId}`, {
         method: "GET"

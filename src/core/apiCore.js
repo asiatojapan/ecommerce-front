@@ -65,14 +65,15 @@ export const getPushList = (userId) => {
 };
 
 
-export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round, token) => {
+export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round, token, tags) => {
     const data = {
         limit,
         status,
         skip,
         filters,
         userId,
-        round
+        round,
+        tags
     };
     return fetch(`${API}/students/by/search`, {
         method: "POST",
