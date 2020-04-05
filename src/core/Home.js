@@ -104,6 +104,7 @@ const Home = ({ logout, session }) => {
         if (data.error) {
             setError(data.error);
         } else {
+            // console.log(data)
             setFilteredResults([...filteredResults, ...data.data]);
             setSize(data.size);
             // createPDF([...filteredResults, ...data.data])
@@ -204,7 +205,6 @@ const Home = ({ logout, session }) => {
  
                {filteredResults.map((student, i) => (
                 <div key={i}>
-                
                     <List key={i} student={student} setFavCount={handleSetFavCount}
                         favCount={favCount} resumeLink={student.url} resumeLoading={resumeLoading}/> 
                 </div>
