@@ -49,7 +49,7 @@ const UpdateCSVStudents = () => {
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: '' });
-
+      console.log("Hw")
         axios.post(`${API}/students/update/${darwin_uid}`, formData, { headers: { Authorization: "Bearer " + darwin_myTk }
         }).then(res => { // then print response status
 
