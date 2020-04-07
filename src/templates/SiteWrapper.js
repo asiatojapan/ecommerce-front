@@ -32,7 +32,8 @@ const SiteWrapper = ({ logout, session, history, children }) => (
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav"> 
           <Nav className="mr-auto">
-          {isAuthenticates() && session.role === 0 && (
+          {isAuthenticates() && session.role === 0 || isAuthenticates() && session.role === 1 
+          || isAuthenticates() && session.role === 3 && (
               <Fragment> 
             <Nav.Link href={`/`} >Home </Nav.Link>
             { isAuthenticates() && (session.round !== "Phase I" && session.round !== "Phase II" ) && 

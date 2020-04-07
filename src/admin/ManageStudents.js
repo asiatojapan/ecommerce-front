@@ -609,7 +609,6 @@ const ManageStudent = () => {
        <Link to={`/admin/create/student`} className="btn btn-sm btn-secondary"> + Add Students </Link> <br/>
 
        <ImportStudents/>
-       <ImportRec/>
        <UpdateCSVStudents/>
         </div>
         </div>

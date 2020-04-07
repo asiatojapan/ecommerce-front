@@ -10,18 +10,11 @@ import Table2 from 'react-bootstrap/Table';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ImportUsers from "./ImportUsers";
 import UpdateCSVUsers from "./UpdateCSVUsers";
-
+import ImportHide from "./ImportHide";
+import ImportRec from "./ImportRec";
 import {
-  Page,
   Dropdown,
-  Icon,
-  Grid,
-  Card,
-  Text,
-  Alert,
-  Progress,
   Container,
-  Badge,
 } from "tabler-react";
 
 const IndeterminateCheckbox = React.forwardRef(
@@ -363,6 +356,11 @@ const ManageUsers = () => {
           accessor: 'name',
           id: 'name',
         },
+        {
+          Header: 'id',
+          accessor: '_id',
+          id: 'id',
+        },
     {
       Header: 'Email',
       accessor: 'email',
@@ -490,6 +488,8 @@ const ManageUsers = () => {
       <div class="card-options">
       <ImportUsers/>
       <UpdateCSVUsers/>
+      <ImportRec/>
+      <ImportHide/>
       <Link to="/forgotpassword">
        <a className="btn btn-sm btn-secondary">Forgot password</a>
       </Link>

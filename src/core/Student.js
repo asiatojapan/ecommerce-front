@@ -344,7 +344,7 @@ const Student = ({ logout, session, match }: Props) => {
        </Grid.Row>
        
       </Page.Content>
-      {session.round === "Phase II" ? null :
+      {session.round === "Phase II" || session.round === "Phase III" ? null :
       <div id="application-ticket" style={{ ...headerStyle }}>
         <div className="outer" >
           <div className="inner">

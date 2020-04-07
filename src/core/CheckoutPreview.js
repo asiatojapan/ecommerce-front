@@ -121,7 +121,9 @@ const CheckoutPreview = ({ logout, session }) => {
                 </h1>
             <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
             <h3>申請後、学生を追加する場合はASIAtoJAPANまでご連絡ください</h3>
-            <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
+            { session.round === "Phase III" ? 
+            <Link to="/user/interviews" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
+            : <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link> }
          </div>
     </div>
    
