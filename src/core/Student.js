@@ -158,10 +158,94 @@ const Student = ({ logout, session, match }: Props) => {
         <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
         <li className="breadcrumb-item active" aria-current="page">{student.studentid}</li>
       </ol>   
+
+      {session.role === 1 && (
+      <div className="list-list"  style={{padding: "0px"}}>
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>推薦 ({student.recCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.rec_users ?
+                        student.rec_users.map((user,i) => (
+                            <Tag key={i} color="danger">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>推薦2({student.pushCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.push_users ?
+                        student.push_users.map((user,i) => (
+                            <Tag key={i} color="green">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>Fav ({student.favoritesCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.favorites ?
+                        student.favorites.map((user,i) => (
+                            <Tag key={i} color="primary">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>Hide ({student.hideCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.hide_users ?
+                        student.hide_users.map((user,i) => (
+                            <Tag key={i} color="dark">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                
+              </div> )}
+
         <Grid.Row>
-    
+
       <Grid.Col width={12} lg={9} sm={12}>
- 
+  
       <div className="list-list" style={{padding: "0px"}}>
           <div className="d-block">
             <div className="embed-container">
