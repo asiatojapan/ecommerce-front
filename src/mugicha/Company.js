@@ -101,8 +101,8 @@ const Company = ({  match }) => {
                </tr>
                   )} </> :
                  <><tr>
-                    <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.company.name} </Link>  </td>
-                    <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.student.studentid} {interview.students[0].name} </Link></td>
+                    <td> <Link to={`/mugicha/company/${interview.company._id}`} >  {interview.company.name} </Link>  </td>
+                    <td>  <Link to={`/mugicha/student/${interview.student._id}`} > {interview.student.studentid} {interview.student.name} </Link></td>
                  <td></td>
                  <td></td>
                  <td></td>
