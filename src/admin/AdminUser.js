@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
 import { deleteUser,readUser } from './apiAdmin';
-import { getStudents, getFavStudents   } from '../core/apiCore';
+import { getStudents, getFavStudents, createOrder } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPush from "./AddPush";
 import AddHide from "./AddHide";
@@ -16,6 +16,22 @@ import {
 import { Button } from 'antd';
 import { Table } from "./ManageStudents";
 
+import { connect } from "react-redux";
+import { logout } from "../actions/session";
+
+const mapStateToProps = ({ session }) => ({
+session
+});
+
+const mapDispatchToProps = dispatch => ({
+logout: () => dispatch(logout())
+});
+
+interface RouterProps {
+  match: any;
+}
+
+type Props = RouterProps;
 
 
 function SelectColumnFilter({
@@ -51,7 +67,7 @@ function SelectColumnFilter({
 
 
 
-const AdminUser = props => {
+const AdminUser = ({ logout, session, match }: Props) => {
     const [students, setStudents] = useState([]);
     const data = students
 
@@ -60,10 +76,8 @@ const AdminUser = props => {
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const [ favStudents, setFavStudents ] =  useState([]);
-
-    const loadSingleUser = (darwin_uid) => {
-        readUser(darwin_uid, darwin_myTk).then(data => {
+    const loadSingleUser = () => {
+        readUser(match.params.userId, darwin_myTk).then(data => {
             if (data.error) {
                 setError(data.error);
             } else {
@@ -74,14 +88,15 @@ const AdminUser = props => {
     };
 
 
-    const loadFavStudents = userId => {
-        getFavStudents(darwin_uid, darwin_myTk).then(data => {
-            setFavStudents(data);
+    const loadFavStudents = () => {
+        getFavStudents(match.params.userId, darwin_myTk).then(data => {
+            setItems(data);
+            // console.log(data)
         });
     };
 
     const loadStudents = () => {
-        getStudents(darwin_uid, darwin_myTk).then(data => {
+        getStudents(match.params.userId, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -92,8 +107,28 @@ const AdminUser = props => {
     };
 
 
-    useEffect(() => {
-        loadSingleUser(props.match.params.userId);
+    const buy = () => { 
+      var d = new Date();
+      const month = d.toLocaleString('default', { month: 'long' });
+      var y = d.getFullYear() 
+        const createOrderData = {
+          students: items,
+          transaction_id: y + month + " " + user1.name,
+        };
+        createOrder(match.params.userId, darwin_myTk, createOrderData).then(data => {
+          if (data.error) {
+            console.log(data.error);
+            setError(true)
+          } else {
+            window.location.reload();
+          }
+      });
+  };
+
+
+
+  useEffect(() => {
+    loadSingleUser();
     }, []);
 
     useEffect(() => {
@@ -101,15 +136,19 @@ const AdminUser = props => {
     }, []);
 
     useEffect(() => {
-        loadFavStudents(props.match.params.userId);
+        loadFavStudents();
     }, []);
 
+
+    const [selectedRows, setSelectedRows] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
+    const [items, setItems] = useState([]);
 
 
     const columns = React.useMemo(
@@ -147,7 +186,7 @@ const AdminUser = props => {
            Filter: "",
            accessor: (text, i) =>
            <div>
-           <AddRec student={text} userIdFromTable={props.match.params.userId} />
+           <AddRec student={text} userIdFromTable={match.params.userId} />
            </div>
          },
          {
@@ -155,7 +194,7 @@ const AdminUser = props => {
           Filter: "",
           accessor: (text, i) =>
           <div>
-          <AddPush student={text} userIdFromTable={props.match.params.userId} />
+          <AddPush student={text} userIdFromTable={match.params.userId} />
           </div>
         },
          {
@@ -171,7 +210,7 @@ const AdminUser = props => {
            Filter: "",
            accessor: (text, i) =>
            <div>
-             <AddInterview student={text} userIdFromTable={props.match.params.userId}  />
+             <AddInterview student={text} userIdFromTable={match.params.userId}  />
            </div>
          },
 
@@ -182,7 +221,7 @@ const AdminUser = props => {
           <div>
              {text.interviews.map((c,i) =>
              <div>
-             {c.company == props.match.params.userId ? <span>{c.status} </span>: ""} 
+             {c.company == match.params.userId ? <span>{c.status} </span>: ""} 
              </div>
            )}
           </div>
@@ -194,54 +233,18 @@ const AdminUser = props => {
           Filter: "",
           accessor: (text, i) =>
           <div>
-          <AddHide student={text} userIdFromTable={props.match.params.userId} />
+          <AddHide student={text} userIdFromTable={match.params.userId} />
           </div>
         },
     ],
       []
     );
 
-    const destroy = userId => {
-        deleteUser(userId, darwin_uid, darwin_myTk).then(data => {
-            if (data.error) {
-                console.log(data.error);
-            } else {
-
-            }
-        });
-    };
-
-    const [selectedRows, setSelectedRows] = useState([]);
-    const [loading, setLoading] = useState(true)
-
-    const selectedRowKeys = Object.values(selectedRows);
-
-    const interviewCard= interviewstudents => {
-      return (
-      <div className="card">
-        {console.log(interviewstudents)}
-    </div>)
-    }
-
-    const favStudentsCard = () => (
-    <div className="card">
-        <div className="card-header"> <h3 className="card-title"> Fav </h3></div>
-                  <div className="card-body ">
-                  <div className="row mb-n3">
-                  {favStudents.map((c, i) =>
-                  <div className="col-6 row row-sm mb-3 align-items-center">
-          <div className="col text-truncate">
-          <Link className="text-body d-block text-truncate" to={`/student/${c._id}`}> {c.studentid}</Link>
-            <small className="d-block text-muted text-truncate mt-n1">{c.name}</small>
-          </div>
-        </div>)}
-        </div>
-      </div>
-  </div>
-)
+  
+   
     return (
       <SiteWrapper>
-               <div className="loading" style={{ display: loading ? "" : "none" }}>
+        <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
      
@@ -261,9 +264,17 @@ const AdminUser = props => {
                          <b>LoginCount: </b>{user1.login_count}<br/>
                          <hr /> 
                          <b> Tags: </b> {user1.tags}<br/>
-                         
-                      </p> <a href={`/admin/user/update/${user1._id}`} >Update</a>
+                         <hr/>
+                      </p> 
+                      <p><a href={`/admin/user/update/${user1._id}`} className="likeBtn fullWidth">Update</a></p>
+                 
+                      <button type="button" className="unlikeBtn resumeGradient fullWidth" 
+                      onClick={() => { if (window.confirm('Are you sure you wish to submit?'))  buy()  } }
+                    >
+                          ASIA to JAPANに申請
+                      </button>
                     </div>
+                  
                   </div>
 
                   <div className="card">

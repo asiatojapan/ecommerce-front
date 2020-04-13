@@ -59,7 +59,7 @@ const RealStudent = (props) => {
 
     
   const [resumeLink, setResumeLink] = useState();
-
+  const [blob, setBlob] = useState()
 
   async function createPDF(results) {
       await pdf(<Resume studentData={results} />)
@@ -70,12 +70,30 @@ const RealStudent = (props) => {
         });
   }
 
+  async function createPDF(results) {
+    await pdf(<Resume studentData={results} />)
+      .toBlob()
+      // eslint-disable-next-line no-loop-func
+      .then(blobProp => {
+        setBlob(blobProp)
+        setResumeLink(URL.createObjectURL(blobProp));
+        setLoading(false)
+      });
+}
+
   const createPDFLinkButton = (studentData, trigger) => {
     const url  = resumeLink;
     return url ? 
       <a href={url} target="_blank">
         {trigger}
       </a> :  null
+  };
+
+  const createPDFLinkButton1 = (studentData, trigger) => {
+    const url = blob;
+    if (window.navigator.msSaveOrOpenBlob) {
+      return url ? 
+      window.navigator.msSaveOrOpenBlob(url, student.studentid + ".pdf") :  null }
   };
 
 
@@ -268,12 +286,14 @@ const RealStudent = (props) => {
                       <div class="list-list" style={{padding: "0px"}}>
                       <div class="card-header"><div class="card-title">Downloads</div>
                       </div>
+
                       <div class="card-body">
-                          {createPDFLinkButton(
-                            student,
-                            <button class="unlikeBtn resumeGradient fullWidth" >正式レジュメ</button>
-                          )}
-                          {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
+
+                      {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
+                        <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
+                      )} </>}
+    
+                      {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
                           FYP
                           </a>}
                       </div>

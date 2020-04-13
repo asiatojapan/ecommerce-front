@@ -356,16 +356,13 @@ const ManageUsers = () => {
           accessor: 'name',
           id: 'name',
         },
-        {
-          Header: 'id',
-          accessor: '_id',
-          id: 'id',
-        },
     {
       Header: 'Email',
-      accessor: 'email',
-      id: 'email',
-      sortType: 'basic',
+      accessor: (text) =>
+      <Link to={`/admin/profile/${text._id}`}> {text.email}
+      </Link>,
+      id: "email",
+      Filter: "",
     },
     {
       Header: '特別プラン',
@@ -402,26 +399,7 @@ const ManageUsers = () => {
       Filter: "",
     },
 
-    {
-      Header: 'おすすめ',
-      Filter: "",
-      accessor: (text, i) =>
-      <div> {text.rec_students.length}</div>
-    },
-
-    {
-      Header: 'Fav',
-      Filter: "",
-      accessor: (text, i) =>
-      <div> {text.favorites.length}</div>
-    },
-
-    {
-      Header: '面接数',
-      Filter: "",
-      accessor: (text, i) =>
-      <div> {text.interviews.filter(x => x.status == "選考").length}</div>
-    },
+   
     {
       Header: '担当',
       accessor: 'salesRep[0].name',

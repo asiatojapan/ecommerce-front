@@ -124,6 +124,7 @@ const AddUser = ({history}) => {
           <div class="mb-2">
                 <div class="form-label">営業担当</div>
                   <select placeholder="営業" onChange={handleChange("sales_rep")} value={sales_rep} class="form-control">
+                  <option value=""> Select </option>
                     {users && users.map((c, i) => (
                         <option key={i} value={c._id}>
                               {c.name}

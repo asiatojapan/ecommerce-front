@@ -397,6 +397,11 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">FYP</label>
             <input onChange={handleChange('upload_fyp')} type="file" name="upload_fyp"  />
             </div>
+
+            <div class="mb-2">
+            <label class="form-label">FYP</label>
+            <input onChange={handleChange('upload_fyp')} value={values.upload_fyp} name="upload_fyp" class="form-control" />
+            </div>
   
        
       </div>

@@ -7,7 +7,6 @@ import { Page, Icon, Grid, Tag } from "tabler-react";
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
 import { pdf,  Font, BlobProvider } from "@react-pdf/renderer";
 import Resume from "../pdf/PersonalResume";
-import HalfResume from "../pdf/HalfResume";
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'

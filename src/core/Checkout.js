@@ -3,7 +3,7 @@ import { Link, withRouter  } from 'react-router-dom';
 import { isAuthenticated, isAuthenticates } from "../auth";
 import SiteWrapper from '../templates/SiteWrapper';
 import CardCheckout from "./CardCheckout"
-import { getFavStudents, createOrder, } from "./apiCore";
+import { getFavStudents, createOrder } from "./apiCore";
 import {
     Grid,
     Container,
