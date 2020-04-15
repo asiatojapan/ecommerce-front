@@ -10,7 +10,7 @@ import Modal from 'react-bootstrap/Modal';
         name: "",
         time: "",
         phase: "1次",
-        result: "",
+        result: "Nil",
         company: "",
         student: "",
         time_period: "1日",
@@ -72,12 +72,6 @@ import Modal from 'react-bootstrap/Modal';
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
-        const showError = () => (
-            <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-                {error}
-            </div>
-        );
 
         const showSuccess = () => (
             <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
@@ -144,8 +138,8 @@ import Modal from 'react-bootstrap/Modal';
           <div className="mb-2">
             <label className="form-label">結果</label>
             <select placeholder="結果" onChange={handleChange("result")} value={result} className="form-control">
-                <option value="">Select</option>
-                  <option value="Nil"> </option>
+                  <option value="">Select</option>
+                  <option value="Nil">Nil</option>
                   <option value="合格"> ● </option>
                   <option value="不合格"> X </option>
                   <option value="三角"> ▲</option>
@@ -185,7 +179,7 @@ import Modal from 'react-bootstrap/Modal';
 
     return (
       <span>
-          {interviewUpdate(time, phase, result, time_period, category)}
+          {success ? showSuccess() : interviewUpdate(time, phase, result, time_period, category)}
           {redirectUser()}
       </span>
     );

@@ -6,7 +6,7 @@ import "../styles.css";
 const InterviewItem = ({item, interview}) => {
   const resultInNice = (result) => {
     if (result === "Nil") {
-        return "Nil"
+        return ""
     }
     else if (result === "合格") {
         return "●"

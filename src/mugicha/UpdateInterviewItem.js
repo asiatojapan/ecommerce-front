@@ -81,7 +81,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
 
             const resultInNice = (result) => {
                 if (result === "Nil") {
-                    return "Nil"
+                    return ""
                 }
                 else if (result === "合格") {
                     return "●"

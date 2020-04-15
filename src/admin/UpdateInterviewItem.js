@@ -19,17 +19,17 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         japanese_level: "",
         skill_match: "",
         character_match: "",
+        atojComment: "",
+        companyComment: "",
         error: false,
         success: false,
         redirectToProfile: false,
     });
 
-    const [ users, setUsers] = useState([]);
-    const [ students, setStudents] = useState([]);
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, redirectToProfile} = values;
+    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, atojComment, companyComment, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
         getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -41,28 +41,9 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
-                  character_match: interviewItems[0].character_match, skill_match: interviewItems[0].skill_match
+                  character_match: interviewItems[0].character_match, skill_match: interviewItems[0].skill_match,
+                  atojComment: interviewItems[0].atojComment, companyComment: interviewItems[0].companyComment
                  });
-            }
-        });
-    };
-
-    const initUsers = () => {
-        getUsers().then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                setUsers(data);
-            }
-        });
-    };
-
-    const initStudents = () => {
-        getStudents().then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error });
-            } else {
-                setStudents(data);
             }
         });
     };
@@ -77,24 +58,13 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment, companyComment }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
             } else {
               setValues({
                   ...values,
-                  company: data.company,
-                  student: data.student,
-                  name: data.name,
-                  time: data.time,
-                  phase: data.phase,
-                  result: data.result,
-                  category: data.category,
-                  time_period: data.time_period,
-                  japanese_level: data.japanese_level,
-                  character_match: data.character_match,
-                  skill_match: data.skill_match,
                   success: true,
                   redirectToProfile: true
               });
@@ -109,18 +79,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const handleShow = () => setShow(true);
 
 
-        const showError = () => (
-            <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
-                {error}
-            </div>
-        );
-
-        const showSuccess = () => (
-            <div className="alert alert-info" style={{ display: success ? '' : 'none' }}>
-                User has been updated!
-            </div>
-        );
-
+    
             const redirectUser = () => {
                 if (redirectToProfile) {
                     if (!error) {
@@ -156,6 +115,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="15:00"> 15:00 </option>
                     <option value="16:00"> 16:00 </option>
                     <option value="17:00"> 17:00 </option>
+                    <option value="17:40"> 17:40 </option>
                     <option value="18:00"> 18:00 </option>
                 </select>
           </div>
@@ -173,19 +133,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 </select>
           </div>
 
-          <div class="mb-2">
-            <label class="form-label">結果</label>
-            <select placeholder="結果" onChange={handleChange("result")} value={result} class="form-control">
-                <option value="">Select</option>
-                  <option value="Nil"> </option>
-                  <option value="合格"> ● </option>
-                  <option value="不合格"> X </option>
-                  <option value="三角"> ▲</option>
-                  <option value="辞退"> 辞退　</option>
-                  <option value="内定"> 内定　</option>
-              </select>
-          </div>
-
+    
           <div class="mb-2">
             <label class="form-label">Day</label>
             <select placeholder="time_period" onChange={handleChange("time_period")} value={time_period} class="form-control">
