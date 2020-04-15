@@ -157,6 +157,7 @@ const Home = () => {
                  <td></td>
                  <td></td>
                  <td></td>
+                 <td></td>
                  <td><Link to={`/mugicha/interview/${interview._id}`} > View More </Link></td>
                  </tr> </> }
                </>

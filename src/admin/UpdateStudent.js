@@ -43,6 +43,7 @@ const UpdateStudent = ({ match, history }) => {
       video: '',
       videoImg: '',
       profileImg: "",
+      profileImgTwo: "",
       reflections: "",
       period: "",
       country: "",
@@ -111,6 +112,7 @@ const UpdateStudent = ({ match, history }) => {
                     videoImg: data.videoImg,
                     upload_fyp: data.upload_fyp,
                     profileImg: data.profileImg,
+                    profileImgTwo: data.profileImgTwo,
                     reflections: data.reflections,
                     period: data.period,
                     formData: new FormData()
@@ -386,6 +388,11 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">Offer Profile Img</label>
             <input onChange={handleChange("profileImg")} value={values.profileImg} name="profileImg" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Profile Img 2</label>
+            <input onChange={handleChange("profileImgTwo")} value={values.profileImgTwo} name="profileImg" class="form-control"/>
           </div>
 
           <div class="mb-2">

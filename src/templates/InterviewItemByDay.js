@@ -72,9 +72,9 @@ const InterviewItemByDay = ({item, interview, resumeLoading}) => {
          <tbody>
          <tr>
            <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 日本語力 </span><br/>{item.japanese_level}</td>
-           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Skill level </span><br/>{item.skill_match}</td>
-           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Character </span><br/>{item.character_match}</td>
-           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> Result </span><br/>       {resultInNice
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> スキルマッチ　</span><br/>{item.skill_match}</td>
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 人物マッチ </span><br/>{item.character_match}</td>
+           <td style={{borderTop: "none", fontSize: "19px"}}> <span style={{fontSize: "12px", fontColor: "#eee"}}> 結果 </span><br/>       {resultInNice
                     (item.result)}</td>
          </tr>
          </tbody>

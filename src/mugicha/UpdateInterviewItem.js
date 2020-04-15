@@ -136,6 +136,9 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 <td>
                     {atojComment}
                 </td>
+                <td>
+                    {companyComment}
+                </td>
                 <td><Link to={`/mugicha/interview/${interviewId}`} >  View More </Link>
                      <button type="button" class="btn btn-primary btn-sm" onClick={clickEdit}> Edit </button>   
                 </td>
@@ -181,6 +184,9 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
             aria-label="Small" aria-describedby="inputGroup-sizing-sm" rows="3"/>
             </div>
             </td>
+            <td>
+                    {companyComment}
+                </td>
             
             <td>
                 <div class="btn-list">

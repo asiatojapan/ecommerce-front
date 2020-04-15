@@ -9,12 +9,12 @@ import Modal from 'react-bootstrap/Modal';
     const [values, setValues] = useState({
         name: "",
         time: "",
-        phase: "",
+        phase: "1次",
         result: "",
         company: "",
         student: "",
-        time_period: "",
-        category: "",
+        time_period: "1日",
+        category: "Skype",
         error: false,
         success: false,
         redirectToProfile: false,
@@ -61,7 +61,6 @@ import Modal from 'react-bootstrap/Modal';
                   category: data.category,
                   time_period: data.time_period,
                   success: true,
-                  redirectToProfile: true
               });
             }
         });
@@ -125,7 +124,7 @@ import Modal from 'react-bootstrap/Modal';
                     <option value="15:00"> 15:00 </option>
                     <option value="16:00"> 16:00 </option>
                     <option value="17:00"> 17:00 </option>
-                    <option value="18:00"> 18:00 </option>
+                    <option value="17:40"> 17:40 </option>
                 </select>
           </div>
 

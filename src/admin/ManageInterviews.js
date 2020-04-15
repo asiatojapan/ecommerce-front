@@ -454,7 +454,7 @@ const columns = React.useMemo(
 
     {
       Header: 'StudentName',
-      Filter: SelectColumnFilter,
+      Filter: "",
       accessor: "students[0].name"
     },
 

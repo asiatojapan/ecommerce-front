@@ -15,6 +15,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const { register, handleSubmit, watch, errors, control } = useForm();
     const [values, setValues] = useState({
         studentname: "",
+        companyname: "",
         name: "",
         time: "",
         status: "",
@@ -36,7 +37,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { studentname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, companyComment, atojComment, redirectToProfile} = values;
+    const { studentname, companyname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, companyComment, atojComment, redirectToProfile} = values;
 
     const init = interviewId => {
       getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -44,7 +45,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 setValues({ ...values, error: true });
             } else {
                 const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
-                setValues({ ...values, studentname: data.student.name, company: data.company._id, student: data.student._id,
+                setValues({ ...values, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
@@ -67,7 +68,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSubmit = e => {
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment, atojComment }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment, atojComment, studentname, companyname }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -95,7 +96,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSave = e => {
-      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment }).then(data => {
+      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment, studentname, companyname }).then(data => {
           if (data.error) {
               // console.log(data.error);
               alert(data.error);
@@ -144,15 +145,15 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
           <Modal show={show} onHide={handleClose}>
                    <Modal.Body closeButton>
                    <div class="container">
-                       <h3 class="text-center mt-5 mb-5">How was your interview with <br/>
-                       <strong> {studentname} </strong>? </h3>
+                       <h3 class="text-center mt-5 mb-5">
+                       <strong> {studentname} </strong> さんとの面接はいかがでしたか？ </h3>
                        <hr />
                               <div class="mb-2">
-                              <div class="form-label">日本語力</div>
+                              <div class="form-label">日本語力 (1 = 低, 5= 高)</div>
                               <input style={{display: 'none' }} onChange={handleChange('japanese_level')} value={japanese_level}
                           name="japaneseVali"
                           ref={register({ required: true, maxLength: 10 })}
-                        />{errors.japaneseVali && <div class="text-red">This field is required</div>}
+                        />{errors.japaneseVali && <div class="text-red">お手数ですが、ご記入くださいませ。</div>}
                               <select placeholder="Role" onChange={handleChange("japanese_level")} value={japanese_level}  class="form-control">
                               <option value=""> Select </option>
                               <option value="1"> 1 </option>
@@ -164,11 +165,11 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                               </div>
 
                               <div class="mb-2">
-                              <div class="form-label">Skill Match</div>
+                              <div class="form-label">スキルマッチ (1 = 低, 5= 高)</div>
                               <input style={{display: 'none' }} onChange={handleChange('skill_match')} value={skill_match}
                           name="skillVali"
                           ref={register({ required: true, maxLength: 10 })}
-                        />{errors.skillVali && <div class="text-red">This field is required</div>}
+                        />{errors.skillVali && <div class="text-red">お手数ですが、ご記入くださいませ。</div>}
                               <select placeholder="Role" onChange={handleChange("skill_match")} value={skill_match}  class="form-control">
                               <option value=""> Select </option>
                               <option value="1"> 1 </option>
@@ -181,11 +182,11 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
                              
                               <div class="mb-2">
-                              <div class="form-label">Character Match</div>
+                              <div class="form-label">人物マッチ (1 = 低, 5= 高)</div>
                               <input style={{display: 'none' }} onChange={handleChange('character_match')} value={character_match}
                           name="characterVali"
                           ref={register({ required: true, maxLength: 10 })}
-                        />{errors.characterVali && <div class="text-red">This field is required</div>}
+                        />{errors.characterVali && <div class="text-red">お手数ですが、ご記入くださいませ。</div>}
                               <select placeholder="Role" onChange={handleChange("character_match")} value={character_match}  class="form-control">
                               <option value=""> Select </option>
                               <option value="1"> 1 </option>
@@ -201,7 +202,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                           ref={register({ required: true, maxLength: 10 })}
                         />
 
-                        {errors.resultVali && <div class="text-red">This field is required</div>}
+                        {errors.resultVali && <div class="text-red">お手数ですが、ご記入くださいませ。</div>}
                           <Form.SelectGroup onChange={handleChange('result')}>
                             <Form.SelectGroupItem
                               icon="x"
