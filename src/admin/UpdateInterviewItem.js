@@ -21,6 +21,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         character_match: "",
         atojComment: "",
         companyComment: "",
+        studentname: "",
+        companyname: "",
         error: false,
         success: false,
         redirectToProfile: false,
@@ -29,7 +31,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, atojComment, companyComment, error, success, redirectToProfile} = values;
+    const { company, student, studentname, companyname, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, atojComment, companyComment, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
         getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -37,7 +39,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 setValues({ ...values, error: true });
             } else {
                 const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
-                setValues({ ...values, company: data.company._id, student: data.student._id,
+                setValues({ ...values, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
@@ -58,7 +60,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment, companyComment }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, studentname, companyname, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment, companyComment }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);

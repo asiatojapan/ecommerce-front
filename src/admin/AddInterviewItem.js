@@ -61,6 +61,7 @@ import Modal from 'react-bootstrap/Modal';
                   category: data.category,
                   time_period: data.time_period,
                   success: true,
+                  redirectToProfile: true,
               });
             }
         });
@@ -119,6 +120,7 @@ import Modal from 'react-bootstrap/Modal';
                     <option value="16:00"> 16:00 </option>
                     <option value="17:00"> 17:00 </option>
                     <option value="17:40"> 17:40 </option>
+                    <option value="18:00"> 18:00 </option>
                 </select>
           </div>
 

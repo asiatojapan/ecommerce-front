@@ -230,8 +230,8 @@ const UpdateStudent = ({ match, history }) => {
           <label class="form-label">Gender</label>
           <select class="form-label" placeholder="Select Gender" onChange={handleChange("gender")} value={values.gender} name="gender">
              <option value=""> Select </option>
-             <option value="male"> Male </option>
-             <option value="female">  Female </option>
+             <option value="Male"> Male </option>
+             <option value="Female">  Female </option>
              </select>
         </div>
   

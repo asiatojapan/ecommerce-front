@@ -86,7 +86,6 @@ const Home = ({ logout, session }) => {
              // createPDF(data.data)
           }
       });
-
   };
 
   const getFavCount = () => {
