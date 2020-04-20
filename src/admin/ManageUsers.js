@@ -405,8 +405,8 @@ const ManageUsers = () => {
       accessor: 'salesRep[0].name',
       Filter: SelectColumnFilter,
       id: "tantou",
-
     },
+
     {
       Header: 'Created At',
       accessor: (text) =>

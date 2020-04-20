@@ -42,6 +42,7 @@ const InterviewItemByDay = ({item, interview, resumeLoading}) => {
     }
 }
 
+
     const children = (
 
       <div class="list-list" style={{backgroundColor: "#fff", padding: "0"}}>
@@ -55,7 +56,7 @@ const InterviewItemByDay = ({item, interview, resumeLoading}) => {
           <b> {interview.student.studentid} </b> {interview.student.name} </Link>
         <div style={{marginBottom: "0px"}}>
           <div>
-          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "Male" || "male" ? "男性": "女性"}・{_calculateAge(interview.student.dob)}
+          <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {interview.student.gender === "Male" ? "男性": interview.student.gender === "male" ? "男性": "女性" }・{_calculateAge(interview.student.dob)}
           </div>
           <div>
           <Icon prefix="fe" name="globe" /> <strong>国籍・地域: </strong>{interview.student.country}

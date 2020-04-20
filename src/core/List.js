@@ -50,7 +50,7 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
 
     <div className="list-Desc">
     <div className="mt-1">
-    <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{_calculateAge(student.dob)}
+    <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": student.gender === "male" ? "男性": "女性" }・{_calculateAge(student.dob)}
     </div>
     <div>
     <Icon prefix="fe" name="globe" />  <strong>国籍・地域: </strong>{student.country}

@@ -30,6 +30,7 @@ const UpdateUser = ({ match, history }) => {
         specialPlan: "",
         jdLink: "",
         tags: "",
+        zoomUrl: "",
         error: false,
         success: false,
         redirectUser: false
@@ -41,7 +42,7 @@ const UpdateUser = ({ match, history }) => {
 
 
     const { name, email, password, role, phase, round, sales_rep,  error, success,
-      logo, descriptionOne, specialPlan,tags,
+      logo, descriptionOne, specialPlan,tags,zoomUrl,
       descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, jdLink, homepageUrl } = values;
 
     const init = userId => {
@@ -61,6 +62,7 @@ const UpdateUser = ({ match, history }) => {
                 descriptionSix: data.descriptionSix,
                 jdLink: data.jdLink,
                 tags: data.tags,
+                zoomUrl: data.zoomUrl,
                 homepageUrl: data.homepageUrl });
             }
         });
@@ -89,7 +91,7 @@ const UpdateUser = ({ match, history }) => {
     const clickSubmit = e => {
         e.preventDefault();
         update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
-          logo, descriptionOne, specialPlan,
+          logo, descriptionOne, specialPlan, zoomUrl,
           descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink, tags}, darwin_uid ).then(data => {
             if (data.error) {
                 // console.log(data.error);
@@ -254,6 +256,13 @@ const UpdateUser = ({ match, history }) => {
             <label class="form-label"> 参考/Please refer to this website in advance.		</label>
             <textarea onChange={handleChange("descriptionFive")} value={descriptionFive} rows="5" name="descriptionFive" class="form-control"/>
           </div>
+
+          <div class="mb-2">
+            <label class="form-label"> Zoom Url </label>
+            <textarea onChange={handleChange("zoomUrl")} value={zoomUrl} rows="5" name="zoomUrl" class="form-control"/>
+          </div>
+
+
           </div>
           <div class="card-footer text-right">
               <div class="d-flex">

@@ -50,6 +50,8 @@ const UpdateStudent = ({ match, history }) => {
       loading: false,
       error: false,
       offerCompany: "",
+      offerJob: "",
+      offerIndustry: "",
       createdStudent: '',
       redirectToProfile: false,
       formData: ''
@@ -378,6 +380,16 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">Offer Company</label>
             <input onChange={handleChange("offerCompany")} value={values.offerCompany} name="offerCompany" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Job</label>
+            <input onChange={handleChange("offerJob")} value={values.offerJob} name="offerJob" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Offer Industry</label>
+            <input onChange={handleChange("offerIndustry")} value={values.offerIndustry} name="offerIndustry" class="form-control"/>
           </div>
 
           <div class="mb-2">

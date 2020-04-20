@@ -249,7 +249,7 @@ const Student = ({ logout, session, match }: Props) => {
           <div className="d-block">
             <div className="embed-container">
                    {student.video == null?  "" : <div><iframe src={"https://player.vimeo.com/video/" + student.video.slice(-9) + "?autoplay=1&loop=1&autopause=0"} frameBorder="0" allowFullScreen></iframe> </div> }
-
+                   
                         </div>
                         </div>
                         <div className="card-body">
@@ -273,7 +273,7 @@ const Student = ({ logout, session, match }: Props) => {
                       <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
                       </div>
                       <div className="mb-2">
-                      <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender === "Male" ? "男性": "女性"}
+                      <Icon prefix="fe" name="user" /><strong>  性別: </strong> {student.gender === "Male" ? "男性": student.gender === "male" ? "男性": "女性" }
                       </div>
                       <div className="mb-2">
                       <Icon prefix="fe" name="user" /><strong>  年齢: </strong>  {_calculateAge(student.dob)}
