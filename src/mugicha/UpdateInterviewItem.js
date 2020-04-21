@@ -124,22 +124,22 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                      {time}
                 </td>
                 <td>
-                    {time_period}
-                </td>
-                <td>
-                    {category}
+                    {time_period === "1日"　? <span class="badge badge-primary">1日</span>:<span class="badge badge-danger">2日</span>}
                 </td>
                 <td>
                     {resultInNice
                     (result)}
                 </td>
                 <td>
-                    {atojComment}
+                    {atojComment} 
+                </td>
+                <td className="pre-line">
+                    {companyComment} 
                 </td>
                 <td>
-                    {companyComment}
+                    {company_form === true? "済"　: null } 
                 </td>
-                <td><Link to={`/mugicha/interview/${interviewId}`} >  View More </Link>
+                <td><Link to={`/mugicha/interview/${interviewId}`} >  View </Link>
                      <button type="button" class="btn btn-primary btn-sm" onClick={clickEdit}> Edit </button>   
                 </td>
                 </>
@@ -159,9 +159,6 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 </td>
                 <td>
                     {time_period}
-                </td>
-                <td>
-                    {category}
                 </td>
             <td>
             <div class="input-group input-group-sm mb-3">
@@ -184,10 +181,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
             aria-label="Small" aria-describedby="inputGroup-sizing-sm" rows="3"/>
             </div>
             </td>
-            <td>
-                    {companyComment}
+            <td className="pre-line">
+                    {companyComment} 
                 </td>
-            
+                <td>
+                    {company_form === true? "済"　: null } 
+                </td>
             <td>
                 <div class="btn-list">
             <button type="button" class="btn btn-link btn-sm" onClick={clickEdit}> Cancel</button>

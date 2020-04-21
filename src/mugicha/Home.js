@@ -44,7 +44,7 @@ const Home = () => {
     };
 
     const searchData = () => {
-        console.log(search, category);
+        // console.log(search, category);
         if (search) {
             list({ search: search || undefined, category: category }).then(
                 response => {
@@ -93,7 +93,6 @@ const Home = () => {
         const cats = [...new Set(interviews.map(q => q.companies[0].name))];
         return (
             <div>
-                {console.log(cats)}
                {interviews.map((interview, i) =>  
                 <> {interview.companies[0].name}
                 </>
@@ -132,13 +131,14 @@ const Home = () => {
                     <tr>
                     <th style={{width: "10%"}}>企業</th>
                     <th style={{width: "10%"}}>学生</th>
-                    <th style={{width: "10%"}}>時間</th>
-                    <th style={{width: "10%"}}>日</th>
-                    <th style={{width: "10%"}}>Type</th>
-                    <th style={{width: "10%"}}>結果</th>
+                    <th style={{width: "6%"}}>時間</th>
+                    <th style={{width: "4%"}}>日</th>
+                    <th style={{width: "7%"}}>結果</th>
                     <th style={{width: "30%"}}>ATOJコメント</th>
-                    <th style={{width: "10%"}}> </th>
-                    <th></th>
+                    <th style={{width: "30%"}}>企業コメント</th>
+                    <th style={{width: "10%"}}></th>
+                     <th style={{width: "10%"}}></th>
+        
                     </tr>
                 </thead>
                 <tbody>
@@ -152,6 +152,7 @@ const Home = () => {
                  <><tr>
                     <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
                     <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.students[0].studentid} {interview.students[0].name} </Link></td>
+                 
                  <td></td>
                  <td></td>
                  <td></td>

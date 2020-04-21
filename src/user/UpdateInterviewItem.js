@@ -114,6 +114,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 japanese_level: data.japanese_level,
                 character_match: data.character_match,
                 skill_match: data.skill_match,
+                atojComment: data.atojComment,
+                companyComment: data.companyComment,
                 success: true,
                 redirectToProfile: true
             });

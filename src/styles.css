@@ -782,3 +782,7 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
     background-color: #3697ff;
     border-color: #3697ff;
 }
+
+.pre-line {
+  white-space: pre-line;
+}

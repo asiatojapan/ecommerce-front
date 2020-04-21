@@ -356,6 +356,11 @@ const ManageUsers = () => {
           accessor: 'name',
           id: 'name',
         },
+         {
+          Header: 'ID',
+          accessor: '_id',
+          id: 'namd',
+        },
     {
       Header: 'Email',
       accessor: (text) =>

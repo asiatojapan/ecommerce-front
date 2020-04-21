@@ -82,16 +82,15 @@ const Interview = ({ match }) => {
                 </thead> {interviewItem.map((i) => 
                 <tbody>
                     
-              
                 <td>
                 <Link to={`/mugicha/company/${companyData._id}`} >  {companyData.name} </Link>
                 </td>
                 <td>
                 <Link to={`/mugicha/student/${studentData._id}`} >  {studentData.studentid} {studentData.name}  </Link>  
                 </td>
-                    <td> Character match: {i.character_match} <br/> 
-                         Skill match: {i.skill_match} <br/> 
-                         Skill match: {i.skill_match} <br/> 
+                    <td> 人物: {i.character_match} <br/> 
+                         スキル: {i.skill_match} <br/> 
+                         日本語: {i.japanese_level} <br/> 
                     </td>
                     <td> {i.time_period}</td>
                     <td> {i.time}</td>

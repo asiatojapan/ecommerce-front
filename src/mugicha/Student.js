@@ -52,14 +52,16 @@ const Student = ({  match }) => {
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th>企業</th>
-                    <th>学生</th>
-                    <th>時間</th>
-                    <th style={{width: "10%"}}>日</th>
-                    <th style={{width: "10%"}}>Type</th>
-                    <th style={{width: "10%"}}>結果</th>
-                    <th style={{width: "30%"}}> ATOJコメント</th>
-                    <th style={{width: "8%"}}> </th>
+                    <th style={{width: "10%"}}>企業</th>
+                    <th style={{width: "10%"}}>学生</th>
+                    <th style={{width: "6%"}}>時間</th>
+                    <th style={{width: "4%"}}>日</th>
+                    <th style={{width: "7%"}}>結果</th>
+                    <th style={{width: "30%"}}>ATOJコメント</th>
+                    <th style={{width: "30%"}}>企業コメント</th>
+                    <th style={{width: "10%"}}></th>
+                     <th style={{width: "10%"}}></th>
+        
                     </tr>
                 </thead>
 
@@ -74,12 +76,13 @@ const Student = ({  match }) => {
                  <><tr>
                     <td> <Link to={`/mugicha/company/${interview.company._id}`} >  {interview.company.name} </Link>  </td>
                     <td>  <Link to={`/mugicha/student/${interview.student._id}`} > {interview.student.studentid} {interview.student.name} </Link></td>
+                    <td></td>
+                    <td></td>
                  <td></td>
                  <td></td>
                  <td></td>
                  <td></td>
-                 <td></td>
-                 <td><Link to={`/mugicha/interview/${interview._id}`} > View More </Link></td>
+                 <td><Link to={`/mugicha/interview/${interview._id}`} > View </Link></td>
                  </tr> </> }
                </>
                )}
