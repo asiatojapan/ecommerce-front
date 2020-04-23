@@ -16,6 +16,10 @@ import UpdateInterviewItem from './user/UpdateInterviewItem';
 import UpdateUser from './admin/UpdateUser';
 import ManageStudents from './admin/ManageStudents';
 import AdminUser from './admin/AdminUser';
+
+import Recommends from "./admin/AllRecommend";
+import MyRecommend from "./admin/MyRecommend";
+
 import ManageUsers from './admin/ManageUsers';
 import InterviewStudents from './user/InterviewStudents';
 import InterviewStudentsDay1 from './user/InterviewStudentsDay1';
@@ -34,6 +38,7 @@ import GA from './utils/GoogleAnalytics'
 import ForgotPassword from "./user/ForgotPassword"
 import ResetPassword from "./user/ResetPassword";
 import { createBrowserHistory } from 'history';
+
 import Mugicha from "./mugicha/Home"
 import MugichaCompany from "./mugicha/Company"
 import MugichaCompanyProfile from "./mugicha/CompanyProfile"
@@ -42,6 +47,7 @@ import MugichaInterview from "./mugicha/Interview"
 import MugichaCompanies from "./mugicha/Companies"
 import MugichaStudents from "./mugicha/Students"
 import MugichaDay1 from "./mugicha/Day"
+import MugichaFull from "./mugicha/Full"
 
 import FavList from "./admin/FavStudentsList"
 
@@ -82,6 +88,7 @@ const Routes = () => {
     <MainRoute path="/checkout" exact component={Checkout}/>
     <MainRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
+
     <AdminRoute path="/mugicha" exact component={Mugicha} />
     <AdminRoute path="/mugicha/company/:userId" exact component={MugichaCompany} />
     <AdminRoute path="/mugicha/student/:studentId" exact component={MugichaStudent} />
@@ -90,23 +97,28 @@ const Routes = () => {
     <AdminRoute path="/mugicha/companyprofile/:userId" exact component={MugichaCompanyProfile} />
     <AdminRoute path="/mugicha/students" exact component={MugichaStudents} />
     <AdminRoute path="/mugicha/day1" exact component={MugichaDay1} />
+    <AdminRoute path="/mugicha/full" exact component={MugichaFull} />
 
+
+    <AdminRoute path="/admin/recommends" exact component={Recommends} />
+    <AdminRoute path="/admin/myrecommend/:userId" exact component={MyRecommend} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
     <AdminRoute path="/admin/suisen" exact component={FavList} />
-    <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
-    
-    <PrivateRoute path="/user/interviews/day1" exact component={InterviewStudentsDay1} />
-    <PrivateRoute path="/user/interviews/day2" exact component={InterviewStudentsDay2} />
-    <AdminRoute path="/admin/students" exact component={ManageStudents} />
+     <AdminRoute path="/admin/students" exact component={ManageStudents} />
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
-    <PrivateRoute path="/profile/:userId" exact component={Profile} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
-      <PrivateRoute path="/user/interviewitem/:interviewId" exact component={UpdateInterviewItem} />
+  
+
+    <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
+    <PrivateRoute path="/user/interviews/day1" exact component={InterviewStudentsDay1} />
+    <PrivateRoute path="/user/interviews/day2" exact component={InterviewStudentsDay2} />
+    <PrivateRoute path="/profile/:userId" exact component={Profile} />
+       <PrivateRoute path="/user/interviewitem/:interviewId" exact component={UpdateInterviewItem} />
       <PrivateRoute path="/interview/student/:studentId" exact component={RealStudent}/>
       <Route path="*" component={Error} />
     </Switch>

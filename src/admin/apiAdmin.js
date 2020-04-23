@@ -572,3 +572,53 @@ export const createPush = (studentId, _id, token) => {
             console.log(err);
         });
   };
+
+  export const createRecHistory = (userId, token, createRecData) => {
+    return fetch(`${API}/recommend/create/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ recommend: createRecData })
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+
+
+  export const getRecommends = (userId, token) => {
+    return fetch(`${API}/myrecommend/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+export const getAllRecommends = (userId, token) => {
+    return fetch(`${API}/recommends/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

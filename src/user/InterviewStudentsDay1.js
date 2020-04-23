@@ -84,7 +84,7 @@ const InterviewStudents = ({ logout, session }) => {
         return _.map(interview.interviewItems, function (item) { 
             return { interview: interview, ...item  };
         });
-    });
+      });
 
       const arr = _.sortBy(result, "time")
 

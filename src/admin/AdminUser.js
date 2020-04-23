@@ -253,7 +253,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12}>
       <div className="card">
                     <div className="card-body ">
-                      <h2 className="mb-3">{user1.name}</h2>
+                      <h2 className="mb-3">{user1.name} <a href={`/admin/myrecommend/${user1._id}`} className="text-center btn btn-outline-primary btn-sm"> History </a> </h2> 
                       <p className="mb-4">
                         <b>Email: </b> {user1.email}<br/>
                         <b>Role: </b> {user1.role === 1 ? "Admin" : user1.role === 2 ? "Unregistered User (期限切れた）" : user1.role === 0 ? "参加企業" : user1.role ===3 ? "閲覧企業" : "Mentor"}<br/>

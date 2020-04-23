@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment'
 import { isAuthenticates } from "../auth";
-import { deleteUser, getUsers } from "./apiAdmin";
+import { deleteUser, getUsers, createRecHistory } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table';
@@ -476,7 +476,7 @@ const ManageUsers = () => {
       <Link to="/forgotpassword">
        <a className="btn btn-sm btn-secondary">Forgot password</a>
       </Link>
-      
+   
      <Link to={`/admin/create/user`} className="btn btn-sm btn-secondary"> + Add Users </Link> <br/>
      </div>
      </div>

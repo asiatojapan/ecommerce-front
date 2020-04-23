@@ -52,6 +52,8 @@ const SiteWrapper = ({ logout, session, history, children }) => (
               <NavDropdown.Item href="/admin/users">All Users</NavDropdown.Item>
               <NavDropdown.Item href="/admin/interviews">All Interviews</NavDropdown.Item>
               <NavDropdown.Item href="/mugicha">Mugicha</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/recommends">History</NavDropdown.Item>
+           
               <NavDropdown.Divider />
               <Dropdown.Header> <button className="btn btn-outline-primary"
                   onClick={() =>
