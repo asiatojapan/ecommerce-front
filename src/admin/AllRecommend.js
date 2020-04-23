@@ -60,9 +60,6 @@ const AllRecommend = () => {
                 {recommend.user.name}
                 </td>
                 <td>
-                {recommend.user._id}
-                </td>
-                <td>
                 {recommend.students.map((student, i)=> <> <Link to={`/mugicha/company/${student._id}`}>  {student.studentid} </Link>  </>)}
                 </td>
                 <td>
