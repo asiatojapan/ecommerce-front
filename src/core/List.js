@@ -38,8 +38,11 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
     <div className="list-list" style={{"borderTop":
       student.rec_users.indexOf(session._id)>-1 ?  "5px solid rgb(40, 139, 250)": null } }
     >
-     {student.rec_users.indexOf(session._id)>-1 ? <span className="recommended" style={{marginRight: "5px"}}> おすすめ</span>　: null }
+     {student.rec_users.indexOf(session._id)>-1 ? <span className="recommended" style={{marginRight: "5px"}}> おすすめ</span>　:  null} 
+     
     {student.videoImg == null?  "" : <img className="list-VidImg" src={`${student.videoImg}`} /> }
+    
+    
     <text style={{color: "rgb(113, 113, 113"}}>{student.studentid} </text> 
     <div className="list-TextItem">
 

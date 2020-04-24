@@ -358,6 +358,12 @@ const ManageStudent = () => {
      {
       Header: 'Info',
       columns: [
+        {
+          Header: 'New',
+          id: 'new',
+          Filter: '',
+          accessor: (text, i) => <> {text.newOnList ? "新"　: null} </>
+        },
     {
           Header: 'StudentID',
           id: 'sid',
@@ -396,16 +402,6 @@ const ManageStudent = () => {
       sortType: 'basic',
       Filter: SelectColumnFilter,
       filter: 'includes'
-    },
-    {
-      Header: '入社',
-      id: 'entry_timing',
-      sortType: 'basic',
-      Filter: "",
-      accessor: (text, i) => <>
-          {text.entry_timing.map((e) => <> 
-        {e}, </> )} </>
-          
     },
    ]},
    
@@ -569,6 +565,7 @@ const ManageStudent = () => {
                     <option value="来日決定">来日決定</option>
                     <option value="NG">NG</option>
                     <option value="Offer">内定</option>
+                    <option value="Napoleon">Napoleon</option>
           </select>
             </div>
             <button className="btn btn-primary">Update Phase</button>

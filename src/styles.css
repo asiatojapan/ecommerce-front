@@ -371,13 +371,13 @@ a.list-TextNoteTitle {
 }
 
 a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-TextNoteTitle:focus, a.list-TextNoteTitle:hover {
-  color: rgba(0,108,231,.88);
+  color: rgba(100, 172, 255, 0.88);
   text-decoration: none;
   outline: 0;
 }
 
 .list-Tags{
-        font-size: 10px;
+    font-size: 10px;
 }
 
 .list-Desc{
@@ -728,15 +728,26 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
 
 .recommended {
     background-image: linear-gradient(to left, #4481eb 0%, #04befe 100%);
-    color: #fff !important;
-    display: inline-block !important;
-    font-weight: 600 !important;
-    text-transform: uppercase !important;
-    text-align: center !important;
-    padding: 5px  10px !important;
-    font-size: 16px !important;
-    line-height: 16px !important;
-    border-radius: 4px !important;
+    color: #fff;
+    background-color: #444;
+    border-radius: 3px;
+    padding: 0 1rem;
+    line-height: 2em;
+    display: inline-flex;
+    cursor: default;
+    font-weight: 600;
+}
+
+.newonlist {
+  font-size: 0.8rem;
+  color: #fff;
+  background-color: #444;
+  border-radius: 3px;
+  padding: 0 1rem;
+  line-height: 2em;
+  display: inline-flex;
+  cursor: default;
+  font-weight: 600;
 }
 
 .item {
