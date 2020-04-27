@@ -31,6 +31,8 @@ import Profile from './user/Profile';
 import CheckoutPreview from './core/CheckoutPreview';
 import Checkout from './core/Checkout';
 import Orders from './user/Orders';
+import InterviewsPast from './user/InterviewsPast';
+import InterviewPast from './user/InterviewPast';
 import Order from './user/Order';
 import RealStudent from './user/RealStudent';
 import ReactGA from 'react-ga';
@@ -83,12 +85,16 @@ const Routes = () => {
             />
     <MainRoute path="/" exact component={Home}/>
     <MainRoute path="/welcome" exact component={Welcome}/>
-    <PrivateRoute path="/user/history" exact component={Orders}/>
+    <PrivateRoute path="/history/kentou" exact component={Orders}/>
+    <PrivateRoute path="/history/interviews" exact component={InterviewsPast}/>
+    <PrivateRoute path="/history/interview/:recommendId" exact component={InterviewPast}/>
+
+
     <MainRoute path="/checkout/preview" exact component={CheckoutPreview}/>
     <MainRoute path="/checkout" exact component={Checkout}/>
     <MainRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
-
+ 
     <AdminRoute path="/mugicha" exact component={Mugicha} />
     <AdminRoute path="/mugicha/company/:userId" exact component={MugichaCompany} />
     <AdminRoute path="/mugicha/student/:studentId" exact component={MugichaStudent} />

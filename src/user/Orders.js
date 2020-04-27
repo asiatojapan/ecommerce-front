@@ -43,7 +43,8 @@ const Orders = () => {
         const decoratedOnClick = useAccordionToggle(eventKey)
         return (
           <a
-            type="button"
+            type="button" 
+            style={{cursor: "pointer"}}
             onClick={decoratedOnClick} 
           >{children}<i className="fe fe-chevrons-down" style={{"fontSize": "26px", "color": "#278bfa"}}></i>
           </a>
@@ -55,7 +56,7 @@ const Orders = () => {
     const favList = () => 
     <div>
        <div className="list-list">
-       <div style={{fontSize: "26px", fontWeight: "500"}} >面接予定の学生</div>
+       <div style={{fontSize: "26px", fontWeight: "600"}}>検討リスト履歴</div>
         </div>
 
        {orders.map((o,i) => 
@@ -72,10 +73,13 @@ const Orders = () => {
            </div>  
 
             <Accordion.Collapse eventKey="1">
-            <div> <hr/>{o.students.map((p, pIndex) => 
-            <CardCheckout key={pIndex} student={p} showRemoveItemButton={false} 
-            showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={false} rank={p.rank} />
-          )}</div>
+            <div> 
+              <hr/>
+              {o.students.map((p, pIndex) => 
+                <CardCheckout key={pIndex} student={p} showRemoveItemButton={false} 
+                showRankItemButton={false} showDetailsButton={true} showRankOutcomeButton={false} rank={p.rank} />
+              )}
+              </div>
             </Accordion.Collapse>
            </div>
            </Accordion> )}

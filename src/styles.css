@@ -381,7 +381,7 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
 }
 
 .list-Desc{
-      margin-bottom: 16px;
+    margin-bottom: 16px;
       line-height: 1.5;
       text-align: justify;
       word-break: break-all;
@@ -668,6 +668,7 @@ a.link:active, a.link:focus, a.link:hover, a.list-TextNoteTitle:active, a.list-T
 .likeBtn:hover {
   border: 1px solid #0c84c9;
   color: #0c84c9;
+  text-decoration: none;
 }
 
 .unlikeBtn {

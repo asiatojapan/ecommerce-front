@@ -5,7 +5,7 @@ import {
   Icon
 } from "tabler-react";
 
-const CardStudent = ({interview, student, i}) => {
+const CardStudent = ({interview, student, i, showUpdateButton}) => {
   function _calculateAge(dateString) { // birthday is a date
     var today = new Date();
     var birthDate = new Date(dateString);
@@ -24,10 +24,9 @@ const CardStudent = ({interview, student, i}) => {
     <img src={student.videoImg} alt="img" style={{height: "140px", marginRight: "1rem"}}/> 
     <div className="ml-3">
       <div>
-      {student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <span style={{color: "#659c2d"}}> 来日決定 </span> </div>　: ""} 
-      <Link to={`/interview/student/${interview.student._id}`} target="_blank" className="link"  style={{fontSize: "16px"}}>
-        <b> {interview.student.studentid} </b> {interview.student.name} </Link>
-      
+      {student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <span style={{color: "#659c2d"}}> 来日決定 </span> </div>　: null} 
+      <Link to={`/interview/student/${student._id}`} target="_blank" className="link"  style={{fontSize: "16px"}}>
+        <b> {student.studentid} </b> {student.name} </Link>
      <div style={{marginBottom: "0px"}}>
         <div>
         <Icon prefix="fe" name="user" /><strong> 性別・年齢: </strong> {student.gender === "Male" ? "男性": "女性"}・{_calculateAge(student.dob)}
@@ -42,8 +41,8 @@ const CardStudent = ({interview, student, i}) => {
     </div>
     </div>
     { interview.interviewItems.length ? interview.interviewItems.map((item, i) =>
-   <div>
-        <InterviewItem interview={interview} key={i} item={item}/>
+      <div>
+        <InterviewItem interview={interview} key={i} item={item} showUpdateButton={showUpdateButton}/>
       </div>
     ) : ""}
     </div>

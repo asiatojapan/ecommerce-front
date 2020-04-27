@@ -61,7 +61,7 @@ const InterviewStudents = ({ logout, session }) => {
         </div>
         <div className="mt-6">
         {interviews.map((c,i) => <> 
-          <CardStudent key={i} interview={c} student={c.student}/>
+          <CardStudent key={i} interview={c} student={c.student} showUpdateButton={true}/>
           </>)}
         </div>
         </InterviewNav>

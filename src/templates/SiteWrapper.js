@@ -35,8 +35,9 @@ const SiteWrapper = ({ logout, session, history, children }) => (
           {isAuthenticates() && (
               <Fragment> 
             <Nav.Link href={`/`} >Home </Nav.Link>
-            { isAuthenticates() && (session.round !== "Phase I" && session.round !== "Phase II" ) && 
-            ( <Nav.Link href="/user/interviews" >面接予定</Nav.Link>  )}
+            { isAuthenticates() && (session.role !== 4 && session.role !== 3 && session.role !== 2 ) && 
+           ( <Nav.Link href="/history/interviews">面接履歴</Nav.Link> )}
+        
              </Fragment>
              )}
           </Nav>

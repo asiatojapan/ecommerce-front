@@ -355,3 +355,34 @@ export const listRelated = (studentId, userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+
+
+export const getMyInterviewsPast = (userId, token) => {
+    return fetch(`${API}/mypastinterviews/${userId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+export const readRecommend = (recommendId, token) => {
+    return fetch(`${API}/recommend/${recommendId}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

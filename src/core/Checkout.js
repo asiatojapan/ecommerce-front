@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, withRouter  } from 'react-router-dom';
+import { Link, withRouter, useHistory  } from 'react-router-dom';
 import { isAuthenticated, isAuthenticates } from "../auth";
 import SiteWrapper from '../templates/SiteWrapper';
 import CardCheckout from "./CardCheckout"
@@ -56,7 +56,7 @@ const Checkout = ({ logout, session })=> {
         var y = d.getFullYear() 
           const createOrderData = {
             students: items,
-            transaction_id: y + month + " " + session.name,
+            transaction_id: y + " " + month + " " + session.name,
           };
           createOrder(darwin_uid, darwin_myTk, createOrderData).then(data => {
             if (data.error) {
@@ -133,7 +133,7 @@ const Checkout = ({ logout, session })=> {
         <div style={{ position: "sticky",
             top: "0", paddingTop: "1rem"}}>
         <button type="button" className="unlikeBtn resumeGradient fullWidth" 
-        onClick={() => { buy() } }>
+        onClick={() => { if (window.confirm('Are you sure you wish to submit?'))  buy() } }>
             ASIA to JAPANに申請
         </button>
         </div>
@@ -151,11 +151,24 @@ const Checkout = ({ logout, session })=> {
             <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
             <h3>申請後、学生を追加する場合はASIAtoJAPANまでご連絡ください</h3>
             { session.round === "Phase III" ? 
-            <Link to="/user/interviews" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
-            : <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link> }
-            </div>
+            <> <Link to="/history/kentou" className="resumeGradient unlikeBtn" style={{marginRight: "1rem"}}> 検討リスト履歴 へ</Link> 
+            <Link to="/user/interviews" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link> </>
+            : <Link to="/history/kentou" className="resumeGradient unlikeBtn"> 検討リスト履歴 へ</Link> }  </div>
             </div>
     )
+
+    const redirectUser = () => {
+        if (redirectToProfile) {
+            if (!error) {
+              setTimeout(function () {
+                if(window.location.hash != '#r') {
+                    window.location.hash = 'r';
+                    window.location.reload(1);
+                }
+              }, 2000);
+            }
+        }
+    };
 
     return (
         <SiteWrapper>
@@ -177,8 +190,9 @@ const Checkout = ({ logout, session })=> {
                     <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
                     <Link to="/" className="link"  className="btn btn-outline-secondary"> <i className="fe fe-arrow-left mr-2"></i> TOP へ</Link>
                     </div>
-                    </div>
             </div>
+            </div>
+            {redirectUser()}
     </SiteWrapper>
     );
 };

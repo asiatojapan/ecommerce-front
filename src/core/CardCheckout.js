@@ -113,7 +113,6 @@ const CardCheckout = ({student, indivRank,rank,
     </div>
     <div className="ml-auto"> 
     {showRankButton(showRankItemButton)}
-   
     {showRankOutcome(showRankOutcomeButton, rank)} 
     </div>
     </div>
