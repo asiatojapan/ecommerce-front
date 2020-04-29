@@ -30,6 +30,9 @@ const UpdateUser = ({ match, history }) => {
         specialPlan: "",
         jdLink: "",
         tags: "",
+        japaneseTags: "",
+        countryTags: "",
+        educationBgTags: "",
         zoomUrl: "",
         error: false,
         success: false,
@@ -42,7 +45,9 @@ const UpdateUser = ({ match, history }) => {
 
 
     const { name, email, password, role, phase, round, sales_rep,  error, success,
-      logo, descriptionOne, specialPlan,tags,zoomUrl,
+      logo, descriptionOne, specialPlan,tags,zoomUrl,japaneseTags,
+      countryTags,
+      educationBgTags,
       descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, jdLink, homepageUrl } = values;
 
     const init = userId => {
@@ -61,7 +66,10 @@ const UpdateUser = ({ match, history }) => {
                 descriptionFive: data.descriptionFive,
                 descriptionSix: data.descriptionSix,
                 jdLink: data.jdLink,
-                tags: data.tags,
+                tags: data.tags,   
+                japaneseTags:data.japaneseTags,
+                countryTags: data.countryTags,
+                educationBgTags: data.educationBgTags,
                 zoomUrl: data.zoomUrl,
                 homepageUrl: data.homepageUrl });
             }
@@ -91,7 +99,9 @@ const UpdateUser = ({ match, history }) => {
     const clickSubmit = e => {
         e.preventDefault();
         update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
-          logo, descriptionOne, specialPlan, zoomUrl,
+          logo, descriptionOne, specialPlan, zoomUrl, japaneseTags,
+          countryTags,
+          educationBgTags,
           descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink, tags}, darwin_uid ).then(data => {
             if (data.error) {
                 // console.log(data.error);
@@ -225,6 +235,18 @@ const UpdateUser = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">Tags</label>
              <input type="text" onChange={handleChange("tags")} value={tags} name="tags"  class="form-control"/>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">日本語 Tags</label>
+             <input type="text" onChange={handleChange("japaneseTags")} value={japaneseTags} name="japaneseTags"  class="form-control"/>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">国籍 Tags</label>
+             <input type="text" onChange={handleChange("countryTags")} value={countryTags} name="countryTags"  class="form-control"/>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">学歴　Tags</label>
+             <input type="text" onChange={handleChange("educationBgTags")} value={educationBgTags} name="educationBgTags"  class="form-control"/>
           </div>
 
           <div class="mb-2">

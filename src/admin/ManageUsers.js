@@ -437,6 +437,9 @@ const ManageUsers = () => {
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item to={`/admin/profile/${text._id}`}>View </Dropdown.Item>
+
+        <Dropdown.Item to={`/admin/matching/${text._id}`}>Matching</Dropdown.Item>
+       
         <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
                 Delete
             </a></Dropdown.Item>

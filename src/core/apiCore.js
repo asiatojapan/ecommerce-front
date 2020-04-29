@@ -65,7 +65,7 @@ export const getPushList = (userId) => {
 };
 
 
-export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round, token, tags) => {
+export const getFilteredStudents = (userId, skip, limit, status, filters = {}, round, token, tags, latest, recommended) => {
     const data = {
         limit,
         status,
@@ -73,8 +73,11 @@ export const getFilteredStudents = (userId, skip, limit, status, filters = {}, r
         filters,
         userId,
         round,
-        tags
+        tags, 
+        latest,
+        recommended
     };
+
     return fetch(`${API}/students/by/search`, {
         method: "POST",
         headers: {

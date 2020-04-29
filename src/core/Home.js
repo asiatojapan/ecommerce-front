@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import List from './List';
-import { isAuthenticated, isAuthenticate, isAuthenticates } from '../auth';
+import { isAuthenticates } from '../auth';
 import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
@@ -22,6 +22,7 @@ import Resume from "../pdf/Resume";
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
 
+
 const mapStateToProps = ({ session }) => ({
   session
 });
@@ -35,7 +36,7 @@ const Home = ({ logout, session }) => {
   const { darwin_myTk, darwin_uid } = isAuthenticates();
   const [favCount, setFavCount] = useState();
   const [myFilters, setMyFilters] = useState({
-      filters: { categories: [], it_skills: [] }
+      filters: { categories: [], it_skills: [], studentid: ""}
   });
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -43,8 +44,11 @@ const Home = ({ logout, session }) => {
   const [resumeLoading, setResumeLoading] = useState(true);
   const [limit, setLimit] = useState(15);
   const [skip, setSkip] = useState(0);
+  const [latest, setLatest] = useState(false);
+  const [recommended, setRecommended] = useState(true);
   const [size, setSize] = useState(0);
   const [grid, setGrid] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
   // const [studentsData, setStudentDataWithPDF] = useState([]);
@@ -75,7 +79,8 @@ const Home = ({ logout, session }) => {
 
 
   const loadFilteredResults = (newFilters) => {
-      getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk, session.tags).then(data => {
+      setLoading(true)
+      getFilteredStudents(darwin_uid, skip, limit, status, newFilters, session.round, darwin_myTk, session.tags, latest, recommended).then(data => {
           if (data.error) {
               setError(data.error);
           } else {
@@ -96,10 +101,11 @@ const Home = ({ logout, session }) => {
 
 
   const loadMore = () => {
+    setLoading(true)
     setButtonLoading(true)
     let toSkip = skip + limit;
     // console.log(newFilters);
-    getFilteredStudents(darwin_uid, toSkip, limit, status, myFilters.filters, session.round, darwin_myTk, session.tags).then(data => {
+    getFilteredStudents(darwin_uid, toSkip, limit, status, myFilters.filters, session.round, darwin_myTk, session.tags, latest, recommended).then(data => {
         if (data.error) {
             setError(data.error);
         } else {
@@ -109,15 +115,16 @@ const Home = ({ logout, session }) => {
             // createPDF([...filteredResults, ...data.data])
             setSkip(toSkip);
             setButtonLoading(false)
+            setLoading(false)
         }
     });
   };
 
 
   useEffect(() => {
-      loadFilteredResults(skip, limit, myFilters.filters);
+      loadFilteredResults(skip, limit, myFilters.filters, latest);
       getFavCount(darwin_uid);
-  }, []);
+  }, [latest, recommended]);
 
 
   const loadMoreButton = () => {
@@ -132,6 +139,20 @@ const Home = ({ logout, session }) => {
  };
 
 
+const handleChange = name => event => {
+  const filters = new Array
+  filters.push(event.target.value);
+  const newFilters = { ...myFilters };
+  newFilters.filters["studentid"] =  event.target.value;
+  if (event.target.value.length == 0){
+    newFilters.filters["studentid"] = "";
+  }
+    setLoading(true)
+    loadFilteredResults(myFilters.filters);
+    setMyFilters(newFilters);
+  
+};
+
  const Position = () => {
     let myColor = { width: "100%", background: '#278bfa', text: "#FFFFFF" };
     notify.show(
@@ -144,7 +165,6 @@ const Home = ({ logout, session }) => {
 
   const handleFilters = (filters, filterBy) => {
       setLoading(true)
-      // console.log(filters, filterBy);
       const newFilters = { ...myFilters };
       newFilters.filters[filterBy] = filters;
 
@@ -167,6 +187,14 @@ const Home = ({ logout, session }) => {
       <Container>
          <Grid.Row>
            <Grid.Col width={12} lg={3} sm={12}>
+           {session.role === 1 ? 
+           <div className="list-list" style={{padding: "0"}}>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="ID" onChange={handleChange()}/>
+             
+                </div>
+                 </div>: null}
+
                 <div className="list-list">
                     <h3 className="card-title">Tags</h3>
                     <Checkbox2 categories={categories}
@@ -201,7 +229,21 @@ const Home = ({ logout, session }) => {
            </Grid.Col>
 
         <Grid.Col width={12} lg={9} sm={12}>
- 
+        {session.role === 1 ? 
+          <div class="card-header">
+                    <div class="card-options">
+                    <div class="dropdown">
+                    <button onClick={()=> setIsOpen(!isOpen)} class="likeBtn smaller fixedWidth">{latest? "新着順": "オススメ順"}
+                    <svg class="Icon Btn-icon" role="img" viewBox="0 0 50 50"><g><polygon points="25,31.3 4.2,10.5 0.1,14.6 25,39.5 50,14.6 45.9,10.5 "></polygon></g></svg> 
+                    </button>
+                    <ul class={"dropdown-content " + (isOpen? 'show' : "")} >
+                        <li><a onClick={()=> setLatest(!latest)}>オススメ順</a></li>
+                        <li> <a onClick={()=> setLatest(!latest)}>新着順</a>  </li>
+                                        
+                    </ul>
+                  </div>
+                </div>
+                  </div>: null}
                {filteredResults.map((student, i) => (
                 <div key={i}>
                     <List key={i} student={student} setFavCount={handleSetFavCount}

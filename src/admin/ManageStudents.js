@@ -264,11 +264,6 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
   // Render the UI for your table
   return (
     <div>
-    <GlobalFilter
-      preGlobalFilteredRows={preGlobalFilteredRows}
-      globalFilter={state.globalFilter}
-      setGlobalFilter={setGlobalFilter}
-    />
     <div style={{background:"#fff"}}>
     <Table2 bordered hover size="sm" style={{fontSize: "12px"}} cellspacing="0" {...getTableProps()}>
       <thead>

@@ -622,3 +622,19 @@ export const getAllRecommends = (userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+
+export const matchStudent = (userId, token) => {
+    return fetch(`${API}/matching/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

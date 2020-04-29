@@ -16,6 +16,7 @@ import UpdateInterviewItem from './user/UpdateInterviewItem';
 import UpdateUser from './admin/UpdateUser';
 import ManageStudents from './admin/ManageStudents';
 import AdminUser from './admin/AdminUser';
+import MatchingUser from './admin/MatchingUser';
 
 import Recommends from "./admin/AllRecommend";
 import MyRecommend from "./admin/MyRecommend";
@@ -109,6 +110,8 @@ const Routes = () => {
     <AdminRoute path="/admin/recommends" exact component={Recommends} />
     <AdminRoute path="/admin/myrecommend/:userId" exact component={MyRecommend} />
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
+
+    <AdminRoute path="/admin/matching/:userId" exact component={MatchingUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />

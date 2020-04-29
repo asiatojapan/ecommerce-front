@@ -253,9 +253,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12}>
       <div className="card">
                     <div className="card-body ">
-                      <h2 className="mb-3">{user1.name} 
-                     
-                       </h2> 
+                      <h2 className="mb-3">{user1.name} <a href={`/admin/myrecommend/${user1._id}`} className="text-center btn btn-outline-primary btn-sm"> History </a> </h2> 
                       <p className="mb-4">
                         <b>Email: </b> {user1.email}<br/>
                         <b>Role: </b> {user1.role === 1 ? "Admin" : user1.role === 2 ? "Unregistered User (期限切れた）" : user1.role === 0 ? "参加企業" : user1.role ===3 ? "閲覧企業" : "Mentor"}<br/>
@@ -265,12 +263,13 @@ const AdminUser = ({ logout, session, match }: Props) => {
                          <b>特別プラン: </b>{user1.specialPlan === true ? "あり": "なし"}<br/>
                          <b>LoginCount: </b>{user1.login_count}<br/>
                          <b>Zoom Url: </b>{user1.zoomUrl}<br/>
-                       
+                         <hr /> 
+                         <b> Tags: </b> {user1.tags}<br/>
+                         <hr/>
                       </p> 
-                      <p>
-                        <a href={`/admin/user/update/${user1._id}`} className="likeBtn fullWidth">Update</a></p>
+                      <p><a href={`/admin/user/update/${user1._id}`} className="likeBtn fullWidth">Update</a></p>
                  
-                      <button type="button" className="unlikeBtn resumeGradient smaller fullWidth" 
+                      <button type="button" className="unlikeBtn resumeGradient fullWidth" 
                       onClick={() => { if (window.confirm('Are you sure you wish to submit?'))  buy()  } }
                     >
                           ASIA to JAPANに申請
@@ -279,53 +278,43 @@ const AdminUser = ({ logout, session, match }: Props) => {
                   
                   </div>
 
-                  </Grid.Col>
-     
-      <Grid.Col width={12} lg={9} sm={12}>
+                  <div className="card">
+                    <div className="card-body ">
+                      <p>
+                        <b>事業内容: </b> {user1.descriptionSix!== null ? "...": ""}<br/>
+                        <b>選考ステップ: </b> {user1.descriptionOne !== null ? "...": ""} <br/>
+                         <b>２次面接内容 : </b>{user1.descriptionTwo !== null ? "...": ""} <br/>
+                         <b>フェーズ: </b>{user1.descriptionThree !== null ? "...": ""} <br/>
+                         <b>最終面接内容: </b>{user1.descriptionFour !== null ? "...": ""} <br/>
+                         <b>参考: </b>{user1.descriptionFive !== null ? "...": ""} <br/></p>
+                         <Button variant="primary" onClick={handleShow}>
+                            View More
+                        </Button>
 
-      <div className="card">
-         <div class="card-header">
-                    <a href={`/admin/matching/${user1._id}`} className="likeBtn smaller mr-3"> Matching </a>
-                    <a href={`/admin/myrecommend/${user1._id}`} className="unlikeBtn smaller resumeGradient"> History </a>
-                   
-                      </div>
-                    <div className="card-body">
-
-                    <p>
-                <b>タグ</b>: {user1.tags ? user1.tags.map((tag, i) => 
-                   <span className="list-inline-item" key={i}>{tag}{i != (user1.tags.length-1) ? ',' : ''}</span>
-                  ) : null} 
-                  
-                </p>
-
-                <p>
-                 <b>国籍</b> : {user1.countryTags ? user1.countryTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.countryTags.length-1) ? ',' : ''}</span>
-                  ) : null} 
-                </p>
-
-                <p>
-                 <b>学歴</b> : {user1.countryTags ? user1.educationBgTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.educationBgTags.length-1) ? ',' : ''}</span>
-                  ) : null} 
-                </p>
-
-                <p>
-                 <b> 日本語</b> : {user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
-                  ) : null} 
-                </p>
-                
-                        <hr/>
-                       <b>事業内容: </b> {user1.descriptionSix}<br/><br/>
+                        <Modal show={show} onHide={handleClose}>
+                          <Modal.Header closeButton>
+                           
+                          </Modal.Header>
+                          <Modal.Body style={{whiteSpace: "pre-wrap"}}> 
+                        <b>事業内容: </b> {user1.descriptionSix}<br/><br/>
                         <b>選考ステップ: </b> {user1.descriptionOne} <br/><br/>
                          <b>２次面接内容 : </b>{user1.descriptionTwo} <br/><br/>
                          <b>フェーズ: </b>{user1.descriptionThree} <br/><br/>
                          <b>最終面接内容: </b>{user1.descriptionFour} <br/><br/>
                          <b>参考: </b>{user1.descriptionFive} <br/><br/>
-                         </div>
-                         </div>
-                    
+                       </Modal.Body>
+                          <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                              Close
+                            </Button>
+                          </Modal.Footer>
+                        </Modal>
+                    </div>
+                  </div>
+                  </Grid.Col>
+     
+      <Grid.Col width={12} lg={9} sm={12}>
+    <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
     </Grid.Col>
       </Grid.Row>
       </Page.Content>
