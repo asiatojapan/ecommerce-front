@@ -625,6 +625,7 @@ export const getAllRecommends = (userId, token) => {
 
 
 export const matchStudent = (userId, token) => {
+    console.log(userId)
     return fetch(`${API}/matching/${userId}`, {
         method: 'GET',
         headers: {

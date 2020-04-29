@@ -178,28 +178,28 @@ const MatchingUser = ({ logout, session, match }: Props) => {
 
           {
             Header: '国籍',
-            Filter: SelectColumnFilter,
-             accessor: "countryTagsMatch",
-             id: "countryTagsMatch"
+            Filter: "",
+            accessor: (text, i) =>
+            <div>
+            { text.countryTagsMatch === 1 ? "●": null}
+            </div>
           },
 
           {
             Header: '日本語',
             Filter: "",
-            accessor: "japaneseTagsMatch",
-            id: "japaneseTagsMatch"
+            accessor: (text, i) =>
+            <div>
+            { text.japaneseTagsMatch === 1 ? "●": null}
+            </div>
           },
           {
             Header: '学歴',
-            Filter: SelectColumnFilter,
-             accessor: "educationBgTagsMatch",
-             id: "educationBgTagsMatch"
-          },
-          {
-            Header: 'タグ%',
-            Filter: SelectColumnFilter,
-            accessor: "tagsMatchPercent",
-            id: "tagsMatch"
+            Filter: "",
+            accessor: (text, i) =>
+            <div>
+            { text.educationBgTagsMatch === 1 ? "●": null}
+            </div>
           },
 
           {
@@ -210,11 +210,12 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           },
 
           {
-            Header: 'Status',
-            accessor: 'status',
-            id: 'status',
+            Header: 'タグ%',
             Filter: SelectColumnFilter,
+            accessor: "tagsMatchPercent",
+            id: "tagsMatch"
           },
+
 
           {
             Header: '推薦', 
@@ -224,14 +225,14 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             <AddRec student={text} userIdFromTable={match.params.userId} />
             </div>
           },
-          {
-            Header: '推薦2', 
-            Filter: "",
-            accessor: (text, i) =>
-            <div>
-            <AddPush student={text} userIdFromTable={match.params.userId} />
-            </div>
-          },
+  {
+          Header: '推薦2', 
+          Filter: "",
+          accessor: (text, i) =>
+          <div>
+          <AddPush student={text} userIdFromTable={match.params.userId} />
+          </div>
+        },
           {
             Header: '面接',
             Filter: "",
