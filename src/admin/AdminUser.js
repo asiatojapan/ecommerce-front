@@ -284,7 +284,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
       <Grid.Col width={12} lg={9} sm={12}>
 
       <div className="card">
-         <div class="card-header">
+                   <div class="card-header">
                     <a href={`/admin/matching/${user1._id}`} className="likeBtn smaller mr-3"> Matching </a>
                     <a href={`/admin/myrecommend/${user1._id}`} className="unlikeBtn smaller resumeGradient"> History </a>
                    

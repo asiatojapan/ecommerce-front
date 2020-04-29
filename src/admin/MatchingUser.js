@@ -181,7 +181,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Filter: "",
             accessor: (text, i) =>
             <div>
-            { text.countryTagsMatch === 1 ? "●": null}
+            { text.countryTagsMatch !== 0 ? "●": null}
             </div>
           },
 
@@ -190,7 +190,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Filter: "",
             accessor: (text, i) =>
             <div>
-            { text.japaneseTagsMatch === 1 ? "●": null}
+            { text.japaneseTagsMatch !== 0 ? "●": null}
             </div>
           },
           {
@@ -198,7 +198,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Filter: "",
             accessor: (text, i) =>
             <div>
-            { text.educationBgTagsMatch === 1 ? "●": null}
+            { text.educationBgTagsMatch !== 0 ? "●": null}
             </div>
           },
 

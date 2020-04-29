@@ -182,6 +182,8 @@ export const deleteStudent = (studentId, userId, token) => {
 };
 
 export const updateStudent = (studentId, userId, token, student) => {
+    
+    console.log(student)
     return fetch(`${API}/student/${studentId}/${userId}`, {
         method: 'PUT',
         headers: {

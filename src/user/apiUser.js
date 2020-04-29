@@ -15,15 +15,15 @@ export const read = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const update = (userId, token, user, userProfile) => {
+
+export const update = (userId, token, user) => {
     return fetch(`${API}/user/${userId}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(user)
+        body: user
     })
         .then(response => {
             return response.json();

@@ -27,6 +27,8 @@ const UpdateStudent = ({ match, history }) => {
       university: '',
       major: '',
       tags: "",
+      educationBgTags: "",
+      countryTags: "",
       faculty: '',
       it_skills: '',
       entry_timing: '',
@@ -47,8 +49,8 @@ const UpdateStudent = ({ match, history }) => {
       reflections: "",
       period: "",
       country: "",
-      loading: false,
       error: false,
+      success: false,
       offerCompany: "",
       offerJob: "",
       offerIndustry: "",
@@ -59,12 +61,9 @@ const UpdateStudent = ({ match, history }) => {
 
     const {
         name,
-        studentid,
-        loading,
         error,
         createdStudent,
-        redirectToProfile,
-        formData
+        formData, success,
     } = values;
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
@@ -92,6 +91,8 @@ const UpdateStudent = ({ match, history }) => {
                     grad_year: data.grad_year,
                     grad_month: data.grad_month,
                     tags: data.tags,
+                    countryTags: data.countryTags,
+                    educationBgTags: data.educationBgTags,
                     skype: data.skype,
                     other_languages: data.other_languages,
                     english: data.english,
@@ -145,31 +146,50 @@ const UpdateStudent = ({ match, history }) => {
             } else {
                 setValues({
                     ...values,
-                    name: '',
-                    studentid: '',
-                    gender: '',
-                    age: '',
-                    dob: "",
-                    country: '',
-                    japanese: '',
-                    english: '',
-                    comments: '',
-                    university: '',
-                    major: '',
-                    faculty: '',
-                    it_skills: '',
-                    jlpt: '',
-                    github: '',
-                    education_bg: '',
-                    research: '',
-                    why_work_in_japan: '',
-                    internship: '',
-                    other_pr: '',
-                    video: '',
-                    videoImg: '',
-                    country: "",
+                    name: data.name,
+                    offerCompany: data.offerCompany,
+                    studentid: data.studentid,
+                    gender: data.gender,
+                    country: data.country,
+                    age: data.age,
+                    dob: data.dob,
+                    country: data.country,
+                    japanese: data.japanese,
+                    address: data.address,
+                    email: data.email,
+                    grad_year: data.grad_year,
+                    grad_month: data.grad_month,
+                    tags: data.tags,
+                    countryTags: data.countryTags,
+                    educationBgTags: data.educationBgTags,
+                    skype: data.skype,
+                    other_languages: data.other_languages,
+                    english: data.english,
+                    comments: data.comments,
+                    university: data.university,
+                    major: data.major,
+                    faculty: data.faculty,
+                    it_skills: data.it_skills,
+                    entry_timing: data.entry_timing,
+                    jlpt: data.jlpt,
+                    jlpt_next: data.jlpt_next,
+                    github: data.github,
+                    education_bg: data.education_bg,
+                    qualification: data.qualification,
+                    research: data.research,
+                    why_work_in_japan: data.why_work_in_japan,
+                    internship: data.internship,
+                    other_pr: data.other_pr,
+                    video: data.video,
+                    videoImg: data.videoImg,
+                    upload_fyp: data.upload_fyp,
+                    profileImg: data.profileImg,
+                    profileImgTwo: data.profileImgTwo,
+                    reflections: data.reflections,
+                    period: data.period,
                     loading: false,
                     error: false,
+                    success: true,
                     redirectToProfile: true,
                     createdStudent: data.name
                 });
@@ -325,6 +345,16 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">Entry Timing</label>
              <input type="text" onChange={handleChange("entry_timing")} value={values.entry_timing} name="entry_timing"  class="form-control"/>
           </div>
+
+          <div class="mb-2">
+            <label class="form-label">Country Tags</label>
+             <input type="text" onChange={handleChange("countryTags")} value={values.countryTags} name="countryTags"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Education BG Tags</label>
+             <input type="text" onChange={handleChange("educationBgTags")} value={values.educationBgTags} name="educationBgTags"  class="form-control"/>
+          </div>
   
           <div class="mb-2">
             <label class="form-label">Comments</label>
@@ -443,30 +473,15 @@ const UpdateStudent = ({ match, history }) => {
 
     const showSuccess = () => (
         <div className="alert alert-info" style={{ display: createdStudent ? '' : 'none' }}>
-            <h2>{`${createdStudent}`} is updated!</h2>
+            {`${createdStudent}`} is updated!
         </div>
     );
 
-    const showLoading = () =>
-        loading && (
-            <div className="alert alert-success">
-                <h2>Loading...</h2>
-            </div>
-        );
-
     const redirectUser = () => {
-        if (redirectToProfile) {
-            if (!error) {
-                return <Redirect to="/admin/students" />;
-            }
-        }
-    };
-
-    const Style = {
-      style: {
-        borderBottom: "3px solid rgb(212, 212, 212)"
-      }
-    };
+          if (success) {
+                window.scrollTo(0, 0);
+          }
+      };
 
     return (
             <SiteWrapper>

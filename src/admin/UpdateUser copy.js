@@ -36,8 +36,7 @@ const UpdateUser = ({ match, history }) => {
         zoomUrl: "",
         error: false,
         success: false,
-        redirectUser: false,
-        formData: ''
+        redirectUser: false
     });
 
     const [users, setUsers] = useState([]);
@@ -45,10 +44,11 @@ const UpdateUser = ({ match, history }) => {
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
 
-    const {  
-      error, 
-      success,
-      formData } = values;
+    const { name, email, password, role, phase, round, sales_rep,  error, success,
+      logo, descriptionOne, specialPlan,tags,zoomUrl,japaneseTags,
+      countryTags,
+      educationBgTags,
+      descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, jdLink, homepageUrl } = values;
 
     const init = userId => {
         // console.log(userId);
@@ -71,8 +71,7 @@ const UpdateUser = ({ match, history }) => {
                 countryTags: data.countryTags,
                 educationBgTags: data.educationBgTags,
                 zoomUrl: data.zoomUrl,
-                homepageUrl: data.homepageUrl, 
-                formData: new FormData() });
+                homepageUrl: data.homepageUrl });
             }
         });
     };
@@ -93,19 +92,20 @@ const UpdateUser = ({ match, history }) => {
         initUsers();
     }, []);
 
-    const handleChange = name => event => {
-      const value = name === 'upload_fyp' ? event.target.files[0] : event.target.value;
-      formData.set(name, value);
-      setValues({ ...values, [name]: value });
+    const handleChange = name => e => {
+        setValues({ ...values, error: false, [name]: e.target.value });
     };
 
-    const clickSubmit = event => {
-        event.preventDefault();
-        setValues({ ...values, error: '', loading: true });
-
-        update(match.params.userId, darwin_myTk, formData ).then(data => {
+    const clickSubmit = e => {
+        e.preventDefault();
+        update(match.params.userId,  darwin_myTk, { name, email, role, phase, round, sales_rep, password,
+          logo, descriptionOne, specialPlan, zoomUrl, japaneseTags,
+          countryTags,
+          educationBgTags,
+          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink, tags}, darwin_uid ).then(data => {
             if (data.error) {
-              setValues({ ...values, error: data.error });
+                // console.log(data.error);
+                alert(data.error);
             } else {
               setValues({
                   ...values,
@@ -116,8 +116,7 @@ const UpdateUser = ({ match, history }) => {
                   round: data.round,
                   sales_rep: data.sales_rep,
                   specialPlan: data.specialPlan,
-                  success: true,
-                  redirectToProfile: true,
+                  success: true
               });
             }
         });
@@ -126,6 +125,7 @@ const UpdateUser = ({ match, history }) => {
     const redirectUser = () => {
         if (success) {
               window.scrollTo(0, 0);
+
         }
     };
 
@@ -142,9 +142,9 @@ const UpdateUser = ({ match, history }) => {
             </div>
         );
 
-    const profileUpdate = () => (
+    const profileUpdate = (name, email, password, role, round, phase, sales_rep ) => (
 
-      <form onSubmit={clickSubmit}>
+        <form>
         <div class="card">
           <div class="card-header">
            <h4 class="card-title">Update User</h4>
@@ -156,15 +156,15 @@ const UpdateUser = ({ match, history }) => {
             <div class="col-md-6 col-xl-6">
               <div class="mb-2">
                 <label class="form-label">Name</label>
-                <input onChange={handleChange('name')} type="text" class="form-control" value={values.name} />
+                <input onChange={handleChange('name')} type="text" class="form-control" value={name} />
               </div>
               <div class="mb-2">
                 <label class="form-label">Email</label>
-                <input onChange={handleChange('email')} type="text" class="form-control" value={values.email} />
+                <input onChange={handleChange('email')} type="text" class="form-control" value={email} />
               </div>
               <div class="mb-2">
                    <div class="form-label">ASIAtoJAPAN特別プラン</div>
-                    <select placeholder="Plan" onChange={handleChange("specialPlan")} value={values.specialPlan}　class="form-control">
+                    <select placeholder="Plan" onChange={handleChange("specialPlan")} value={specialPlan}　class="form-control">
                     <option value=""> Select </option>
                     <option value="true"> あり </option>
                     <option value="false"> なし </option>
@@ -174,7 +174,7 @@ const UpdateUser = ({ match, history }) => {
                 <div class="col-md-6 col-xl-6">
               <div class="mb-2">
                   <div class="form-label">Role</div>
-                  <select placeholder="Role" onChange={handleChange("role")} value={values.role}  class="form-control">
+                  <select placeholder="Role" onChange={handleChange("role")} value={role}  class="form-control">
                     <option value=""> Select </option>
                     <option value="0"> 参加企業 </option>
                     <option value="3"> 閲覧企業​ </option>
@@ -186,7 +186,7 @@ const UpdateUser = ({ match, history }) => {
 
                   <div class="mb-2">
                 <div class="form-label">営業担当</div>
-                  <select placeholder="営業" onChange={handleChange("sales_rep")} value={values.sales_rep} class="form-control">
+                  <select placeholder="営業" onChange={handleChange("sales_rep")} value={sales_rep} class="form-control">
                     {users && users.map((c, i) => (
                         <option key={i} value={c._id}>
                       
@@ -198,7 +198,7 @@ const UpdateUser = ({ match, history }) => {
 
                   <div class="mb-3">
                     <div class="form-label">Phase</div>
-                    <select placeholder="Phase" onChange={handleChange("round")} value={values.round}　class="form-control">
+                    <select placeholder="Phase" onChange={handleChange("round")} value={round}　class="form-control">
                     <option value=""> Select </option>
                     <option value="Phase I"> Phase I </option>
                     <option value="Phase II"> Phase II </option>
@@ -212,7 +212,7 @@ const UpdateUser = ({ match, history }) => {
               <div class="col-md-6 col-xl-6">
                 <div class="mb-2">
                   <label class="form-label">Phase Memo</label>
-                  <input onChange={handleChange("phase")} value={values.phase} name="phase" class="form-control"/>
+                  <input onChange={handleChange("phase")} value={phase} name="phase" class="form-control"/>
                 </div>
 
                 </div>
@@ -220,68 +220,68 @@ const UpdateUser = ({ match, history }) => {
                 </div>
                 <div class="mb-2">
                   <label class="form-label">Logo</label>
-                  <input onChange={handleChange("logo")} value={values.logo} name="logo" class="form-control"/>
+                  <input onChange={handleChange("logo")} value={logo} name="logo" class="form-control"/>
                 </div>
                 <div class="mb-2">
                   <label class="form-label">Homepage Url</label>
-                  <input onChange={handleChange("homepageUrl")} value={values.homepageUrl} name="homepageUrl" class="form-control"/>
+                  <input onChange={handleChange("homepageUrl")} value={homepageUrl} name="homepageUrl" class="form-control"/>
                 </div>
 
                 <div class="mb-2">
                   <label class="form-label">JD Url</label>
-                  <input onChange={handleChange("jdLink")} value={values.jdLink} name="jdLink" class="form-control"/>
+                  <input onChange={handleChange("jdLink")} value={jdLink} name="jdLink" class="form-control"/>
                 </div>
           
           <div class="mb-2">
             <label class="form-label">Tags</label>
-             <input type="text" onChange={handleChange("tags")} value={values.tags} name="tags"  class="form-control"/>
+             <input type="text" onChange={handleChange("tags")} value={tags} name="tags"  class="form-control"/>
           </div>
           <div class="mb-2">
             <label class="form-label">日本語 Tags</label>
-             <input type="text" onChange={handleChange("japaneseTags")} value={values.japaneseTags} name="japaneseTags"  class="form-control"/>
+             <input type="text" onChange={handleChange("japaneseTags")} value={japaneseTags} name="japaneseTags"  class="form-control"/>
           </div>
           <div class="mb-2">
             <label class="form-label">国籍 Tags</label>
-             <input type="text" onChange={handleChange("countryTags")} value={values.countryTags} name="countryTags"  class="form-control"/>
+             <input type="text" onChange={handleChange("countryTags")} value={countryTags} name="countryTags"  class="form-control"/>
           </div>
           <div class="mb-2">
             <label class="form-label">学歴　Tags</label>
-             <input type="text" onChange={handleChange("educationBgTags")} value={values.educationBgTags} name="educationBgTags"  class="form-control"/>
+             <input type="text" onChange={handleChange("educationBgTags")} value={educationBgTags} name="educationBgTags"  class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label"> 事業内容/Business Field	</label>
-            <textarea onChange={handleChange("descriptionSix")} value={values.descriptionSix} rows="5" name="descriptionSix" class="form-control"/>
+            <textarea onChange={handleChange("descriptionSix")} value={descriptionSix} rows="5" name="descriptionSix" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label">選考ステップ / Steps	</label>
-            <textarea onChange={handleChange("descriptionOne")} value={values.descriptionOne} rows="5" name="descriptionOne" class="form-control"/>
+            <textarea onChange={handleChange("descriptionOne")} value={descriptionOne} rows="5" name="descriptionOne" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label"> １次面接内容 / First Interview Details	</label>
-            <textarea onChange={handleChange("descriptionTwo")} value={values.descriptionTwo} rows="5" name="descriptionTwo" class="form-control"/>
+            <textarea onChange={handleChange("descriptionTwo")} value={descriptionTwo} rows="5" name="descriptionTwo" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label"> ２次面接内容 / Second Interview Details		</label>
-            <textarea onChange={handleChange("descriptionThree")} value={values.descriptionThree} rows="5" name="descriptionThree" class="form-control"/>
+            <textarea onChange={handleChange("descriptionThree")} value={descriptionThree} rows="5" name="descriptionThree" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label"> 最終面接内容 / Final Interview Details </label>
-            <textarea onChange={handleChange("descriptionFour")} value={values.descriptionFour} rows="5" name="descriptionFour" class="form-control"/>
+            <textarea onChange={handleChange("descriptionFour")} value={descriptionFour} rows="5" name="descriptionFour" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label"> 参考/Please refer to this website in advance.		</label>
-            <textarea onChange={handleChange("descriptionFive")} value={values.descriptionFive} rows="5" name="descriptionFive" class="form-control"/>
+            <textarea onChange={handleChange("descriptionFive")} value={descriptionFive} rows="5" name="descriptionFive" class="form-control"/>
           </div>
 
           <div class="mb-2">
             <label class="form-label"> Zoom Url </label>
-            <textarea onChange={handleChange("zoomUrl")} value={values.zoomUrl} rows="5" name="zoomUrl" class="form-control"/>
+            <textarea onChange={handleChange("zoomUrl")} value={zoomUrl} rows="5" name="zoomUrl" class="form-control"/>
           </div>
 
 
@@ -289,7 +289,8 @@ const UpdateUser = ({ match, history }) => {
           <div class="card-footer text-right">
               <div class="d-flex">
                 <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
-                <button type="submit" class="btn btn-primary ml-auto">Submit</button> </div>
+              <button type="submit" onClick={clickSubmit} class="btn btn-primary ml-auto">Submit</button>
+          </div>
         </div>
       </div>
     </form>
@@ -303,7 +304,8 @@ const UpdateUser = ({ match, history }) => {
       {showSuccess()}
       {showError()}
       {redirectUser()}
-          {profileUpdate()}
+          {profileUpdate(name, email, password, role, round, phase, sales_rep, logo, descriptionOne,
+          descriptionTwo, descriptionThree, descriptionFour, descriptionFive, descriptionSix, homepageUrl, jdLink)}
           </Grid.Col>
           </Grid.Row>
           </Page.Content>
