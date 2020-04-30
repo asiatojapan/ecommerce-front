@@ -48,12 +48,15 @@ const SiteWrapper = ({ logout, session, history, children }) => (
           <NavDropdown title={session.name} id="basic-nav-dropdown">
               <Dropdown.Header style={{fontWeight: "700", color:"#000"}}> {session.name} </Dropdown.Header>
               <NavDropdown.Divider />
-              <NavDropdown.Item href={`/profile/${session._id}`} >Account</NavDropdown.Item>
               <NavDropdown.Item href="/admin/students">All Students</NavDropdown.Item>
               <NavDropdown.Item href="/admin/users">All Users</NavDropdown.Item>
               <NavDropdown.Item href="/admin/interviews">All Interviews</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/recommends">All 推薦</NavDropdown.Item>
+              <NavDropdown.Divider /> 
+              <NavDropdown.Item href="/admin/search">
+クレイジー検索</NavDropdown.Item>
               <NavDropdown.Item href="/mugicha">Mugicha</NavDropdown.Item>
-              <NavDropdown.Item href="/admin/recommends">History</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/history">History</NavDropdown.Item>
            
               <NavDropdown.Divider />
               <Dropdown.Header> <button className="btn btn-outline-primary"

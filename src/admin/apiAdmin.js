@@ -1,4 +1,5 @@
 import { API } from '../config';
+import queryString from "query-string";
 
 export const createCategory = (userId, token, category) => {
     return fetch(`${API}/category/create/${userId}`, {
@@ -594,7 +595,7 @@ export const createPush = (studentId, _id, token) => {
   };
 
 
-  export const getRecommends = (userId, token) => {
+  export const getMyRecommendHistory = (userId, token) => {
     return fetch(`${API}/myrecommend/${userId}`, {
         method: 'GET',
         headers: {
@@ -610,7 +611,7 @@ export const createPush = (studentId, _id, token) => {
 };
 
 
-export const getAllRecommends = (userId, token) => {
+export const getRecommendHistory = (userId, token) => {
     return fetch(`${API}/recommends/${userId}`, {
         method: 'GET',
         headers: {
@@ -625,14 +626,43 @@ export const getAllRecommends = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+export const getRecommendCurrent = (userId, token) => {
+    return fetch(`${API}/exportcurrentrec/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
 
 export const matchStudent = (userId, token) => {
-    console.log(userId)
     return fetch(`${API}/matching/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const studentMatchSearch = (params, token) => {
+    const query = queryString.stringify(params);
+    // console.log("query", query);
+    return fetch(`${API}/jobs/search?${query}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
             Authorization: `Bearer ${token}`
         },
     })
