@@ -138,6 +138,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
        {
              Header: 'StudentID',
              accessor: "studentid",
+             Filter: "",
              id: "studentid"
           
            },
@@ -158,19 +159,19 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           
           {
             Header: '国籍',
-            Filter: SelectColumnFilter,
+            Filter: "",
              accessor: "countryTags",
              id: "countryTags"
           },
           {
             Header: '日本語',
-            Filter: SelectColumnFilter,
+            Filter: "",
              accessor: "japanese",
              id: "japanese"
           },
           {
             Header: '学歴',
-            Filter: SelectColumnFilter,
+            Filter: "",
              accessor: "educationBgTags",
              id: "educationBgTags"
           },
@@ -203,19 +204,19 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           },
 
           {
-            Header: 'Otherタグ',
-            Filter: SelectColumnFilter,
-            accessor: "otherTagsPoints",
-            id: "otherTagsPoints"
-          },
-
-          {
             Header: 'タグ%',
             Filter: SelectColumnFilter,
             accessor: "tagsMatchPercent",
             id: "tagsMatch"
           },
-
+          {
+            Header: 'Faved',
+            Filter: "",
+            accessor: (text, i) =>
+            <div> {text.favUsers.length == null? "" : 
+            <div> {text.favUsers.map((t, i) => <span className="badge bg-blue">{t.name}</span>)}</div> }
+          </div> 
+          },
 
           {
             Header: '推薦', 
