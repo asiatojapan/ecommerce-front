@@ -671,3 +671,18 @@ export const studentMatchSearch = (params, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const removeRec = (userId, token, action) => {
+    // console.log(action)
+    return fetch(`${API}/removerec/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

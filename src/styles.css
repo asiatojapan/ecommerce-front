@@ -866,3 +866,7 @@ button.likeBtn:focus {
   width: 15px;
   fill: #278bfa;
 }
+
+.breadcrumb {
+  background-color: #fff !important;
+}

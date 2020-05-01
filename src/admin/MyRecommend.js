@@ -9,13 +9,13 @@ import {
   Container,
 } from "tabler-react";
 
-const MyRecommend = () => {
+const MyRecommend = ({match}) => {
   const [recommends, setRecommends] = useState([]);
   const [loading, setLoading] = useState(true);
   const { darwin_uid, darwin_myTk } = isAuthenticates();
 
   const loadRecommends = () => {
-    getMyRecommendHistory(darwin_uid, darwin_myTk).then(data => {
+    getMyRecommendHistory(match.params.userId, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {

@@ -114,11 +114,11 @@ const AddUser = ({history}) => {
               <div class="form-label">Phase</div>
               <select placeholder="Phase" onChange={handleChange("round")} value={round}　class="form-control">
               <option value=""> Select </option>
-              <option value="Phase I"> Phase I </option>
-              <option value="Phase II"> Phase II </option>
-              <option value="Phase III"> Phase III </option>
-              <option value="Phase IV"> 来日学生だけ見える </option>
-                </select>
+                     <option value="Phase I"> Phase I (推薦1)</option>
+                    <option value="Phase II"> Phase II </option>
+                    <option value="Phase III"> Phase III (推薦2のみ) </option>
+                    <option value="Phase IV"> 来日学生のみ </option>
+                                 </select>
           </div>
 
           <div class="mb-2">

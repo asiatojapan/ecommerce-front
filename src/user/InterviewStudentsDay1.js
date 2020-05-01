@@ -59,26 +59,19 @@ const InterviewStudents = ({ logout, session }) => {
         });
     };
 
-    const [resumeLoading, setResumeLoading] = useState(true);
-  
-
       useEffect(() => {
             loadInterviews();
       }, []);
 
-        const noItemsMessage = () => (
-          <SiteWrapper>
-          <div className="p-5 page text-center">
-            <div className="container">
-                <h1 className="h1 mt-0 mb-4 display-1 text-muted mb-5">
-                <i className="fe fe-check-circle"></i>
-                    </h1>
-                <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
-                <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
-             </div>
-        </div>
-        </SiteWrapper>
-      );
+      
+      const noItemsMessage = () => (
+          
+        <div className="list-list">
+              <div class="text-center mx-auto">
+                  現在面接予定の学生 0 名
+              </div>
+          </div>
+    );
 
       var result = _.flatMap(interviews, function (interview) { 
         return _.map(interview.interviewItems, function (item) { 
@@ -90,24 +83,22 @@ const InterviewStudents = ({ logout, session }) => {
 
     return (
       <>
-      {session.round === "Phase II" || session.round === "Phase II" ? noItemsMessage(): 
+     
      <InterviewNav>
       <div class="loading" style={{ display: loading ? "" : "none" }}>
           <div class="loaderSpin"></div>
       </div>
-      <div>
-     </div>
-     {arr.map((item, i)=> 
-     <div>
-        { item.time_period === "1日"　?
+      {arr.length === 0 ? 
+       <> { noItemsMessage() } </> : 
+      <> {arr.map((item, i)=> 
+         <div>
+            { item.time_period === "1日"　?
          <div class="mt-6">
-    <InterviewItemByDay key={i} item={item} interview={item.interview} />
-      </div> : null }
-      </div>
-     )}
-       
- 
-      </InterviewNav>
+           <InterviewItemByDay key={i} item={item} interview={item.interview} />
+          </div> : null }
+      </div> 
+     )} </> }
+       </InterviewNav>
         }</>
     
     );

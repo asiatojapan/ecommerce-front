@@ -150,10 +150,10 @@ const Checkout = ({ logout, session })=> {
                 </h1>
             <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
             <h3>申請後、学生を追加する場合はASIAtoJAPANまでご連絡ください</h3>
-            { session.round === "Phase III" ? 
-            <> <Link to="/history/kentou" className="resumeGradient unlikeBtn" style={{marginRight: "1rem"}}> 検討リスト履歴 へ</Link> 
-            <Link to="/user/interviews" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link> </>
-            : <Link to="/history/kentou" className="resumeGradient unlikeBtn"> 検討リスト履歴 へ</Link> }  </div>
+            <Link to="/history/kentou" className="likeBtn smaller" style={{marginRight: "1rem"}}> 検討リスト履歴 へ</Link> 
+            <Link to="/user/interviews" className="resumeGradient smaller unlikeBtn"> 面接予定の学生 へ</Link> 
+          
+             </div>
             </div>
     )
 
@@ -170,6 +170,20 @@ const Checkout = ({ logout, session })=> {
         }
     };
 
+    const afterSubmission = () => (
+        <div style={{ display: redirectToProfile ? '' : 'none' }} >
+            <div className="p-5 page text-center">
+                <div className="container">
+                    <h1 className="h1 mt-0 mb-4 display-1 text-muted mb-5">
+                    <i className="fe fe-check-circle"></i>
+                        </h1>
+                    <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
+                    <Link to="/" className="link"  className="likeBtn smaller"> <i className="fe fe-arrow-left mr-2"></i> TOP へ</Link>
+                    </div>
+                </div>
+            </div>
+    );
+
     return (
         <SiteWrapper>
              <div className="loading" style={{ display: loading ? "" : "none" }}>
@@ -181,17 +195,7 @@ const Checkout = ({ logout, session })=> {
             {session.round === "Phase I" ? phaseI() : phaseElse() }
             </Container>
             </div>
-            <div style={{ display: redirectToProfile ? '' : 'none' }} >
-            <div className="p-5 page text-center">
-                <div className="container">
-                    <h1 className="h1 mt-0 mb-4 display-1 text-muted mb-5">
-                    <i className="fe fe-check-circle"></i>
-                        </h1>
-                    <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
-                    <Link to="/" className="link"  className="btn btn-outline-secondary"> <i className="fe fe-arrow-left mr-2"></i> TOP へ</Link>
-                    </div>
-            </div>
-            </div>
+            {afterSubmission()}
             {redirectUser()}
     </SiteWrapper>
     );

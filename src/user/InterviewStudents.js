@@ -36,36 +36,30 @@ const InterviewStudents = ({ logout, session }) => {
             loadInterviews();
     }, []);
 
-
     const noItemsMessage = () => (
-      <SiteWrapper>
-      <div className="p-5 page text-center">
-        <div className="container">
-            <h1 className="h1 mt-0 mb-4 display-1 text-muted mb-5">
-            <i className="fe fe-check-circle"></i>
-                </h1>
-            <h2 className="h2 mt-0 mb-6">申請ありがとうございます</h2>
-            <Link to="/user/history" className="resumeGradient unlikeBtn"> 面接予定の学生 へ</Link>
-         </div>
-    </div>
-    </SiteWrapper>
+      <div className="list-list">
+            <div class="text-center mx-auto">
+                現在面接予定の学生 0 名
+            </div>
+        </div>
   );
 
 
     return (
-      <>
-      {session.round === "Phase II" || session.round === "Phase II" ? noItemsMessage(): 
-      <InterviewNav>         
+      <InterviewNav>        
         <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
+        { interviews.length === 0 ?  <> {noItemsMessage()} </> : 
         <div className="mt-6">
         {interviews.map((c,i) => <> 
           <CardStudent key={i} interview={c} student={c.student} showUpdateButton={true}/>
           </>)}
-        </div>
+        </div> 
+          }
         </InterviewNav>
-        }</>
+        
+ 
     );
 };
 

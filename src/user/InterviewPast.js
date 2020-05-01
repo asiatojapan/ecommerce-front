@@ -62,8 +62,13 @@ const InterviewPast = props => {
       <SiteWrapper>
         <Container>
           <div>
+          <ol class="breadcrumb" aria-label="breadcrumbs">
+        <li class="breadcrumb-item"><a href="/user/interviews">面接予定</a></li>
+        <li class="breadcrumb-item"><a href="/history/interviews">面接履歴</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{interviews.period}</li>
+      </ol>
           <div className="list-list">
-            <div style={{fontSize: "26px", fontWeight: "600"}}>{interviews.period}</div>
+            <h2 style={{marginBottom: "0"}}>{interviews.period}</h2>
         </div>
 
           <div class="list-list">

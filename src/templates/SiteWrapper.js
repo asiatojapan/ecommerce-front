@@ -36,7 +36,9 @@ const SiteWrapper = ({ logout, session, history, children }) => (
               <Fragment> 
             <Nav.Link href={`/`} >Home </Nav.Link>
             { isAuthenticates() && (session.role !== 4 && session.role !== 3 && session.role !== 2 ) && 
-           ( <Nav.Link href="/history/interviews">面接履歴</Nav.Link> )}
+           ( <>
+            <Nav.Link href="/user/interviews">面接予定</Nav.Link> </>
+           )}
         
              </Fragment>
              )}
@@ -54,7 +56,7 @@ const SiteWrapper = ({ logout, session, history, children }) => (
               <NavDropdown.Item href="/admin/recommends">All 推薦</NavDropdown.Item>
               <NavDropdown.Divider /> 
               <NavDropdown.Item href="/admin/search">
-クレイジー検索</NavDropdown.Item>
+              検索</NavDropdown.Item>
               <NavDropdown.Item href="/mugicha">Mugicha</NavDropdown.Item>
               <NavDropdown.Item href="/admin/history">History</NavDropdown.Item>
            

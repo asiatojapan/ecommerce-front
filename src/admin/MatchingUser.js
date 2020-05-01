@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
-import { deleteUser,readUser, matchStudent } from './apiAdmin';
-import { getStudents, getFavStudents, createOrder } from '../core/apiCore';
+import { removeRec, readUser, matchStudent } from './apiAdmin';
+import {  getFavStudents  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPush from "./AddPush";
 import AddHide from "./AddHide";
@@ -103,6 +103,16 @@ const MatchingUser = ({ logout, session, match }: Props) => {
         });
     };
 
+
+    const destroyRec = () => {
+      removeRec(match.params.userId, darwin_myTk, "rec_users" ).then(data => {
+          if (data.error) {
+              console.log(data.error);
+          } else {
+              setLoading(false);
+          }
+      });
+  };
 
 
   useEffect(() => {
@@ -210,6 +220,12 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             id: "tagsMatch"
           },
           {
+            Header: 'Status',
+            Filter: SelectColumnFilter,
+            accessor: "status",
+            id: "status"
+          },
+          {
             Header: 'Faved',
             Filter: "",
             accessor: (text, i) =>
@@ -286,12 +302,17 @@ const MatchingUser = ({ logout, session, match }: Props) => {
                   ) : null} 
                 </p>
 
-                <p class="mb-0">
+                <p class="mb-6">
                  <b> 日本語</b> : {user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
                    <span className="list-inline-item">{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
                   ) : null} 
                 </p>
-                
+
+                <button type="button" className="unlikeBtn resumeGradient smaller" 
+                      onClick={() => { if (window.confirm('Are you sure you wish to destroy? Please consult Lum first'))  destroyRec()  } } >
+                    Remove ALL 推薦1
+                </button>
+
                 </div>
         </div>
         <div class="list-list"> 
