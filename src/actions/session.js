@@ -13,14 +13,19 @@ const logoutCurrentUser = () => ({
   type: LOGOUT_CURRENT_USER
 });
 
+
 export const login = user => async dispatch => {
   const response = await apiUtil.login(user);
   const data = await response.json();
+  // console.log(data)
   
   if (response.ok) {
+    localStorage.setItem('darwin_myTk', data.token);
+    localStorage.setItem('darwin_uid', data._id);
     return dispatch(receiveCurrentUser(data));
-  }
-  return dispatch(receiveErrors(data));
+   }
+   else { 
+  return dispatch(receiveErrors(data));}
 };
 
 export const signup = user => async dispatch => {

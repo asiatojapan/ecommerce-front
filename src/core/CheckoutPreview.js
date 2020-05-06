@@ -58,7 +58,8 @@ const CheckoutPreview = ({ logout, session }) => {
                 <h2>現在検討中の学生<span style={{color: "#278bfa", fontWeight: "600"}}> {`${items.length}`} </span>名</h2>
                 <hr />
                 {items.map((s, index) => 
-                   <> <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} loading={loading} passedFunction={destroy}/>
+                   <> <CardCheckout key={index} student={s} showRemoveItemButton={true} cartUpdate={true} setRun={setRun} run={run} setLoading={setLoading} 
+                   loading={loading} passedFunction={destroy}/>
                   </>
                   )} 
                 <Link to="/" className="link likeBtn fullWidth">追加で学生を選ぶ</Link>

@@ -24,7 +24,6 @@ const CardStudent = ({interview, student, i, showUpdateButton}) => {
     <img src={student.videoImg} alt="img" style={{height: "140px", marginRight: "1rem"}}/> 
     <div className="ml-3">
       <div>
-      {student.status === "来日決定" ? <div> <span style={{color: "#659c2d"}}>●</span> <span style={{color: "#659c2d"}}> 来日決定 </span> </div>　: null} 
       <Link to={`/interview/student/${student._id}`} target="_blank" className="link"  style={{fontSize: "16px"}}>
         <b> {student.studentid} </b> {student.name} </Link>
      <div style={{marginBottom: "0px"}}>

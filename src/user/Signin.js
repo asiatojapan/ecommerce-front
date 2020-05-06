@@ -3,29 +3,24 @@ import { Redirect, Link } from "react-router-dom";
 import {signin, authenticate, isAuthenticates, isAuthenticated} from "../auth"
 import Logo from '../templates/Logo.png'
 import { connect } from "react-redux";
-import { logout } from "../actions/session";
+import { login } from "../actions/session";
 
-const mapStateToProps = ({ session }) => ({
-  session
+const mapStateToProps = ({ errors }) => ({
+    errors
+}); 
+
+const mapDispatchToProps = dispatch => ({
+    login: user => dispatch(login(user))
   });
   
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
-  });
-      
-const Signin = ({ logout, session }) => {
+const Signin = ({ login, errors }) => {
     const [values, setValues] = useState({
         email: "",
         password: "",
-        error: "",
         loading: false,
-        redirectToReferrer: false
     });
 
-
-    const { user } = isAuthenticates();
-    const [role, setRole] = useState()
-    const { email, password, loading, error, redirectToReferrer, welcomePage } = values;
+    const { email, password, loading  } = values;
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
@@ -33,28 +28,17 @@ const Signin = ({ logout, session }) => {
 
     const clickSubmit = event => {
         event.preventDefault();
-        setValues({ ...values, error: false, loading: true });
-        signin({ email, password }).then(data => {
-            if (data.error) {
-                setValues({ ...values, error: data.error, loading: false });
-            } else {
-                authenticate(data, () => {
-                    // console.log(data)
-                    setRole(data.user.role);
-                    setValues({
-                        ...values,
-                        redirectToReferrer: true
-                    });
-                });
-            }
-        });
+        login({ email, password })
+        
     };
 
     const showError = () => (
-        <div className="login-form-errors" style={{ display: error ? "" : "none" }}>
-              {error}
+        <div>
+        { errors ? <div className="login-form-errors" >
+              {errors.message}
+     </div> : null } 
        </div>
-    );
+    )
 
     const forms = () => (
         <div className="page-single">
@@ -94,20 +78,14 @@ const Signin = ({ logout, session }) => {
     )
 
 
-  const redirectUser = () => {
-    if (redirectToReferrer) {
-            return <Redirect to="/welcome"/>;
-    }
-  };
 
   return (
       <div className="page" style={{height: "100vh"}}>
-               <div className="loading" style={{ display: welcomePage ? "" : "none" }}>
+               <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
-       {showError()}
+        {showError()}
        {forms()}
-       {redirectUser()}
       </div>
   );
 };

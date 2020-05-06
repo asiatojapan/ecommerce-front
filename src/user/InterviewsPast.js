@@ -17,14 +17,7 @@ const InterviewsPast = () => {
 
     const [ loading, setLoading] =  useState(true);
 
-    const [expanded, setExpanded] = useState(false)
-
-    const formatter = new Intl.DateTimeFormat("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "2-digit"
-    });
-
+ 
     const init = () => {
         getMyInterviewsPast(darwin_uid, darwin_myTk).then(data => {
             setLoading(false)

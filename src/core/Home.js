@@ -27,11 +27,7 @@ const mapStateToProps = ({ session }) => ({
   session
 });
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
-});
-
-const Home = ({ logout, session }) => {
+const Home = ({ session }) => {
  
   const { darwin_myTk, darwin_uid } = isAuthenticates();
   const [favCount, setFavCount] = useState();
@@ -47,33 +43,9 @@ const Home = ({ logout, session }) => {
   const [latest, setLatest] = useState(false);
   const [recommended, setRecommended] = useState(true);
   const [size, setSize] = useState(0);
-  const [grid, setGrid] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
 
-  // const [studentsData, setStudentDataWithPDF] = useState([]);
-
-
-  async function createPDF(results) {
-    const studentDataArrPDF = [];
-    let i = 0;
-    //console.log(results)
-    while (i < results.length) {
-      // eslint-disable-next-line no-await-in-loop
-      await pdf(<Resume student={results[i]} />)
-        .toBlob()
-        // eslint-disable-next-line no-loop-func
-        .then(blobProp => {
-          studentDataArrPDF.push({
-            ...results[i],
-            url: URL.createObjectURL(blobProp),
-          });
-        });
-      i += 1;
-    }
-    setFilteredResults(studentDataArrPDF);
-    setResumeLoading(false)
-  }
 
   const status = session.round === "Phase IV" ? "来日決定" : "リスト掲載";
 
@@ -84,6 +56,7 @@ const Home = ({ logout, session }) => {
           if (data.error) {
               setError(data.error);
           } else {
+    
               setLoading(false)
               setFilteredResults(data.data);
               setSize(data.size);
@@ -153,16 +126,6 @@ const handleChange = name => event => {
   
 };
 
- const Position = () => {
-    let myColor = { width: "100%", background: '#278bfa', text: "#FFFFFF" };
-    notify.show(
-        <div style={{fontSize: "16px"}}>
-          12名以上学生を選抜すると成功報酬費用が10%OFFとなります。　
-          <a className="close" style={{paddingLeft: "20px"}} onClick={notify.hide}></a>
-        </div>, "custom", -1, myColor
-      );
-  }
-
   const handleFilters = (filters, filterBy) => {
       setLoading(true)
       const newFilters = { ...myFilters };
@@ -177,7 +140,6 @@ const handleChange = name => event => {
     setFavCount(e);
   };
 
-
     return (
       <SiteWrapper> 
          <div className="loading" style={{ display: loading ? "" : "none" }}>
@@ -187,6 +149,8 @@ const handleChange = name => event => {
       <Container>
          <Grid.Row>
            <Grid.Col width={12} lg={3} sm={12}>
+   
+   
            {session.role === 1 ? 
            <div className="list-list" style={{padding: "0"}}>
             <div class="input-group">
@@ -267,5 +231,4 @@ const handleChange = name => event => {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
   )(Home);

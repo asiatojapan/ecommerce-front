@@ -3,7 +3,7 @@ import queryString from "query-string";
 
 export const list = params => {
     const query = queryString.stringify(params);
-    console.log("query", query);
+    // console.log("query", query);
     return fetch(`${API}/interviews/by/search?${query}`, {
         method: "GET"
     })
@@ -83,4 +83,25 @@ export const getParticipatingUsers = (userId, token) => {
             return response.json();
         })
         .catch(err => console.log(err));
+};
+
+export const getCurrentInterviews = (userId, token, status) => {
+    status = { status }
+    //console.log(status)
+    return fetch(`${API}/interviews/mugicha/${userId}`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+
+        },
+        body: JSON.stringify(status)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };

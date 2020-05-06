@@ -16,10 +16,11 @@ import {
 import styled from 'styled-components'
 
 const Styles = styled.div`
-  padding: 1rem;
 
   table {
+    width: 100%;
     border-spacing: 0;
+    font-size: 12px;
     border: 1px solid rgba(0, 40, 100, 0.12);
 
     tr {
@@ -33,7 +34,7 @@ const Styles = styled.div`
     th,
     td {
       margin: 0;
-      padding: 0.5rem;
+      padding: 0.2rem;
       border-bottom: 1px solid rgba(0, 40, 100, 0.12);
       border-right: 1px solid rgba(0, 40, 100, 0.12);
 
@@ -326,12 +327,6 @@ export const Table = function ({ columns, data, selectedRows, updateMyData, onSe
 )
 
 return (
-  <div>
-  <GlobalFilter
-    preGlobalFilteredRows={preGlobalFilteredRows}
-    globalFilter={state.globalFilter}
-    setGlobalFilter={setGlobalFilter}
-  />
   <div style={{background:"#fff"}}>
   <table {...getTableProps()}>
     <thead>
@@ -365,9 +360,6 @@ return (
       
     </tbody>
   </table>
-  </div>
-
- 
   </div>
 )
 }
@@ -489,10 +481,11 @@ const columns = React.useMemo(
       accessor: (text, i) =>
       <div>{text.interviewItems.length == null ? "" : 
         <div>{text.interviewItems.map((item, i) => 
-        <div>{item.time_period}/{item.time}
-        <UpdateInterviewItem interviewItemId={item._id} interviewId={text._id} />
-        <button className="btn btn-outline-danger btn-sm" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroyItem(text._id, item._id) } } >
-                削除
+        <div> {moment(item.event_day).format('YYYY/MM/DD')} [{item.time}]
+            <br/>
+            <UpdateInterviewItem interviewItemId={item._id} interviewId={text._id} /> {" "}
+             <button className="linkButton" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroyItem(text._id, item._id) } } >
+                Delete 
             </button>
             </div>)} 
         </div>}
@@ -507,7 +500,7 @@ const columns = React.useMemo(
         Header: 'Updated At',
         accessor: (text) =>
         <div>
-        { moment(text.updatedAt).format('MM-DD-YY hh:mm')}
+        { moment(text.updatedAt).format('MM-DD-YY')}
         </div>,
         id: 'created_at',
         Filter: "",
@@ -536,6 +529,7 @@ const columns = React.useMemo(
   
  const data = interviews
 
+
  const [originalData] = React.useState(data)
   useEffect(() => {
       loadInterviews();
@@ -548,13 +542,10 @@ const columns = React.useMemo(
       </div>
         <Container>
       <div class="card-header"><h3 class="card-title"> Interviews </h3>
-      <div class="card-options">
-      {/* <Link to={`/admin/create/interview`} className="btn btn-sm btn-secondary"> + Add Interview </Link> <br/> */}
-     </div>
-     </div>
+        
+      </div>
      <Styles>
      <Table columns={columns} data={data} updateMyData={updateMyData} />
-     
     </Styles>
       </Container>
     </SiteWrapper>

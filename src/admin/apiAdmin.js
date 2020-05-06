@@ -444,7 +444,7 @@ export const updateInviteStatus = (userId, inviteStatus, adminId, token) => {
 };
 
 export const getInterviews = (userId, token) => {
-    return fetch(`${API}/interviews/${userId}`, {
+    return fetch(`${API}/interviews/all/${userId}`, {
         method: "GET",
         headers: {
             Accept: 'application/json',

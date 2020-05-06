@@ -14,9 +14,11 @@ const NavMugicha = ({ children,  history }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
+
+          <Nav.Link href="/mugicha"> Current Interviews</Nav.Link>
           <Nav.Link href="/mugicha/companies">Companies</Nav.Link>
           <Nav.Link href="/mugicha/students">Students</Nav.Link>
-          <Nav.Link href="/mugicha">All Interviews</Nav.Link>
+          <Nav.Link href="/mugicha/past"> Past Interviews</Nav.Link>
          </Nav>
         <Nav>
           <button className="btn btn-light"

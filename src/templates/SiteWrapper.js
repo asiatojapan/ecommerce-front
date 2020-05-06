@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import { withRouter } from "react-router-dom";
 import { signout, isAuthenticates } from "../auth";
 import Nav from 'react-bootstrap/Nav';
@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Dropdown from 'react-bootstrap/Dropdown';
 import logo from './Logo.png'
+import Drawer from './Drawer'
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
 
@@ -17,8 +18,19 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
 
-const SiteWrapper = ({ logout, session, history, children }) => (
-  <Fragment> 
+const SiteWrapper = ({ logout, session, history, children }) => { 
+
+  const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const handleDrawers = (filters) => {
+    console.log(filters)
+    setIsDrawerOpen(!isDrawerOpen);
+};
+
+  
+return (
+<Fragment> 
     {isAuthenticates() && (
       <Navbar expand="lg" style={{backgroundColor: "#fff", boxShadow: "0 2px 4px 0 rgba(76,76,75,.1)"}}>
         <Navbar.Brand href="/">
@@ -60,14 +72,6 @@ const SiteWrapper = ({ logout, session, history, children }) => (
               <NavDropdown.Item href="/mugicha">Mugicha</NavDropdown.Item>
               <NavDropdown.Item href="/admin/history">History</NavDropdown.Item>
            
-              <NavDropdown.Divider />
-              <Dropdown.Header> <button className="btn btn-outline-primary"
-                  onClick={() =>
-                          signout(() => {
-                              history.push("/");})}
-                  >  Log Out
-            </button>
-            </Dropdown.Header>
             </NavDropdown>
             )}
             </Nav>
@@ -77,12 +81,13 @@ const SiteWrapper = ({ logout, session, history, children }) => (
            </a>
             )}
 
+           
             {isAuthenticates() && session.role !== 2 && session.role !== 4 && (
             <a className="unlikeBtn smaller" href="/checkout/preview" style={{marginRight: "10px"}}> 検討リスト
             </a>)}
             <button className="likeBtn smaller"
                   onClick={() =>
-                          signout(() => {
+                          logout(() => {
                               history.push("/");})}
                   >  Log Out
             </button>
@@ -93,7 +98,7 @@ const SiteWrapper = ({ logout, session, history, children }) => (
       </div>
 </Fragment>
 )
-
+                          }
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps

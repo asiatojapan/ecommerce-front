@@ -9,7 +9,7 @@ const AddFav2 = ({ student })  => {
 
     const findFound = () => {
       readStudent(student, darwin_myTk).then(data => {
-        const found = data.favorites.some(el => el === darwin_uid)
+        const found = data.favorites.some(el => el._id === darwin_uid)
         if (found) {
           setFav(true)
            }
@@ -32,7 +32,6 @@ const AddFav2 = ({ student })  => {
     const clickDelete = e => {
         e.preventDefault();
         setFav(false)
-        // make request to api to create category
         destroyFav(student, darwin_uid, darwin_myTk);
     };
 

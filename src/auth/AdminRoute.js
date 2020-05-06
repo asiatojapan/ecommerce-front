@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
 
-const AdminRoute = ({ component: Component,  logout, session, ...rest }) => (
+const AdminRoute = ({ component: Component, logout, session, ...rest }) => (
     <Route
         {...rest}
         render={props =>

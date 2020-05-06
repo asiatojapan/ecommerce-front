@@ -35,10 +35,6 @@ const mapStateToProps = ({ session }) => ({
   session
 });
 
-const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout())
-});
-
 interface RouterProps {
   match: any;
 }
@@ -46,7 +42,7 @@ interface RouterProps {
 type Props = RouterProps;
 
 
-const Student = ({ logout, session, match }: Props) => {
+const Student = ({ session, match }: Props) => {
     const [student, setStudent] = useState({});
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
@@ -451,5 +447,4 @@ const Student = ({ logout, session, match }: Props) => {
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(Student);

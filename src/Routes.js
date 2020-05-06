@@ -51,10 +51,16 @@ import MugichaStudent from "./mugicha/Student"
 import MugichaInterview from "./mugicha/Interview"
 import MugichaCompanies from "./mugicha/Companies"
 import MugichaStudents from "./mugicha/Students"
-import MugichaDay1 from "./mugicha/Day"
+import MugichaDay from "./mugicha/Day"
+import MugichaDayOne from "./mugicha/DayOne"
+import MugichaDayTwo from "./mugicha/DayTwo"
 import MugichaFull from "./mugicha/Full"
+import MugichaPast from "./mugicha/Past"
 
 import FavList from "./admin/FavStudentsList"
+
+import { AuthRoute } from "./util/route";
+
 
 const history = createBrowserHistory();
 
@@ -77,7 +83,7 @@ const Routes = () => {
     <BrowserRouter>
     { GA.init() && <GA.RouteTracker /> }  
     <Switch>
-    <Route path="/signin" exact component={Signin}/>
+    <AuthRoute path="/signin" exact component={Signin}/>
     <Route path="/restricted" exact component={Restricted} />
     <Route path="/noaccess" exact component={NoAccess} />
     <AdminRoute path="/forgotpassword" exact component={ForgotPassword} />
@@ -87,6 +93,7 @@ const Routes = () => {
                 component={ResetPassword}
             />
     <MainRoute path="/" exact component={Home}/>
+
     <MainRoute path="/welcome" exact component={Welcome}/>
     <PrivateRoute path="/history/kentou" exact component={Orders}/>
     <PrivateRoute path="/history/interviews" exact component={InterviewsPast}/>
@@ -105,8 +112,12 @@ const Routes = () => {
     <AdminRoute path="/mugicha/companies" exact component={MugichaCompanies} />
     <AdminRoute path="/mugicha/companyprofile/:userId" exact component={MugichaCompanyProfile} />
     <AdminRoute path="/mugicha/students" exact component={MugichaStudents} />
-    <AdminRoute path="/mugicha/day1" exact component={MugichaDay1} />
+
+    <AdminRoute path="/mugicha/day" exact component={MugichaDay} />
+    <AdminRoute path="/mugicha/day1" exact component={MugichaDayOne} />
+    <AdminRoute path="/mugicha/day2" exact component={MugichaDayTwo} />
     <AdminRoute path="/mugicha/full" exact component={MugichaFull} />
+    <AdminRoute path="/mugicha/past" exact component={MugichaPast} />
 
 
     <AdminRoute path="/admin/history" exact component={RecommendHistory} />

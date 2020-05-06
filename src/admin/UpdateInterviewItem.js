@@ -16,6 +16,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         student: "",
         time_period: "",
         category: "",
+        event_day: "",
         japanese_level: "",
         skill_match: "",
         character_match: "",
@@ -31,7 +32,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { company, student, studentname, companyname, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, atojComment, companyComment, error, success, redirectToProfile} = values;
+    const { company, student, studentname, studentid, companyname, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, atojComment, companyComment,event_day, error, success, redirectToProfile} = values;
 
     const init = interviewId => {
         getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -39,12 +40,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 setValues({ ...values, error: true });
             } else {
                 const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
-                setValues({ ...values, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
+                setValues({ ...values, studentid:data.student.studentid, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
                   character_match: interviewItems[0].character_match, skill_match: interviewItems[0].skill_match,
-                  atojComment: interviewItems[0].atojComment, companyComment: interviewItems[0].companyComment
+                  atojComment: interviewItems[0].atojComment, companyComment: interviewItems[0].companyComment,  event_day: interviewItems[0].event_day
                  });
             }
         });
@@ -55,12 +56,12 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     }, []);
 
     const handleChange = name => e => {
-        setValues({ ...values, error: false, [name]: e.target.value });
+         setValues({ ...values, error: false, [name]: e.target.value });
     };
 
     const clickSubmit = e => {
         e.preventDefault();
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, studentname, companyname, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, atojComment, companyComment }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, studentname, companyname, student, time, phase, result, time_period, event_day, category, japanese_level, character_match, skill_match, atojComment, companyComment }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -80,25 +81,25 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-
-    
-            const redirectUser = () => {
-                if (redirectToProfile) {
-                    if (!error) {
-                          window.location.reload();
-                    }
-                }
-            };
+    const redirectUser = () => {
+        if (redirectToProfile) {
+            if (!error) {
+                    window.location.reload();
+            }
+        }
+    };
 
     const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
-      <div>
-      <button onClick={handleShow} className="btn btn-sm btn-outline-primary">
+      <>
+      <button onClick={handleShow}  className="linkButton" >
        Update
      </button>
 
      <Modal show={show} onHide={handleClose}>
      <form>
-       <Modal.Body closeButton>
+         <Modal.Header>   {studentid} {studentname} : {companyname}
+       </Modal.Header>
+       <Modal.Body>
 
 
           <div class="mb-2">
@@ -135,7 +136,23 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 </select>
           </div>
 
+          <div className="mb-2">
+            <label className="form-label">結果</label>
+            <select placeholder="結果" onChange={handleChange("result")} value={result} className="form-control">
+                  <option value="">Select</option>
+                  <option value="Nil">Nil</option>
+                  <option value="合格"> ● </option>
+                  <option value="不合格"> X </option>
+                  <option value="三角"> ▲</option>
+                  <option value="辞退"> 辞退　</option>
+                  <option value="内定"> 内定　</option>
+              </select>
+          </div>
     
+          <div className="mb-2">
+          <label className="form-label">Date</label>
+           <input type="text" onChange={handleChange("event_day")} value={event_day} class="form-control"/>
+          </div>
           <div class="mb-2">
             <label class="form-label">Day</label>
             <select placeholder="time_period" onChange={handleChange("time_period")} value={time_period} class="form-control">
@@ -162,7 +179,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     </Modal.Footer>
     </form>
   </Modal>
-  </div>
+  </>
     );
 
     return (

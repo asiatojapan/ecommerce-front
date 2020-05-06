@@ -2,14 +2,21 @@
 import { API } from '../config';
 
 export const login = user => {
-  // console.log("try logging in")
-  return fetch(`${API}/login`, {
-    method: "POST",
-    body: JSON.stringify(user),
-    headers: {
-      "Content-Type": "application/json"
-    }
+  return fetch(`${API}/signin`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
   })
+      .then(response => {
+          return response.json();
+      })
+      
+      .catch(err => {
+          console.log(err);
+      });
 };
 
 export const signup = user => (
@@ -22,32 +29,13 @@ export const signup = user => (
   })
 );
 
-export const logout = () => {
-  if (typeof window !== 'undefined') {
-    // localStorage.removeItem('jwt');
-    localStorage.removeItem('darwin_uid');
-    localStorage.removeItem('darwin_myTk');
-    return fetch(`${API}/signout`, { method: "GET" })
-  } 
-}
+export const logout = () => (
+  fetch("api/session", { method: "DELETE" })
+);
+
+
 
 export const checkLoggedIn = async () => {
-  const userId = localStorage.getItem('darwin_uid')
-  const response = await fetch(`${API}/session/${userId}`);
-  let preloadedState = {};
-  if (response.ok) {
-  const  user  = await response.json();
-  // console.log("user", user)
-  if (user) {
-    preloadedState = {
-      session: user
-    };
-    }
-  } 
-  return preloadedState
-};
-
-export const checkLoggedIn1 = async () => {
   if (typeof window == 'undefined') {
     return false;
   }

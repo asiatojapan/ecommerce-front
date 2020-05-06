@@ -14,6 +14,7 @@ import Modal from 'react-bootstrap/Modal';
         company: "",
         student: "",
         time_period: "1日",
+        event_day: "2020-05-21",
         category: "Skype",
         error: false,
         success: false,
@@ -22,7 +23,7 @@ import Modal from 'react-bootstrap/Modal';
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { company, student, name, time, phase, result, time_period, category, error, success, redirectToProfile} = values;
+    const { company, student, name, time, phase, result, time_period, category, event_day, error, success, redirectToProfile} = values;
 
     const init = () => {
         getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -45,7 +46,7 @@ import Modal from 'react-bootstrap/Modal';
 
     const clickSubmit = e => {
         e.preventDefault();
-        createInterviewItem(interviewId, darwin_uid, darwin_myTk, {time, phase, result, time_period, category }).then(data => {
+        createInterviewItem(interviewId, darwin_uid, darwin_myTk, {time, phase, result, time_period, event_day, category }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -96,13 +97,9 @@ import Modal from 'react-bootstrap/Modal';
 
      <Modal show={show} onHide={handleClose}>
      <form>
-       <Modal.Header closeButton> Add Interview Item
+       <Modal.Header>   {student.studentid} {student.name} : {company.name}
        </Modal.Header>
        <Modal.Body>
-        <div className="mb-2">
-           <h3>{student.name}</h3> 
-           <h3>{company.name}</h3>
-        </div>
 
           <div className="mb-2">
               <div className="form-label">時間</div>
@@ -137,17 +134,12 @@ import Modal from 'react-bootstrap/Modal';
                 </select>
           </div>
 
+
+
+
           <div className="mb-2">
-            <label className="form-label">結果</label>
-            <select placeholder="結果" onChange={handleChange("result")} value={result} className="form-control">
-                  <option value="">Select</option>
-                  <option value="Nil">Nil</option>
-                  <option value="合格"> ● </option>
-                  <option value="不合格"> X </option>
-                  <option value="三角"> ▲</option>
-                  <option value="辞退"> 辞退　</option>
-                  <option value="内定"> 内定　</option>
-              </select>
+          <label className="form-label">Date</label>
+           <input type="text" onChange={handleChange("event_day")} value={event_day} class="form-control"/>
           </div>
 
           <div className="mb-2">
@@ -159,6 +151,7 @@ import Modal from 'react-bootstrap/Modal';
                   <option value="3日"> 3日 </option>
               </select>
           </div>
+
 
           <div className="mb-2">
             <label className="form-label">Category</label>

@@ -1,5 +1,5 @@
 import React from "react";
-import { isAuthenticated } from "../auth";
+import moment from "moment"
 import UpdateInterviewItem from "../user/UpdateInterviewItem";
 import "../styles.css";
 
@@ -28,17 +28,6 @@ const InterviewItem = ({item, interview, showUpdateButton}) => {
         }
     }
 
-    const timePeriodInNice = (time_period) => {
-      if (time_period === "1日") {
-          return "2020/4/21"
-      }
-      else if (time_period === "2日") {
-          return "2020/4/22"
-      }
-      else {
-          return ""
-      }
-    }
 
     const showUpdate = showUpdateButton => {
         return (
@@ -55,7 +44,7 @@ const InterviewItem = ({item, interview, showUpdateButton}) => {
     return (
       <div className="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
         <div className="col-3 col-md-3 ml-5">
-       <span style={{color: "#278bfa" }} >{item.event_period}</span>
+       <span style={{color: "#278bfa" }} >{moment(item.event_day).format('YYYY/MM/DD')}</span>
        <div style={{fontSize: "20px"}} > {item.time} </div>
        </div>
         <div className="col-md-6 text-right">
