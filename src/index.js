@@ -6,7 +6,7 @@ import ReactDOM from "react-dom";
 import configureStore from "./store/store";
 import Routes from './Routes';
 import { Provider } from "react-redux";
-import { checkLoggedIn } from "./util/session";
+import { checkLoggedIn1 } from "./util/session";
 
 const renderApp = preloadedState => {
   const store = configureStore(preloadedState);
@@ -21,4 +21,4 @@ const renderApp = preloadedState => {
   );
 };
 
-(async () => renderApp(await checkLoggedIn()))();
+(async () => renderApp(await checkLoggedIn1()))();

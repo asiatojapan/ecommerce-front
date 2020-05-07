@@ -17,7 +17,7 @@ const logoutCurrentUser = () => ({
 export const login = user => async dispatch => {
   const response = await apiUtil.login(user);
   const data = await response.json();
-  // console.log(data)
+  console.log(data)
   
   if (response.ok) {
     localStorage.setItem('darwin_myTk', data.token);
@@ -26,16 +26,6 @@ export const login = user => async dispatch => {
    }
    else { 
   return dispatch(receiveErrors(data));}
-};
-
-export const signup = user => async dispatch => {
-  const response = await apiUtil.signup(user);
-  const data = await response.json();
-  
-  if (response.ok) {
-    return dispatch(receiveCurrentUser(data));
-  }
-  return dispatch(receiveErrors(data));
 };
 
 export const logout = () => async dispatch => {

@@ -5,7 +5,7 @@ export default (state = "", { type, message }) => {
   Object.freeze(state);
   switch (type) {
     case RECEIVE_ERRORS:
-      console.log("msg", message)
+      // console.log("msg", message)
       return message;
     case RECEIVE_CURRENT_USER:
     case CLEAR_ERRORS:

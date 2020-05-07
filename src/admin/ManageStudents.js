@@ -447,6 +447,13 @@ const ManageStudent = () => {
       Filter: SelectColumnFilter,
     },
   ] },
+
+  {
+    Header: 'Contact',
+    accessor: "contactDetails.weChat",
+    Filter: SelectColumnFilter,
+},
+
   {
       Header: 'Login Count',
       accessor: "login_count",

@@ -14,7 +14,7 @@ export default (state = _nullSession, { type, user }) => {
       // console.log("not logged in")
       return _nullSession;
     default:
-     //  console.log("blank")
+     //console.log("blank")
       return state;
   }
 };

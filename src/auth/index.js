@@ -43,7 +43,7 @@ export const authenticate = (data, next) => {
    //  }
     if (typeof window !== 'undefined') {
         localStorage.setItem('darwin_myTk', data.token);
-        localStorage.setItem('darwin_uid', data._id);
+        localStorage.setItem('darwin_uid', data.user._id);
        // localStorage.setItem('jwt', JSON.stringify(data));
         next();
     }

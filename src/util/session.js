@@ -1,8 +1,6 @@
-
 import { API } from '../config';
 
-export const login = user => {
-  // console.log("try logging in")
+export const login1 = user => {
   return fetch(`${API}/login`, {
     method: "POST",
     body: JSON.stringify(user),
@@ -12,15 +10,24 @@ export const login = user => {
   })
 };
 
-export const signup = user => (
-  fetch("api/users", {
-    method: "POST",
-    body: JSON.stringify(user),
-    headers: {
-      "Content-Type": "application/json"
-    }
+export const login = user => {
+  return fetch(`${API}/signin`, {
+      method: 'POST',
+      headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
   })
-);
+      .then(response => {
+          return response.json();
+      })
+      
+      .catch(err => {
+          console.log(err);
+      });
+};
+
 
 export const logout = () => {
   if (typeof window !== 'undefined') {
