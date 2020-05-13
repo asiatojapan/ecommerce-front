@@ -87,7 +87,7 @@ return (
             </a>)}
             <button className="likeBtn smaller"
                   onClick={() =>
-                          logout(() => {
+                          signout(() => {
                               history.push("/");})}
                   >  Log Out
             </button>

@@ -60,7 +60,7 @@ const Student = ({ session, match }: Props) => {
                 setError(data.error);
             } else {
                 setStudent(data);
-                // console.log(data)
+                console.log(data)
                 createPDF(data)
                 listRelated(data._id,  darwin_uid, darwin_myTk).then(data => {
                   if (data.error) {
@@ -154,7 +154,28 @@ const Student = ({ session, match }: Props) => {
         <li className="breadcrumb-item active" aria-current="page">{student.studentid}</li>
       </ol>   
 
+    
       {session.role === 1 && (
+<>
+<div className="list-list"  style={{padding: "0px"}}>
+<table className="table card-table table-vcenter">
+  <thead>
+    <tr>
+      <th>Contact Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+      Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
+      Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
+      WhatsApp: {student.contactDetails? student.contactDetails.whatsApp : null}
+      </td>
+    </tr>
+   
+  </tbody>
+</table>
+</div>
       <div className="list-list"  style={{padding: "0px"}}>
                 <table className="table card-table table-vcenter">
                   <thead>
@@ -235,8 +256,7 @@ const Student = ({ session, match }: Props) => {
                   </tbody>
                 </table>
                 
-              </div> )}
-
+              </div> </>)}
         <Grid.Row>
 
       <Grid.Col width={12} lg={9} sm={12}>
@@ -408,6 +428,7 @@ const Student = ({ session, match }: Props) => {
         {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>} <hr/></>}
+
 
 
       <h4>この学生と似ている学生</h4>

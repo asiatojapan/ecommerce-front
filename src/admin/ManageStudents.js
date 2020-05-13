@@ -454,6 +454,13 @@ const ManageStudent = () => {
     Filter: SelectColumnFilter,
 },
 
+
+{
+  Header: 'ContactWA',
+  accessor: "contactDetails.whatsApp",
+  Filter: SelectColumnFilter,
+},
+
   {
       Header: 'Login Count',
       accessor: "login_count",

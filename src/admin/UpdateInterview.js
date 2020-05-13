@@ -183,7 +183,8 @@ const UpdateInterview = ({ interviewId, match, history }) => {
             <select placeholder="status" onChange={handleChange("status")} value={values.status} class="form-control">
                   <option value="">Select</option>
                   <option value="選考"> 選考</option>
-                  <option value="終わる"> 終わる </option>
+                  <option value="終了"> 終了 </option>
+                  <option value="辞退"> 辞退 </option>
               </select>
           </div>
 

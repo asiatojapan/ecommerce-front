@@ -13,8 +13,8 @@ import Modal from 'react-bootstrap/Modal';
         result: "Nil",
         company: "",
         student: "",
-        time_period: "1日",
-        event_day: "2020-05-21",
+        time_period: "2日",
+        event_day: "2020-05-20",
         category: "Skype",
         error: false,
         success: false,
@@ -62,7 +62,6 @@ import Modal from 'react-bootstrap/Modal';
                   category: data.category,
                   time_period: data.time_period,
                   success: true,
-                  redirectToProfile: true,
               });
             }
         });
@@ -118,6 +117,7 @@ import Modal from 'react-bootstrap/Modal';
                     <option value="17:00"> 17:00 </option>
                     <option value="17:40"> 17:40 </option>
                     <option value="18:00"> 18:00 </option>
+                    <option value="19:00"> 19:00 </option>
                 </select>
           </div>
 
@@ -161,6 +161,7 @@ import Modal from 'react-bootstrap/Modal';
                   <option value="試験"> 試験 </option>
                   <option value="説明会"> 説明会 </option>
                   <option value="Skype"> Skype </option>
+                  <option value="Web Test"> Web Test </option>
               </select>
           </div>
     </Modal.Body>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import List from './List';
+
+import { Redirect, Link, withRouter } from "react-router-dom";
 import { isAuthenticates } from '../auth';
 import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
@@ -17,8 +19,6 @@ import "../styles.css";
 import "tabler-react/dist/Tabler.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Notifications, {notify} from 'react-notify-toast';
-import { pdf } from "@react-pdf/renderer";
-import Resume from "../pdf/Resume";
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
 
@@ -56,7 +56,6 @@ const Home = ({ session }) => {
           if (data.error) {
               setError(data.error);
           } else {
-    
               setLoading(false)
               setFilteredResults(data.data);
               setSize(data.size);
@@ -82,7 +81,6 @@ const Home = ({ session }) => {
         if (data.error) {
             setError(data.error);
         } else {
-            // console.log(data)
             setFilteredResults([...filteredResults, ...data.data]);
             setSize(data.size);
             // createPDF([...filteredResults, ...data.data])
@@ -95,8 +93,11 @@ const Home = ({ session }) => {
 
 
   useEffect(() => {
+    if (session) { 
+      console.log(session)
       loadFilteredResults(skip, limit, myFilters.filters, latest);
       getFavCount(darwin_uid);
+    }
   }, [latest, recommended]);
 
 
@@ -229,6 +230,6 @@ const handleChange = name => event => {
     );
 };
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
-  )(Home);
+  )(Home));

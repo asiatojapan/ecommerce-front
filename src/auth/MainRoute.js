@@ -12,7 +12,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
 
-const PrivateRoute  = ({ component: Component,  logout, session, ...rest }) => (
+const MainRoute  = ({ component: Component,  logout, session, ...rest }) => (
     <Route
         {...rest}
         render={props =>
@@ -40,4 +40,4 @@ const PrivateRoute  = ({ component: Component,  logout, session, ...rest }) => (
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-  )(PrivateRoute);
+  )(MainRoute);

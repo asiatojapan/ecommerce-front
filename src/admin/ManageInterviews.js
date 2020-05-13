@@ -18,7 +18,7 @@ import styled from 'styled-components'
 const Styles = styled.div`
 
   table {
-    width: 100%;
+    width: 100%
     border-spacing: 0;
     font-size: 12px;
     border: 1px solid rgba(0, 40, 100, 0.12);

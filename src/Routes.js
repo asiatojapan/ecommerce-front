@@ -83,7 +83,7 @@ const Routes = () => {
     <BrowserRouter>
     { GA.init() && <GA.RouteTracker /> }  
     <Switch>
-    <AuthRoute path="/signin" exact component={Signin}/>
+    <Route path="/signin" exact component={Signin}/>
     <Route path="/restricted" exact component={Restricted} />
     <Route path="/noaccess" exact component={NoAccess} />
     <AdminRoute path="/forgotpassword" exact component={ForgotPassword} />

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, withRouter, Switch, Route } from "react-router-dom";
 import {signin, authenticate, isAuthenticates, isAuthenticated} from "../auth"
 import Logo from '../templates/Logo.png'
 import { connect } from "react-redux";
 import { logout } from "../actions/session";
+import { useHistory } from "react-router-dom";
+import Login from "./Signin";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -21,10 +23,9 @@ const Signin = ({ logout, session }) => {
         loading: false,
         redirectToReferrer: false
     });
-
+    const history = useHistory();
 
     const { user } = isAuthenticates();
-    const [role, setRole] = useState()
     const { email, password, loading, error, redirectToReferrer, welcomePage } = values;
 
     const handleChange = name => event => {
@@ -38,9 +39,8 @@ const Signin = ({ logout, session }) => {
             if (data.error) {
                 setValues({ ...values, error: data.error, loading: false });
             } else {
+                // console.log(data)
                 authenticate(data, () => {
-                    // console.log(data)
-                    setRole(data.user.role);
                     setValues({
                         ...values,
                         redirectToReferrer: true
@@ -94,13 +94,15 @@ const Signin = ({ logout, session }) => {
     )
 
 
-  const redirectUser = () => {
-    if (redirectToReferrer) {
-            return <Redirect to="/welcome"/>;
-    }
-  };
+    const redirectUser = () => {
+        if (redirectToReferrer) {
+         return <Redirect to="/welcome" />
+        }
+      };
+    
 
   return (
+      
       <div className="page" style={{height: "100vh"}}>
                <div className="loading" style={{ display: welcomePage ? "" : "none" }}>
             <div className="loaderSpin"></div>
@@ -112,7 +114,7 @@ const Signin = ({ logout, session }) => {
   );
 };
 
-export default connect(
+export default withRouter(connect(
     mapStateToProps,
     mapDispatchToProps
-  )(Signin);
+  )(Signin));
