@@ -65,12 +65,15 @@ return (
               <NavDropdown.Item href="/admin/students">All Students</NavDropdown.Item>
               <NavDropdown.Item href="/admin/users">All Users</NavDropdown.Item>
               <NavDropdown.Item href="/admin/interviews">All Interviews</NavDropdown.Item>
-              <NavDropdown.Item href="/admin/recommends">All 推薦</NavDropdown.Item>
               <NavDropdown.Divider /> 
               <NavDropdown.Item href="/admin/search">
               検索</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/jobs">
+              Jobs</NavDropdown.Item>
+              <NavDropdown.Divider /> 
               <NavDropdown.Item href="/mugicha">Mugicha</NavDropdown.Item>
               <NavDropdown.Item href="/admin/history">History</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/recommends">Current 推薦 </NavDropdown.Item>
            
             </NavDropdown>
             )}

@@ -94,7 +94,7 @@ const Home = ({ session }) => {
 
   useEffect(() => {
     if (session) { 
-      console.log(session)
+      // console.log(session)
       loadFilteredResults(skip, limit, myFilters.filters, latest);
       getFavCount(darwin_uid);
     }

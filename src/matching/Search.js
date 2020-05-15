@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { studentMatchSearch } from './apiAdmin';
+import { studentMatchSearch } from './apiMatching';
 import { it_skills, countries,tags, japanese, education_bg } from './SearchData';
 import SearchCheckbox from "./SearchCheckbox"
 import SiteWrapper from '../templates/SiteWrapper'

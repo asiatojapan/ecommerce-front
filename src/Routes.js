@@ -16,12 +16,26 @@ import UpdateInterviewItem from './user/UpdateInterviewItem';
 import UpdateUser from './admin/UpdateUser';
 import ManageStudents from './admin/ManageStudents';
 import AdminUser from './admin/AdminUser';
-import MatchingUser from './admin/MatchingUser';
-import Search from "./admin/Search";
 
+//////////////////////////////
+/// Matching Related /// 
+import AddJob from './matching/AddJob';
+import Job from './matching/Job';
+import UpdateJob from './matching/UpdateJob';
+import ManageJobs from './matching/ManageJobs';
+import MatchingUser from './admin/MatchingUser';
+import Search from "./matching/Search";
+//////////////////////////////
+//////////////////////////////
+
+
+//////////////////////////////
+/// Recommended Related //// 
 import RecommendHistory from "./admin/RecommendHistory";
 import MyRecommendHistory from "./admin/MyRecommend";
 import AllRecommends from "./admin/AllRecommends";
+//////////////////////////////
+//////////////////////////////
 
 import ManageUsers from './admin/ManageUsers';
 import InterviewStudents from './user/InterviewStudents';
@@ -43,7 +57,11 @@ import GA from './utils/GoogleAnalytics'
 import ForgotPassword from "./user/ForgotPassword"
 import ResetPassword from "./user/ResetPassword";
 import { createBrowserHistory } from 'history';
+//////////////////////////////
 
+
+//////////////////////////////
+/// Mugicha Related //// 
 import Mugicha from "./mugicha/Home"
 import MugichaCompany from "./mugicha/Company"
 import MugichaCompanyProfile from "./mugicha/CompanyProfile"
@@ -56,6 +74,10 @@ import MugichaDayOne from "./mugicha/DayOne"
 import MugichaDayTwo from "./mugicha/DayTwo"
 import MugichaFull from "./mugicha/Full"
 import MugichaPast from "./mugicha/Past"
+//////////////////////////////
+//////////////////////////////
+
+
 
 import FavList from "./admin/FavStudentsList"
 
@@ -105,6 +127,7 @@ const Routes = () => {
     <MainRoute path="/student/:studentId" exact component={Student}/>
     <PrivateRoute path="/order/:orderId" exact component={Order}/>
  
+
     <AdminRoute path="/mugicha" exact component={Mugicha} />
     <AdminRoute path="/mugicha/company/:userId" exact component={MugichaCompany} />
     <AdminRoute path="/mugicha/student/:studentId" exact component={MugichaStudent} />
@@ -112,6 +135,7 @@ const Routes = () => {
     <AdminRoute path="/mugicha/companies" exact component={MugichaCompanies} />
     <AdminRoute path="/mugicha/companyprofile/:userId" exact component={MugichaCompanyProfile} />
     <AdminRoute path="/mugicha/students" exact component={MugichaStudents} />
+
 
     <AdminRoute path="/mugicha/day" exact component={MugichaDay} />
     <AdminRoute path="/mugicha/day1" exact component={MugichaDayOne} />
@@ -124,9 +148,8 @@ const Routes = () => {
     <AdminRoute path="/admin/myrecommend/:userId" exact component={MyRecommendHistory} />
     <AdminRoute path="/admin/recommends" exact component={AllRecommends} />
 
+
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
-    <AdminRoute path="/admin/matching/:userId" exact component={MatchingUser} />
-    <AdminRoute path="/admin/search" exact component={Search} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
     <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
@@ -137,6 +160,14 @@ const Routes = () => {
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
       <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
   
+
+
+    <AdminRoute path="/admin/matching/:userId" exact component={MatchingUser} />
+    <AdminRoute path="/admin/search" exact component={Search} />
+    <AdminRoute path="/admin/job/create" exact component={AddJob} />
+    <AdminRoute path="/admin/job/:jobId" exact component={Job} />
+    <AdminRoute path="/admin/job/update/:jobId" exact component={UpdateJob} />
+    <AdminRoute path="/admin/jobs" exact component={ManageJobs} />
 
     <PrivateRoute path="/user/interviews" exact component={InterviewStudents} />
     <PrivateRoute path="/user/interviews/day1" exact component={InterviewStudentsDay1} />
