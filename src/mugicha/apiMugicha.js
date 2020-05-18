@@ -85,18 +85,14 @@ export const getParticipatingUsers = (userId, token) => {
         .catch(err => console.log(err));
 };
 
-export const getCurrentInterviews = (userId, token, status) => {
-    status = { status }
-    //console.log(status)
-    return fetch(`${API}/interviews/mugicha/${userId}`, {
-        method: "POST",
+export const getCurrentInterviews = (userId, token) => {
+    return fetch(`${API}/interviews/mugicha`, {
+        method: "GET",
         headers: {
             Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-
-        },
-        body: JSON.stringify(status)
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
     })
         .then(response => {
             return response.json();

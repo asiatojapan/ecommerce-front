@@ -13,6 +13,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
         result: "",
         company: "",
         student: "",
+        companyRank: "",
+        companyRate: "",
         time_period: "",
         category: "",
         japanese_level: "",
@@ -30,7 +32,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
  
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, atojComment , companyComment, company_form, redirectToProfile} = values;
+    const { company, student, status, name,companyRank, companyRate, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, atojComment , companyComment, company_form, redirectToProfile} = values;
 
     const init = interviewId => {
         getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -38,7 +40,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 setValues({ ...values, error: true });
             } else {
                 const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
-                setValues({ ...values, company: data.company._id, student: data.student._id,
+                setValues({ ...values, company: data.company._id, student: data.student._id, companyRank: data.companyRank,
+                companyRate: data.companyRate,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
@@ -125,6 +128,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                 </td>
                 <td>
                     {time_period === "1日"　? <span class="badge badge-primary">1日</span>:<span class="badge badge-danger">2日</span>}
+                    {companyRank}{companyRate}
                 </td>
                 <td>
                     {resultInNice

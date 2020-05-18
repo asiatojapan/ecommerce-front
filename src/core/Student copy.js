@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { readStudent, listRelated } from './apiCore';
-import { readStudentBestJobs } from '../matching/apiMatching';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
 import {  isAuthenticates } from '../auth';
@@ -46,13 +45,10 @@ type Props = RouterProps;
 
 const Student = ({ session, match }: Props) => {
     const [student, setStudent] = useState({});
-    const [data1, setData1] = useState([]);
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
     const [blob, setBlob] = useState()
-    const [labels1, setLabels1] = useState([]);
-    const [points, setPoints] = useState([]);
 
     const [blobHalfResume, setBlobHalfResume] = useState()
     
@@ -65,7 +61,7 @@ const Student = ({ session, match }: Props) => {
                 setError(data.error);
             } else {
                 setStudent(data);
-                // console.log(data)
+                console.log(data)
                 createPDF(data)
                 listRelated(data._id,  darwin_uid, darwin_myTk).then(data => {
                   if (data.error) {
@@ -76,21 +72,6 @@ const Student = ({ session, match }: Props) => {
                   });
               }
           });
-
-          readStudentBestJobs(match.params.studentId, darwin_myTk).then(data => {
-            if (data.error) {
-                setError(data.error);
-            } else {
-                setData1(data)}
-                data.map(function(e) {
-                  setLabels1(labels1 => [...labels1, e.jobName])
-                });
-                data.map(function(e) {
-                  setPoints(points => [...points, e.points])
-                });
-
-
-            })
       };
 
     function _calculateAge(dateString) { // birthday is a date
@@ -163,18 +144,15 @@ const Student = ({ session, match }: Props) => {
       [headerStyle]
     )
 
-
-   const data12 = {
-      labels: labels1,
+   const data1 = {
+      labels: ["January", "February", "March", "April", "May", "June", "July"],
       datasets: [{
       label: "My First dataset",
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: points
+      data: [0, 10, 5, 2, 20, 30, 45],
       }]
   }
-
-
 
     return (
       <SiteWrapper>
@@ -186,29 +164,30 @@ const Student = ({ session, match }: Props) => {
         <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
         <li className="breadcrumb-item active" aria-current="page">{student.studentid}</li>
       </ol>   
+
     
       {session.role === 1 && (
 <>
-  <div className="list-list"  style={{padding: "0px"}}>
-        <table className="table card-table table-vcenter">
-          <thead>
-            <tr>
-              <th>Contact Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-              <Bar data={data12} />
-              Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
-              Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
-              WhatsApp: {student.contactDetails? student.contactDetails.whatsApp : null}
-              </td>
-            </tr>
-          
-          </tbody>
-        </table>  
-  </div>
+<div className="list-list"  style={{padding: "0px"}}>
+<table className="table card-table table-vcenter">
+  <thead>
+    <tr>
+      <th>Contact Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+      < Bar data={data1} />
+      Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
+      Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
+      WhatsApp: {student.contactDetails? student.contactDetails.whatsApp : null}
+      </td>
+    </tr>
+   
+  </tbody>
+</table>
+</div>
       <div className="list-list"  style={{padding: "0px"}}>
                 <table className="table card-table table-vcenter">
                   <thead>

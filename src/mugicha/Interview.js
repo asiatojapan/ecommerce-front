@@ -52,6 +52,10 @@ const Interview = ({ match }) => {
         
           <div class="alert alert-primary clearfix">{companyData.name}
            <h4 style={{marginBottom: "0"}}>{studentData.studentid} {studentData.name} </h4>   
+           <br/>
+           <h5 style={{marginBottom: "0"}}> Facebook: {studentData.contactDetails ? studentData.contactDetails.faceBook : null} </h5> 
+           <h5 style={{marginBottom: "0"}}> WeChat: {studentData.contactDetails ? studentData.contactDetails.weChat : null} </h5>  
+           <h5 style={{marginBottom: "0"}}> WhatsApp: {studentData.contactDetails ? studentData.contactDetails.whatsApp : null} </h5>  
          <br/>
         <Link to={`/student/${studentData._id}`} target="_blank" class="btn btn-google">  Profile </Link> 
         <a href={studentData.video} target="_blank" class="btn btn-vimeo">  Vimeo </a> 

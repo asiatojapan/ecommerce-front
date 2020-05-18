@@ -19,9 +19,8 @@ const DayTwo = () => {
         searched: false
     });
   
-    const status = "選考"
     const loadInterviews = () => {
-        getCurrentInterviews(darwin_uid, darwin_myTk, status).then(data => {
+        getCurrentInterviews(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -32,13 +31,6 @@ const DayTwo = () => {
         });
     };
 
-    var result = _.flatMap(interviews, function (interview) { 
-      return _.map(interview.interviewItems, function (item) { 
-          return { interview: interview, ...item  };
-      });
-    });
-
-    const arr = _.sortBy(result, "time")
 
     useEffect(() => {
         loadInterviews();
@@ -68,25 +60,26 @@ const DayTwo = () => {
                     <tr>
                     <th style={{width: "10%"}}>企業</th>
                     <th style={{width: "10%"}}>学生</th>
-                    <th style={{width: "10%"}}>時間</th>
-                    <th style={{width: "10%"}}>日</th>
-                    <th style={{width: "10%"}}>結果</th>
-                    <th style={{width: "20%"}}>ATOJコメント</th>
-                    <th style={{width: "20%"}}>企業コメント</th>
+                    <th style={{width: "6%"}}>時間</th>
+                    <th style={{width: "4%"}}>日</th>
+                    <th style={{width: "7%"}}>結果</th>
+                    <th style={{width: "30%"}}>ATOJコメント</th>
+                    <th style={{width: "30%"}}>企業コメント</th>
                     <th style={{width: "10%"}}></th>
                      <th style={{width: "10%"}}></th>
         
                     </tr>
                 </thead>
                 <tbody>
-                {arr.map((item, i)=> 
+                {interviews.map((interview, i)=> 
                  <>
-                { item.time_period === "2日"　?
+                { interview.interviewItems.time_period === "2日"　?
                  <tr>
-                     <UpdateInterviewItem companyName={item.interview.companies[0].name} studentId={item.interview.students[0].studentid}
-                     studentName={item.interview.students[0].name} interviewItemId={item._id} interviewId={item.interview._id} />
+                     <UpdateInterviewItem companyName={interview.companies[0].name} studentId={interview.students[0].studentid}
+                     studentName={interview.students[0].name} interviewItemId={interview.interviewItems._id} interviewId={interview._id} />
                </tr>:
                  <tr>
+                  
                  </tr> }
          </> )}
         </tbody>

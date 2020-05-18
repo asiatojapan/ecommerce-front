@@ -61,7 +61,10 @@ const ManageJobs = () => {
                             </div>
                              </div>
                             {job.skills.map((skill, i) => 
-                            <span class="badge bg-blue mr-2">  {skill} </span>)}
+                            <span class="badge bg-blue mr-2"  key={i}>  {skill} </span>)}
+
+                            {job.keywords.map((keyword, i) => 
+                            <span class="badge bg-red mr-2" key={i}>  {keyword} </span>)}
                            </div>
                         </div>
                     )}

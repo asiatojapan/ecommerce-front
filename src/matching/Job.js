@@ -20,7 +20,6 @@ const Job = ({ match }) => {
                 setError(true)
             } else {
                 setJob(data)
-                setLoading(false)
             }
         });
     };
@@ -62,6 +61,8 @@ const Job = ({ match }) => {
                 </div>
                 {job.skills ? <> { job.skills.map((skill, i) => 
                             <span class="badge bg-blue mr-2">  {skill} </span>)} </> : null }
+                 {job.keywords ? <> { job.keywords.map((keyword, i) => 
+                            <span class="badge bg-red mr-2">  {keyword} </span>)} </> : null }
             </div>
 
             <div class="list-list">
@@ -72,6 +73,7 @@ const Job = ({ match }) => {
                         <th scope="col">Name</th>
                         <th scope="col">Matched Skills</th>
                         <th scope="col">Points</th>
+                        <th scope="col">Keyword Match</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,6 +85,7 @@ const Job = ({ match }) => {
                          <> {student.jobPoints[0].tagsMatch.map((match, i ) => 
                          <span>{match}{i != (student.jobPoints[0].tagsMatch.length-1) ? ', ' : ''}</span>)} </> : null }</td>
                         <td>{student.jobPoints[0].points}</td>
+                        <td>{student.jobPoints[0].keywordsPoints}</td>
                         </tr>
                         )}
                     </tbody>

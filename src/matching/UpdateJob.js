@@ -12,6 +12,7 @@ const UpdateJob = ({match, history}) => {
     const [values, setValues] = useState({
       name: '',
       skills: '',
+      keywords: "",
       error: false,
       success: false,
       redirectToProfile: false
@@ -19,7 +20,7 @@ const UpdateJob = ({match, history}) => {
 
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const { name, skills, error, success, redirectToProfile } = values;
+    const { name, skills, keywords, error, success, redirectToProfile } = values;
 
     const init = jobId => {
         // console.log(userId);
@@ -27,7 +28,7 @@ const UpdateJob = ({match, history}) => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
-                setValues({ ...values, name: data.name, skills: data.skills });
+                setValues({ ...values, name: data.name, skills: data.skills, keywords: data.keywords });
             }
         });
     };
@@ -45,7 +46,7 @@ const UpdateJob = ({match, history}) => {
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: false });
-        updateJob(match.params.jobId, darwin_uid, darwin_myTk, { name, skills}).then(data => {
+        updateJob(match.params.jobId, darwin_uid, darwin_myTk, { name, skills, keywords}).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
@@ -53,6 +54,7 @@ const UpdateJob = ({match, history}) => {
                     ...values,
                     name: data.name,
                     skills: data.skills,
+                    keywords: data.keywords,
                     redirectToProfile: true,
                     success: true
                 });
@@ -78,7 +80,12 @@ const UpdateJob = ({match, history}) => {
             <input onChange={handleChange('skills')} type="text" class="form-control" value={skills} />
           </div>
 
+          <div class="mb-2">
+            <label class="form-label">Keywords</label>
+            <input onChange={handleChange('keywords')} type="text" class="form-control" value={keywords} />
+          </div>
          
+
 
           </div>
           <div class="card-footer text-right">

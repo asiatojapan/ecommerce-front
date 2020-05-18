@@ -19,10 +19,9 @@ const Home = () => {
     });
 
 
-    const { category, search, results  } = data;
-  const status = "選考"
+const { category, search, results  } = data;
     const loadInterviews = () => {
-        getCurrentInterviews(darwin_uid, darwin_myTk, status).then(data => {
+        getCurrentInterviews(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -55,49 +54,6 @@ const Home = () => {
                 }
             );
         }
-    };
-
-    const searchForm = () => (
-        <form onSubmit={searchSubmit}>
-            <span className="input-group-text">
-                <div className="input-group input-group-lg">
-                    <input
-                        type="search"
-                        className="form-control"
-                        onChange={handleChange("search")}
-                        placeholder="Search by name"
-                    />
-                </div>
-                    <button className="input-group-text">Search</button>
-            
-            </span>
-        </form>
-    );
-
-    const searchedProducts = (results = []) => {
-        return (
-            <div>
-                <div className="row">
-                    {results.map((product, i) => (
-                        <div className="col-4 mb-3">
-                           ass
-                        </div>
-                    ))}
-                </div>
-            </div>
-        );
-    };
-
-    const listCompanies = () => {
-        const cats = [...new Set(interviews.map(q => q.companies[0].name))];
-        return (
-            <div>
-               {interviews.map((interview, i) =>  
-                <> {interview.companies[0].name}
-                </>
-                ) }
-            </div>
-        );
     };
 
 
@@ -144,26 +100,14 @@ const Home = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {interviews.map((interview, i) =>  <>
-                {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                {interviews.map((interview, i) =>  
+                
+              
                 <tr>
                      <UpdateInterviewItem companyName={interview.companies[0].name} studentId={interview.students[0].studentid}
-                     studentName={interview.students[0].name} interviewItemId={item._id} interviewId={interview._id} />
+                     studentName={interview.students[0].name} interviewItemId={interview.interviewItems._id} interviewId={interview._id} />
                </tr>
-                  )} </> :
-                 <><tr>
-                    <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
-                    <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.students[0].studentid} {interview.students[0].name} </Link></td>
-                 
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td><Link to={`/mugicha/interview/${interview._id}`} > View More </Link></td>
-                 </tr> </> }
-               </>
+               
                )}
         </tbody>
         </table>    
