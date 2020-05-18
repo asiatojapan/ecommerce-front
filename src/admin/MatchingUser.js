@@ -164,7 +164,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Header: 'タグ',
             Filter: "",
             accessor: (text, i) =>
-            <div> {text.tags.map((t, i) => <span className="badge bg-blue m-1">{t}</span>)}</div> 
+            <div style={{width: "100px"}}>{text.tags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}</div> 
           },
           
           {
@@ -220,6 +220,23 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             id: "tagsMatch"
           },
           {
+            Header: 'M?',
+            Filter: "",
+            accessor: (text, i) =>
+            <div>
+            { text.otherTagsPoints >= 3 ? "★": null}
+            </div>
+          },
+          {
+            Header: 'Job',
+            Filter: SelectColumnFilter,
+            accessor: (text, i) =>
+            <div style={{width: "140px"}}> {text.jobPoints.length == null ? null : 
+            <> {text.jobPoints.map((t, i) => <>{t.jobName} [{t.points}] <br/> </>)}</> }
+          </div> 
+          },
+
+          {
             Header: 'Status',
             Filter: SelectColumnFilter,
             accessor: "status",
@@ -229,8 +246,8 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Header: 'Faved',
             Filter: "",
             accessor: (text, i) =>
-            <div> {text.favUsers.length == null? "" : 
-            <div> {text.favUsers.map((t, i) => <span className="badge bg-blue">{t.name}</span>)}</div> }
+            <div style={{width: "80px"}}>  {text.favUsers.length == null? "" : 
+            <div> {text.favUsers.map((t, i) => <span className="badge bg-blue m-1">{t.name}</span>)}</div> }
           </div> 
           },
 
@@ -280,9 +297,27 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             <div className="loaderSpin"></div>
         </div>
       <Page.Content>
-      <div class="list-list"> 
+      <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
+        <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
+        <li className="breadcrumb-item"><a className="link" href="/admin/users">All Users</a></li>
+        <li className="breadcrumb-item"><a className="link" href={`/admin/profile/${user1._id}`}>{user1.name} </a></li>
+         <li className="breadcrumb-item active" aria-current="page">Matching</li>
+      </ol>   
+    
+      <div class="list-list" style={{padding: "0"}}> 
+      <div className="card-header" style={{justifyContent: "space-between"}}>
+           <h3 className="mb-0">{user1.name}</h3>
+           <div>
+           <button type="button" className="likeBtn smaller mr-2 " 
+                      onClick={() => { if (window.confirm('Are you sure you wish to destroy? Please consult Lum first'))  destroyRec()  } } >
+                   Remove 推薦1 
+      </button>
+      <a type="button" className="unlikeBtn resumeGradient smaller" 
+                      href={`/admin/user/update/${user1._id}`}>
+                  編集
+      </a></div>
+      </div>
             <div class="card-body">
-                <h3 class="h3 mt-0 mb-4">{user1.name}</h3>
                 <p class="mb-0">
                 <b>タグ</b>: {user1.tags ? user1.tags.map((tag, i) => 
                    <span className="list-inline-item" key={i}>{tag}{i != (user1.tags.length-1) ? ',' : ''}</span>
@@ -302,21 +337,17 @@ const MatchingUser = ({ logout, session, match }: Props) => {
                   ) : null} 
                 </p>
 
-                <p class="mb-6">
+                <p class="mb-0">
                  <b> 日本語</b> : {user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
                    <span className="list-inline-item">{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
                   ) : null} 
                 </p>
-
-                <button type="button" className="unlikeBtn resumeGradient smaller" 
-                      onClick={() => { if (window.confirm('Are you sure you wish to destroy? Please consult Lum first'))  destroyRec()  } } >
-                    Remove ALL 推薦1
-                </button>
-
-                </div>
+            </div>
         </div>
-        <div class="list-list"> 
-        <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
+  
+  
+        <div class="list-list" style={{padding: "10px"}}> 
+          <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
         </div>
       </Page.Content>
     </SiteWrapper>

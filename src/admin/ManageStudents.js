@@ -265,12 +265,12 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
   return (
     <div>
     <div style={{background:"#fff"}}>
-    <Table2 bordered hover size="sm" style={{fontSize: "12px"}} cellspacing="0" {...getTableProps()}>
-      <thead>
+    <Table2 bordered hover size="sm" style={{fontSize: "11px"}} cellspacing="0" {...getTableProps()}>
+      <thead >
       {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} style={{color: "#000", fontWeight: 400, fontSize: "10px"}}>
                   {column.render('Header')}
                   <span>{column.canFilter ? column.render('Filter') : null}
                   {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}

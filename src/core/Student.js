@@ -13,7 +13,7 @@ import { logout } from "../actions/session";
 import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
 import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
 import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
-import {Bar} from 'react-chartjs-2';
+import {HorizontalBar} from 'react-chartjs-2';
 
 Font.register( {
     family: 'Open Sans',
@@ -51,7 +51,7 @@ const Student = ({ session, match }: Props) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
     const [blob, setBlob] = useState()
-    const [labels1, setLabels1] = useState([]);
+    const [labelPoints, setLabelPoints] = useState([]);
     const [points, setPoints] = useState([]);
 
     const [blobHalfResume, setBlobHalfResume] = useState()
@@ -81,17 +81,14 @@ const Student = ({ session, match }: Props) => {
             if (data.error) {
                 setError(data.error);
             } else {
-                setData1(data)}
                 data.map(function(e) {
-                  setLabels1(labels1 => [...labels1, e.jobName])
+                  setLabelPoints(labelPoints => [...labelPoints, e.jobName])
                 });
                 data.map(function(e) {
                   setPoints(points => [...points, e.points])
                 });
-
-
-            })
-      };
+            }})
+     };
 
     function _calculateAge(dateString) { // birthday is a date
       var today = new Date();
@@ -164,16 +161,20 @@ const Student = ({ session, match }: Props) => {
     )
 
 
-   const data12 = {
-      labels: labels1,
+   const dataPoints = {
+      labels: labelPoints,
       datasets: [{
-      label: "My First dataset",
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      label: "",
+      backgroundColor: '#278bfa',
+      borderColor: '#278bfa',
+      borderWidth: 1,
       data: points
       }]
   }
 
+  const legendOpts = {
+    display: false,
+  };
 
 
     return (
@@ -187,109 +188,7 @@ const Student = ({ session, match }: Props) => {
         <li className="breadcrumb-item active" aria-current="page">{student.studentid}</li>
       </ol>   
     
-      {session.role === 1 && (
-<>
-  <div className="list-list"  style={{padding: "0px"}}>
-        <table className="table card-table table-vcenter">
-          <thead>
-            <tr>
-              <th>Contact Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-              <Bar data={data12} />
-              Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
-              Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
-              WhatsApp: {student.contactDetails? student.contactDetails.whatsApp : null}
-              </td>
-            </tr>
-          
-          </tbody>
-        </table>  
-  </div>
-      <div className="list-list"  style={{padding: "0px"}}>
-                <table className="table card-table table-vcenter">
-                  <thead>
-                    <tr>
-                      <th>推薦 ({student.recCount})</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                      <Tag.List>{student.rec_users ?
-                        student.rec_users.map((user,i) => (
-                            <Tag key={i} color="danger">{user.name}</Tag>)) : null
-                            }
-                      </Tag.List>
-                      </td>
-                    </tr>
-                   
-                  </tbody>
-                </table>
-
-                <table className="table card-table table-vcenter">
-                  <thead>
-                    <tr>
-                      <th>推薦2({student.pushCount})</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                      <Tag.List>{student.push_users ?
-                        student.push_users.map((user,i) => (
-                            <Tag key={i} color="green">{user.name}</Tag>)) : null
-                            }
-                      </Tag.List>
-                      </td>
-                    </tr>
-                   
-                  </tbody>
-                </table>
-
-                <table className="table card-table table-vcenter">
-                  <thead>
-                    <tr>
-                      <th>Fav ({student.favoritesCount})</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                      <Tag.List>{student.favorites ?
-                        student.favorites.map((user,i) => (
-                            <Tag key={i} color="primary">{user.name}</Tag>)) : null
-                            }
-                      </Tag.List>
-                      </td>
-                    </tr>
-                   
-                  </tbody>
-                </table>
-                <table className="table card-table table-vcenter">
-                  <thead>
-                    <tr>
-                      <th>Hide ({student.hideCount})</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                      <Tag.List>{student.hide_users ?
-                        student.hide_users.map((user,i) => (
-                            <Tag key={i} color="dark">{user.name}</Tag>)) : null
-                            }
-                      </Tag.List>
-                      </td>
-                    </tr>
-                   
-                  </tbody>
-                </table>
-                
-              </div> </>)}
+  
         <Grid.Row>
 
       <Grid.Col width={12} lg={9} sm={12}>
@@ -450,6 +349,113 @@ const Student = ({ session, match }: Props) => {
       </Grid.Col>
       
       <Grid.Col width={12} lg={3} sm={12} >
+      {session.role === 1 && (
+<>
+  <div className="list-list"  style={{padding: "2px"}}>
+  <HorizontalBar data={dataPoints}  legend={legendOpts}  style={{height: "360px", width: "720px"}}/>
+     
+     </div>
+     <div className="list-list"  style={{padding: "2px"}}>
+        <table className="table card-table table-vcenter">
+          <thead>
+            <tr>
+              <th>Contact Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+              
+              Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
+              Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
+              WhatsApp: {student.contactDetails? student.contactDetails.whatsApp : null}
+              </td>
+            </tr>
+          
+          </tbody>
+        </table>  
+  </div>
+      <div className="list-list"  style={{padding: "0px"}}>
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>推薦 ({student.recCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.rec_users ?
+                        student.rec_users.map((user,i) => (
+                            <Tag key={i} color="danger">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>推薦2({student.pushCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.push_users ?
+                        student.push_users.map((user,i) => (
+                            <Tag key={i} color="green">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>Fav ({student.favoritesCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.favorites ?
+                        student.favorites.map((user,i) => (
+                            <Tag key={i} color="primary">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                <table className="table card-table table-vcenter">
+                  <thead>
+                    <tr>
+                      <th>Hide ({student.hideCount})</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                      <Tag.List>{student.hide_users ?
+                        student.hide_users.map((user,i) => (
+                            <Tag key={i} color="dark">{user.name}</Tag>)) : null
+                            }
+                      </Tag.List>
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                </table>
+                
+              </div> </>)}
         <div>
 
 
