@@ -24,6 +24,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         company: "",
         student: "",
         time_period: "",
+        event_day: "",
         category: "",
         japanese_level: "",
         skill_match: "",
@@ -37,7 +38,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
-    const { studentname, companyname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, company_form, companyComment, atojComment, redirectToProfile} = values;
+    const { studentname, companyname, company, student, status, name, time, phase, result, time_period, category, skill_match, character_match, japanese_level, error, success, event_day, company_form, companyComment, atojComment, redirectToProfile} = values;
 
     const init = interviewId => {
       getInterview(interviewId, darwin_uid, darwin_myTk).then(data => {
@@ -48,6 +49,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 setValues({ ...values, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
+                  event_day: interviewItems[0].event_day,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
                   skill_match: interviewItems[0].skill_match,
                   character_match: interviewItems[0].character_match,
@@ -68,7 +70,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSubmit = e => {
-        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment, atojComment, studentname, companyname }).then(data => {
+        updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, company_form: true, companyComment, atojComment, studentname, companyname, event_day }).then(data => {
             if (data.error) {
                 // console.log(data.error);
                 alert(data.error);
@@ -87,6 +89,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                   character_match: data.character_match,
                   skill_match: data.skill_match,
                   atojComment: data.atojComment,
+                  event_day: data.event_day,
                   companyComment: data.companyComment,
                   success: true,
                   redirectToProfile: true
@@ -96,7 +99,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
     };
 
     const clickSave = e => {
-      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment, studentname, companyname }).then(data => {
+      updateInterviewItem(interviewId, interviewItemId, darwin_uid, darwin_myTk, { company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, event_day, atojComment, studentname, companyname }).then(data => {
           if (data.error) {
               // console.log(data.error);
               alert(data.error);
@@ -115,9 +118,10 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 character_match: data.character_match,
                 skill_match: data.skill_match,
                 atojComment: data.atojComment,
+                event_day: data.event_day,
                 companyComment: data.companyComment,
                 success: true,
-                redirectToProfile: true
+                redirectToProfile: false
             });
           }
       });
@@ -137,7 +141,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 }
             };
 
-    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, companyComment, atojComment) => (
+    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, companyComment, atojComment, event_day) => (
       <div>
         {company_form ? <button className="resumeGradient unlikeBtn smaller" disabled onClick={handleShow}>
        評価済み
@@ -241,7 +245,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     return (
       <span>
-          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment)}
+          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match,  companyComment, atojComment, event_day)}
           {redirectUser()}
       </span>
     );
