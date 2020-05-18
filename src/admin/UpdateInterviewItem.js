@@ -89,7 +89,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
         }
     };
 
-    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match) => (
+    const interviewUpdate = (company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, event_day) => (
       <>
       <button onClick={handleShow}  className="linkButton" >
        Update
@@ -106,7 +106,6 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
               <div class="form-label">時間</div>
               <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
               <option value="">Select</option>
-              
               <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
                     <option value="10:00"> 10:00 </option>
@@ -114,12 +113,16 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="12:00"> 12:00 </option>
                     <option value="12:40"> 12:40 </option>
                     <option value="13:00"> 13:00 </option>
+                    <option value="13:30"> 13:30 </option>
                     <option value="14:00"> 14:00 </option>
                     <option value="15:00"> 15:00 </option>
+                    <option value="15:30"> 15:30 </option>
                     <option value="16:00"> 16:00 </option>
                     <option value="17:00"> 17:00 </option>
                     <option value="17:40"> 17:40 </option>
                     <option value="18:00"> 18:00 </option>
+                    <option value="19:00"> 19:00 </option>
+                    <option value="20:00"> 20:00 </option>
                 </select>
           </div>
 
@@ -184,7 +187,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
     return (
       <span>
-          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match)}
+          {interviewUpdate(company, student, time, phase, result, time_period, category, japanese_level, character_match, skill_match, event_day)}
           {redirectUser()}
       </span>
     );
