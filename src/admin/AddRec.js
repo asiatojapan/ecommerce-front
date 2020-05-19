@@ -35,11 +35,11 @@ const AddRec = ({student, userIdFromTable})  => {
         destroyRec(student._id, userIdFromTable, darwin_myTk );
     };
 
-    const text = rec ? ' 推薦' : ' 推薦'
+    const text = rec ? '推薦' : ' 推薦'
 
     const newLikeForm = () => {
       if (rec) {
-        return  <a className="btn btn-sm btn-primary" onClick={ clickDelete } href="#0"> <i className="fe fe-check"></i> {text}</a>
+        return  <a className="btn btn-sm btn-primary" onClick={ clickDelete } href="#0"> {text}</a>
       } else {
         return  <a className="btn btn-sm btn-outline-primary" onClick={ clickSubmit } href="#0">{text}</a>
       };

@@ -14,6 +14,7 @@ import {
 } from "tabler-react";
 import { Table } from "./ManageStudents";
 import { logout } from "../actions/session";
+import moment from "moment"
 
 const mapStateToProps = ({ session }) => ({
 session
@@ -143,10 +144,11 @@ const MatchingUser = ({ logout, session, match }: Props) => {
         Header: 'New',
         id: 'new',
         Filter: '',
-        accessor: (text, i) => <> {text.newOnList ? "新"　: null} </>
+        accessor: (text, i) => <> {text.newOnList ? "新"　: null} 
+           {moment(text.createdAt).format("MM/DD")} </>
       },
        {
-             Header: 'StudentID',
+             Header: 'ID',
              accessor: "studentid",
              Filter: "",
              id: "studentid"
@@ -185,8 +187,6 @@ const MatchingUser = ({ logout, session, match }: Props) => {
              accessor: "educationBgTags",
              id: "educationBgTags"
           },
-        
-
           {
             Header: '国籍',
             Filter: "",
@@ -210,6 +210,15 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             accessor: (text, i) =>
             <div>
             { text.educationBgTagsMatch !== 0 ? "●": null}
+            </div>
+          },
+
+          {
+            Header: '上位大学',
+            Filter: "",
+            accessor: (text, i) =>
+            <div>
+            { text.universityTagsMatch !== 0 ? "●": null}
             </div>
           },
 
@@ -340,6 +349,11 @@ const MatchingUser = ({ logout, session, match }: Props) => {
                 <p class="mb-0">
                  <b> 日本語</b> : {user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
                    <span className="list-inline-item">{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
+                  ) : null} 
+                </p>
+                <p class="mb-0">
+                 <b> 上位大学</b> : {user1.universityTags ? user1.universityTags.map((tag, i) => 
+                   <span className="list-inline-item">{tag}{i != (user1.universityTags.length-1) ? ',' : ''}</span>
                   ) : null} 
                 </p>
             </div>

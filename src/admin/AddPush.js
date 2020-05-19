@@ -40,7 +40,7 @@ const AddPush = ({student, userIdFromTable})  => {
 
     const newLikeForm = () => {
       if (push) {
-        return  <a className="btn btn-sm btn-success" onClick={ clickDelete } href="#0"> <i className="fe fe-check"></i> {text}</a>
+        return  <a className="btn btn-sm btn-success" onClick={ clickDelete } href="#0"> {text}</a>
       } else {
         return  <a className="btn btn-sm btn-outline-success" onClick={ clickSubmit } href="#0">{text}</a>
       };

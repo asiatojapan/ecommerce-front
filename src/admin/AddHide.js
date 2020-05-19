@@ -35,7 +35,7 @@ const AddHide = ({student, userIdFromTable})  => {
         destroyHide(student._id, userIdFromTable, darwin_myTk);
     };
 
-    const text = hide ? 'x' : 'x '
+    const text = hide ? 'x' : 'x'
 
     const newLikeForm = () => {
       if (hide) {

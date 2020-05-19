@@ -29,6 +29,7 @@ const UpdateStudent = ({ match, history }) => {
       tags: "",
       educationBgTags: "",
       countryTags: "",
+      universityTags: "",
       faculty: '',
       it_skills: '',
       entry_timing: '',
@@ -93,6 +94,7 @@ const UpdateStudent = ({ match, history }) => {
                     tags: data.tags,
                     countryTags: data.countryTags,
                     educationBgTags: data.educationBgTags,
+                    universityTags: data.universityTags,
                     skype: data.skype,
                     other_languages: data.other_languages,
                     english: data.english,
@@ -162,6 +164,7 @@ const UpdateStudent = ({ match, history }) => {
                     tags: data.tags,
                     countryTags: data.countryTags,
                     educationBgTags: data.educationBgTags,
+                    universityTags: data.universityTags,
                     skype: data.skype,
                     other_languages: data.other_languages,
                     english: data.english,
@@ -354,6 +357,11 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">Education BG Tags</label>
              <input type="text" onChange={handleChange("educationBgTags")} value={values.educationBgTags} name="educationBgTags"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">University Tags</label>
+             <input type="text" onChange={handleChange("universityTags")} value={values.universityTags} name="universityTags"  class="form-control"/>
           </div>
   
           <div class="mb-2">

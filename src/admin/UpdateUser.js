@@ -33,6 +33,7 @@ const UpdateUser = ({ match, history }) => {
         japaneseTags: "",
         countryTags: "",
         educationBgTags: "",
+        universityTags: "",
         zoomUrl: "",
         error: false,
         success: false,
@@ -70,6 +71,7 @@ const UpdateUser = ({ match, history }) => {
                 japaneseTags:data.japaneseTags,
                 countryTags: data.countryTags,
                 educationBgTags: data.educationBgTags,
+                universityTags: data.universityTags,
                 zoomUrl: data.zoomUrl,
                 homepageUrl: data.homepageUrl, 
                 formData: new FormData() });
@@ -247,6 +249,10 @@ const UpdateUser = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">学歴　Tags</label>
              <input type="text" onChange={handleChange("educationBgTags")} value={values.educationBgTags} name="educationBgTags"  class="form-control"/>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">上位大学　Tags</label>
+             <input type="text" onChange={handleChange("universityTags")} value={values.universityTags} name="universityTags"  class="form-control"/>
           </div>
 
           <div class="mb-2">

@@ -184,7 +184,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
                 </p>
 
                 <p>
-                 <b>学歴</b> : {user1.countryTags ? user1.educationBgTags.map((tag, i) => 
+                 <b>学歴</b> : {user1.educationBgTags ? user1.educationBgTags.map((tag, i) => 
                    <span className="list-inline-item">{tag}{i != (user1.educationBgTags.length-1) ? ',' : ''}</span>
                   ) : null} 
                 </p>
@@ -192,6 +192,12 @@ const AdminUser = ({ logout, session, match }: Props) => {
                 <p>
                  <b> 日本語</b> : {user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
                    <span className="list-inline-item">{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
+                  ) : null} 
+                </p>
+
+                <p>
+                 <b> 大学</b> : {user1.universityTags ? user1.universityTags.map((tag, i) => 
+                   <span className="list-inline-item">{tag}{i != (user1.universityTags.length-1) ? ',' : ''}</span>
                   ) : null} 
                 </p>
                 

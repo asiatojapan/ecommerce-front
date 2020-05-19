@@ -9,12 +9,12 @@ import Modal from 'react-bootstrap/Modal';
     const [values, setValues] = useState({
         name: "",
         time: "",
-        phase: "1次",
+        phase: "2次",
         result: "Nil",
         company: "",
         student: "",
-        time_period: "1日",
-        event_day: "2020-05-19",
+        time_period: "2日",
+        event_day: "2020-05-20",
         category: "Skype",
         error: false,
         success: false,
@@ -106,6 +106,7 @@ import Modal from 'react-bootstrap/Modal';
                         <option value="">Select</option>
                     <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
+                    <option value="09:30"> 09:30 </option>
                     <option value="10:00"> 10:00 </option>
                     <option value="11:00"> 11:00 </option>
                     <option value="12:00"> 12:00 </option>

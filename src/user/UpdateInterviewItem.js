@@ -8,7 +8,6 @@ import Modal from 'react-bootstrap/Modal';
 import {
   Form,
 } from "tabler-react";
-import { japanese } from '../core/japanese';
 
 const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) => {
 
@@ -121,7 +120,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 event_day: data.event_day,
                 companyComment: data.companyComment,
                 success: true,
-                redirectToProfile: false
+                redirectToProfile: true,
             });
           }
       });
