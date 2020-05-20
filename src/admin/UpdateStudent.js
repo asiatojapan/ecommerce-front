@@ -30,6 +30,7 @@ const UpdateStudent = ({ match, history }) => {
       educationBgTags: "",
       countryTags: "",
       universityTags: "",
+      japaneseTags: "",
       faculty: '',
       it_skills: '',
       entry_timing: '',
@@ -50,12 +51,17 @@ const UpdateStudent = ({ match, history }) => {
       reflections: "",
       period: "",
       country: "",
+      faceBook: "",
+      weChat: "",
+      whatsApp: "",
       error: false,
       success: false,
       offerCompany: "",
       offerJob: "",
       offerIndustry: "",
+      status: "",
       createdStudent: '',
+      topUni: "",
       redirectToProfile: false,
       formData: ''
     });
@@ -95,6 +101,7 @@ const UpdateStudent = ({ match, history }) => {
                     countryTags: data.countryTags,
                     educationBgTags: data.educationBgTags,
                     universityTags: data.universityTags,
+                    japaneseTags: data.japaneseTags,
                     skype: data.skype,
                     other_languages: data.other_languages,
                     english: data.english,
@@ -120,6 +127,11 @@ const UpdateStudent = ({ match, history }) => {
                     profileImgTwo: data.profileImgTwo,
                     reflections: data.reflections,
                     period: data.period,
+                    faceBook: data.contactDetails.faceBook,
+                    weChat: data.contactDetails.weChat,
+                    whatsApp: data.contactDetails.whatsApp,
+                    topUni: data.topUni,
+                    status: data.status,
                     formData: new FormData()
                 });
             }
@@ -165,6 +177,7 @@ const UpdateStudent = ({ match, history }) => {
                     countryTags: data.countryTags,
                     educationBgTags: data.educationBgTags,
                     universityTags: data.universityTags,
+                    japaneseTags: data.japaneseTags,
                     skype: data.skype,
                     other_languages: data.other_languages,
                     english: data.english,
@@ -190,6 +203,11 @@ const UpdateStudent = ({ match, history }) => {
                     profileImgTwo: data.profileImgTwo,
                     reflections: data.reflections,
                     period: data.period,
+                    faceBook: data.contactDetails.faceBook,
+                    weChat: data.contactDetails.weChat,
+                    whatsApp: data.contactDetails.whatsApp,
+                    topUni: data.topUni,
+                    status: data.status,
                     loading: false,
                     error: false,
                     success: true,
@@ -250,6 +268,22 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">Country</label>
              <input type="text" onChange={handleChange("country")} value={values.country} name="Country"  class="form-control"/>
           </div>
+
+          <div class="mb-2">
+            <label class="form-label">FaceBook</label>
+             <input type="text" onChange={handleChange("faceBook")} value={values.faceBook} name="Facebook"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">WeChat</label>
+             <input type="text" onChange={handleChange("weChat")} value={values.weChat} name="weChat"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">WhatsApp</label>
+             <input type="text" onChange={handleChange("whatsApp")} value={values.whatsApp} name="whatsApp"  class="form-control"/>
+          </div>
+  
   
           <div class="mb-2">
           <label class="form-label">Gender</label>
@@ -299,7 +333,8 @@ const UpdateStudent = ({ match, history }) => {
             <option value="C"> C </option>
             <option value="D"> D </option>
             <option value="E"> E </option>
-            </select>  </div>
+            </select>  
+          </div>
 
             < div class="mb-2">
             <label class="form-label">Other Languages</label>
@@ -309,6 +344,15 @@ const UpdateStudent = ({ match, history }) => {
           <div class="mb-2">
             <label class="form-label">University</label>
              <input type="text" onChange={handleChange("university")} value={values.university} name="university"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Top University</label>
+            <select placeholder="Select University level" onChange={handleChange("topUni")} value={values.topUni} name="topUni">
+            <option value=""> Select </option>
+            <option value="true"> True </option>
+            <option value="false"> False </option>
+            </select>  
           </div>
   
   
@@ -360,9 +404,10 @@ const UpdateStudent = ({ match, history }) => {
           </div>
 
           <div class="mb-2">
-            <label class="form-label">University Tags</label>
-             <input type="text" onChange={handleChange("universityTags")} value={values.universityTags} name="universityTags"  class="form-control"/>
+            <label class="form-label">Japanese Tags</label>
+             <input type="text" onChange={handleChange("japaneseTags")} value={values.japaneseTags} name="japaneseTags"  class="form-control"/>
           </div>
+  
   
           <div class="mb-2">
             <label class="form-label">Comments</label>
@@ -459,7 +504,19 @@ const UpdateStudent = ({ match, history }) => {
             <label class="form-label">FYP</label>
             <input onChange={handleChange('upload_fyp')} value={values.upload_fyp} name="upload_fyp" class="form-control" />
             </div>
-  
+
+            <div class="mb-2">
+          <label class="form-label">Status</label>
+          <select class="form-label" placeholder="Select Status" onChange={handleChange("status")} value={values.status} name="gender">
+             <option value=""> Select </option>
+             <option value="リスト掲載"> リスト掲載 </option>
+             <option value="来日決定">  来日決定 </option>
+             <option value="NG">  NG </option>
+             <option value="Offer">  Offer </option>
+             <option value="N Processing">  Napoleon Process </option>
+             <option value="Napoleon">  Napoleon  </option>
+             </select>
+        </div>
        
       </div>
     <div class="card-footer text-right">

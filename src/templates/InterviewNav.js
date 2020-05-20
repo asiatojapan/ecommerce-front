@@ -45,11 +45,12 @@ const InterviewNav =({ history, children }) => {
       <SiteWrapper>
         <Container>
           <div >
-          <div className="list-list">
+            <div className="list-list">
             <div style={{display: "flex", justifyContent: "space-between"}} >
-           <h2 style={{marginBottom: "0"}}>面接予定</h2>
+               <h2 style={{marginBottom: "0"}}>面接予定</h2>
 
-          <a className="likeBtn smaller" href="/history/interviews">面接履歴</a> </div>
+             <a className="likeBtn smaller" href="/history/interviews">面接履歴</a> 
+          </div>
           <Nav
             itemsObjects={navBarItems}
           />

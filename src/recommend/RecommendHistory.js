@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getRecommendCurrent } from './apiAdmin';
+import { getRecommendHistory } from './apiRecommend';
 import { Link } from 'react-router-dom';
-import { CSVLink, CSVDownload } from "react-csv";
- 
+
 import SiteWrapper from '../templates/SiteWrapper'
 
 import {
   Container,
 } from "tabler-react";
 
-const AllRecommends = () => {
+const RecommendHistory = () => {
   const [recommends, setRecommends] = useState([]);
   const [loading, setLoading] = useState(true);
   const { darwin_uid, darwin_myTk } = isAuthenticates();
 
   const loadRecommends = () => {
-      getRecommendCurrent(darwin_uid, darwin_myTk).then(data => {
+    getRecommendHistory(darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -31,50 +30,47 @@ const AllRecommends = () => {
     loadRecommends();
   }, []);
 
-  const headers = [
-    { label: 'User', key: 'user[0].name' },
-    { label: 'Student ID', key: 'studentid' },
-    { label: 'Name', key: 'name' },
-  ];
 
-   
     return (
     <SiteWrapper>
         <div class="loading" style={{ display: loading ? "" : "none" }}>
           <div class="loaderSpin"></div>
       </div>
       <Container>
-      <div class="list-list">
-          <div class="card-title">推薦　リスト</div>
-          <CSVLink headers={headers} data={recommends}>CSV Download</CSVLink>
-       </div>
-            
-      <div class="list-list">
+        
       <div class="table-responsive-sm">
           <table class="table table-bordered">
                 <thead>
                     <tr>
+                    <th>Period </th>
+                    <th>Type</th>
                     <th>User</th>
-                    <th>推薦ID</th>
-                    <th>推薦学生</th>
+                    <th>学生</th>
+                    <th>Count</th>
                     </tr>
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
                <td>
-               <Link to={`/admin/profile/${recommend.user[0]._id}`}>{recommend.user[0].name}</Link> 
+                  {recommend.period}
                 </td>
                 <td>
-                <Link to={`/student/${recommend._id}`}>  {recommend.studentid} </Link> 
+                {recommend.type === "推薦1" ? <span className="badge badge-danger"> {recommend.type} </span> : <> {recommend.type === "推薦2" ?  <span className="badge bg-yellow"> {recommend.type} </span> :  <span className="badge bg-blue"> {recommend.type} </span> }</>}
                 </td>
                 <td>
-                {recommend.name}
+                {recommend.user.name}
+                </td>
+                <td>
+                {recommend.students.map((student, i)=> <> <Link to={`/mugicha/company/${student._id}`}>  {student.studentid} </Link>  </>)}
+                </td>
+                <td>
+                {recommend.students.length}
                 </td>
          </tr>)}</tbody>
         </table>    
-        </div></div>
+        </div>
       </Container>
       </SiteWrapper>
     );
 };
 
-export default AllRecommends;
+export default RecommendHistory;

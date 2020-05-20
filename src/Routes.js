@@ -31,9 +31,15 @@ import Search from "./matching/Search";
 
 //////////////////////////////
 /// Recommended Related //// 
-import RecommendHistory from "./admin/RecommendHistory";
-import MyRecommendHistory from "./admin/MyRecommend";
-import AllRecommends from "./admin/AllRecommends";
+import RecommendHistory from "./recommend/RecommendHistory";
+import MyHistory from "./recommend/MyHistory";
+import AllRecommends from "./recommend/AllRecommends";
+//////////////////////////////
+//////////////////////////////
+
+//////////////////////////////
+/// Interview Related //// 
+import MyInterviews from "./interview/MyInterviews";
 //////////////////////////////
 //////////////////////////////
 
@@ -145,7 +151,8 @@ const Routes = () => {
 
 
     <AdminRoute path="/admin/history" exact component={RecommendHistory} />
-    <AdminRoute path="/admin/myrecommend/:userId" exact component={MyRecommendHistory} />
+    <AdminRoute path="/admin/history/:userId" exact component={MyHistory} />
+    <AdminRoute path="/admin/interviews/:userId" exact component={MyInterviews} />
     <AdminRoute path="/admin/recommends" exact component={AllRecommends} />
 
 

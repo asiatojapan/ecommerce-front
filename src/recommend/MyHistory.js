@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getRecommendHistory } from './apiAdmin';
+import { getMyRecommendHistory } from './apiRecommend';
 import { Link } from 'react-router-dom';
 
 import SiteWrapper from '../templates/SiteWrapper'
@@ -9,27 +9,27 @@ import {
   Container,
 } from "tabler-react";
 
-const RecommendHistory = () => {
+const MyHistory = ({match}) => {
   const [recommends, setRecommends] = useState([]);
   const [loading, setLoading] = useState(true);
   const { darwin_uid, darwin_myTk } = isAuthenticates();
 
   const loadRecommends = () => {
-    getRecommendHistory(darwin_uid, darwin_myTk).then(data => {
+    getMyRecommendHistory(match.params.userId, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
               setRecommends(data);
               setLoading(false)
-          }
-      });
-  };
+            }
+        });
+    };
 
 
-  useEffect(() => {
-    loadRecommends();
-  }, []);
-
+    useEffect(() => {
+      loadRecommends();
+    }, []);
+    
 
     return (
     <SiteWrapper>
@@ -37,6 +37,12 @@ const RecommendHistory = () => {
           <div class="loaderSpin"></div>
       </div>
       <Container>
+
+      <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
+        <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
+        <li className="breadcrumb-item"><a className="link" href="/admin/users">All Users</a></li>
+        <li className="breadcrumb-item"><a className="link" href={`/admin/profile/${match.params.userId}`}> Profile </a></li>
+      </ol>   
         
       <div class="table-responsive-sm">
           <table class="table table-bordered">
@@ -54,13 +60,14 @@ const RecommendHistory = () => {
                   {recommend.period}
                 </td>
                 <td>
-                {recommend.type === "推薦1" ? <span className="badge badge-danger"> {recommend.type} </span> : <> {recommend.type === "推薦2" ?  <span className="badge bg-yellow"> {recommend.type} </span> :  <span className="badge bg-blue"> {recommend.type} </span> }</>}
+                  {recommend.type}
                 </td>
                 <td>
                 {recommend.user.name}
                 </td>
                 <td>
-                {recommend.students.map((student, i)=> <> <Link to={`/mugicha/company/${student._id}`}>  {student.studentid} </Link>  </>)}
+                {recommend.interviews.map((interview, i)=> <> <Link to={`/mugicha/company/${interview._id}`} className="badge badge-danger">  {interview.student} </Link>  </>)}
+                {recommend.students.map((student, i)=> <> <Link to={`/mugicha/company/${student._id}`} className="badge badge-danger">  {student.studentid} </Link>  </>)}
                 </td>
                 <td>
                 {recommend.students.length}
@@ -73,4 +80,4 @@ const RecommendHistory = () => {
     );
 };
 
-export default RecommendHistory;
+export default MyHistory;

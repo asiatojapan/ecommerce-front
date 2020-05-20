@@ -189,9 +189,9 @@ const UpdateInterview = ({ interviewId, match, history }) => {
           </div>
 
           
-    </Modal.Body>
-    <Modal.Footer>
-    <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
+                 </Modal.Body>
+             <Modal.Footer>
+        <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
                       <button type="submit" class="btn btn-primary ml-auto">Submit</button>
                     </Modal.Footer>
     </form>

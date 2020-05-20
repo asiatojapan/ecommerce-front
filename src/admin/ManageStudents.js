@@ -573,6 +573,7 @@ const ManageStudent = () => {
                     <option value="来日決定">来日決定</option>
                     <option value="NG">NG</option>
                     <option value="Offer">内定</option>
+                    <option value="N Processing">Napoleon Processing</option>
                     <option value="Napoleon">Napoleon</option>
           </select>
             </div>

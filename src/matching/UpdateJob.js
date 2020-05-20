@@ -15,12 +15,13 @@ const UpdateJob = ({match, history}) => {
       keywords: "",
       error: false,
       success: false,
-      redirectToProfile: false
+      redirectToProfile: false,
+      formData: ''
     });
 
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const { name, skills, keywords, error, success, redirectToProfile } = values;
+    const { name, skills, keywords, error, success, redirectToProfile, formData } = values;
 
     const init = jobId => {
         // console.log(userId);
@@ -28,7 +29,7 @@ const UpdateJob = ({match, history}) => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
-                setValues({ ...values, name: data.name, skills: data.skills, keywords: data.keywords });
+                setValues({ ...values, name: data.name, skills: data.skills, keywords: data.keywords, formData: new FormData() });
             }
         });
     };
@@ -39,14 +40,16 @@ const UpdateJob = ({match, history}) => {
 
 
     const handleChange = name => event => {
-        setValues({ ...values, error: false, [name]: event.target.value });
-    };
+        const value = name === 'upload_fyp' ? event.target.files[0] : event.target.value;
+        formData.set(name, value);
+        setValues({ ...values, [name]: value });
+      };
 
 
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: false });
-        updateJob(match.params.jobId, darwin_uid, darwin_myTk, { name, skills, keywords}).then(data => {
+        updateJob(match.params.jobId, darwin_uid, darwin_myTk, formData).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
@@ -72,17 +75,17 @@ const UpdateJob = ({match, history}) => {
 
           <div class="mb-2">
             <label class="form-label">Name</label>
-            <input onChange={handleChange('name')} type="text" class="form-control" value={name} />
+            <input onChange={handleChange('name')} type="text" class="form-control" value={values.name} />
           </div>
 
           <div class="mb-2">
             <label class="form-label">Skills</label>
-            <input onChange={handleChange('skills')} type="text" class="form-control" value={skills} />
+            <input onChange={handleChange('skills')} type="text" class="form-control" value={values.skills} />
           </div>
 
           <div class="mb-2">
             <label class="form-label">Keywords</label>
-            <input onChange={handleChange('keywords')} type="text" class="form-control" value={keywords} />
+            <input onChange={handleChange('keywords')} type="text" class="form-control" value={values.keywords} />
           </div>
          
 
@@ -111,10 +114,8 @@ const UpdateJob = ({match, history}) => {
     );
 
     const redirectBack = () => {
-        if (redirectToProfile) {
-            if (!error) {
-                history.goBack();
-            }
+        if (success) {
+              window.scrollTo(0, 0);
         }
     };
 

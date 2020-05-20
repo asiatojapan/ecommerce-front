@@ -218,7 +218,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Filter: "",
             accessor: (text, i) =>
             <div>
-            { text.universityTagsMatch !== 0 ? "●": null}
+            { text.topUni === true ? "●": null}
             </div>
           },
 
@@ -326,39 +326,48 @@ const MatchingUser = ({ logout, session, match }: Props) => {
                   編集
       </a></div>
       </div>
-            <div class="card-body">
-                <p class="mb-0">
-                <b>タグ</b>: {user1.tags ? user1.tags.map((tag, i) => 
+          <div className="card-body" style={{padding: "0px"}}>
+        <div className="table-responsive">
+        <table className="table card-table table-striped">
+         <tbody>
+            <tr>
+            <td><span class="text-muted">タグ</span></td>
+            <td>{user1.tags ? user1.tags.map((tag, i) => 
                    <span className="list-inline-item" key={i}>{tag}{i != (user1.tags.length-1) ? ',' : ''}</span>
                   ) : null} 
-                  
-                </p>
+            </td>
+            </tr>
 
-                <p class="mb-0">
-                 <b>国籍</b> : {user1.countryTags ? user1.countryTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.countryTags.length-1) ? ',' : ''}</span>
+            <tr>
+            <td><span class="text-muted">国籍</span></td>
+            <td>{user1.countryTags ? user1.countryTags.map((tag, i) => 
+                   <span className="list-inline-item" key={i}>{tag}{i != (user1.countryTags.length-1) ? ',' : ''}</span>
                   ) : null} 
-                </p>
+            </td>
+            </tr>
 
-                <p class="mb-0">
-                 <b>学歴</b> : {user1.countryTags ? user1.educationBgTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.educationBgTags.length-1) ? ',' : ''}</span>
+            <tr>
+            <td><span class="text-muted">学歴</span></td>
+            <td>{user1.educationBgTags ? user1.educationBgTags.map((tag, i) => 
+                   <span className="list-inline-item" key={i}>{tag}{i != (user1.educationBgTags.length-1) ? ',' : ''}</span>
                   ) : null} 
-                </p>
+            </td>
+            </tr>
 
-                <p class="mb-0">
-                 <b> 日本語</b> : {user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
+            <tr>
+            <td><span class="text-muted">日本語</span></td>
+            <td>{user1.japaneseTags ? user1.japaneseTags.map((tag, i) => 
+                   <span className="list-inline-item" key={i}>{tag}{i != (user1.japaneseTags.length-1) ? ',' : ''}</span>
                   ) : null} 
-                </p>
-                <p class="mb-0">
-                 <b> 上位大学</b> : {user1.universityTags ? user1.universityTags.map((tag, i) => 
-                   <span className="list-inline-item">{tag}{i != (user1.universityTags.length-1) ? ',' : ''}</span>
-                  ) : null} 
-                </p>
-            </div>
-        </div>
-  
+            </td>
+            </tr>
+
+        </tbody>
+        </table>
+       </div>
+       </div>
+       </div>
+      
   
         <div class="list-list" style={{padding: "10px"}}> 
           <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>

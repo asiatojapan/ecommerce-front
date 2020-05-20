@@ -250,10 +250,6 @@ const UpdateUser = ({ match, history }) => {
             <label class="form-label">学歴　Tags</label>
              <input type="text" onChange={handleChange("educationBgTags")} value={values.educationBgTags} name="educationBgTags"  class="form-control"/>
           </div>
-          <div class="mb-2">
-            <label class="form-label">上位大学　Tags</label>
-             <input type="text" onChange={handleChange("universityTags")} value={values.universityTags} name="universityTags"  class="form-control"/>
-          </div>
 
           <div class="mb-2">
             <label class="form-label"> 事業内容/Business Field	</label>
@@ -304,14 +300,17 @@ const UpdateUser = ({ match, history }) => {
     return (
       <SiteWrapper>
       <Page.Content>
-      <Grid.Row>
-      <Grid.Col width={12}>
+
+      <ol className="breadcrumb" aria-label="breadcrumbs" style={{background: "transparent"}}>
+        <li className="breadcrumb-item"><a className="link" href="/">Home</a></li>
+        <li className="breadcrumb-item"><a className="link" href="/admin/users">All Users</a></li>
+        <li className="breadcrumb-item"><a className="link" href={`/admin/profile/${match.params.userId}`}>{values.name}</a></li>
+         <li className="breadcrumb-item active" aria-current="page"> Update </li>
+      </ol>   
       {showSuccess()}
       {showError()}
       {redirectUser()}
           {profileUpdate()}
-          </Grid.Col>
-          </Grid.Row>
           </Page.Content>
       </SiteWrapper>
     );

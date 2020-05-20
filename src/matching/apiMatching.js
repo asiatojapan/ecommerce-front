@@ -42,10 +42,9 @@ export const updateJob = (jobId, userId, token, job) => {
         method: 'PUT',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(job)
+        body: job
     })
         .then(response => {
             return response.json();

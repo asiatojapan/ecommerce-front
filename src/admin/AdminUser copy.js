@@ -263,7 +263,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
                          <b>特別プラン: </b>{user1.specialPlan === true ? "あり": "なし"}<br/>
                          <b>LoginCount: </b>{user1.login_count}<br/>
                          <b>Zoom Url: </b>{user1.zoomUrl}<br/>
-                         <hr /> 
+                         <hr/> 
                          <b> Tags: </b> {user1.tags}<br/>
                          <hr/>
                       </p> 

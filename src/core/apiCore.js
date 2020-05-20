@@ -329,7 +329,7 @@ export const updateInterviewItem = (interviewId, interviewItemId, userId, token,
       interviewItemId,
       interview
   };
-  // console.log(data)
+  console.log(data)
     return fetch(`${API}/interviewitem/${interviewId}/${userId}`, {
         method: 'PUT',
         headers: {

@@ -37,7 +37,7 @@ const InterviewsPast = () => {
        <div className="list-list">
             <h2 style={{marginBottom: "0"}}>面接履歴</h2>
         </div>
-       {orders.map((o,i) => 
+        {orders.map((o,i) => 
     
           <div className="list-list">  
           <div style={{"display": "inline-block"}}>
