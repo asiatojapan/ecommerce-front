@@ -218,7 +218,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Filter: "",
             accessor: (text, i) =>
             <div>
-            { text.topUni === true ? "●": null}
+            { text.topUni === true ? "●": null }
             </div>
           },
 
@@ -230,11 +230,8 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           },
           {
             Header: 'M?',
-            Filter: "",
-            accessor: (text, i) =>
-            <div>
-            { text.otherTagsPoints >= 3 ? "★": null}
-            </div>
+            Filter: SelectColumnFilter,
+            accessor: "otherTagsPoints"
           },
           {
             Header: 'Job',
@@ -246,17 +243,14 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           },
 
           {
-            Header: 'Status',
-            Filter: SelectColumnFilter,
-            accessor: "status",
-            id: "status"
-          },
-          {
             Header: 'Faved',
             Filter: "",
             accessor: (text, i) =>
             <div style={{width: "80px"}}>  {text.favUsers.length == null? "" : 
             <div> {text.favUsers.map((t, i) => <span className="badge bg-blue m-1">{t.name}</span>)}</div> }
+             {text.result ? <> 
+            { text.result.filter(text => text.type === "検討リスト").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM")} </span> )} </> : null }
+         
           </div> 
           },
 
@@ -266,6 +260,8 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             accessor: (text, i) =>
             <div>
             <AddRec student={text} userIdFromTable={match.params.userId} />
+            {text.result ? <> 
+            { text.result.filter(text => text.type === "推薦1").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM")} </span> )} </> : null }
             </div>
           },
   {
@@ -274,6 +270,8 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           accessor: (text, i) =>
           <div>
           <AddPush student={text} userIdFromTable={match.params.userId} />
+          {text.result ? <> 
+            { text.result.filter(text => text.type === "推薦2").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM")} </span> )} </> : null }
           </div>
         },
           {
@@ -316,15 +314,17 @@ const MatchingUser = ({ logout, session, match }: Props) => {
       <div class="list-list" style={{padding: "0"}}> 
       <div className="card-header" style={{justifyContent: "space-between"}}>
            <h3 className="mb-0">{user1.name}</h3>
-           <div>
-           <button type="button" className="likeBtn smaller mr-2 " 
-                      onClick={() => { if (window.confirm('Are you sure you wish to destroy? Please consult Lum first'))  destroyRec()  } } >
-                   Remove 推薦1 
-      </button>
-      <a type="button" className="unlikeBtn resumeGradient smaller" 
+      <div>
+            <a type="button" className="likeBtn smaller mr-2" 
+                      href={`/admin/recommends/${user1._id}`}>
+                  メール用
+            </a>
+    
+             <a type="button" className="unlikeBtn resumeGradient smaller" 
                       href={`/admin/user/update/${user1._id}`}>
                   編集
-      </a></div>
+            </a>
+      </div>
       </div>
           <div className="card-body" style={{padding: "0px"}}>
         <div className="table-responsive">

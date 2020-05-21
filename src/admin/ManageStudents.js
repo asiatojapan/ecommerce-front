@@ -416,21 +416,7 @@ const ManageStudent = () => {
       <div> {text.favUsers.length == null? "" : 
       <div> {text.favUsers.map((t, i) => <span class="badge bg-blue">{t.name}</span>)}</div> }
     </div> 
-    } ]  }
-    ,
-    {
-      Header: '面接',
-      columns: [
-
-    {
-      Header: '面接',
-      Filter: "",
-      accessor: (text, i) =>
-      <div> {text.interviews.length == null? "" : text.interviews.length}
-    </div>
-    
-    },
-     ] },
+    } ]  },
      {
       Header: 'フェーズ',
       columns: [

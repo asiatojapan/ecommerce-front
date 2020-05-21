@@ -33,6 +33,7 @@ import Search from "./matching/Search";
 /// Recommended Related //// 
 import RecommendHistory from "./recommend/RecommendHistory";
 import MyHistory from "./recommend/MyHistory";
+import MyCurrentRecommends from "./recommend/MyCurrentRecommends";
 import AllRecommends from "./recommend/AllRecommends";
 //////////////////////////////
 //////////////////////////////
@@ -153,6 +154,7 @@ const Routes = () => {
     <AdminRoute path="/admin/history" exact component={RecommendHistory} />
     <AdminRoute path="/admin/history/:userId" exact component={MyHistory} />
     <AdminRoute path="/admin/interviews/:userId" exact component={MyInterviews} />
+    <AdminRoute path="/admin/recommends/:userId" exact component={MyCurrentRecommends} />
     <AdminRoute path="/admin/recommends" exact component={AllRecommends} />
 
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getRecommendCurrent } from './apiRecommend';
+import { getAllCurrentRecommends } from './apiRecommend';
 import { Link } from 'react-router-dom';
 import { CSVLink, CSVDownload } from "react-csv";
  
@@ -16,7 +16,7 @@ const AllRecommends = () => {
   const { darwin_uid, darwin_myTk } = isAuthenticates();
 
   const loadRecommends = () => {
-      getRecommendCurrent(darwin_uid, darwin_myTk).then(data => {
+    getAllCurrentRecommends(darwin_uid, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
@@ -67,7 +67,12 @@ const AllRecommends = () => {
                 <Link to={`/student/${recommend._id}`}>  {recommend.studentid} </Link> 
                 </td>
                 <td>
-                {recommend.name}
+                ■ID：{recommend.studentid}<br/>
+                {recommend.comments}<br/>
+                ■日本語力：{recommend.japanese}　　 ■英語力：{recommend.english}　　■性別：{recommend.gender}　　■国籍・地域：{recommend.country}　<br/>
+                ■大学：{recommend.university}<br/>
+                ■学歴：{recommend.education_bg}　　■学部：{recommend.faculty}<br/>
+                ■卒業：{recommend.grad_year}/{recommend.grad_month}
                 </td>
          </tr>)}</tbody>
         </table>    

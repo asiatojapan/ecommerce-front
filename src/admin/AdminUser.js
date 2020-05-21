@@ -176,8 +176,9 @@ const AdminUser = ({ logout, session, match }: Props) => {
 
         <div className="list-list" style={{padding: "0px"}}>
           <div className="card-body">
-                <p> <a href={`/admin/matching/${user1._id}`} className="likeBtn smaller fullWidth"> マッチング・面接　</a></p>
-                <p> <a href={`/admin/history/${user1._id}`} className="likeBtn smaller fullWidth"> 検討リスト・面接履歴 </a></p>
+                <p> <a href={`/admin/matching/${user1._id}`} className="likeBtn smaller fullWidth">マッチング・面接</a></p>
+                <p> <a href={`/admin/recommends/${user1._id}`} className="likeBtn smaller fullWidth">推薦 データ</a></p>
+                <p> <a href={`/admin/history/${user1._id}`} className="likeBtn smaller fullWidth">検討リスト・面接履歴</a></p>
             
               <span style={{fontSize: "11px"}}> * Click only if the company is unable to 申請 * </span>
               <button type="button" className="unlikeBtn resumeGradient smaller fullWidth" 
