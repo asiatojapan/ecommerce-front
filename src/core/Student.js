@@ -351,6 +351,9 @@ const Student = ({ session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
       {session.role === 1 && (
 <>
+<a className="unlikeBtn resumeGradient fullWidth mr-4 " href={`/admin/student/update/${student._id}`}> Update
+</a>
+<hr/>
   <div className="list-list"  style={{padding: "2px"}}>
   <HorizontalBar data={dataPoints}  legend={legendOpts}  style={{height: "360px", width: "720px"}}/>
      
