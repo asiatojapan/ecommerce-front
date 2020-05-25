@@ -255,6 +255,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th></th>
                             </tr>
                         </thead> 
                         
@@ -262,6 +263,7 @@ const AdminUser = ({ logout, session, match }: Props) => {
                         <tr> 
                           <td>
                               <Link to={`/student/${interview.student[0]._id}`}>{interview.student[0].studentid}</Link>
+                             
                           </td>
                             <td>
                               {interview.student[0].name}
@@ -269,8 +271,8 @@ const AdminUser = ({ logout, session, match }: Props) => {
                           <td>
                               {interview.status}
                             </td>
-                            <td> { moment(interview.eventPeriod).format('YYYY/MM')} </td>
-                          {interview.interviewItems.length === 0 ? 
+                            <td>{ moment(interview.eventDay).format('YYYY/MM')} </td>
+                                {interview.interviewItems.length === 0 ? 
                             <> 
                             <td></td><td></td>
                             <td></td><td></td>
@@ -291,7 +293,9 @@ const AdminUser = ({ logout, session, match }: Props) => {
                                 <td>  {resultInNice(item.result)} </td> </>)} 
                                 </>}
                           </>}
-                          
+                          <td>
+                          <Link to={`/admin/interview/${interview._id}`}>Details</Link>
+                          </td>
                         </tr>
                     )}
                 

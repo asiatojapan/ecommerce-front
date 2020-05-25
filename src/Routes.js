@@ -41,6 +41,7 @@ import AllRecommends from "./recommend/AllRecommends";
 //////////////////////////////
 /// Interview Related //// 
 import MyInterviews from "./interview/MyInterviews";
+import Interview from "./interview/Interview";
 //////////////////////////////
 //////////////////////////////
 
@@ -154,6 +155,7 @@ const Routes = () => {
     <AdminRoute path="/admin/history" exact component={RecommendHistory} />
     <AdminRoute path="/admin/history/:userId" exact component={MyHistory} />
     <AdminRoute path="/admin/interviews/:userId" exact component={MyInterviews} />
+    <AdminRoute path="/admin/interview/:interviewId" exact component={Interview} />
     <AdminRoute path="/admin/recommends/:userId" exact component={MyCurrentRecommends} />
     <AdminRoute path="/admin/recommends" exact component={AllRecommends} />
 

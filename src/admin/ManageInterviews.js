@@ -511,6 +511,7 @@ const columns = React.useMemo(
       accessor: (text, i) =>
       <div>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
+       <Dropdown.Item to={`/admin/interview/${text._id}`}> View </Dropdown.Item>
         <Dropdown.Item> <AddInterviewItem interviewId={text._id} /></Dropdown.Item>
         <Dropdown.Item> <UpdateInterview interviewId={text._id} />
        </Dropdown.Item>
