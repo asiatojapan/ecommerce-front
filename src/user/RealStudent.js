@@ -37,8 +37,6 @@ const RealStudent = (props) => {
     const [loading, setLoading] = useState(true)
     const { darwin_uid, darwin_myTk } = isAuthenticates();
  
-
-
     const loadSingleStudent = studentId => {
         readStudentDetails(studentId, darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
@@ -46,7 +44,6 @@ const RealStudent = (props) => {
             } else {
                 setStudent(data);
                 createPDF(data)
-                setLoading(false)
               }
           });
       };
@@ -56,19 +53,16 @@ const RealStudent = (props) => {
         loadSingleStudent(studentId);
     }, [props]);
 
-
-    
   const [resumeLink, setResumeLink] = useState();
   const [blob, setBlob] = useState()
 
-  async function createPDF(results) {
-      await pdf(<Resume studentData={results} />)
-        .toBlob()
-        // eslint-disable-next-line no-loop-func
-        .then(blobProp => {
-          setResumeLink(URL.createObjectURL(blobProp));
-        });
-  }
+  const createPDFLinkButton1 = (studentData, trigger) => {
+    const url = blob;
+    if (window.navigator.msSaveOrOpenBlob) {
+      return url ? 
+      window.navigator.msSaveOrOpenBlob(url, student.studentid + ".pdf") :  null }
+  };
+
 
   async function createPDF(results) {
     await pdf(<Resume studentData={results} />)
@@ -81,20 +75,14 @@ const RealStudent = (props) => {
       });
 }
 
-  const createPDFLinkButton = (studentData, trigger) => {
-    const url  = resumeLink;
-    return url ? 
-      <a href={url} target="_blank">
-        {trigger}
-      </a> :  null
-  };
-
-  const createPDFLinkButton1 = (studentData, trigger) => {
-    const url = blob;
-    if (window.navigator.msSaveOrOpenBlob) {
+    const createPDFLinkButton = (studentData, trigger) => {
+      const url  = resumeLink;
       return url ? 
-      window.navigator.msSaveOrOpenBlob(url, student.studentid + ".pdf") :  null }
-  };
+        <a href={url} className="link" target="_blank">
+          {trigger}
+        </a> :  null
+    };
+
 
 
     return (

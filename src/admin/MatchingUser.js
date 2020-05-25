@@ -166,7 +166,8 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Header: 'タグ',
             Filter: "",
             accessor: (text, i) =>
-            <div style={{width: "100px"}}>{text.tags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}</div> 
+            <div style={{width: "100px"}}>{text.tags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
+            <div style={{fontSize: "10px"}} >{text.university} </div></div> 
           },
           
           {
