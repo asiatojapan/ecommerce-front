@@ -83,7 +83,7 @@ const { category, search, results  } = data;
       </section>
 
         
-    <div class="table-responsive-sm">
+        <div class="table-responsive-sm">
                 <table class="table table-bordered">
                 <thead>
                     <tr>

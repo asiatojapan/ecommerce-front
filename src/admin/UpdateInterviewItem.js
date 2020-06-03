@@ -105,8 +105,8 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
           <div class="mb-2">
               <div class="form-label">時間</div>
               <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
-              <option value="">Select</option>
-              <option value="08:00"> 08:00 </option>
+                      <option value="">Select</option>
+                    <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
                     <option value="09:30"> 09:30 </option>
                     <option value="10:00"> 10:00 </option>

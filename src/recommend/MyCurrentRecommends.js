@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getMyCurrentRecommends } from './apiRecommend';
+import { getMyCurrentRecommends, getMyCurrentPushes } from './apiRecommend';
 import { Link } from 'react-router-dom';
 import { readUser } from '../admin/apiAdmin';
-import { CSVLink, CSVDownload } from "react-csv";
- 
 import SiteWrapper from '../templates/SiteWrapper'
 
 import {
@@ -13,7 +11,7 @@ import {
 
 const AllRecommends = ({match}) => {
   const [recommends, setRecommends] = useState([]);
-  const [dataExcel, setDataExcel] = useState([]);
+  const [pushes, setPushes] = useState([]);
   const [loading, setLoading] = useState(true);
   const { darwin_uid, darwin_myTk } = isAuthenticates();
 
@@ -27,6 +25,18 @@ const AllRecommends = ({match}) => {
           }
       });
   };
+
+
+  const loadPushes = () => {
+    getMyCurrentPushes(match.params.userId, darwin_myTk).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            setPushes(data);
+            setLoading(false)
+        }
+    });
+};
 
   const [user1, setUser1] = useState({});
 
@@ -56,6 +66,7 @@ const AllRecommends = ({match}) => {
   useEffect(() => {
     loadSingleUser(match.params.userId)
     loadRecommends();
+    loadPushes();
   }, []);
 
   const headers = [
@@ -106,7 +117,40 @@ const AllRecommends = ({match}) => {
                 </td>
          </tr>)}</tbody>
         </table>    
-        </div></div>
+        </div>
+        </div>
+
+        <div className="list-list">
+            <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}} >
+               <div style={{fontSize: "24px"}}>{user1.name} 推薦2 リスト ({recommends.length}) </div>
+           </div>
+      </div>
+
+        <div class="list-list">
+      <div class="table-responsive-sm">
+          <table class="table table-bordered">
+                <thead>
+                    <tr>
+                    <th>User</th>
+                    <th>推薦ID</th>
+                    <th>推薦学生</th>
+                    </tr>
+                </thead> <tbody>{pushes.map((push,i) => 
+           <tr>
+               <td>
+               <Link to={`/admin/profile/${push.user[0]._id}`}>{push.user[0].name}</Link> 
+                </td>
+                <td>
+                <Link to={`/student/${push._id}`}>  {push.studentid} </Link> 
+                </td>
+                <td>
+                  {reformattedData(push)}
+                
+                </td>
+         </tr>)}</tbody>
+        </table>    
+        </div>
+        </div>
       </Container>
       </SiteWrapper>
     );
