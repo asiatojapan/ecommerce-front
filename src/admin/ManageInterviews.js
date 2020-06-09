@@ -14,6 +14,8 @@ import {
   Container,
 } from "tabler-react";
 import styled from 'styled-components'
+import { API } from '../config';
+import axios from 'axios';
 
 const Styles = styled.div`
 
@@ -402,19 +404,19 @@ const ManageInterviews = () => {
     });
 };
 
-const updateMyData = (rowIndex, columnId, value) => {
-  setInterviews(old =>
-    old.map((row, index) => {
-      if (index === rowIndex) {
-        return {
-          ...old[rowIndex],
-          [columnId]: value,
+  const updateMyData = (rowIndex, columnId, value) => {
+    setInterviews(old =>
+      old.map((row, index) => {
+        if (index === rowIndex) {
+          return {
+            ...old[rowIndex],
+            [columnId]: value,
+          }
         }
-      }
-      return row
-    })
-  )
-}
+        return row
+      })
+    )
+  }
 
 
 const columns = React.useMemo(
@@ -497,6 +499,12 @@ const columns = React.useMemo(
       Filter: SelectColumnFilter,
       },
       {
+        Header: 'Mail',
+        Filter: "",
+        accessor: (text) =>
+        <> {text.mailSent ? "Yes": "No"} </>
+      },
+      {
         Header: 'Updated At',
         accessor: (text) =>
         <div>
@@ -527,9 +535,17 @@ const columns = React.useMemo(
 
   []
 );
-  
- const data = interviews
 
+ const [success, setSuccess] = useState(false)
+ const data = interviews
+ 
+ const sendMassMail = () => {
+  axios.put(`${API}/masssendjd`, { headers: { Authorization: "Bearer " + darwin_myTk }
+  }).then(res => { // then print response status
+     console.log(res)
+     setSuccess(true)
+  })
+};
 
  const [originalData] = React.useState(data)
   useEffect(() => {
@@ -543,7 +559,10 @@ const columns = React.useMemo(
       </div>
         <Container>
       <div class="card-header"><h3 class="card-title"> Interviews </h3>
-        
+      <div className="card-options">
+        {success ? <div>Sent!</div> : null} 
+       <button className="btn btn-primary btn-sm" onClick={()=>  { if (window.confirm('Are you sure?')) sendMassMail() }} >Send JD to Students</button>
+       </div>
       </div>
      <Styles>
      <Table columns={columns} data={data} updateMyData={updateMyData} />

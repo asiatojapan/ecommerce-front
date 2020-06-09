@@ -106,19 +106,24 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
               <div class="form-label">時間</div>
               <select placeholder="時間" onChange={handleChange("time")} value={time} class="form-control">
                       <option value="">Select</option>
-                    <option value="08:00"> 08:00 </option>
+                      <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
                     <option value="09:30"> 09:30 </option>
                     <option value="10:00"> 10:00 </option>
+                    <option value="10:00"> 10:30 </option>
                     <option value="11:00"> 11:00 </option>
+                    <option value="11:00"> 11:30 </option>
                     <option value="12:00"> 12:00 </option>
+                    <option value="12:40"> 12:30 </option>
                     <option value="12:40"> 12:40 </option>
                     <option value="13:00"> 13:00 </option>
                     <option value="13:30"> 13:30 </option>
                     <option value="14:00"> 14:00 </option>
+                    <option value="14:00"> 14:30 </option>
                     <option value="15:00"> 15:00 </option>
                     <option value="15:30"> 15:30 </option>
                     <option value="16:00"> 16:00 </option>
+                    <option value="16:00"> 16:30 </option>
                     <option value="17:00"> 17:00 </option>
                     <option value="17:40"> 17:40 </option>
                     <option value="18:00"> 18:00 </option>

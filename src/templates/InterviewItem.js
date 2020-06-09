@@ -30,10 +30,10 @@ const InterviewItem = ({item, interview, showUpdateButton}) => {
 
     const timeInNice = (time_period) => {
         if (time_period === "1日") {
-            return "2020/05/19"
+            return "2020/06/16"
         }
         else {
-        return "2020/05/20"
+        return "2020/06/17"
         }
     }
 
