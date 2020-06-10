@@ -140,7 +140,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
 
      <Modal show={show} onHide={handleClose}>
      <form onSubmit={clickSubmit}>
-       <Modal.Header> Update Interview
+       <Modal.Header>   Update ( {student.studentid} {student.name} : {company.name} )
        </Modal.Header>
        <Modal.Body>
            <div class="mb-2">

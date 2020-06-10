@@ -120,6 +120,7 @@ import Modal from 'react-bootstrap/Modal';
                     <option value="14:00"> 14:30 </option>
                     <option value="15:00"> 15:00 </option>
                     <option value="15:30"> 15:30 </option>
+                    <option value="15:30"> 15:50 </option>
                     <option value="16:00"> 16:00 </option>
                     <option value="16:00"> 16:30 </option>
                     <option value="17:00"> 17:00 </option>

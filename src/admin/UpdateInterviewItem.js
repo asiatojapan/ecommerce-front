@@ -97,7 +97,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
      <Modal show={show} onHide={handleClose}>
      <form>
-         <Modal.Header>   {studentid} {studentname} : {companyname}
+         <Modal.Header>    {student.studentid} {student.name} : {company.name}
        </Modal.Header>
        <Modal.Body>
 
@@ -122,6 +122,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="14:00"> 14:30 </option>
                     <option value="15:00"> 15:00 </option>
                     <option value="15:30"> 15:30 </option>
+                    <option value="15:30"> 15:50 </option>
                     <option value="16:00"> 16:00 </option>
                     <option value="16:00"> 16:30 </option>
                     <option value="17:00"> 17:00 </option>
