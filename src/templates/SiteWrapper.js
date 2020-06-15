@@ -50,7 +50,7 @@ return (
             { isAuthenticates() && (session.role !== 4 && session.role !== 3 && session.role !== 2 ) && 
            ( <>
             <Nav.Link href="/user/interviews">面接予定</Nav.Link> 
-            <Nav.Link target="_blank" href="http://asiatojapan.com/wp-content/uploads/2020/06/利用マニュアル20200608.pdf">面接会マニュアル</Nav.Link>
+            <Nav.Link target="_blank" href="http://asiatojapan.com/wp-content/uploads/2020/06/利用マニュアル20200608.pdf">利用マニュアル</Nav.Link>
             </>
            )}
         
