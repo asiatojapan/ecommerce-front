@@ -101,3 +101,20 @@ export const getCurrentInterviews = (userId, token) => {
             console.log(err);
         });
 };
+
+export const getPastInterviews = (userId, token) => {
+    return fetch(`${API}/interviews/mugichapast`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};

@@ -139,7 +139,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, studentName, compan
                     {atojComment} 
                 </td>
                 <td className="pre-line">
-                    {companyComment} 
+                    {companyComment ? <> {companyComment.substring(0,20)} ... </> : null}
                 </td>
                 <td>
                     {company_form === true? "済"　: null } 

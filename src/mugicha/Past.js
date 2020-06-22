@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import NavMugicha from "./Nav"
 import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
-import { list, getCurrentInterviews } from "./apiMugicha"
+import { list, getPastInterviews } from "./apiMugicha"
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
+import moment from "moment"
 
 const Past = () => {
     const [interviews, setInterviews] = useState([]);
@@ -20,8 +21,9 @@ const Past = () => {
 
 
     const status = "終了"
+
     const loadInterviews = () => {
-        getCurrentInterviews(darwin_uid, darwin_myTk, status).then(data => {
+        getPastInterviews(darwin_uid, darwin_myTk).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -57,11 +59,12 @@ const Past = () => {
         </div>
       </section>
 
-        
-<div class="table-responsive-sm">
+       
+      <div class="table-responsive-sm">
                 <table class="table table-bordered">
                 <thead>
                     <tr>
+                    <th style={{width: "5%"}}></th>
                     <th style={{width: "10%"}}>企業</th>
                     <th style={{width: "10%"}}>学生</th>
                     <th style={{width: "6%"}}>時間</th>
@@ -75,26 +78,15 @@ const Past = () => {
                     </tr>
                 </thead>
                 <tbody>
-                {interviews.map((interview, i) =>  <>
-                {interview.interviewItems.length > 0 ? <> {interview.interviewItems.map((item, ii) => 
+                {interviews.map((interview, i) =>  
+                
+              
                 <tr>
+                  <td>{moment(interview.eventDay).format('MM/YYYY')}</td>
                      <UpdateInterviewItem companyName={interview.companies[0].name} studentId={interview.students[0].studentid}
-                     studentName={interview.students[0].name} interviewItemId={item._id} interviewId={interview._id} />
+                     studentName={interview.students[0].name} interviewItemId={interview.interviewItems._id} interviewId={interview._id} />
                </tr>
-                  )} </> :
-                 <><tr>
-                    <td> <Link to={`/mugicha/company/${interview.company}`} >  {interview.companies[0].name} </Link>  </td>
-                    <td>  <Link to={`/mugicha/student/${interview.student}`} > {interview.students[0].studentid} {interview.students[0].name} </Link></td>
-                 
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
-                 <td><Link to={`/mugicha/interview/${interview._id}`} > View More </Link></td>
-                 </tr> </> }
-               </>
+               
                )}
         </tbody>
         </table>    

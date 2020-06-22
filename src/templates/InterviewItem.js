@@ -33,7 +33,7 @@ const InterviewItem = ({item, interview, showUpdateButton}) => {
             return "2020/06/16"
         }
         else {
-        return "2020/06/17"
+            return "2020/06/17"
         }
     }
 
@@ -55,7 +55,7 @@ const InterviewItem = ({item, interview, showUpdateButton}) => {
         <>
       <div className="d-flex justify-content-between align-items-center" style={{borderTop: "1px solid #eee"}}>
         <div className="col-3 col-md-3 ml-5">
-       <span style={{color: "#278bfa" }} >{timeInNice(item.time_period)}</span>
+       <span style={{color: "#278bfa" }} >{moment(item.event_day).format('YYYY/M/D')}</span>
        <div style={{fontSize: "20px"}} > {item.time} </div>
        </div>
         <div className="col-md-7 col-7">
