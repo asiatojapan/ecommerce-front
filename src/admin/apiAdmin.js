@@ -531,9 +531,25 @@ export const studentMatchSearch = (params, token) => {
         .catch(err => console.log(err));
 };
 
-export const removeRec = (userId, token, action) => {
+export const moveRecOne = (userId, token) => {
     // console.log(action)
-    return fetch(`${API}/removerec/${userId}`, {
+    return fetch(`${API}/moveownrecommend/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+
+export const moveRecTwo = (userId, token) => {
+    // console.log(action)
+    return fetch(`${API}/moveownrecommendtwo/${userId}`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',

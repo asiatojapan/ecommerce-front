@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
-import { removeRec, readUser, matchStudent } from './apiAdmin';
+import { moveRecOne, moveRecTwo, readUser, matchStudent } from './apiAdmin';
 import {  getFavStudents  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPush from "./AddPush";
@@ -105,15 +105,31 @@ const MatchingUser = ({ logout, session, match }: Props) => {
     };
 
 
-    const destroyRec = () => {
-      removeRec(match.params.userId, darwin_myTk, "rec_users" ).then(data => {
+  const destroyRec = () => {
+      setLoading(true);
+      moveRecOne(match.params.userId, darwin_myTk).then(data => {
           if (data.error) {
               console.log(data.error);
           } else {
-              setLoading(false);
+              setLoading(false); 
+              window.location.reload(false);
           }
       });
   };
+
+
+  const destroyRecTwo = () => {
+    setLoading(true);
+    moveRecTwo(match.params.userId, darwin_myTk).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            setLoading(false); 
+            window.location.reload(false);
+        }
+    });
+};
+
 
 
   useEffect(() => {
@@ -263,7 +279,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             <div>
             <AddRec student={text} userIdFromTable={match.params.userId} />
             {text.result ? <> 
-            { text.result.filter(text => text.type === "推薦1").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM")} </span> )} </> : null }
+            { text.result.filter(text => text.type === "推薦1").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM/DD")} </span> )} </> : null }
             </div>
           },
   {
@@ -273,7 +289,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
           <div>
           <AddPush student={text} userIdFromTable={match.params.userId} />
           {text.result ? <> 
-            { text.result.filter(text => text.type === "推薦2").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM")} </span> )} </> : null }
+            { text.result.filter(text => text.type === "推薦2").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM/DD")} </span> )} </> : null }
           </div>
         },
           {
@@ -317,6 +333,17 @@ const MatchingUser = ({ logout, session, match }: Props) => {
       <div className="card-header" style={{justifyContent: "space-between"}}>
            <h3 className="mb-0">{user1.name}</h3>
       <div>
+
+            <button className="likeBtn smaller mr-2" 
+                     onClick={() => { if (window.confirm('Are you sure you wish to remove all 推薦1? ')) destroyRec()} } >
+                  推薦1一括削除
+            </button>
+
+            <button className="likeBtn smaller mr-2" 
+                     onClick={() => { if (window.confirm('Are you sure you wish to remove all 推薦2? ')) destroyRecTwo()} } >
+                  推薦2一括削除
+            </button>
+
             <a type="button" className="likeBtn smaller mr-2" 
                       href={`/admin/recommends/${user1._id}`}>
                   メール用
