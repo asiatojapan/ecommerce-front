@@ -135,10 +135,14 @@ const Student = ({ session, match }: Props) => {
 
     const createPDFLinkButton = (studentData, trigger) => {
       const url  = resumeLink;
-      return url ? 
-        <a href={url} className="link" target="_blank">
-          {trigger}
-        </a> :  null
+      var isSafari = window.safari !== undefined;
+      if (isSafari) {
+        return url ? 
+         window.open(url, '_blank') : null
+      }
+      else {
+        return url ? 
+        window.open(url, '_blank') : null }
     };
 
 
@@ -460,17 +464,14 @@ const Student = ({ session, match }: Props) => {
                 
               </div> </>)}
         <div>
-
-
-          {session.role === 3 ? null : <>
-          {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
-              <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
-            )} </>}
+        {session.role === 3 ? null : <>
+          <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> 
     
-        {student.upload_fyp === "" ? null :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
+        {student.upload_fyp == null ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>} <hr/></>}
 
+    
 
 
       <h4>この学生と似ている学生</h4>

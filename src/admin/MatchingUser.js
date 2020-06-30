@@ -174,7 +174,8 @@ const MatchingUser = ({ logout, session, match }: Props) => {
              Header: 'Name',
              Filter: "",
              accessor: (text, i) => 
-             <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>,
+             <> <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>  <br/>
+              { text.inJapan === true ? <span className="badge bg-red">日本在中 </span>: null } </> ,
              id: "name"
            },
 

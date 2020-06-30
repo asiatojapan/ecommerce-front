@@ -441,7 +441,15 @@ const Student = ({ session, match }: Props) => {
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>} <hr/></>}
 
-
+        {session.role === 3 ? null : <>
+          {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  
+          <> {createPDFLinkButton(student,
+              <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
+            )} </>}
+    
+        {student.upload_fyp === "" ? null :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
+        <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
+        </a>} <hr/></>}
 
       <h4>この学生と似ている学生</h4>
       {relatedStudent.map((s, i) => (
