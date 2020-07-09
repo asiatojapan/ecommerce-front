@@ -140,6 +140,9 @@ const Student = ({ session, match }: Props) => {
         return url ? 
          window.open(url, '_blank') : null
       }
+      if (window.navigator.msSaveOrOpenBlob) {
+        return url ? 
+        window.navigator.msSaveOrOpenBlob(url, student.studentid + ".pdf") :  null }
       else {
         return url ? 
         window.open(url, '_blank') : null }

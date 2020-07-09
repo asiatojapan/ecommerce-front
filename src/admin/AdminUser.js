@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
-import { readUser } from './apiAdmin';
+import { readUser, moveFavorites } from './apiAdmin';
 import { createOrder } from '../core/apiCore';
 import { getInterviewsByCompany  } from '../interview/apiInterview';
 import SiteWrapper from '../templates/SiteWrapper'
@@ -80,6 +80,17 @@ const AdminUser = ({ logout, session, match }: Props) => {
         });
     };
 
+    const destroyFavorites = () => {
+      setLoading(true);
+      moveFavorites(match.params.userId, darwin_myTk).then(data => {
+          if (data.error) {
+              console.log(data.error);
+          } else {
+              setLoading(false); 
+              window.location.reload(false);
+          }
+      });
+  };
 
 
     const resultInNice = (result) => {
@@ -179,7 +190,10 @@ const AdminUser = ({ logout, session, match }: Props) => {
                 <p> <a href={`/admin/matching/${user1._id}`} className="likeBtn smaller fullWidth">マッチング・面接</a></p>
                 <p> <a href={`/admin/recommends/${user1._id}`} className="likeBtn smaller fullWidth">推薦 データ</a></p>
                 <p> <a href={`/admin/history/${user1._id}`} className="likeBtn smaller fullWidth">検討リスト・面接履歴</a></p>
-            
+                <button className="likeBtn smaller fullWidth" 
+                     onClick={() => { if (window.confirm('Are you sure you wish to remove all 検討リスト? ')) destroyFavorites()} } >
+                  検討リスト削除
+            </button>
               <span style={{fontSize: "11px"}}> * Click only if the company is unable to 申請 * </span>
               <button type="button" className="unlikeBtn resumeGradient smaller fullWidth" 
               onClick={() => { if (window.confirm('Are you sure you wish to submit?'))  buy()  } }

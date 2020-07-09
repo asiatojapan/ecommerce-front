@@ -561,3 +561,18 @@ export const moveRecTwo = (userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const moveFavorites = (userId, token) => {
+    // console.log(action)
+    return fetch(`${API}/moveownfavorites/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

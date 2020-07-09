@@ -185,6 +185,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
                   <option value="選考"> 選考</option>
                   <option value="終了"> 終了 </option>
                   <option value="辞退"> 辞退 </option>
+                  <option value="テスト"> テスト </option>
               </select>
           </div>
 
@@ -202,7 +203,6 @@ const UpdateInterview = ({ interviewId, match, history }) => {
     return (
       <span>
           {interviewUpdate()}
-          {redirectUser()}
       </span>
     );
 };

@@ -73,6 +73,7 @@ const AllRecommends = () => {
                 ■大学：{recommend.university}<br/>
                 ■学歴：{recommend.education_bg}　　■学部：{recommend.faculty}<br/>
                 ■卒業：{recommend.grad_year}/{recommend.grad_month}
+                ■IT スキル：{recommend.it_skills}
                 </td>
          </tr>)}</tbody>
         </table>    

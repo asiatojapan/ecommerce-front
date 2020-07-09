@@ -160,7 +160,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
         Header: 'New',
         id: 'new',
         Filter: '',
-        accessor: (text, i) => <> {text.newOnList ? "新"　: null} 
+        accessor: (text, i) => <> 
            {moment(text.createdAt).format("MM/DD")} </>
       },
        {
