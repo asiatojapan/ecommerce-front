@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { studentMatchSearch } from './apiMatching';
+import { studentSearch, getJobs } from './apiMatching';
 import { it_skills, countries,tags, japanese, education_bg } from './SearchData';
 import SearchCheckbox from "./SearchCheckbox"
 import SiteWrapper from '../templates/SiteWrapper'
-
 import {
   Container,
 } from "tabler-react";
@@ -20,8 +19,11 @@ const Search = () => {
       country: "",
       research_search: "",
       results: [],
+      job: "",
       searched: false
   });
+
+  const [jobs, setJobs] = useState([]);
   const { search, country_search, education_bg_search, japanese_search, tags_search, research_search, it_skills_search, results, searched } = data;
 
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ const Search = () => {
 
   const searchData = () => {
        setLoading(true)
-       studentMatchSearch({ country: country_search || undefined, japanese: japanese_search|| undefined, 
+       studentSearch({ country: country_search || undefined, japanese: japanese_search|| undefined, 
         tags: tags_search || undefined, it_skills: it_skills_search || undefined,
         research: research_search || undefined, education_bg: education_bg_search || undefined }, darwin_myTk).then(
             response => {
@@ -44,6 +46,7 @@ const Search = () => {
 };
 
 useEffect(() => {
+  loadJobs();
   searchData();
 }, []);
 
@@ -61,6 +64,17 @@ const handleFilters = (filters, searchBy) => {
     // console.log(filters, searchBy)
     setData({ ...data, [searchBy]: filters, searched: false });
 }
+
+const loadJobs = () => {
+  getJobs(darwin_uid, darwin_myTk).then(data => {
+      if (data.error) {
+          console.log(data.error);
+      } else {
+          setJobs(data);
+          setLoading(false)
+      }
+  });
+};
 
 const searchedCriteria = () => {
   return (
@@ -103,8 +117,11 @@ const searchedCriteria = () => {
                       <td class="text-right"><span class="text-muted">{research_search}</span></td>
                      </tr>
                     
+
+          
+
                   </tbody>
-                  </table>
+   </table>
 </>
   )
 }
@@ -195,9 +212,14 @@ const searchForm = () => (
               />  
          </div>
         
-        
-       
+    
        </div>
+       <div class="card-header">
+              <h3 class="card-title">Jobs</h3>
+         </div>
+       <SearchCheckbox categories={jobs}  handleFilters={filters =>
+                                   handleFilters(filters, "job_search")}  />
+
        <div class="card-footer text-right">
               <div class="d-flex">
                 <button type="submit" class="btn btn-primary ml-auto">Submit</button> </div>

@@ -138,7 +138,7 @@ const CheckoutPreview = ({ logout, session }) => {
               <div className="my-3 my-md-5"></div>
                     <div className="my-3 my-md-5"></div>   
                     <Container>
-              {session.round === "Phase I" ? phaseI() : phaseElse() }
+              {session.round === "Phase I" || session.round === "Phase IIIa" ? phaseI() : phaseElse() }
             </Container>
     </SiteWrapper>
     );

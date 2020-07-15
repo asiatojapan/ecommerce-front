@@ -218,4 +218,6 @@ export const it_skills = [
         _id: 15,
         name: "文系"
     },
+
+    
 ];

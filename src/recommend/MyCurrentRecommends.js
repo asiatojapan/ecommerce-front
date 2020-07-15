@@ -60,7 +60,7 @@ const AllRecommends = ({match}) => {
       ■大学：{data.university}<br/>
       ■学歴：{data.education_bg}　　■学部：{data.faculty}<br/>
       ■卒業：{data.grad_year}/{data.grad_month} <br/>
-      {data.it_skills.length === 0 ? null: <> ■IT スキル： { data.it_skills.map((skill, index) =>
+      {data.it_skills === undefined || data.it_skills.length === 0 ? null : <> ■IT スキル： { data.it_skills.map((skill, index) =>
     <span key={skill.id}>{skill}{index < data.it_skills.length - 1 ? ', ' : ''}</span>)} </>  }
 
     </>) 

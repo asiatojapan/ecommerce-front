@@ -129,3 +129,19 @@ export const readStudentBestJobs = (studentId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const studentSearch = (params, token) => {
+    const query = queryString.stringify(params);
+    // console.log("query", query);
+    return fetch(`${API}/jobs/student/search?${query}`, {
+        method: "GET",
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

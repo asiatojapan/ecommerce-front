@@ -205,6 +205,7 @@ const UpdateUser = ({ match, history }) => {
                     <option value="Phase I"> Phase I (推薦1)</option>
                     <option value="Phase II"> Phase II </option>
                     <option value="Phase III"> Phase III (推薦2のみ) </option>
+                    <option value="Phase IIIa"> Phase IIIa (推薦2 + 検討リスト) </option>
                     <option value="Phase IV"> 来日学生のみ </option>
                       </select>
                   </div>
