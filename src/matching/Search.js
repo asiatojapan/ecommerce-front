@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import { isAuthenticates } from "../auth";
 import { studentSearch, getJobs } from './apiMatching';
 import { it_skills, countries,tags, japanese, education_bg } from './SearchData';
@@ -19,12 +20,12 @@ const Search = () => {
       country: "",
       research_search: "",
       results: [],
-      job: "",
+      job_search: "",
       searched: false
   });
 
   const [jobs, setJobs] = useState([]);
-  const { search, country_search, education_bg_search, japanese_search, tags_search, research_search, it_skills_search, results, searched } = data;
+  const { search, country_search, education_bg_search, japanese_search, tags_search, research_search, it_skills_search, results, searched, job_search } = data;
 
   const [loading, setLoading] = useState(false);
   const { darwin_uid, darwin_myTk } = isAuthenticates();
@@ -33,7 +34,7 @@ const Search = () => {
        setLoading(true)
        studentSearch({ country: country_search || undefined, japanese: japanese_search|| undefined, 
         tags: tags_search || undefined, it_skills: it_skills_search || undefined,
-        research: research_search || undefined, education_bg: education_bg_search || undefined }, darwin_myTk).then(
+        research: research_search || undefined, education_bg: education_bg_search || undefined, job: job_search|| undefined, }, darwin_myTk).then(
             response => {
                 if (response.error) {
                     console.log(response.error);
@@ -150,7 +151,7 @@ const searchedStudents = (results = []) => {
       <tbody>
       {results.map((student, i) => (
           <tr key={student.id}>
-            <td>{student.studentid}</td>
+            <td><Link to={`/student/${student._id}`}> {student.studentid}</Link></td>
             <td>{student.name}</td>
             <td>{student.countryMatch > 0 ? "●" : null}</td>
             <td>{student.japaneseMatch > 0 ? "●" : null}</td>

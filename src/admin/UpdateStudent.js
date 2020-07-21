@@ -62,6 +62,8 @@ const UpdateStudent = ({ match, history }) => {
       status: "",
       createdStudent: '',
       topUni: "",
+      inJapan: "",
+      forNextMonth: "",
       redirectToProfile: false,
       formData: ''
     });
@@ -132,6 +134,8 @@ const UpdateStudent = ({ match, history }) => {
                     whatsApp: data.contactDetails.whatsApp,
                     topUni: data.topUni,
                     status: data.status,
+                    inJapan: data.inJapan,
+                    forNextMonth: data.forNextMonth,
                     formData: new FormData()
                 });
             }
@@ -212,6 +216,8 @@ const UpdateStudent = ({ match, history }) => {
                     error: false,
                     success: true,
                     redirectToProfile: true,
+                    inJapan: data.inJapan,
+                    forNextMonth: data.forNextMonth,
                     createdStudent: data.name
                 });
             }
@@ -517,6 +523,26 @@ const UpdateStudent = ({ match, history }) => {
              <option value="Napoleon">  Napoleon  </option>
              </select>
         </div>
+
+        <div class="mb-2">
+          <label class="form-label">日本在住</label>
+          <select class="form-label" placeholder="Select Status" onChange={handleChange("inJapan")} value={values.inJapan} name="inJapan">
+             <option value=""> Select </option>
+             <option value="true"> TRUE </option>
+             <option value="false"> FALSE </option>
+             </select>
+        </div>
+
+
+        <div class="mb-2">
+          <label class="form-label">翌月ONLY</label>
+          <select class="form-label" placeholder="Select Status" onChange={handleChange("forNextMonth")} value={values.forNextMonth} name="forNextMonth">
+             <option value=""> Select </option>
+             <option value="true"> TRUE </option>
+             <option value="false"> FALSE </option>
+             </select>
+        </div>
+       
        
       </div>
     <div class="card-footer text-right">
