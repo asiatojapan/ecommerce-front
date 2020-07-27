@@ -40,7 +40,6 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
       student.rec_users.indexOf(session._id)>-1 ?  "5px solid rgb(40, 139, 250)": null } }
     >
      {student.rec_users.indexOf(session._id)>-1 ? <span className="recommended" style={{marginRight: "5px"}}> おすすめ</span>　:  null} 
-     {student.inJapan === true ? <span className="tag expanded tag-red" style={{marginRight: "5px"}}> 日本在住 </span> : null }
     {student.videoImg == null?  "" : <img className="list-VidImg" src={`${student.videoImg}`} /> }
     
     <text style={{color: "rgb(113, 113, 113"}}>{student.studentid} </text> 
@@ -80,7 +79,7 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
       ))}<br/>
       {student.entry_timing.map((skill, i) => (
       <span className="tag expanded tag-secondary"  key={i}  style={{"color": "#278bfa", "background": "#fff", "border": "1px solid #278bfa"}}>#{skill}</span>
-      ))}
+      ))}     {student.inJapan === true ? <span className="tag expanded tag-secondary" style={{"color": "#278bfa", "background": "#fff", "border": "1px solid #278bfa"}}> 日本在住 </span> : null }
       </div>
       {/*<a href={student.url} target="_blank" class="btn btn-primary btn-sm"
     >
