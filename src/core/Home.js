@@ -20,8 +20,6 @@ import "tabler-react/dist/Tabler.css";
 import 'react-toastify/dist/ReactToastify.css';
 import Notifications, {notify} from 'react-notify-toast';
 import { connect } from "react-redux";
-import { logout } from "../actions/session";
-
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -45,8 +43,7 @@ const Home = ({ session }) => {
   const [size, setSize] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
-
-
+  
   const status = session.round === "Phase IV" ? "来日決定" : "リスト掲載";
 
 
@@ -72,7 +69,10 @@ const Home = ({ session }) => {
     };
 
 
+
+
   const loadMore = () => {
+    const position = window.pageYOffset;
     setLoading(true)
     setButtonLoading(true)
     let toSkip = skip + limit;
@@ -87,6 +87,7 @@ const Home = ({ session }) => {
             setSkip(toSkip);
             setButtonLoading(false)
             setLoading(false)
+            window.scrollTo(0, position)
         }
     });
   };
@@ -195,7 +196,7 @@ const handleChange = name => event => {
 
         <Grid.Col width={12} lg={9} sm={12}>
         {session.role === 1 ? 
-          <div class="card-header">
+          <div class="card-header"> 
                     <div class="card-options">
                     <div class="dropdown">
                     <button onClick={()=> setIsOpen(!isOpen)} class="likeBtn smaller fixedWidth">{latest? "新着順": "オススメ順"}
@@ -215,7 +216,6 @@ const handleChange = name => event => {
                         favCount={favCount} resumeLink={student.url} resumeLoading={resumeLoading}/> 
                 </div>
         ))}
-     
         {loadMoreButton()}
 
         </Grid.Col>
