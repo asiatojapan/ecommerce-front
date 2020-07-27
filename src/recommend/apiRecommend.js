@@ -65,6 +65,21 @@ export const getAllCurrentRecommends = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+export const getGroupedRecommends = (userId, token) => {
+    return fetch(`${API}/exportgroupedcurrentrec/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 export const getMyCurrentRecommends = (userId, token) => {
     return fetch(`${API}/currentrec/${userId}`, {
         method: 'GET',

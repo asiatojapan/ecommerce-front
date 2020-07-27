@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { getMyRecommendHistory } from './apiRecommend';
 import { Link } from 'react-router-dom';
-
+import moment from "moment";
 import SiteWrapper from '../templates/SiteWrapper'
 
 import {
@@ -57,7 +57,7 @@ const MyHistory = ({match}) => {
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
                <td>
-                  {recommend.period}
+               {moment(recommend.eventPeriod).format("MM/DD")}
                 </td>
                 <td>
                   {recommend.type}

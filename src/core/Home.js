@@ -7,6 +7,7 @@ import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { japanese } from "./japanese";
+import { inJapan } from "./inJapan";
 import { it_skills } from "./it_skills";
 import { entry_timing } from "./entry";
 import {  getFilteredStudents, getFavStudents, getPushList } from './apiCore';
@@ -166,8 +167,11 @@ const handleChange = name => event => {
                     <Checkbox2 categories={categories}
                                handleFilters={filters =>
                                    handleFilters(filters, "tags")} />
-                
+
+                    <Checkbox2 categories={inJapan} handleFilters={filters =>
+                                handleFilters(filters, "inJapan")} />
                   </div>
+
                   <div className="list-list">
                        <h3 className="card-title">Japanese</h3>
                                <Checkbox2 categories={japanese} handleFilters={filters =>

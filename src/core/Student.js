@@ -216,6 +216,8 @@ const Student = ({ session, match }: Props) => {
                           student.tags.map((skill, i) => (
                               <Tag key={i} color="azure">#{skill}</Tag>)) : ""}
                         </Tag.List>
+                        <br/>
+                        {student.inJapan === true ? <span className="tag expanded tag-red" style={{marginRight: "5px"}}> 日本在住 </span> : null }
                         </div>
                       </div>
 

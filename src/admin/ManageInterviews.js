@@ -457,16 +457,7 @@ const columns = React.useMemo(
         Filter: SelectColumnFilter,
         accessor: "companies[0].name"
       },
-  {
-        Header: 'StudentType',
-        Filter: SelectColumnFilter,
-        accessor: "students[0].inviteStatus"
-      },
-    {
-    Header: 'InterviewType',
-    accessor: "interviewType",
-    Filter: SelectColumnFilter,
-    },
+   
     {
       Header: 'Rank',
       accessor: "companyRank",
@@ -505,10 +496,10 @@ const columns = React.useMemo(
         <> {text.mailSent ? "Yes": "No"} </>
       },
       {
-        Header: 'Updated At',
+        Header: 'Created At',
         accessor: (text) =>
         <div>
-        { moment(text.updatedAt).format('MM-DD-YY')}
+        { moment(text.createdAt).format('MM-DD-YY')}
         </div>,
         id: 'created_at',
         Filter: "",
@@ -547,8 +538,8 @@ const columns = React.useMemo(
   })
 };
 
- const [originalData] = React.useState(data)
-  useEffect(() => {
+
+ useEffect(() => {
       loadInterviews();
   }, []);
 

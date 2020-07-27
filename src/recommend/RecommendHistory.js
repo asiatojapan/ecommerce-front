@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { getRecommendHistory } from './apiRecommend';
 import { Link } from 'react-router-dom';
-
+import moment from "moment";
 import SiteWrapper from '../templates/SiteWrapper'
 
 import {
@@ -51,13 +51,13 @@ const RecommendHistory = () => {
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
                <td>
-                  {recommend.period}
+               {moment(recommend.eventPeriod).format("MM/DD")}
                 </td>
                 <td>
                 {recommend.type === "推薦1" ? <span className="badge badge-danger"> {recommend.type} </span> : <> {recommend.type === "推薦2" ?  <span className="badge bg-yellow"> {recommend.type} </span> :  <span className="badge bg-blue"> {recommend.type} </span> }</>}
                 </td>
                 <td>
-                {recommend.user.name}
+                {recommend.users[0].name}
                 </td>
                 <td>
                 {recommend.students.map((student, i)=> <> <Link to={`/mugicha/company/${student._id}`}>  {student.studentid} </Link>  </>)}
