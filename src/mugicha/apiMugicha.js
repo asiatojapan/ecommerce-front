@@ -102,6 +102,23 @@ export const getCurrentInterviews = (userId, token) => {
         });
 };
 
+export const getCurrentInterviewsByStudents = (userId, token) => {
+    return fetch(`${API}/interviews/mugicha/by/students`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
 export const getPastInterviews = (userId, token) => {
     return fetch(`${API}/interviews/mugichapast`, {
         method: "GET",

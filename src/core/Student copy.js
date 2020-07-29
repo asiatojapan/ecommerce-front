@@ -450,6 +450,7 @@ const Student = ({ session, match }: Props) => {
         {student.upload_fyp === "" ? null :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i> RESEARCH / REPORT
         </a>} <hr/></>}
+        
 
       <h4>この学生と似ている学生</h4>
       {relatedStudent.map((s, i) => (

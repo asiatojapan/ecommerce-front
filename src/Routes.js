@@ -74,6 +74,7 @@ import Mugicha from "./mugicha/Home"
 import MugichaCompany from "./mugicha/Company"
 import MugichaCompanyProfile from "./mugicha/CompanyProfile"
 import MugichaStudent from "./mugicha/Student"
+import MugichaParticipatingStudents from "./mugicha/ParticipatingStudents"
 import MugichaInterview from "./mugicha/Interview"
 import MugichaCompanies from "./mugicha/Companies"
 import MugichaStudents from "./mugicha/Students"
@@ -143,6 +144,7 @@ const Routes = () => {
     <AdminRoute path="/mugicha/companies" exact component={MugichaCompanies} />
     <AdminRoute path="/mugicha/companyprofile/:userId" exact component={MugichaCompanyProfile} />
     <AdminRoute path="/mugicha/students" exact component={MugichaStudents} />
+    <AdminRoute path="/mugicha/list/students" exact component={MugichaParticipatingStudents} />
 
 
     <AdminRoute path="/mugicha/day" exact component={MugichaDay} />

@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import NavMugicha from "./Nav"
-import { Link } from 'react-router-dom';
-import { getStudentsParticipating, getCurrentInterviewsByStudents } from './apiMugicha';
+import UpdateInterviewItem from "../mugicha/UpdateInterviewItem"
+import { list, getCurrentInterviewsByStudents } from "./apiMugicha"
 import { isAuthenticates } from "../auth";
+import { Link } from 'react-router-dom';
 import moment from "moment";
-import Tab from 'react-bootstrap/Tab';
-import Row from 'react-bootstrap/Row';
-import Tabs from 'react-bootstrap/Tabs';
-import Col from 'react-bootstrap/Col';
-import Nav from 'react-bootstrap/Nav';
 
-const Students = ({  match }) => {
-    const [students, setStudents] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const { darwin_uid, darwin_myTk } = isAuthenticates();
+const ParticipatingStudents = () => {
     const [interviews, setInterviews] = useState([]);
+    const { darwin_uid, darwin_myTk} = isAuthenticates();
+    const [loading, setLoading] = useState(true)
 
 
     const loadInterviews = () => {
@@ -22,6 +17,7 @@ const Students = ({  match }) => {
             if (data.error) {
                 console.log(data.error);
             } else {
+                setLoading(false);
                 setInterviews(data);
             }
         });
@@ -52,81 +48,21 @@ const Students = ({  match }) => {
     }
   
 
-    const loadStudents = () => {
-        getStudentsParticipating(darwin_uid, darwin_myTk).then(data => {
-            if (data.error) {
-                console.log(data.error);
-            } else {
-                setStudents(data);
-                setLoading(false);
-            }
-        });
-    };
-
     useEffect(() => {
-        loadStudents();
         loadInterviews();
     }, []);
     
-    
-
     return (
         <>  
           <NavMugicha>
+          
           <div className="loading" style={{ display: loading ? "" : "none" }}>
             <div className="loaderSpin"></div>
         </div>
-
     
-        <Tab.Container id="left-tabs-example" defaultActiveKey="first">
-  <Row>
-    <Col sm={2}>
-      <Nav variant="pills" className="flex-column">
-        <Nav.Item>
-          <Nav.Link eventKey="first" class="btn">Listing</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="second">All </Nav.Link>
-        </Nav.Item>
-      </Nav>
-    </Col>
-    <Col sm={10}>
-      <Tab.Content>
-        <Tab.Pane eventKey="first">
-        <div class="card">
-            <div class="table-responsive">
-        <table class="table table-vcenter card-table">
-                <thead>
-                    <tr>
-                    <th>学生 ID </th>
-                    <th>学生 </th>
-              
-                    <th>Status</th>
-                   <th></th>
-                    </tr>
-                </thead> {students.map((student, i) => 
-                <tbody>
-                <td>
-                <Link to={`/student/${student._id}`} target="_blank" >  {student.studentid} </Link>   
-                </td>
-                <td>
-               {student.name}
-                </td>
-                <td>
-              
-               {student.inviteStatus}
-                </td>
-                <td>
-                <Link to={`/mugicha/student/${student._id}`} >  Interview List  </Link>  </td>
-
-         </tbody>)}
-        </table>
-        </div>
-        </div>
-        </Tab.Pane>
-        <Tab.Pane eventKey="second">
         
-        {interviews.map((interview, i) =>  
+       
+            {interviews.map((interview, i) =>  
               <div className="list-list" style={{padding: "0px"}}>
               <div className="card-header">
                   <div className="card-title"> 
@@ -163,17 +99,10 @@ const Students = ({  match }) => {
         </tbody>
         </table>    
         </div> </div> </div> )}
-        </Tab.Pane>
-      </Tab.Content>
-    </Col>
-  </Row>
-</Tab.Container>
-       
-
-
         </NavMugicha>
+      
       </>
     );
   }
   
-  export default Students;
+  export default ParticipatingStudents;
