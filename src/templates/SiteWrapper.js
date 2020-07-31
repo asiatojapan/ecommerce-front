@@ -75,6 +75,7 @@ return (
               <NavDropdown.Divider /> 
               <NavDropdown.Item href="/mugicha">Mugicha</NavDropdown.Item>
               <NavDropdown.Item href="/admin/history">History</NavDropdown.Item>
+              <NavDropdown.Item href="/admin/recorded"> 推薦済み</NavDropdown.Item>
               <NavDropdown.Item href="/admin/recommends">Current 推薦 </NavDropdown.Item>
            
             </NavDropdown>

@@ -35,6 +35,7 @@ import RecommendHistory from "./recommend/RecommendHistory";
 import MyHistory from "./recommend/MyHistory";
 import MyCurrentRecommends from "./recommend/MyCurrentRecommends";
 import AllRecommends from "./recommend/AllRecommends";
+import RecordedRecommended from "./recommend/RecordedRecommended";
 //////////////////////////////
 //////////////////////////////
 
@@ -155,6 +156,7 @@ const Routes = () => {
 
 
     <AdminRoute path="/admin/history" exact component={RecommendHistory} />
+    <AdminRoute path="/admin/recorded" exact component={RecordedRecommended} />
     <AdminRoute path="/admin/history/:userId" exact component={MyHistory} />
     <AdminRoute path="/admin/interviews/:userId" exact component={MyInterviews} />
     <AdminRoute path="/admin/interview/:interviewId" exact component={Interview} />

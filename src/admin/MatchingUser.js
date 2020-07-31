@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
-import { moveRecOne, moveRecTwo, readUser, matchStudent } from './apiAdmin';
+import { moveRecOne, moveRecTwo, readUser, matchStudent, recordRecOne } from './apiAdmin';
 import {  getFavStudents  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPush from "./AddPush";
@@ -103,6 +103,19 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             }
         });
     };
+
+
+  const recordRec = () => {
+    setLoading(true);
+    recordRecOne(match.params.userId, darwin_myTk).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            setLoading(false); 
+            window.location.reload(false);
+        }
+    });
+  };
 
 
   const destroyRec = () => {
@@ -340,6 +353,11 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             <button className="likeBtn smaller mr-2" 
                      onClick={() => { if (window.confirm('Are you sure you wish to remove all 推薦1? ')) destroyRec()} } >
                   推薦1一括削除
+            </button>
+
+            <button className="likeBtn smaller   smaller mr-2" 
+                     onClick={() => { if (window.confirm('Finished 推薦1? ')) recordRec()} } >
+                  推薦1済み
             </button>
 
             <button className="likeBtn smaller mr-2" 

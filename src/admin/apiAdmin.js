@@ -546,6 +546,20 @@ export const moveRecOne = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+export const recordRecOne = (userId, token) => {
+    // console.log(action)
+    return fetch(`${API}/recordownrecommend/${userId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
 
 export const moveRecTwo = (userId, token) => {
     // console.log(action)
