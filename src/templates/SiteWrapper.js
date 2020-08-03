@@ -103,8 +103,8 @@ return (
       {children}
       </div>
 </Fragment>
-)
-                          }
+)}
+
 export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps

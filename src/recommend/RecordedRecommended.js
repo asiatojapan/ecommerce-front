@@ -54,13 +54,14 @@ const RecordedRecommended = () => {
                {moment(recommend.eventPeriod).format("MM/DD")}
                 </td>
                 <td>
-                {recommend.type === "推薦1" ? <span className="badge badge-danger"> {recommend.type} </span> : <> {recommend.type === "推薦2" ?  <span className="badge bg-yellow"> {recommend.type} </span> :  <span className="badge bg-blue"> {recommend.type} </span> }</>}
+                {recommend.type}
                 </td>
                 <td>
                 {recommend.users[0].name}
                 </td>
                 <td>
-                {recommend.students.map((student, i)=> <> <Link to={`/mugicha/company/${student._id}`}>  {student.studentid} </Link>  </>)}
+                {recommend.students.map((student, index)=> 
+                 index ? ', ' + student.studentid : '' + student.studentid )}
                 </td>
                 <td>
                 {recommend.students.length}
