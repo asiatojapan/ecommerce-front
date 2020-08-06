@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getInterviews, deleteInterview, deleteInterviewItem } from "./apiAdmin";
+import { getInterviews, deleteInterview, deleteInterviewItem,  updateInterviewStatus } from "./apiAdmin";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import UpdateInterviewItem from "./UpdateInterviewItem";
 import moment from 'moment'
 import AddInterviewItem from "./AddInterviewItem";
@@ -527,8 +529,19 @@ const columns = React.useMemo(
   []
 );
 
+const [selectedRows, setSelectedRows] = useState([]);
+
+const selectedRowKeys = Object.values(selectedRows);
+
+const [name, setName] = useState("");
+const [error, setError] = useState(false);
  const [success, setSuccess] = useState(false)
  const data = interviews
+ const [show, setShow] = useState(false);
+
+ const handleClose = () => setShow(false); 
+ const handleShow = () => setShow(true); 
+
  
  const sendMassMail = () => {
   axios.put(`${API}/masssendjd`, { headers: { Authorization: "Bearer " + darwin_myTk }
@@ -536,6 +549,30 @@ const columns = React.useMemo(
      console.log(res)
      setSuccess(true)
   })
+};
+
+
+const clickSubmit = e => {
+  e.preventDefault();
+  setError("");
+  setSuccess(false);
+  // make request to api to create category
+  updateInterviewStatus(selectedRows.map(
+    d => d.original._id), name, darwin_uid, darwin_myTk ).then(data => {
+      if (data.error) {
+          setError(data.error);
+      } else {
+          setError("");
+          setSuccess(true);
+          window.location.reload();
+      }
+  });
+};
+
+
+const handleChange = e => {
+  setError("");
+  setName(e.target.value);
 };
 
 
@@ -550,6 +587,30 @@ const columns = React.useMemo(
       </div>
         <Container>
       <div class="card-header"><h3 class="card-title"> Interviews </h3>
+      <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
+       フェーズ (リストview)
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton> フェーズ (リストview)
+        </Modal.Header>
+        <Modal.Body>
+        <div class="btn-list">
+        <form onSubmit={clickSubmit}>
+            <div className="form-group">
+                <label className="text-muted">Name</label>
+                <select onChange={handleChange} value={name} className="form-control">
+                    <option>Please select</option>
+                    <option value="選考">選考</option>
+                    <option value="辞退">辞退</option>
+                    <option value="終了">終了</option>
+          </select>
+            </div>
+            <button className="btn btn-primary">Update Phase</button>
+        </form>
+          </div>
+        </Modal.Body>
+      </Modal>
       <div className="card-options">
         {success ? <div>Sent!</div> : null} 
        <button className="btn btn-primary btn-sm" onClick={()=>  { if (window.confirm('Are you sure?')) sendMassMail() }} >Send JD to Students</button>
