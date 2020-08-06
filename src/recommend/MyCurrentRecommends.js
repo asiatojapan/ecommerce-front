@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { getMyCurrentRecommends, getMyCurrentPushes } from './apiRecommend';
 import { Link } from 'react-router-dom';
-import { readUser } from '../admin/apiAdmin';
+import { readUser, recordRecOne } from '../admin/apiAdmin';
 import SiteWrapper from '../templates/SiteWrapper'
 
 import {
@@ -77,6 +77,18 @@ const AllRecommends = ({match}) => {
   ];
 
    
+  const recordRec = () => {
+    setLoading(true);
+    recordRecOne(match.params.userId, darwin_myTk).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            setLoading(false); 
+            window.location.reload(false);
+        }
+    });
+  };
+
     return (
     <SiteWrapper>
         <div class="loading" style={{ display: loading ? "" : "none" }}>
@@ -91,12 +103,18 @@ const AllRecommends = ({match}) => {
          <li className="breadcrumb-item active" aria-current="page">{user1.name}</li>
       </ol>   
 
-      <div className="list-list">
-            <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}} >
-               <div style={{fontSize: "24px"}}>{user1.name} 推薦リスト ({recommends.length}) </div>
-           </div>
-      </div>
 
+
+      <div class="list-list" style={{padding: "0"}}> 
+        <div className="card-header" style={{justifyContent: "space-between"}}>
+            <h3 className="mb-0">{user1.name} 推薦リスト ({recommends.length}) </h3>
+        <div></div>   <button className="likeBtn smaller  mr-2" 
+          onClick={() => { if (window.confirm('Finished 推薦1? ')) recordRec()} } >
+                推薦１済み
+      </button>
+      </div>
+      </div>
+      
       <div class="list-list">
       <div class="table-responsive-sm">
           <table class="table table-bordered">
@@ -123,10 +141,14 @@ const AllRecommends = ({match}) => {
         </div>
         </div>
 
-        <div className="list-list">
-            <div style={{display: "flex", justifyContent: "space-between", alignItems:"center"}} >
-               <div style={{fontSize: "24px"}}>{user1.name} 推薦2 リスト ({recommends.length}) </div>
-           </div>
+          <hr/>
+
+
+      <div class="list-list" style={{padding: "0"}}> 
+        <div className="card-header" style={{justifyContent: "space-between"}}>
+            <h3 className="mb-0">{user1.name} 推薦2 リスト ({pushes.length}) </h3>
+        <div></div> 
+      </div>
       </div>
 
         <div class="list-list">

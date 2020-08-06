@@ -125,3 +125,18 @@ export const getMyCurrentPushes = (userId, token) => {
         })
         .catch(err => console.log(err));
 };
+
+export const deleteRecommend = (recommendId, userId, token) => {
+    return fetch(`${API}/recommend/${recommendId}/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

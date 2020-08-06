@@ -154,7 +154,7 @@ const handleChange = name => event => {
            <Grid.Col width={12} lg={3} sm={12}>
    
    
-           {session.role === 1 ? 
+           {session.role === 1 || session.role === 4 ? 
            <div className="list-list" style={{padding: "0"}}>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="ID" onChange={handleChange()}/>

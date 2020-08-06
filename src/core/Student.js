@@ -354,13 +354,65 @@ const Student = ({ session, match }: Props) => {
                       </div>
                       </div>
 
+                      { session.role === 1 || session.role === 4 ? 
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">メンター</div>
+                      </div>
+                      <div className="card-body">
+                      <div className="hr-text">メンター総合評価</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorRating}
+                      </div>
+                      <div className="hr-text">メンター性格</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorCharacter}
+                      </div>
+
+                      <div className="hr-text">メンター日本語レベル</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorJapanese}
+                      </div>
+
+                      <div className="hr-text">メンター勉強</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorStudy}
+                      </div>
+
+                      <div className="hr-text">メンター入社するか</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorEntry}
+                      </div>
+
+                      <div className="hr-text">メンター AtoJへのコメントと評価ポイント</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorPointAtoJ}
+                      </div>
+
+                      <div className="hr-text">メンター面談メモ</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorMemo}
+                      </div>
+
+                      <div className="hr-text">面談前　事前質問書き込みスペース</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorMemoBefore}
+                      </div>
+
+                      <div className="hr-text">メンター持っているオファー	</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentorOffer}
+                      </div>
+
+                      </div>
+                      </div> : null }
+
 
       </Grid.Col>
       
       <Grid.Col width={12} lg={3} sm={12} >
-      {session.role === 1 && (
+      {session.role === 1 || session.role === 4 && (
 <>
-<a className="unlikeBtn resumeGradient fullWidth mr-4 " href={`/admin/student/update/${student._id}`}> Update
+<a className="unlikeBtn resumeGradient fullWidth mr-4 " href={`/admin/student/update/${student._id}`}> 編集
 </a>
 <hr/>
   <div className="list-list"  style={{padding: "2px"}}>

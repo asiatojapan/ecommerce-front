@@ -355,11 +355,6 @@ const MatchingUser = ({ logout, session, match }: Props) => {
                   推薦1一括削除
             </button>
 
-            <button className="likeBtn smaller   smaller mr-2" 
-                     onClick={() => { if (window.confirm('Finished 推薦1? ')) recordRec()} } >
-                  推薦1済み
-            </button>
-
             <button className="likeBtn smaller mr-2" 
                      onClick={() => { if (window.confirm('Are you sure you wish to remove all 推薦2? ')) destroyRecTwo()} } >
                   推薦2一括削除

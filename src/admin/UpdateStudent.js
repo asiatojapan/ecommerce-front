@@ -7,9 +7,14 @@ import SiteWrapper from '../templates/SiteWrapper'
 import {
   Container, Form,
 } from "tabler-react";
+import { connect } from "react-redux";
+
+const mapStateToProps = ({ session }) => ({
+  session
+});
 
 
-const UpdateStudent = ({ match, history }) => {
+const UpdateStudent = ({ session, match, history }) => {
     const [values, setValues] = useState({
       name: '',
       studentid: '',
@@ -64,6 +69,16 @@ const UpdateStudent = ({ match, history }) => {
       topUni: "",
       inJapan: "",
       forNextMonth: "",
+      mentorRating: "",
+      mentorMemo: "",
+      mentorMemoBefore: "",
+      mentor: "",
+      mentorCharacter: "",
+      mentorStudy: "",
+      mentorEntry: "",
+      mentorPointAtoJ: "",
+      mentorJapanese: "",
+      mentorOffer: "",
       redirectToProfile: false,
       formData: ''
     });
@@ -136,6 +151,16 @@ const UpdateStudent = ({ match, history }) => {
                     status: data.status,
                     inJapan: data.inJapan,
                     forNextMonth: data.forNextMonth,
+                    mentorRating: data.mentorRating,
+                    mentorMemo: data.mentorMemo,
+                    mentorMemoBefore: data.mentorMemoBefore,
+                    mentor: data.mentor,
+                    mentorCharacter: data.mentorCharacter,
+                    mentorStudy: data.mentorStudy,
+                    mentorEntry: data.mentorEntry,
+                    mentorPointAtoJ: data.mentorPointAtoJ,
+                    mentorJapanese: data.mentorJapanese,
+                    mentorOffer: data.mentorOffer,
                     formData: new FormData()
                 });
             }
@@ -218,7 +243,17 @@ const UpdateStudent = ({ match, history }) => {
                     redirectToProfile: true,
                     inJapan: data.inJapan,
                     forNextMonth: data.forNextMonth,
-                    createdStudent: data.name
+                    createdStudent: data.name,
+                    mentorRating: data.mentorRating,
+                    mentorMemo: data.mentorMemo,
+                    mentorMemoBefore: data.mentorMemoBefore,
+                    mentor: data.mentor,
+                    mentorCharacter: data.mentorCharacter,
+                    mentorStudy: data.mentorStudy,
+                    mentorEntry: data.mentorEntry,
+                    mentorPointAtoJ: data.mentorPointAtoJ,
+                    mentorJapanese: data.mentorJapanese,
+                    mentorOffer: data.mentorOffer
                 });
             }
         });
@@ -231,7 +266,7 @@ const UpdateStudent = ({ match, history }) => {
          <h4 class="card-title">Update Student</h4>
         </div>
         <div class="card-body">
-  
+          { session.role === 1 ? <>
         <div class="mb-2">
             <label class="form-label">Name</label>
              <input type="text" onChange={handleChange("name")} value={name} name="name"  class="form-control"/>
@@ -466,6 +501,107 @@ const UpdateStudent = ({ match, history }) => {
           </div>
 
           <hr/>
+
+          <div class="mb-2">
+            <label class="form-label">メンター総合評価</label>
+            <select placeholder="メンター総合評価" onChange={handleChange("mentorRating")} value={values.mentorRating} name="mentorRating">
+            <option value=""> Select </option>
+            <option value="A+"> A+ </option>
+            <option value="A"> A </option>
+            <option value="A-"> A- </option>
+            <option value="B+"> B+ </option>
+            <option value="B"> B </option>
+            <option value="B-"> B- </option>
+            <option value="C+"> C+ </option>
+            <option value="C"> C </option>
+            <option value="C-"> C- </option>
+            <option value="D+"> D+ </option>
+            <option value="D"> D </option>
+            <option value="D-"> D- </option>
+            <option value="E+"> E+ </option>
+            <option value="E"> E </option>
+            <option value="E-"> E- </option>
+            </select>  
+          </div>
+
+
+          <div class="mb-2">
+            <label class="form-label">メンター性格</label>
+            <select placeholder="メンター性格" onChange={handleChange("mentorCharacter")} value={values.mentorCharacter} name="mentorCharacter">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select>  
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">メンター勉強</label>
+            <select placeholder="メンター勉強" onChange={handleChange("mentorStudy")} value={values.mentorStudy} name="mentorStudy">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select>  
+          </div>
+        
+
+          <div class="mb-2">
+            <label class="form-label">メンター入社するか</label>
+            <select placeholder="メンター入社するか" onChange={handleChange("mentorEntry")} value={values.mentorEntry} name="mentorEntry">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select>  
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">メンター AtoJへのコメントと評価ポイント</label>
+            <select placeholder="メンター AtoJへのコメントと評価ポイント" onChange={handleChange("mentorPointAtoJ")} value={values.mentorPointAtoJ} name="mentorPointAtoJ">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select>  
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">メンター日本語レベル</label>
+            <select placeholder="メンター日本語レベル" onChange={handleChange("mentorJapanese")} value={values.mentorJapanese} name="mentorJapanese">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select>  
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">メンター面談メモ</label>
+            <textarea onChange={handleChange("mentorMemo")} value={values.mentorMemo} name="mentorMemo" rows="5" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">面談前　事前質問書き込みスペース</label>
+            <textarea onChange={handleChange("mentorMemoBefore")} value={values.mentorMemoBefore} name="mentorMemoBefore" rows="5" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">メンター持っているオファー	</label>
+            <input onChange={handleChange("mentorOffer")} value={values.mentorOffer} name="mentorOffer" class="form-control"/>
+          </div>
+
+          <hr/>
           <div class="mb-2">
             <label class="form-label">Offer Company</label>
             <input onChange={handleChange("offerCompany")} value={values.offerCompany} name="offerCompany" class="form-control"/>
@@ -511,6 +647,8 @@ const UpdateStudent = ({ match, history }) => {
             <input onChange={handleChange('upload_fyp')} value={values.upload_fyp} name="upload_fyp" class="form-control" />
             </div>
 
+            <hr/> 
+
             <div class="mb-2">
           <label class="form-label">Status</label>
           <select class="form-label" placeholder="Select Status" onChange={handleChange("status")} value={values.status} name="gender">
@@ -541,10 +679,103 @@ const UpdateStudent = ({ match, history }) => {
              <option value="true"> TRUE </option>
              <option value="false"> FALSE </option>
              </select>
-        </div>
-       
-       
+          </div>  </> : null }
+
+        { session.role === 4 ? 
+        <>
+        <div class="mb-2">
+        <label class="form-label">メンター総合評価</label>
+        <select placeholder="メンター総合評価" onChange={handleChange("mentorRating")} value={values.mentorRating} name="mentorRating">
+        <option value=""> Select </option>
+        <option value="A+"> A+ </option>
+        <option value="A"> A </option>
+        <option value="A-"> A- </option>
+        <option value="B+"> B+ </option>
+        <option value="B"> B </option>
+        <option value="B-"> B- </option>
+        <option value="C+"> C+ </option>
+        <option value="C"> C </option>
+        <option value="C-"> C- </option>
+        <option value="D+"> D+ </option>
+        <option value="D"> D </option>
+        <option value="D-"> D- </option>
+        <option value="E+"> E+ </option>
+        <option value="E"> E </option>
+        <option value="E-"> E- </option>
+        </select>  
       </div>
+
+
+      <div class="mb-2">
+        <label class="form-label">メンター性格</label>
+        <select placeholder="メンター性格" onChange={handleChange("mentorCharacter")} value={values.mentorCharacter} name="mentorCharacter">
+        <option value=""> Select </option>
+        <option value="A"> A専門が合えばどこでも合格するレベル </option>
+        <option value="B"> Bコミュニケーションはまずまず </option>
+        <option value="C"> C普通にコミュニケーション可能 </option>
+        <option value="D"> D緊張してコミュニケーションが大変 </option>
+        <option value="E"> E面接にならない </option>
+        </select>  
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター日本語レベル</label>
+        <select placeholder="メンター日本語レベル" onChange={handleChange("mentorJapanese")} value={values.mentorJapanese} name="mentorJapanese">
+        <option value=""> Select </option>
+        <option value="A"> A </option>
+        <option value="B"> B </option>
+        <option value="C"> C </option>
+        <option value="D"> D </option>
+        <option value="E"> E </option>
+        </select>  
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター勉強</label>
+        <select placeholder="メンター勉強" onChange={handleChange("mentorStudy")} value={values.mentorStudy} name="mentorStudy">
+        <option value=""> Select </option>
+        <option value="A"> A FYP、大学の勉強　ともにかなり良い </option>
+        <option value="B"> B しっかりやっている </option>
+        <option value="C"> C普通 </option>
+        <option value="D"> D FYPだめ、勉強していなそう </option>
+        <option value="E"> E 全然ダメ </option>
+        </select>  
+      </div>
+    
+
+      <div class="mb-2">
+        <label class="form-label">メンター入社するか</label>
+        <select placeholder="メンター入社するか" onChange={handleChange("mentorEntry")} value={values.mentorEntry} name="mentorEntry">
+        <option value=""> Select </option>
+        <option value="A"> A SGWJで合格したらどこでも入社しそう </option>
+        <option value="B"> B 多分、合格したら入社する </option>
+        <option value="C"> C よっぽど本人の希望と違いがなければ入社する </option>
+        <option value="D"> D　すでにまあまあのオファーがあったり、入社したい企業が限定されている </option>
+        <option value="E"> E 両親反対、かなり良いオファー持っている、希望年収が高すぎる、希望勤務地が狭すぎる </option>
+        </select>  
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター AtoJへのコメントと評価ポイント</label>
+        <textarea onChange={handleChange("mentorPointAtoJ")} value={values.mentorPointAtoJ} name="mentorPointAtoJ" rows="5" class="form-control"/>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター面談メモ</label>
+        <textarea onChange={handleChange("mentorMemo")} value={values.mentorMemo} name="mentorMemo" rows="5" class="form-control"/>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">面談前　事前質問書き込みスペース</label>
+        <textarea onChange={handleChange("mentorMemoBefore")} value={values.mentorMemoBefore} name="mentorMemoBefore" rows="5" class="form-control"/>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター持っているオファー	</label>
+        <input onChange={handleChange("mentorOffer")} value={values.mentorOffer} name="mentorOffer" class="form-control"/>
+      </div>
+      </> : null }   
+      </div> 
     <div class="card-footer text-right">
                     <div class="d-flex">
                       <a class="btn btn-link" onClick={() => history.goBack()}>Cancel</a>
@@ -586,4 +817,6 @@ const UpdateStudent = ({ match, history }) => {
     );
 };
 
-export default withRouter(UpdateStudent);
+export default withRouter(connect(
+  mapStateToProps,
+)(UpdateStudent));

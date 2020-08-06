@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getRecordedRecommends } from './apiRecommend';
+import { getRecordedRecommends, deleteRecommend } from './apiRecommend';
 import { Link } from 'react-router-dom';
 import moment from "moment";
 import SiteWrapper from '../templates/SiteWrapper'
@@ -25,6 +25,18 @@ const RecordedRecommended = () => {
       });
   };
 
+  const destroy = recommendId => {
+    setLoading(true)
+    deleteRecommend(recommendId, darwin_uid, darwin_myTk).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+          setLoading(false)
+          loadRecommends();
+        }
+    });
+};
+
 
   useEffect(() => {
     loadRecommends();
@@ -47,6 +59,7 @@ const RecordedRecommended = () => {
                     <th>User</th>
                     <th>学生</th>
                     <th>Count</th>
+                    <th>Delete</th>
                     </tr>
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
@@ -65,6 +78,11 @@ const RecordedRecommended = () => {
                 </td>
                 <td>
                 {recommend.students.length}
+                </td>
+                <td>
+                <button class="likeBtn smaller" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(recommend._id) } } >
+                Delete
+              </button>
                 </td>
          </tr>)}</tbody>
         </table>    
