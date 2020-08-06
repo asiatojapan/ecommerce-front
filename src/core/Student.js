@@ -410,7 +410,7 @@ const Student = ({ session, match }: Props) => {
       </Grid.Col>
       
       <Grid.Col width={12} lg={3} sm={12} >
-      {session.role === 1 || session.role === 4 && (
+      {session.role === 1 || session.role === 4 ? 
 <>
 <a className="unlikeBtn resumeGradient fullWidth mr-4 " href={`/admin/student/update/${student._id}`}> 編集
 </a>
@@ -519,7 +519,7 @@ const Student = ({ session, match }: Props) => {
                   </tbody>
                 </table>
                 
-              </div> </>)}
+              </div> </> : null }
         <div>
         {session.role === 3 ? null : <>
           <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> 
