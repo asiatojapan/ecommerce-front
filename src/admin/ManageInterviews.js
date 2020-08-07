@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getInterviews, deleteInterview, deleteInterviewItem,  updateInterviewStatus } from "./apiAdmin";
+import { getInterviews, deleteInterview, deleteInterviewItem,  updateInterviewStatus, massSendJd } from "./apiAdmin";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
@@ -8,6 +8,8 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
+import Table2 from 'react-bootstrap/Table';
 import UpdateInterviewItem from "./UpdateInterviewItem";
 import moment from 'moment'
 import AddInterviewItem from "./AddInterviewItem";
@@ -15,50 +17,9 @@ import {
   Dropdown,
   Container,
 } from "tabler-react";
-import styled from 'styled-components'
 import { API } from '../config';
 import axios from 'axios';
 
-const Styles = styled.div`
-
-  table {
-    width: 100%
-    border-spacing: 0;
-    font-size: 12px;
-    border: 1px solid rgba(0, 40, 100, 0.12);
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.2rem;
-      border-bottom: 1px solid rgba(0, 40, 100, 0.12);
-      border-right: 1px solid rgba(0, 40, 100, 0.12);
-
-      :last-child {
-        border-right: 0;
-      }
-
-      input {
-        font-size: 1rem;
-        padding: 0;
-        margin: 0;
-        border: 0;
-      }
-    }
-  }
-
-  .pagination {
-    padding: 0.5rem;
-  }
-`
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -85,20 +46,18 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length
 
   return (
-    <span>
-    <input
-    value={globalFilter || ''}
-    onChange={e => {
-      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-    }}
-    placeholder={`検索`}
-    className="form-control" 
-    style={{marginBottom: "1rem"}}
-    />
-    </span>
+
+        <input
+          value={globalFilter || ''}
+          onChange={e => {
+            setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+          }}
+          placeholder={`検索`}
+          className="form-control" 
+          style={{marginBottom: "1rem"}}
+          />
   )
 }
-
 
 function DefaultColumnFilter({
   column: { filterValue, preFilteredRows, setFilter },
@@ -106,7 +65,6 @@ function DefaultColumnFilter({
   const count = preFilteredRows.length
 
   return (
-    <div>
     <input
       value={filterValue || ''}
       onChange={e => {
@@ -115,7 +73,6 @@ function DefaultColumnFilter({
       style={{width: "100%"}}
       placeholder={`Search ${count}`}
     />
-    </div>
   )
 }
 
@@ -138,6 +95,7 @@ function SelectColumnFilter({
   return (
     <select
       value={filterValue}
+      style={{width: "100%"}}
       onChange={e => {
         setFilter(e.target.value || undefined)
       }}
@@ -247,40 +205,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-const EditableCell = ({
-  cell: { value: initialValue },
-  row: { index },
-  column: { id },
-  updateMyData, // This is a custom function that we supplied to our table instance
-  }) => {
-  // We need to keep and update the state of the cell normally
-  const [value, setValue] = React.useState(initialValue)
-
-  const onChange = e => {
-    setValue(e.target.value)
-  }
-
-  // We'll only update the external data when the input is blurred
-  const onBlur = () => {
-    updateMyData(index, id, value)
-  }
-
-  // If the initialValue is changed external, sync it up with our state
-  React.useEffect(() => {
-    setValue(initialValue)
-  }, [initialValue])
-
-  return <input value={value} onChange={onChange} onBlur={onBlur} />
-}
-
-// Set our editable cell renderer as the default Cell renderer
-const defaultColumn = {
-  Cell: EditableCell,
-}
-
-
-export const Table = function ({ columns, data, selectedRows, updateMyData, onSelectedRowsChange }) {
-
+export const Table = function ({ columns, data, selectedRows, onSelectedRowsChange }) {
 
   const filterTypes = React.useMemo(
     () => ({
@@ -316,58 +241,70 @@ export const Table = function ({ columns, data, selectedRows, updateMyData, onSe
     getTableBodyProps,
     headerGroups,
     prepareRow,
+    selectedFlatRows,
     state,
     rows,
+    flatColumns,
     preGlobalFilteredRows,
     setGlobalFilter,
     } = useTable({
-      columns,
-      data,
-      defaultColumn,
-      updateMyData,
+    columns,
+    data,
+    defaultColumn,
+    initialState: {
+        selectedRowPaths: selectedRows
+      },
     filterTypes,
     },
    useFilters, useGlobalFilter, useSortBy,useRowSelect,
 )
 
-return (
-  <div style={{background:"#fff"}}>
-  <table {...getTableProps()}>
-    <thead>
-    {headerGroups.map(headerGroup => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                {column.render('Header')}
-                <span>{column.canFilter ? column.render('Filter') : null}
-                {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
-                </span>
-                </th>
-             
-            ))}
-          </tr>
-        ))}
-      
-    </thead>
-    
-    <tbody {...getTableBodyProps()}>
-    {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map(cell => {
-                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-              })}
-            </tr>
-        )
-      })}
-      
-    </tbody>
-  </table>
-  </div>
-)
-}
+  useEffect(() => {
+    onSelectedRowsChange(selectedFlatRows);
+    }, [onSelectedRowsChange, selectedFlatRows]);
 
+  // Render the UI for your table
+  return (
+    <div>
+    <div style={{background:"#fff"}}>
+    <Table2 bordered hover size="sm" style={{fontSize: "11px"}} cellspacing="0" {...getTableProps()}>
+      <thead >
+      {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} style={{color: "#000", fontWeight: 400, fontSize: "10px"}}>
+                  {column.render('Header')}
+                  <span>{column.canFilter ? column.render('Filter') : null}
+                  {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
+                  </span>
+                  </th>
+               
+              ))}
+            </tr>
+          ))}
+        
+      </thead>
+      
+      <tbody {...getTableBodyProps()}>
+      {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                })}
+              </tr>
+          )
+        })}
+        
+      </tbody>
+    </Table2>
+    </div>
+
+   
+    </div>
+  )
+}
 
 const ManageInterviews = () => {
   const [interviews, setInterviews] = useState([]);
@@ -544,11 +481,16 @@ const [error, setError] = useState(false);
 
  
  const sendMassMail = () => {
-  axios.put(`${API}/masssendjd`, { headers: { Authorization: "Bearer " + darwin_myTk }
-  }).then(res => { // then print response status
-     console.log(res)
-     setSuccess(true)
-  })
+  massSendJd(selectedRows.map(
+    d => d.original._id), darwin_uid, darwin_myTk ).then(data => {
+      if (data.error) {
+          setError(data.error);
+      } else {
+          setError("");
+          setSuccess(true);
+          window.location.reload();
+      }
+  });
 };
 
 
@@ -588,11 +530,11 @@ const handleChange = e => {
         <Container>
       <div class="card-header"><h3 class="card-title"> Interviews </h3>
       <Button className="btn btn-sm btn-secondary ml-2" variant="primary" onClick={handleShow}>
-       フェーズ (リストview)
+       Status　変更
       </Button>
 
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton> フェーズ (リストview)
+        <Modal.Header closeButton> Status　変更
         </Modal.Header>
         <Modal.Body>
         <div class="btn-list">
@@ -602,8 +544,10 @@ const handleChange = e => {
                 <select onChange={handleChange} value={name} className="form-control">
                     <option>Please select</option>
                     <option value="選考">選考</option>
+                    <option value="テスト">テスト</option>
                     <option value="辞退">辞退</option>
                     <option value="終了">終了</option>
+
           </select>
             </div>
             <button className="btn btn-primary">Update Phase</button>
@@ -616,9 +560,7 @@ const handleChange = e => {
        <button className="btn btn-primary btn-sm" onClick={()=>  { if (window.confirm('Are you sure?')) sendMassMail() }} >Send JD to Students</button>
        </div>
       </div>
-     <Styles>
-     <Table columns={columns} data={data} updateMyData={updateMyData} />
-    </Styles>
+      <Table columns={columns} data={data} selectedRows={selectedRows} updateMyData={updateMyData} onSelectedRowsChange={setSelectedRows}/>
       </Container>
     </SiteWrapper>
     );

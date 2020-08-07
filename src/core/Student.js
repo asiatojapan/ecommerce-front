@@ -359,6 +359,11 @@ const Student = ({ session, match }: Props) => {
                       <div className="card-header"><div className="card-title">メンター</div>
                       </div>
                       <div className="card-body">
+
+                      <div className="hr-text">メンター</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.mentor}
+                      </div>
                       <div className="hr-text">メンター総合評価</div>
                       <div className="mb-2 pre-wrap">　
                       {student.mentorRating}

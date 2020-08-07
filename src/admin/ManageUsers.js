@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment'
 import { isAuthenticates } from "../auth";
-import { deleteUser, getUsers, createRecHistory } from "./apiAdmin";
+import { deleteUser, getUsers, createRecHistory, resetLoginDate } from "./apiAdmin";
 import { Link } from "react-router-dom";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect, usePagination } from 'react-table';
 import matchSorter from 'match-sorter';
 import Table2 from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import ImportUsers from "./ImportUsers";
 import UpdateCSVUsers from "./UpdateCSVUsers";
+import Modal from 'react-bootstrap/Modal';
 import ImportHide from "./ImportHide";
 import ImportRec from "./ImportRec";
 import {
   Dropdown,
   Container,
 } from "tabler-react";
+
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -42,15 +45,16 @@ function GlobalFilter({
   const count = preGlobalFilteredRows.length
 
   return (
-    <input
-    value={globalFilter || ''}
-    onChange={e => {
-      setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
-    }}
-    placeholder={`検索`}
-    className="form-control" 
-    style={{marginBottom: "1rem"}}
-    />
+
+        <input
+          value={globalFilter || ''}
+          onChange={e => {
+            setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
+          }}
+          placeholder={`検索`}
+          className="form-control" 
+          style={{marginBottom: "1rem"}}
+          />
   )
 }
 
@@ -90,6 +94,7 @@ function SelectColumnFilter({
   return (
     <select
       value={filterValue}
+      style={{width: "100%"}}
       onChange={e => {
         setFilter(e.target.value || undefined)
       }}
@@ -253,23 +258,20 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
    useFilters, useGlobalFilter, useSortBy,useRowSelect,
 )
 
+  useEffect(() => {
+    onSelectedRowsChange(selectedFlatRows);
+    }, [onSelectedRowsChange, selectedFlatRows]);
 
   // Render the UI for your table
   return (
-
     <div>
-    <GlobalFilter
-      preGlobalFilteredRows={preGlobalFilteredRows}
-      globalFilter={state.globalFilter}
-      setGlobalFilter={setGlobalFilter}
-    />
     <div style={{background:"#fff"}}>
-    <Table2 bordered hover size="sm"  cellspacing="0" {...getTableProps()}>
-      <thead>
+    <Table2 bordered hover size="sm" style={{fontSize: "11px"}} cellspacing="0" {...getTableProps()}>
+      <thead >
       {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} style={{color: "#000", fontWeight: 400, fontSize: "10px"}}>
                   {column.render('Header')}
                   <span>{column.canFilter ? column.render('Filter') : null}
                   {column.isSorted ? (column.isSortedDesc ? ' ↑' : ' ↓') : ''}
@@ -454,6 +456,33 @@ const ManageUsers = () => {
 
  const data = users
 
+ const [selectedRows, setSelectedRows] = useState([]);
+
+ const selectedRowKeys = Object.values(selectedRows);
+
+ const [name, setName] = useState("");
+ const [error, setError] = useState(false);
+ const [success, setSuccess] = useState(false);
+
+ const [show, setShow] = useState(false);
+
+
+const clickReset = e => {
+  setError("");
+  setSuccess(false);
+  // make request to api to create category
+  resetLoginDate(selectedRows.map(
+    d => d.original._id), darwin_uid, darwin_myTk ).then(data => {
+      if (data.error) {
+          setError(data.error);
+      } else {
+          setError("");
+          setSuccess(true);
+          window.location.reload();
+      }
+  });
+};
+
 
   useEffect(() => {
       loadUsers();
@@ -467,10 +496,15 @@ const ManageUsers = () => {
       <Container>
       <div class="card-header"><h3 class="card-title"> Users </h3>
       <div class="card-options">
+      <Button onClick={()=> clickReset()} className="btn btn-sm btn-secondary ml-2" variant="primary" >
+      ログインリセット
+      </Button>
+
       <ImportUsers/>
       <UpdateCSVUsers/>
       <ImportRec/>
       <ImportHide/>
+      
       <Link to="/forgotpassword">
        <a className="btn btn-sm btn-secondary">Forgot password</a>
       </Link>
@@ -478,7 +512,7 @@ const ManageUsers = () => {
      <Link to={`/admin/create/user`} className="btn btn-sm btn-secondary"> + Add Users </Link> <br/>
      </div>
      </div>
-      <Table columns={columns} data={data} />
+     <Table columns={columns} data={data} selectedRows={selectedRows} onSelectedRowsChange={setSelectedRows}/>
        </Container>
     </SiteWrapper>
     );

@@ -612,3 +612,45 @@ export const updateInterviewStatus = (interviewId, status, adminId, token) => {
               console.log(err);
           });
   };
+
+  export const massSendJd = (interviewId, adminId, token) => {
+    const data = {
+        interviewId
+    };
+      return fetch(`${API}/masssendjd/${adminId}`, {
+          method: "POST",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+      })
+          .then(response => {
+              return response.json();
+          })
+          .catch(err => {
+              console.log(err);
+          });
+  };
+
+  export const resetLoginDate = (userId, adminId, token) => {
+    const data = {
+        userId
+    };
+      return fetch(`${API}/reset/${adminId}`, {
+          method: "PUT",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+      })
+          .then(response => {
+              return response.json();
+          })
+          .catch(err => {
+              console.log(err);
+          });
+  };

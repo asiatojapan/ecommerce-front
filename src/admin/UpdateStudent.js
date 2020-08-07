@@ -503,103 +503,113 @@ const UpdateStudent = ({ session, match, history }) => {
           <hr/>
 
           <div class="mb-2">
-            <label class="form-label">メンター総合評価</label>
-            <select placeholder="メンター総合評価" onChange={handleChange("mentorRating")} value={values.mentorRating} name="mentorRating">
-            <option value=""> Select </option>
-            <option value="A+"> A+ </option>
-            <option value="A"> A </option>
-            <option value="A-"> A- </option>
-            <option value="B+"> B+ </option>
-            <option value="B"> B </option>
-            <option value="B-"> B- </option>
-            <option value="C+"> C+ </option>
-            <option value="C"> C </option>
-            <option value="C-"> C- </option>
-            <option value="D+"> D+ </option>
-            <option value="D"> D </option>
-            <option value="D-"> D- </option>
-            <option value="E+"> E+ </option>
-            <option value="E"> E </option>
-            <option value="E-"> E- </option>
-            </select>  
-          </div>
+        <label class="form-label">メンター総合評価</label>
+        <select placeholder="メンター総合評価" onChange={handleChange("mentorRating")} value={values.mentorRating} name="mentorRating">
+        <option value=""> Select </option>
+        <option value="A+"> A+ </option>
+        <option value="A"> A </option>
+        <option value="A-"> A- </option>
+        <option value="B+"> B+ </option>
+        <option value="B"> B </option>
+        <option value="B-"> B- </option>
+        <option value="C+"> C+ </option>
+        <option value="C"> C </option>
+        <option value="C-"> C- </option>
+        <option value="D+"> D+ </option>
+        <option value="D"> D </option>
+        <option value="D-"> D- </option>
+        <option value="E+"> E+ </option>
+        <option value="E"> E </option>
+        <option value="E-"> E- </option>
+        </select>  
+      </div>
 
 
-          <div class="mb-2">
-            <label class="form-label">メンター性格</label>
-            <select placeholder="メンター性格" onChange={handleChange("mentorCharacter")} value={values.mentorCharacter} name="mentorCharacter">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select>  
-          </div>
+      <div class="mb-2">
+        <label class="form-label">メンター性格</label>
+        <select placeholder="メンター性格" onChange={handleChange("mentorCharacter")} value={values.mentorCharacter} name="mentorCharacter">
+        <option value=""> Select </option>
+        <option value="A"> A専門が合えばどこでも合格するレベル </option>
+        <option value="B"> Bコミュニケーションはまずまず </option>
+        <option value="C"> C普通にコミュニケーション可能 </option>
+        <option value="D"> D緊張してコミュニケーションが大変 </option>
+        <option value="E"> E面接にならない </option>
+        </select>  
+      </div>
 
-          <div class="mb-2">
-            <label class="form-label">メンター勉強</label>
-            <select placeholder="メンター勉強" onChange={handleChange("mentorStudy")} value={values.mentorStudy} name="mentorStudy">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select>  
-          </div>
-        
+      <div class="mb-2">
+        <label class="form-label">メンター日本語レベル</label>
+        <select placeholder="メンター日本語レベル" onChange={handleChange("mentorJapanese")} value={values.mentorJapanese} name="mentorJapanese">
+        <option value=""> Select </option>
+        <option value="A"> A </option>
+        <option value="B"> B </option>
+        <option value="C"> C </option>
+        <option value="D"> D </option>
+        <option value="E"> E </option>
+        </select>  
+      </div>
 
-          <div class="mb-2">
-            <label class="form-label">メンター入社するか</label>
-            <select placeholder="メンター入社するか" onChange={handleChange("mentorEntry")} value={values.mentorEntry} name="mentorEntry">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select>  
-          </div>
+      <div class="mb-2">
+        <label class="form-label">メンター勉強</label>
+        <select placeholder="メンター勉強" onChange={handleChange("mentorStudy")} value={values.mentorStudy} name="mentorStudy">
+        <option value=""> Select </option>
+        <option value="A"> A FYP、大学の勉強　ともにかなり良い </option>
+        <option value="B"> B しっかりやっている </option>
+        <option value="C"> C普通 </option>
+        <option value="D"> D FYPだめ、勉強していなそう </option>
+        <option value="E"> E 全然ダメ </option>
+        </select>  
+      </div>
+    
 
-          <div class="mb-2">
-            <label class="form-label">メンター AtoJへのコメントと評価ポイント</label>
-            <select placeholder="メンター AtoJへのコメントと評価ポイント" onChange={handleChange("mentorPointAtoJ")} value={values.mentorPointAtoJ} name="mentorPointAtoJ">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select>  
-          </div>
+      <div class="mb-2">
+        <label class="form-label">メンター入社するか</label>
+        <select placeholder="メンター入社するか" onChange={handleChange("mentorEntry")} value={values.mentorEntry} name="mentorEntry">
+        <option value=""> Select </option>
+        <option value="A"> A SGWJで合格したらどこでも入社しそう </option>
+        <option value="B"> B 多分、合格したら入社する </option>
+        <option value="C"> C よっぽど本人の希望と違いがなければ入社する </option>
+        <option value="D"> D　すでにまあまあのオファーがあったり、入社したい企業が限定されている </option>
+        <option value="E"> E 両親反対、かなり良いオファー持っている、希望年収が高すぎる、希望勤務地が狭すぎる </option>
+        </select>  
+      </div>
 
-          <div class="mb-2">
-            <label class="form-label">メンター日本語レベル</label>
-            <select placeholder="メンター日本語レベル" onChange={handleChange("mentorJapanese")} value={values.mentorJapanese} name="mentorJapanese">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select>  
-          </div>
+      <div class="mb-2">
+        <label class="form-label">メンター</label>
+        <select placeholder="メンター入社するか" onChange={handleChange("mentor")} value={values.mentor} name="mentor">
+        <option value=""> Select </option>
+        <option value="神原"> 神原 </option>
+        <option value="鈴木 秀和"> 鈴木 秀和 </option>
+        <option value="鈴木 信雄"> 鈴木 信雄 </option>
+        <option value="神原浩司"> 神原浩司 </option>
+        <option value="岡庭"> 岡庭 </option>
+        <option value="須川"> 須川 </option>
+        <option value="三瓶"> 三瓶 </option>
+        <option value="Grace"> Grace </option>
+        <option value="赤田"> 赤田 </option>
+        <option value="青地"> 青地</option>
+        </select>  
+      </div>
 
-          <div class="mb-2">
-            <label class="form-label">メンター面談メモ</label>
-            <textarea onChange={handleChange("mentorMemo")} value={values.mentorMemo} name="mentorMemo" rows="5" class="form-control"/>
-          </div>
+      <div class="mb-2">
+        <label class="form-label">メンター AtoJへのコメントと評価ポイント</label>
+        <textarea onChange={handleChange("mentorPointAtoJ")} value={values.mentorPointAtoJ} name="mentorPointAtoJ" rows="5" class="form-control"/>
+      </div>
 
-          <div class="mb-2">
-            <label class="form-label">面談前　事前質問書き込みスペース</label>
-            <textarea onChange={handleChange("mentorMemoBefore")} value={values.mentorMemoBefore} name="mentorMemoBefore" rows="5" class="form-control"/>
-          </div>
+      <div class="mb-2">
+        <label class="form-label">メンター面談メモ</label>
+        <textarea onChange={handleChange("mentorMemo")} value={values.mentorMemo} name="mentorMemo" rows="5" class="form-control"/>
+      </div>
 
-          <div class="mb-2">
-            <label class="form-label">メンター持っているオファー	</label>
-            <input onChange={handleChange("mentorOffer")} value={values.mentorOffer} name="mentorOffer" class="form-control"/>
-          </div>
+      <div class="mb-2">
+        <label class="form-label">面談前　事前質問書き込みスペース</label>
+        <textarea onChange={handleChange("mentorMemoBefore")} value={values.mentorMemoBefore} name="mentorMemoBefore" rows="5" class="form-control"/>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター持っているオファー	</label>
+        <input onChange={handleChange("mentorOffer")} value={values.mentorOffer} name="mentorOffer" class="form-control"/>
+      </div>
 
           <hr/>
           <div class="mb-2">
@@ -752,6 +762,23 @@ const UpdateStudent = ({ session, match, history }) => {
         <option value="C"> C よっぽど本人の希望と違いがなければ入社する </option>
         <option value="D"> D　すでにまあまあのオファーがあったり、入社したい企業が限定されている </option>
         <option value="E"> E 両親反対、かなり良いオファー持っている、希望年収が高すぎる、希望勤務地が狭すぎる </option>
+        </select>  
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">メンター</label>
+        <select placeholder="メンター入社するか" onChange={handleChange("mentor")} value={values.mentor} name="mentor">
+        <option value=""> Select </option>
+        <option value="神原"> 神原 </option>
+        <option value="鈴木 秀和"> 鈴木 秀和 </option>
+        <option value="鈴木 信雄"> 鈴木 信雄 </option>
+        <option value="神原浩司"> 神原浩司 </option>
+        <option value="岡庭"> 岡庭 </option>
+        <option value="須川"> 須川 </option>
+        <option value="三瓶"> 三瓶 </option>
+        <option value="Grace"> Grace </option>
+        <option value="赤田"> 赤田 </option>
+        <option value="青地"> 青地</option>
         </select>  
       </div>
 
