@@ -47,7 +47,7 @@ const List = ({logout, session, student, setFavCount, favCount }) => {
 
     <div style={{margin: "10px  0px"}}>
     <a className="list-TextNoteTitle" href={`/student/${student._id}`} target="_blank" onClick={()=> 
-       Event("VIEWED STUDENT", [student.studentid, darwin_uid] )}>   {student.comments == null?  "" : student.comments.substring(0,60) + "..." } </a>
+       Event("VIEWED STUDENT", "s")}>   {student.comments == null?  "" : student.comments.substring(0,60) + "..." } </a>
     </div>
 
     <div className="list-Desc">

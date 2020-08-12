@@ -64,7 +64,7 @@ const RecordedRecommended = () => {
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
                <td>
-               {moment(recommend.eventPeriod).format("YY/MM/DD")}
+               {moment(recommend.eventPeriod).format("YY/MM/DD hh:mm")}
                 </td>
 
                 <td>
@@ -79,7 +79,7 @@ const RecordedRecommended = () => {
                 </td>
                 <td>
                   
-                {recommend.loginDiff > 7 ? <span style={{color: "red", fontWeight: 600}}>{recommend.loginDiff}</span>: <span>{recommend.loginDiff}</span>}
+                {recommend.loginDiff > 6 ? <span style={{color: "red", fontWeight: 600}}>{recommend.loginDiff}</span>: <span>{recommend.loginDiff}</span>}
                 </td>
                 <td>
                 <button class="likeBtn smaller" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(recommend._id) } } >
