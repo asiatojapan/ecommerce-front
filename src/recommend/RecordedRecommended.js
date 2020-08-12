@@ -54,30 +54,32 @@ const RecordedRecommended = () => {
           <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th>Period </th>
-                    <th>Type</th>
+                    <th>Date Sent</th>
+                    <th>Last Login Date</th>
                     <th>User</th>
                     <th>学生</th>
-                    <th>Count</th>
+                    <th>Date Difference</th>
                     <th>Delete</th>
                     </tr>
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
                <td>
-               {moment(recommend.eventPeriod).format("MM/DD")}
+               {moment(recommend.eventPeriod).format("YY/MM/DD")}
+                </td>
+
+                <td>
+               {moment(recommend.users.last_login_date).format("YY/MM/DD")}
                 </td>
                 <td>
-                {recommend.type}
-                </td>
-                <td>
-                {recommend.users[0].name}
+                <Link to={`/admin/profile/${recommend.users._id}`}> {recommend.users.name} </Link>
                 </td>
                 <td>
                 {recommend.students.map((student, index)=> 
                  index ? ', ' + student.studentid : '' + student.studentid )}
                 </td>
                 <td>
-                {recommend.students.length}
+                  
+                {recommend.loginDiff > 7 ? <span style={{color: "red", fontWeight: 600}}>{recommend.loginDiff}</span>: <span>{recommend.loginDiff}</span>}
                 </td>
                 <td>
                 <button class="likeBtn smaller" onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(recommend._id) } } >
