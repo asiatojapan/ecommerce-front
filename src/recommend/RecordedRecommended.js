@@ -9,10 +9,11 @@ import {
   Container,
 } from "tabler-react";
 
-const RecordedRecommended = () => {
+const RecordedRecommended = (config = null) => {
   const [recommends, setRecommends] = useState([]);
   const [loading, setLoading] = useState(true);
   const { darwin_uid, darwin_myTk } = isAuthenticates();
+
 
   const loadRecommends = () => {
     getRecordedRecommends(darwin_uid, darwin_myTk).then(data => {
@@ -37,6 +38,34 @@ const RecordedRecommended = () => {
     });
 };
 
+const [sortConfig, setSortConfig] = React.useState(config);
+
+const sortedItems = React.useMemo(() => {
+  let sortableItems = [...recommends];
+  if (sortConfig !== null) {
+    sortableItems.sort((a, b) => {
+    // console.log(a[sortConfig.key])
+      //console.log(sortConfig.key)
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return sortableItems;
+}, [recommends, sortConfig]);
+
+const requestSort = key => {
+  let direction = 'ascending';
+  if (sortConfig && sortConfig.key === key && sortConfig.direction === 'ascending') {
+    direction = 'descending';
+  }
+  //console.log(key)
+  setSortConfig({ key, direction });
+}
 
   useEffect(() => {
     loadRecommends();
@@ -54,17 +83,32 @@ const RecordedRecommended = () => {
           <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th>Date Sent</th>
-                    <th>Last Login Date</th>
+                    <th>   
+                    <button
+        
+              onClick={() => requestSort('eventPeriod')}
+            >
+              Recommended
+            </button>
+            
+                   </th>
+                    <th>   <button
+           
+              onClick={() => requestSort('loginDate')}
+            >
+              Last login
+            </button>
+            </th>
                     <th>User</th>
                     <th>学生</th>
                     <th>Date Difference</th>
                     <th>Delete</th>
                     </tr>
-                </thead> <tbody>{recommends.map((recommend,i) => 
+                </thead> <tbody>
+                  {sortedItems.map((recommend,i) => 
            <tr>
                <td>
-               {moment(recommend.eventPeriod).format("YY/MM/DD hh:mm")}
+               {moment(recommend.eventPeriod).format("YY/MM/DD")}
                 </td>
 
                 <td>
