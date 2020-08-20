@@ -59,6 +59,7 @@ const AllRecommends = ({match}) => {
       ■日本語力：{data.japanese}　　 ■英語力：{data.english}　　■性別：{data.gender}　　■国籍・地域：{data.country}　<br/>
       ■大学：{data.university}<br/>
       ■学歴：{data.education_bg}　　■学部：{data.faculty}<br/>
+      {data.major ? <> ■学科：{data.major} <br/></> : null }
       ■卒業：{data.grad_year}/{data.grad_month} <br/>
       {data.it_skills === undefined || data.it_skills.length === 0 ? null : <> ■IT スキル： { data.it_skills.map((skill, index) =>
     <span key={skill.id}>{skill}{index < data.it_skills.length - 1 ? ', ' : ''}</span>)} </>  }

@@ -203,7 +203,7 @@ function fuzzyTextFilterFn(rows, id, filterValue) {
 // Let the table remove the filter if the string is empty
 fuzzyTextFilterFn.autoRemove = val => !val
 
-export const Table = function ({ columns, data, selectedRows, onSelectedRowsChange }) {
+export const Table = function ({ columns, data, loading, selectedRows, onSelectedRowsChange }) {
 
   const filterTypes = React.useMemo(
     () => ({
@@ -261,7 +261,7 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
     onSelectedRowsChange(selectedFlatRows);
     }, [onSelectedRowsChange, selectedFlatRows]);
 
-  // Render the UI for your table
+  // Reder the UI for your table
   return (
     <div>
     <div style={{background:"#fff"}}>
@@ -303,6 +303,7 @@ export const Table = function ({ columns, data, selectedRows, onSelectedRowsChan
     </div>
   )
 }
+
 
 const ManageStudent = () => {
   const [students, setStudents] = useState([]);
@@ -458,6 +459,7 @@ const ManageStudent = () => {
       accessor: (text, i) =>
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item to={`/student/${text._id}`}>View </Dropdown.Item>
+        <Dropdown.Item to={`/admin/reverse/matching/${text._id}`}>Matching</Dropdown.Item>
         <Dropdown.Item to={`/admin/student/update/${text._id}`} >Update</Dropdown.Item>
         <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
                 Delete

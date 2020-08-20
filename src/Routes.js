@@ -25,6 +25,7 @@ import UpdateJob from './matching/UpdateJob';
 import ManageJobs from './matching/ManageJobs';
 import MatchingUser from './admin/MatchingUser';
 import Search from "./matching/Search";
+import MatchingStudent from "./reverse/MatchingStudent";
 //////////////////////////////
 //////////////////////////////
 
@@ -177,6 +178,7 @@ const Routes = () => {
   
 
 
+      <AdminRoute path="/admin/reverse/matching/:studentId" exact component={MatchingStudent} />
     <AdminRoute path="/admin/matching/:userId" exact component={MatchingUser} />
     <AdminRoute path="/admin/search" exact component={Search} />
     <AdminRoute path="/admin/job/create" exact component={AddJob} />

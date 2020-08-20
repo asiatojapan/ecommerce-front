@@ -417,6 +417,9 @@ const Student = ({ session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
       {session.role === 1 || session.role === 4 ? 
 <>
+
+<a className="unlikeBtn resumeGradient fullWidth mb-4 " href={`/admin/reverse/matching/${student._id}`}> Matching
+</a>
 <a className="unlikeBtn resumeGradient fullWidth mr-4 " href={`/admin/student/update/${student._id}`}> 編集
 </a>
 <hr/>
