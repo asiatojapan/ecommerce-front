@@ -51,6 +51,7 @@ const AddStudent = ({ history }) => {
       country: "",
       faceBook: "",
       weChat: "",
+      skypeTantou: "",
       whatsApp: "",
       error: false,
       success: false,
@@ -73,6 +74,7 @@ const AddStudent = ({ history }) => {
         age,
         country,
         japanese,
+        skypeTantou,
         jlpt,
         github,
         education_bg,
@@ -208,6 +210,11 @@ const AddStudent = ({ history }) => {
           <div class="mb-2">
             <label class="form-label">Country</label>
              <input type="text" onChange={handleChange("country")} value={values.country} name="Country"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Skype 担当</label>
+             <input type="text" onChange={handleChange("skypeTantou")} value={values.skypeTantou} name="skypeTantou"  class="form-control"/>
           </div>
 
           <div class="mb-2">

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { moveRecOne, moveRecTwo, readUser, matchStudent, recordRecOne } from './apiAdmin';
 import {  getFavStudents  } from '../core/apiCore';
 import AddRec from "./AddRec";
+import AddPreRec from "./AddPreRec";
 import AddPush from "./AddPush";
 import AddHide from "./AddHide";
 import AddInterview from "./AddInterview";
@@ -200,6 +201,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             accessor: (text, i) =>
             <div style={{width: "100px"}}>{text.tags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
             <div style={{fontSize: "10px"}} >{text.university} </div>
+            <div style={{fontSize: "10px"}} >{text.grad_year} / {text.grad_month} </div>
             <a href="#" title={`${text.comments}`} class="tooltip1">コメント</a></div> 
           },
           
@@ -293,6 +295,7 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             Filter: "",
             accessor: (text, i) =>
             <div>
+            <p><AddPreRec student={text} userIdFromTable={match.params.userId} /></p>
             <AddRec student={text} userIdFromTable={match.params.userId} />
             {text.result ? <> 
             { text.result.filter(text => text.type === "推薦1").map((e)=> <span className="badge bg-secondary m-1"> {moment(e.eventPeriod).format("YY/MM/DD")} </span> )} </> : null }

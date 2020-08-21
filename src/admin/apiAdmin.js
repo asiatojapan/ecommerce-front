@@ -654,3 +654,47 @@ export const updateInterviewStatus = (interviewId, status, adminId, token) => {
               console.log(err);
           });
   };
+
+  export const createPreRec = (studentId, _id, token) => {
+    const data = {
+        _id
+    };
+    return fetch(`${API}/prerec/${studentId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };
+  
+
+
+export const destroyPreRec = (studentId, _id, token) => {
+    const data = {
+        _id
+    };
+    return fetch(`${API}/preunrec/${studentId}`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+  };

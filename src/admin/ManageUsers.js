@@ -404,9 +404,16 @@ const ManageUsers = () => {
    
     {
       Header: '担当',
-      accessor: 'salesRep[0].name',
+      accessor: 'tantou',
       Filter: SelectColumnFilter,
       id: "tantou",
+    },
+       
+    {
+      Header: 'JOB',
+      accessor: 'open',
+      Filter: SelectColumnFilter,
+      id: "open",
     },
 
     {

@@ -29,6 +29,7 @@ const UpdateStudent = ({ session, match, history }) => {
       japanese: '',
       english: '',
       comments: '',
+      skypeTantou: "",
       university: '',
       major: '',
       tags: "",
@@ -108,6 +109,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     country: data.country,
                     age: data.age,
                     dob: data.dob,
+                    skypeTantou: data.skypeTantou,
                     country: data.country,
                     japanese: data.japanese,
                     address: data.address,
@@ -226,6 +228,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     internship: data.internship,
                     other_pr: data.other_pr,
                     video: data.video,
+                    skypeTantou: data.skypeTantou,
                     videoImg: data.videoImg,
                     upload_fyp: data.upload_fyp,
                     profileImg: data.profileImg,
@@ -308,6 +311,11 @@ const UpdateStudent = ({ session, match, history }) => {
           <div class="mb-2">
             <label class="form-label">Country</label>
              <input type="text" onChange={handleChange("country")} value={values.country} name="Country"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Skype 担当</label>
+             <input type="text" onChange={handleChange("skypeTantou")} value={values.skypeTantou} name="skypeTantou"  class="form-control"/>
           </div>
 
           <div class="mb-2">

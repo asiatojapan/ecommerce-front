@@ -121,16 +121,21 @@ const AddUser = ({history}) => {
                                  </select>
           </div>
 
-          <div class="mb-2">
-                <div class="form-label">営業担当</div>
-                  <select placeholder="営業" onChange={handleChange("sales_rep")} value={sales_rep} class="form-control">
-                  <option value=""> Select </option>
-                    {users && users.map((c, i) => (
-                        <option key={i} value={c._id}>
-                              {c.name}
-                        </option>))}
-                    </select>
-                    </div>
+          <div class="mb-3">
+                    <div class="form-label">営業担当</div>
+                    <select placeholder="Phase" onChange={handleChange("tantou")} value={values.tantou}　class="form-control">
+                    <option value=""> Select </option>
+                    <option value="赤羽根"> 赤羽根</option>
+                    <option value="ルイス タン"> ルイス タン </option>
+                    <option value="青地 翔子"> 青地 翔子 </option>
+                    <option value="生賀 正晃"> 生賀 正晃 </option>
+                    <option value="蔡"> 蔡 </option>
+                    <option value="河合麻結"> 河合麻結 </option>
+                    <option value="小嶋鈴乃"> 小嶋鈴乃 </option>
+                    <option value="渡邉"> 渡邉 </option>
+                    <option value="三瓶">三瓶 </option>
+                      </select>
+        </div>
 
 
           <div class="mb-3">
@@ -142,6 +147,22 @@ const AddUser = ({history}) => {
                 </select>
           </div>
 
+          <div class="mb-3">
+                      <div class="form-label">上位大学</div>
+                        <select placeholder="Plan" onChange={handleChange("topUniNeeds")} value={values.topUniNeeds}　class="form-control">
+                        <option value=""> Select </option>
+                        <option value="true"> 上位大学 </option>
+                        <option value="false"> 問わない </option>
+                    </select>
+                  </div>
+        <div class="mb-3">
+                      <div class="form-label">JOB Open/Close</div>
+                        <select placeholder="Plan" onChange={handleChange("open")} value={values.open}　class="form-control">
+                        <option value=""> Select </option>
+                        <option value="true"> Open </option>
+                        <option value="false"> Close </option>
+                    </select>
+        </div>
           
 
           </div>

@@ -3,7 +3,11 @@ import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
 import {  matchUser } from './apiReverseMatching';
 import {  readStudent  } from '../core/apiCore';
+import { open } from "./open";
+import { sales_rep } from "./sales_rep";
+import Checkbox2 from "../core/Checkbox";
 import  AddRec from './AddRec';
+import  AddPreRec from './AddPreRec';
 import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
@@ -29,6 +33,7 @@ type Props = RouterProps;
 
 const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
 
+    const [filteredResults, setFilteredResults] = useState([]);
 
     const [users, setUsers] = useState([]);
     const data = users
@@ -39,6 +44,34 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
     const { darwin_uid, darwin_myTk } = isAuthenticates();
 
     const [sortConfig, setSortConfig] = React.useState(config);
+    const [loading, setLoading] = useState(true)
+
+    const [myFilters, setMyFilters] = useState({
+      filters: { tantou: [], open: []}
+    });
+
+    const handleFilters = (filters, filterBy) => {
+        setLoading(true)
+        const newFilters = { ...myFilters };
+        newFilters.filters[filterBy] = filters;
+
+        loadUsers(myFilters.filters);
+        setMyFilters(newFilters);
+    };
+
+    const topUniCheck = (topUni, topUniNeeds) => {
+      if (topUniNeeds === true && topUni === true) {
+        return "✴︎" 
+      }
+      if (topUniNeeds === false) {
+        return "✴︎" 
+      }
+      else {
+        return ""
+      }
+    }
+
+
 
     const sortedItems = React.useMemo(() => {
       let sortableItems = [...users];
@@ -75,17 +108,20 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
                 setError(data.error);
             } else {
                 setStudent(data);
+                // console.log(data)
             }
         });
     };
 
 
-    const loadUsers = () => {
-        matchUser(match.params.studentId, darwin_myTk).then(data => {
+    const loadUsers = (newFilters) => {
+        //console.log(newFilters)
+        matchUser(match.params.studentId, darwin_myTk, newFilters).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
                 setUsers(data);
+                setFilteredResults(data);
                 setLoading(false)
             }
         });
@@ -93,14 +129,8 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
 
   useEffect(() => {
     loadSingleStudent();
-    loadUsers();
+    loadUsers(myFilters.filters);
     }, []);
-
-
-
-
-    const [loading, setLoading] = useState(true)
-
 
   
    
@@ -116,10 +146,12 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
         <li className="breadcrumb-item"><a className="link" href={`/student/${student._id}`}> {student.studentid} {student.name} </a></li>
          <li className="breadcrumb-item active" aria-current="page">Matching</li>
       </ol>   
-    
+      <Grid.Row>
+
+    <Grid.Col width={12} lg={9} sm={12}>
       <div class="list-list" style={{padding: "0"}}> 
       <div className="card-header" style={{justifyContent: "space-between"}}>
-           <h3 className="m-0"><a className="link" _target="blank" href={`/student/${student._id}`}>　{student.studentid}  {student.name} ({student.age})　</a></h3>
+           <h3 className="m-0"><a className="link" _target="blank" href={`/student/${student._id}`}>　{student.studentid}  {student.name} ({student.age}) ({student.skypeTantou}) </a></h3>
       <div>
 
       <a type="button" className="unlikeBtn resumeGradient smaller" 
@@ -186,7 +218,23 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
           </div>
           </div>
           
-      
+      </Grid.Col>
+
+
+      <Grid.Col width={12} lg={3} sm={3}>
+      <div class="list-list" style={{padding: "10px", fontSize: "10px"}}> 
+      <Checkbox2 categories={sales_rep}
+                               handleFilters={filters =>
+                                   handleFilters(filters, "tantou")} />
+       </div>  
+       <div class="list-list" style={{padding: "10px"}}> 
+       Open:
+      <Checkbox2 categories={open}
+                               handleFilters={filters =>
+                                   handleFilters(filters, "open")} />
+       </div>       
+      </Grid.Col>                      
+      </Grid.Row>
             <div class="list-list" style={{padding: "10px", fontSize: "10px"}}> 
             <div class="table-responsive-sm">
               <table class="table table-bordered">
@@ -194,19 +242,19 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
                         <tr>
                         <th>
                         <button
-        
-        onClick={() => requestSort('name')}
-      >
-        Name
-      </button>
+                          onClick={() => requestSort('name')}
+                        >
+                          Name
+                        </button>
                         </th>
                         <th>担当</th>
-                        <th>タグ</th>
                         <th>国籍</th>
                         <th>日本語</th>
                         <th>学歴</th>
                         <th>国籍</th>
+                        <th>上位</th>
                         <th>日本語</th>
+                        <th>学歴</th>
                         <th>学歴</th>
                         <th><button　onClick={() => requestSort('tagsMatchPercent')}> タグ％
                        </button></th>
@@ -218,19 +266,23 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
                         </tr>
                     </thead> <tbody>
                       {sortedItems.map((user,i) => 
-                <tr>
+                  <tr>
                     <td><div style={{width: "100px"}}> {user.name}</div></td>
-                      <td><div style={{width: "50px"}}> {user.salesrep === undefined || user.salesrep .length == 0 ?  null: <> {user.salesrep[0].name} </> }</div></td>
-                    <td><div style={{width: "170px"}}>{user.tags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
-                    <td><div style={{width: "200px"}}>{user.countryTags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
+                      <td><div style={{width: "50px"}}> {user.tantou}</div></td>
+                    <td><div style={{width: "150px"}}>{user.tags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
+                    <td><div style={{width: "150px"}}>{user.countryTags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
                     <td> <div style={{width: "50px"}}>{user.japaneseTags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
                     <td> <div style={{width: "100px"}}>{user.educationBgTags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
+                    <td> {topUniCheck(student.topUni, user.topUniNeeds)}  </td>
                     <td> { user.countryTagsMatch !== 0 ? "●": null} </td>
                     <td> { user.japaneseTagsMatch !== 0 ? "●": null} </td>
                     <td> { user.educationBgTagsMatch !== 0 ? "●": null} </td>
                     <td> {user.tagsMatchPercent}</td>
                     <td> {user.otherTagsPoints}</td>
-                    <td><AddRec student={student} userIdFromTable={user}/> </td>
+                    <td>
+                    <p><AddPreRec student={student} userIdFromTable={user}/> 
+                    </p>
+                    <AddRec student={student} userIdFromTable={user}/> </td>
                </tr>)}
 
             </tbody>

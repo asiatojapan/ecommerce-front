@@ -19,6 +19,9 @@ const UpdateUser = ({ match, history }) => {
         phase: "",
         round: "",
         sales_rep: "",
+        tantou: "",
+        open: "",
+        topUniNeeds:"",
         logo: "",
         descriptionOne: "",
         descriptionTwo: "",
@@ -58,7 +61,7 @@ const UpdateUser = ({ match, history }) => {
                 setValues({ ...values, error: true });
             } else {
                 setValues({ ...values, name: data.name, email: data.email, role: data.role, phase: data.phase,
-                round: data.round, sales_rep: data.sales_rep,
+                round: data.round, sales_rep: data.sales_rep, tantou:data.tantou,
                 logo: data.logo, specialPlan: data.specialPlan,
                 descriptionOne: data.descriptionOne,
                 descriptionTwo: data.descriptionTwo,
@@ -68,6 +71,8 @@ const UpdateUser = ({ match, history }) => {
                 descriptionSix: data.descriptionSix,
                 jdLink: data.jdLink,
                 tags: data.tags,   
+                open: data.open,
+                topUniNeeds: data.topUniNeeds,
                 japaneseTags:data.japaneseTags,
                 countryTags: data.countryTags,
                 educationBgTags: data.educationBgTags,
@@ -171,7 +176,19 @@ const UpdateUser = ({ match, history }) => {
                     <option value="true"> あり </option>
                     <option value="false"> なし </option>
                 </select>
-          </div>
+                </div>
+                <div class="mb-2">
+                    <div class="form-label">Phase</div>
+                    <select placeholder="Phase" onChange={handleChange("round")} value={values.round}　class="form-control">
+                    <option value=""> Select </option>
+                    <option value="Phase I"> Phase I (推薦1)</option>
+                    <option value="Phase II"> Phase II </option>
+                    <option value="Phase III"> Phase III (推薦2のみ) </option>
+                    <option value="Phase IIIa"> Phase IIIa (推薦2 + 検討リスト) </option>
+                    <option value="Phase IV"> 来日学生のみ </option>
+                      </select>
+                  </div>
+                  
                 </div>
                 <div class="col-md-6 col-xl-6">
               <div class="mb-2">
@@ -186,41 +203,44 @@ const UpdateUser = ({ match, history }) => {
                     </select>
                   </div>
 
-                  <div class="mb-2">
-                <div class="form-label">営業担当</div>
-                  <select placeholder="営業" onChange={handleChange("sales_rep")} value={values.sales_rep} class="form-control">
-                    {users && users.map((c, i) => (
-                        <option key={i} value={c._id}>
-                      
-                              {c.name}
-                        </option>))}
-                    </select>
-                    </div>
-
-
-                  <div class="mb-3">
-                    <div class="form-label">Phase</div>
-                    <select placeholder="Phase" onChange={handleChange("round")} value={values.round}　class="form-control">
+                    <div class="mb-2">
+                    <div class="form-label">営業担当</div>
+                    <select placeholder="Phase" onChange={handleChange("tantou")} value={values.tantou}　class="form-control">
                     <option value=""> Select </option>
-                    <option value="Phase I"> Phase I (推薦1)</option>
-                    <option value="Phase II"> Phase II </option>
-                    <option value="Phase III"> Phase III (推薦2のみ) </option>
-                    <option value="Phase IIIa"> Phase IIIa (推薦2 + 検討リスト) </option>
-                    <option value="Phase IV"> 来日学生のみ </option>
+                    <option value="赤羽根"> 赤羽根</option>
+                    <option value="ルイス タン"> ルイス タン </option>
+                    <option value="青地 翔子"> 青地 翔子 </option>
+                    <option value="生賀 正晃"> 生賀 正晃 </option>
+                    <option value="蔡"> 蔡 </option>
+                    <option value="河合麻結"> 河合麻結 </option>
+                    <option value="小嶋鈴乃"> 小嶋鈴乃 </option>
+                    <option value="渡邉"> 渡邉 </option>
+                    <option value="三瓶">三瓶 </option>
                       </select>
                   </div>
                   
+                  <div class="mb-2">
+                      <div class="form-label">上位大学</div>
+                        <select placeholder="Plan" onChange={handleChange("topUniNeeds")} value={values.topUniNeeds}　class="form-control">
+                        <option value=""> Select </option>
+                        <option value="true"> 上位大学 </option>
+                        <option value="false"> 問わない </option>
+                    </select>
                   </div>
+
+                    <div class="mb-2">
+                      <div class="form-label">JOB Open/Close</div>
+                        <select placeholder="Plan" onChange={handleChange("open")} value={values.open}　class="form-control">
+                        <option value=""> Select </option>
+                        <option value="true"> Open </option>
+                        <option value="false"> Close </option>
+                    </select>
+                  </div>
+                </div>
+
+          
+                </div>
               
-              <div class="col-md-6 col-xl-6">
-                <div class="mb-2">
-                  <label class="form-label">Phase Memo</label>
-                  <input onChange={handleChange("phase")} value={values.phase} name="phase" class="form-control"/>
-                </div>
-
-                </div>
-
-                </div>
                 <div class="mb-2">
                   <label class="form-label">Logo</label>
                   <input onChange={handleChange("logo")} value={values.logo} name="logo" class="form-control"/>
