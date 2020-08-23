@@ -100,8 +100,9 @@ const requestSort = key => {
             </button>
             </th>
                     <th>User</th>
+                    <th>担当</th>
                     <th>学生</th>
-                    <th>Date Difference</th>
+                    <th>Date</th>
                     <th>Delete</th>
                     </tr>
                 </thead> <tbody>
@@ -116,6 +117,9 @@ const requestSort = key => {
                 </td>
                 <td>
                 <Link to={`/admin/profile/${recommend.users._id}`}> {recommend.users.name} </Link>
+                </td>
+                <td><div style={{width: "50px"}}>
+                {recommend.users.tantou}</div>
                 </td>
                 <td>
                 {recommend.students.map((student, index)=> 

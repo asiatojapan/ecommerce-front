@@ -6,20 +6,19 @@ const AddPreRec = ({student, userIdFromTable})  => {
     const [rec, setRec] = useState(false);
     const { darwin_myTk } = isAuthenticates();
 
-    const init = () => {
-        const found = student.push_users.some(el => el === userIdFromTable)
+    const init = userIdFromTable => {
+      const found = student.prerec_users.some(el => el === userIdFromTable)
       if (found) {
-          setRec(true)
-           }
-        else {
-          setRec(false)
-        };
-    };
+        setRec(true)
+         }
+      else {
+        setRec(false)
+      };
+  };
 
-    useEffect(() => {
+  useEffect(() => {
       init(userIdFromTable);
-    }, []);
-
+  }, []);
 
     const clickSubmit = e => {
         e.preventDefault();

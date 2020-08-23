@@ -267,7 +267,7 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
                     </thead> <tbody>
                       {sortedItems.map((user,i) => 
                   <tr>
-                    <td><div style={{width: "100px"}}> {user.name}</div></td>
+                    <td><div style={{width: "100px"}}> <Link to={`/admin/profile/${user._id}`} target="_blank">{user.name}</Link></div></td>
                       <td><div style={{width: "50px"}}> {user.tantou}</div></td>
                     <td><div style={{width: "150px"}}>{user.tags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
                     <td><div style={{width: "150px"}}>{user.countryTags.map((t, i) => <span style={{fontSize: "10px"}}>{t}, </span> )}</div> </td>
