@@ -66,6 +66,7 @@ import ReactGA from 'react-ga';
 import GA from './utils/GoogleAnalytics'
 import ForgotPassword from "./user/ForgotPassword"
 import ResetPassword from "./user/ResetPassword";
+import ResetPasswordStudent from "./user/ResetPasswordStudent";
 import { createBrowserHistory } from 'history';
 //////////////////////////////
 
@@ -125,6 +126,11 @@ const Routes = () => {
                 path="/reset-password/:resetPasswordToken"
                 component={ResetPassword}
             />
+    <AdminRoute
+            exact
+            path="/student/reset-password/:studentId"
+            component={ResetPasswordStudent}
+        />
     <MainRoute path="/" exact component={Home}/>
 
     <MainRoute path="/welcome" exact component={Welcome}/>

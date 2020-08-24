@@ -17,7 +17,7 @@ const AddUser = ({history}) => {
       role: '',
       phase: "",
       round: "",
-      sales_rep: "",
+      tantou: "",
       specialPlan: "", 
       error: false,
       success: false,
@@ -29,7 +29,7 @@ const AddUser = ({history}) => {
 
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const { name, email, password, role, phase, round, specialPlan, sales_rep, error, success, redirectToProfile } = values;
+    const { name, email, password, role, phase, round, specialPlan, tantou, error, success, redirectToProfile } = values;
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
@@ -54,7 +54,7 @@ const AddUser = ({history}) => {
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: false });
-        signup({ name, email, password, role, round, sales_rep, specialPlan }).then(data => {
+        signup({ name, email, password, role, round, tantou, specialPlan }).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
@@ -147,22 +147,8 @@ const AddUser = ({history}) => {
                 </select>
           </div>
 
-          <div class="mb-3">
-                      <div class="form-label">上位大学</div>
-                        <select placeholder="Plan" onChange={handleChange("topUniNeeds")} value={values.topUniNeeds}　class="form-control">
-                        <option value=""> Select </option>
-                        <option value="true"> 上位大学 </option>
-                        <option value="false"> 問わない </option>
-                    </select>
-                  </div>
-        <div class="mb-3">
-                      <div class="form-label">JOB Open/Close</div>
-                        <select placeholder="Plan" onChange={handleChange("open")} value={values.open}　class="form-control">
-                        <option value=""> Select </option>
-                        <option value="true"> Open </option>
-                        <option value="false"> Close </option>
-                    </select>
-        </div>
+          
+
           
 
           </div>

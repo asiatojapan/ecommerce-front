@@ -109,9 +109,9 @@ const AllRecommends = ({match}) => {
       <div class="list-list" style={{padding: "0"}}> 
         <div className="card-header" style={{justifyContent: "space-between"}}>
             <h3 className="mb-0">{user1.name} 推薦リスト ({recommends.length}) </h3>
-        <div></div>   <button className="likeBtn smaller  mr-2" 
+        <div></div>   <button className="unlikeBtn smaller  mr-2" 
           onClick={() => { if (window.confirm('Finished 推薦1? ')) recordRec()} } >
-                推薦１済み
+            推薦前におして！！​
       </button>
       </div>
       </div>

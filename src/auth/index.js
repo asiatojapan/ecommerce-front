@@ -116,3 +116,20 @@ export const resetPassword = resetInfo => {
         })
         .catch(err => console.log(err));
 };
+
+
+export const resetPasswordStudent = resetInfo => {
+    console.log(resetInfo)
+    return fetch(`${API}/student/reset-password`, {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(resetInfo)
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

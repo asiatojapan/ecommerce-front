@@ -34,7 +34,7 @@ const AddPreRec = ({student, userIdFromTable})  => {
         destroyPreRec(student._id, userIdFromTable, darwin_myTk );
     };
 
-    const text = rec ? '要約' : '要約'
+    const text = rec ? '予約' : '予約'
 
     const newLikeForm = () => {
       if (rec) {

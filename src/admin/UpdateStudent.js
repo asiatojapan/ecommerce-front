@@ -18,6 +18,7 @@ const UpdateStudent = ({ session, match, history }) => {
     const [values, setValues] = useState({
       name: '',
       studentid: '',
+      password: "",
       gender: '',
       address: "",
       skype: "",
@@ -114,6 +115,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     japanese: data.japanese,
                     address: data.address,
                     email: data.email,
+                    password: data.password,
                     grad_year: data.grad_year,
                     grad_month: data.grad_month,
                     tags: data.tags,
@@ -217,6 +219,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     major: data.major,
                     faculty: data.faculty,
                     it_skills: data.it_skills,
+                    password: data.password,
                     entry_timing: data.entry_timing,
                     jlpt: data.jlpt,
                     jlpt_next: data.jlpt_next,
@@ -296,6 +299,7 @@ const UpdateStudent = ({ session, match, history }) => {
             <label class="form-label">Email</label>
              <input type="text" onChange={handleChange("email")} value={values.email} name="Email"  class="form-control"/>
           </div>
+          
 
           <div class="mb-2">
             <label class="form-label">Skype Id</label>
