@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { getMyCurrentRecommends, getMyCurrentPushes } from './apiRecommend';
 import { Link } from 'react-router-dom';
-import { readUser, recordRecOne } from '../admin/apiAdmin';
+import { readUser, recordRecOne, recordPush } from '../admin/apiAdmin';
 import SiteWrapper from '../templates/SiteWrapper'
 
 import {
@@ -90,6 +90,18 @@ const AllRecommends = ({match}) => {
     });
   };
 
+  const recordRecTwo = () => {
+    setLoading(true);
+    recordPush(match.params.userId, darwin_myTk).then(data => {
+        if (data.error) {
+            console.log(data.error);
+        } else {
+            setLoading(false); 
+            window.location.reload(false);
+        }
+    });
+  };
+
     return (
     <SiteWrapper>
         <div class="loading" style={{ display: loading ? "" : "none" }}>
@@ -144,14 +156,17 @@ const AllRecommends = ({match}) => {
 
           <hr/>
 
-
-      <div class="list-list" style={{padding: "0"}}> 
+          <div class="list-list" style={{padding: "0"}}> 
         <div className="card-header" style={{justifyContent: "space-between"}}>
-            <h3 className="mb-0">{user1.name} 推薦2 リスト ({pushes.length}) </h3>
-        <div></div> 
+            <h3 className="mb-0">{user1.name} 推薦2 リスト ({pushes.length})  </h3>
+        <div></div>   <button className="unlikeBtn smaller  mr-2" 
+          onClick={() => { if (window.confirm('Finished 推薦1? ')) recordRecTwo()} } >
+            推薦前におして！！​
+      </button>
       </div>
       </div>
-
+      
+    
         <div class="list-list">
       <div class="table-responsive-sm">
           <table class="table table-bordered">

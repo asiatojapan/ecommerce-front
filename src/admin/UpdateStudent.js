@@ -31,6 +31,16 @@ const UpdateStudent = ({ session, match, history }) => {
       english: '',
       comments: '',
       skypeTantou: "",
+      skypeMemo: "",
+      skypeCharacter: "",
+      skypeStudy: "",
+      skypeParents: "",
+      skypeJoinCompany: "",
+      skypeJoinCompanyMemo: "",
+      skypeCanComeJapan: "",
+      weChatId: "",
+      passport: "",
+      matchingMemo:"",
       university: '',
       major: '',
       tags: "",
@@ -110,7 +120,6 @@ const UpdateStudent = ({ session, match, history }) => {
                     country: data.country,
                     age: data.age,
                     dob: data.dob,
-                    skypeTantou: data.skypeTantou,
                     country: data.country,
                     japanese: data.japanese,
                     address: data.address,
@@ -165,6 +174,17 @@ const UpdateStudent = ({ session, match, history }) => {
                     mentorPointAtoJ: data.mentorPointAtoJ,
                     mentorJapanese: data.mentorJapanese,
                     mentorOffer: data.mentorOffer,
+                    skypeTantou: data.skypeTantou,
+                    skypeMemo: data.skypeMemo,
+                    skypeCharacter: data.skypeCharacter,
+                    skypeStudy: data.skypeStudy,
+                    skypeParents: data.skypeParents,
+                    skypeJoinCompany: data.skypeJoinCompany,
+                    skypeJoinCompanyMemo: data.skypeJoinCompanyMemo,
+                    skypeCanComeJapan: data.skypeCanComeJapan,
+                    weChatId: data.weChatId,
+                    passport: data.passport,
+                    matchingMemo: data.matchingMemo,
                     formData: new FormData()
                 });
             }
@@ -231,7 +251,6 @@ const UpdateStudent = ({ session, match, history }) => {
                     internship: data.internship,
                     other_pr: data.other_pr,
                     video: data.video,
-                    skypeTantou: data.skypeTantou,
                     videoImg: data.videoImg,
                     upload_fyp: data.upload_fyp,
                     profileImg: data.profileImg,
@@ -259,7 +278,18 @@ const UpdateStudent = ({ session, match, history }) => {
                     mentorEntry: data.mentorEntry,
                     mentorPointAtoJ: data.mentorPointAtoJ,
                     mentorJapanese: data.mentorJapanese,
-                    mentorOffer: data.mentorOffer
+                    mentorOffer: data.mentorOffer,
+                    skypeTantou: data.skypeTantou,
+                    skypeMemo: data.skypeMemo,
+                    skypeCharacter: data.skypeCharacter,
+                    skypeStudy: data.skypeStudy,
+                    skypeParents: data.skypeParents,
+                    skypeJoinCompany: data.skypeJoinCompany,
+                    skypeJoinCompanyMemo: data.skypeJoinCompanyMemo,
+                    skypeCanComeJapan: data.skypeCanComeJapan,
+                    weChatId: data.weChatId,
+                    passport: data.passport,
+                    matchingMemo: data.matchingMemo,
                 });
             }
         });
@@ -307,6 +337,21 @@ const UpdateStudent = ({ session, match, history }) => {
           </div>
 
           <div class="mb-2">
+            <label class="form-label">WeChat Id</label>
+             <input type="text" onChange={handleChange("weChatId")} value={values.weChatId} name="weChatId"  class="form-control"/>
+          </div>
+
+
+          <div class="mb-2">
+            <label class="form-label">Passport</label>
+            <select class="form-label" placeholder="Passport？" onChange={handleChange("passport")} value={values.passport} name="passport">
+              <option value=""> Select </option>
+              <option value="true"> TRUE </option>
+              <option value="false"> FALSE </option>
+              </select>
+         </div>
+
+          <div class="mb-2">
             <label class="form-label">Address</label>
              <input type="text" onChange={handleChange("address")} value={values.address} name="Address"  class="form-control"/>
           </div>
@@ -315,11 +360,6 @@ const UpdateStudent = ({ session, match, history }) => {
           <div class="mb-2">
             <label class="form-label">Country</label>
              <input type="text" onChange={handleChange("country")} value={values.country} name="Country"  class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Skype 担当</label>
-             <input type="text" onChange={handleChange("skypeTantou")} value={values.skypeTantou} name="skypeTantou"  class="form-control"/>
           </div>
 
           <div class="mb-2">
@@ -511,6 +551,119 @@ const UpdateStudent = ({ session, match, history }) => {
             <label class="form-label">その他PR</label>
             <textarea onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr" rows="5" class="form-control"/>
           </div>
+        
+          <hr/>
+
+          <div class="mb-2">
+            <label class="form-label">マッチングメモ</label>
+            <textarea onChange={handleChange("matchingMemo")} value={values.matchingMemo} name="matchingMemo" rows="5" class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Skype 担当</label>
+             <input type="text" onChange={handleChange("skypeTantou")} value={values.skypeTantou} name="skypeTantou"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Skype面談結果メモ</label>
+             <input type="text" onChange={handleChange("skypeMemo")} value={values.skypeMemo} name="skypeMemo"  class="form-control"/>
+          </div>
+
+
+          <div class="mb-2">
+            <label class="form-label">Skype 性格</label>
+            <select placeholder="Skype 性格" onChange={handleChange("skypeCharacter")} value={values.skypeCharacter} name="skypeCharacter">
+              <option value=""> Select </option>
+              <option value="A+"> A+ </option>
+              <option value="A"> A </option>
+              <option value="A-"> A- </option>
+              <option value="B+"> B+ </option>
+              <option value="B"> B </option>
+              <option value="B-"> B- </option>
+              <option value="C+"> C+ </option>
+              <option value="C"> C </option>
+              <option value="C-"> C- </option>
+              <option value="D+"> D+ </option>
+              <option value="D"> D </option>
+              <option value="D-"> D- </option>
+              <option value="E+"> E+ </option>
+              <option value="E"> E </option>
+              <option value="E-"> E- </option>
+              </select>  
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Skype 勉強</label>
+            <select placeholder="Skype 勉強" onChange={handleChange("skypeStudy")} value={values.skypeStudy} name="skypeStudy">
+              <option value=""> Select </option>
+              <option value="A+"> A+ </option>
+              <option value="A"> A </option>
+              <option value="A-"> A- </option>
+              <option value="B+"> B+ </option>
+              <option value="B"> B </option>
+              <option value="B-"> B- </option>
+              <option value="C+"> C+ </option>
+              <option value="C"> C </option>
+              <option value="C-"> C- </option>
+              <option value="D+"> D+ </option>
+              <option value="D"> D </option>
+              <option value="D-"> D- </option>
+              <option value="E+"> E+ </option>
+              <option value="E"> E </option>
+              <option value="E-"> E- </option>
+              </select>  
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">両親に相談したか？</label>
+            <select class="form-label" placeholder="両親に相談したか？" onChange={handleChange("skypeParents")} value={values.skypeParents} name="skypeParents">
+              <option value=""> Select </option>
+              <option value="true"> TRUE </option>
+              <option value="false"> FALSE </option>
+              </select>
+         </div>
+
+         <div class="mb-2">
+            <label class="form-label">入社するか</label>
+            <select placeholder="入社するか" onChange={handleChange("skypeJoinCompany")} value={values.skypeJoinCompany} name="skypeJoinCompany">
+              <option value=""> Select </option>
+              <option value="A+"> A+ </option>
+              <option value="A"> A </option>
+              <option value="A-"> A- </option>
+              <option value="B+"> B+ </option>
+              <option value="B"> B </option>
+              <option value="B-"> B- </option>
+              <option value="C+"> C+ </option>
+              <option value="C"> C </option>
+              <option value="C-"> C- </option>
+              <option value="D+"> D+ </option>
+              <option value="D"> D </option>
+              <option value="D-"> D- </option>
+              <option value="E+"> E+ </option>
+              <option value="E"> E </option>
+              <option value="E-"> E- </option>
+              </select>  
+          </div>
+
+      
+
+         <div class="mb-2">
+            <label class="form-label">入社時期に関するメモ</label>
+            <select class="form-label" placeholder="入社時期に関するメモ" onChange={handleChange("skypeJoinCompanyMemo")} value={values.skypeJoinCompanyMemo} name="skypeJoinCompanyMemo">
+              <option value=""> Select </option>
+              <option value="true"> TRUE </option>
+              <option value="false"> FALSE </option>
+              </select>
+         </div>
+
+         <div class="mb-2">
+            <label class="form-label">来日できるか</label>
+            <select class="form-label" placeholder="来日できるか" onChange={handleChange("skypeCanComeJapan")} value={values.skypeCancomeJapan} name="skypeCanComeJapan">
+              <option value=""> Select </option>
+              <option value="true"> TRUE </option>
+              <option value="false"> FALSE </option>
+              </select>
+         </div>
 
           <hr/>
 
@@ -535,6 +688,8 @@ const UpdateStudent = ({ session, match, history }) => {
         <option value="E-"> E- </option>
         </select>  
       </div>
+
+
 
 
       <div class="mb-2">
@@ -834,7 +989,7 @@ const UpdateStudent = ({ session, match, history }) => {
 
     const showSuccess = () => (
         <div className="alert alert-info" style={{ display: createdStudent ? '' : 'none' }}>
-            {`${createdStudent}`} is updated!
+            {`${createdStudent}`} を変更しました!
         </div>
     );
 

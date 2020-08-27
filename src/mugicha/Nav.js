@@ -19,8 +19,10 @@ const NavMugicha = ({ children,  history }) => {
           <Nav.Link href="/mugicha/companies">Companies</Nav.Link>
           <Nav.Link href="/mugicha/students">Students</Nav.Link>
           <Nav.Link href="/mugicha/past"> Past Interviews</Nav.Link>
+
          </Nav>
         <Nav>
+        <Nav.Link href="/"> Darwin </Nav.Link>
           <button className="btn btn-light"
                   onClick={() =>
                           signout(() => {

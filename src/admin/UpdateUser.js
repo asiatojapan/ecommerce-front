@@ -215,6 +215,7 @@ const UpdateUser = ({ match, history }) => {
                     <option value="河合麻結"> 河合麻結 </option>
                     <option value="小嶋鈴乃"> 小嶋鈴乃 </option>
                     <option value="渡邉"> 渡邉 </option>
+                    <option value="福島">福島 </option>
                     <option value="三瓶">三瓶 </option>
                       </select>
                   </div>

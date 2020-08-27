@@ -355,6 +355,62 @@ const Student = ({ session, match }: Props) => {
                       </div>
 
                       { session.role === 1 || session.role === 4 ? 
+                      <> 
+                      <div className="list-list" style={{padding: "0px"}}>
+                      <div className="card-header"><div className="card-title">メンター</div>
+                      </div>
+                      <div className="card-body">
+
+                      <div className="hr-text">Skype 担当</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeTantou}
+                      </div>
+
+                      <div className="hr-text">Skype面談結果メモ</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeMemo}
+                      </div>
+                      <div className="hr-text">Skype 性格</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeCharacter}
+                      </div>
+
+                      <div className="hr-text">Skype 勉強</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeStudy}
+                      </div>
+
+
+                      <div className="hr-text">両親に相談したか？</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeParents === true ? "YES": null } 
+                      </div>
+
+
+                      <div className="hr-text">入社するか</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeJoinCompany ? "YES": null } 
+                      </div>
+
+                      <div className="hr-text">入社時期に関するメモ</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeJoinCompanyMemo  ? "YES": null } 
+                      </div>
+
+                      <div className="hr-text">来日できるか</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.skypeCanComeJapan ? "YES": null } 
+                      </div>
+
+                      <div className="hr-text">マッチングメモ</div>
+                      <div className="mb-2 pre-wrap">　
+                      {student.matchingMemo}
+                      </div>
+                    
+                      </div>
+                      </div>
+
+
                       <div className="list-list" style={{padding: "0px"}}>
                       <div className="card-header"><div className="card-title">メンター</div>
                       </div>
@@ -409,7 +465,9 @@ const Student = ({ session, match }: Props) => {
                       </div>
 
                       </div>
-                      </div> : null }
+                      </div> </>
+                      
+                      : null }
 
 
       </Grid.Col>
@@ -437,7 +495,8 @@ const Student = ({ session, match }: Props) => {
           <tbody>
             <tr>
               <td>
-              
+              Passport: {student.passport} <br/>
+              WeChatId: {student.weChatId} <br/>
               Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
               Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
               WhatsApp: {student.contactDetails? student.contactDetails.whatsApp : null}

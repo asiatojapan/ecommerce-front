@@ -18,6 +18,12 @@ const AddUser = ({history}) => {
       phase: "",
       round: "",
       tantou: "",
+      tags: "",
+      japaneseTags:"",
+      countryTags: "",
+      educationBgTags: "",
+      topUniNeeds: "",
+      open: "",
       specialPlan: "", 
       error: false,
       success: false,
@@ -29,7 +35,8 @@ const AddUser = ({history}) => {
 
     const { darwin_myTk, darwin_uid } = isAuthenticates();
 
-    const { name, email, password, role, phase, round, specialPlan, tantou, error, success, redirectToProfile } = values;
+    const { name, email, password, role, phase, round, specialPlan, tantou, tags, japaneseTags, countryTags, educationBgTags, topUniNeeds, open,
+        error, success, redirectToProfile } = values;
 
     const handleChange = name => event => {
         setValues({ ...values, error: false, [name]: event.target.value });
@@ -54,7 +61,7 @@ const AddUser = ({history}) => {
     const clickSubmit = event => {
         event.preventDefault();
         setValues({ ...values, error: false });
-        signup({ name, email, password, role, round, tantou, specialPlan }).then(data => {
+        signup({ name, email, password, role, round, tantou, specialPlan, tags, japaneseTags, countryTags, educationBgTags, topUniNeeds, open}).then(data => {
             if (data.error) {
                 setValues({ ...values, error: data.error, success: false });
             } else {
@@ -66,7 +73,12 @@ const AddUser = ({history}) => {
                     error: '',
                     role: "",
                     round: "",
-                    specialPlan: "", 
+                    tags: "",
+                    japaneseTags:"",
+                    countryTags: "",
+                    educationBgTags: "",
+                    topUniNeeds: "",
+                    open: "",
                     redirectToProfile: true,
                     success: true
                 });
@@ -133,6 +145,7 @@ const AddUser = ({history}) => {
                     <option value="河合麻結"> 河合麻結 </option>
                     <option value="小嶋鈴乃"> 小嶋鈴乃 </option>
                     <option value="渡邉"> 渡邉 </option>
+                    <option value="福島">福島 </option>
                     <option value="三瓶">三瓶 </option>
                       </select>
         </div>
@@ -146,8 +159,40 @@ const AddUser = ({history}) => {
               <option value="false"> なし </option>
                 </select>
           </div>
+          <div class="mb-3">
+            <label class="form-label">Tags</label>
+             <input type="text" onChange={handleChange("tags")} value={values.tags} name="tags"  class="form-control"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">日本語 Tags</label>
+             <input type="text" onChange={handleChange("japaneseTags")} value={values.japaneseTags} name="japaneseTags"  class="form-control"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">国籍 Tags</label>
+             <input type="text" onChange={handleChange("countryTags")} value={values.countryTags} name="countryTags"  class="form-control"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">学歴　Tags</label>
+             <input type="text" onChange={handleChange("educationBgTags")} value={values.educationBgTags} name="educationBgTags"  class="form-control"/>
+          </div>
 
-          
+          <div class="mb-2">
+                      <div class="form-label">上位大学</div>
+                        <select placeholder="Plan" onChange={handleChange("topUniNeeds")} value={values.topUniNeeds}　class="form-control">
+                        <option value=""> Select </option>
+                        <option value="true"> 上位大学 </option>
+                        <option value="false"> 問わない </option>
+                    </select>
+                  </div>
+
+                    <div class="mb-2">
+                      <div class="form-label">JOB Open/Close</div>
+                        <select placeholder="Plan" onChange={handleChange("open")} value={values.open}　class="form-control">
+                        <option value=""> Select </option>
+                        <option value="true"> Open </option>
+                        <option value="false"> Close </option>
+                    </select>
+                  </div>
 
           
 

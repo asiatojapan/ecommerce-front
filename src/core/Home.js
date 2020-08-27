@@ -7,6 +7,7 @@ import Checkbox2 from "./Checkbox";
 import ItCheckbox from "./ItCheckbox";
 import { categories } from "./categories";
 import { japanese } from "./japanese";
+import { mentor } from "./mentor";
 import { inJapan } from "./inJapan";
 import { it_skills } from "./it_skills";
 import { entry_timing } from "./entry";
@@ -155,15 +156,20 @@ const handleChange = name => event => {
    
    
            {session.role === 1 || session.role === 4 ? 
-           <div className="list-list" style={{padding: "0"}}>
-            <div class="input-group">
+           <div className="list-list">
+            <div class="input-group" style={{marginBottom: "1rem"}}>
               <input type="text" class="form-control" placeholder="ID" onChange={handleChange()}/>
-             
-                </div>
+            </div>
+            
+                <Checkbox2 categories={mentor}
+                               handleFilters={filters =>
+                                   handleFilters(filters, "mentor")} />
                  </div>: null}
+
 
                 <div className="list-list">
                     <h3 className="card-title">Tags</h3>
+                  
                     <Checkbox2 categories={categories}
                                handleFilters={filters =>
                                    handleFilters(filters, "tags")} />

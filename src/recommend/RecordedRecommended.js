@@ -101,6 +101,7 @@ const requestSort = key => {
             </th>
                     <th>User</th>
                     <th>担当</th>
+                    <th>Type</th>
                     <th>学生</th>
                     <th>Date</th>
                     <th>Delete</th>
@@ -121,6 +122,7 @@ const requestSort = key => {
                 <td><div style={{width: "50px"}}>
                 {recommend.users.tantou}</div>
                 </td>
+                <td> {recommend.type} </td>
                 <td>
                 {recommend.students.map((student, index)=> 
                  index ? ', ' + student.studentid : '' + student.studentid )}

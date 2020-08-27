@@ -248,13 +248,13 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
                         </button>
                         </th>
                         <th>担当</th>
+                        <th>タグ</th>
                         <th>国籍</th>
                         <th>日本語</th>
                         <th>学歴</th>
-                        <th>国籍</th>
                         <th>上位</th>
+                        <th>国籍</th>
                         <th>日本語</th>
-                        <th>学歴</th>
                         <th>学歴</th>
                         <th><button　onClick={() => requestSort('tagsMatchPercent')}> タグ％
                        </button></th>
