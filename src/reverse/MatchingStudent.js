@@ -8,6 +8,7 @@ import { sales_rep } from "./sales_rep";
 import Checkbox2 from "../core/Checkbox";
 import  AddRec from './AddRec';
 import  AddPreRec from './AddPreRec';
+import  AddInterview from './AddInterview';
 import SiteWrapper from '../templates/SiteWrapper'
 import {
   Page,
@@ -282,7 +283,8 @@ const MatchingStudent = ({ config = null, logout, session, match }: Props) => {
                     <td>
                     <p><AddPreRec student={student} userIdFromTable={user}/> 
                     </p>
-                    <AddRec student={student} userIdFromTable={user}/> </td>
+                    <p><AddRec student={student} userIdFromTable={user}/> </p>
+                    <p><AddInterview student={student} userIdFromTable={user}/> </p> </td>
                </tr>)}
 
             </tbody>
