@@ -461,9 +461,6 @@ const ManageStudent = () => {
         <Dropdown.Item to={`/student/${text._id}`}>View </Dropdown.Item>
         <Dropdown.Item to={`/admin/reverse/matching/${text._id}`}>Matching</Dropdown.Item>
         <Dropdown.Item to={`/admin/student/update/${text._id}`} >Update</Dropdown.Item>
-        <Dropdown.Item >  <a onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) destroy(text._id) } } >
-                Delete
-            </a></Dropdown.Item>
       </DropdownButton>,
       filterable : true
     }

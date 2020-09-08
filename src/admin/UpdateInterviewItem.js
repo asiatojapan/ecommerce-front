@@ -40,7 +40,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                 setValues({ ...values, error: true });
             } else {
                 const interviewItems = data.interviewItems.filter(items => items._id === interviewItemId);
-                setValues({ ...values, studentid:data.student.studentid, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
+                setValues({ ...values, studentid: data.student.studentid, studentname: data.student.name, companyname: data.company.name, company: data.company._id, student: data.student._id,
                   status: data.status, result: interviewItems[0].result, time: interviewItems[0].time,
                   phase: interviewItems[0].phase, category: interviewItems[0].category,
                   time_period: interviewItems[0].time_period, japanese_level: interviewItems[0].japanese_level,
@@ -97,7 +97,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
 
      <Modal show={show} onHide={handleClose}>
      <form>
-         <Modal.Header>    {student.studentid} {student.name} : {company.name}
+         <Modal.Header> {student.name} : {company.name}
        </Modal.Header>
        <Modal.Body>
 
@@ -113,9 +113,11 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="09:45"> 09:45 </option>
                     <option value="09:50"> 09:50 </option>
                     <option value="10:00"> 10:00 </option>
+                    <option value="10:10"> 10:10 </option>
                     <option value="10:20"> 10:20 </option>
                     <option value="10:30"> 10:30 </option>
                     <option value="10:40"> 10:40 </option>
+                    <option value="10:50"> 10:50 </option>
                     <option value="11:00"> 11:00 </option>
                     <option value="11:15"> 11:15 </option>
                     <option value="11:30"> 11:30 </option>

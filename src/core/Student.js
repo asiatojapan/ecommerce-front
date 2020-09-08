@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { readStudent, listRelated } from './apiCore';
+import { getInterviewsByStudent } from '../interview/apiInterview';
 import { readStudentBestJobs } from '../matching/apiMatching';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
@@ -14,6 +15,8 @@ import fontPathRegular from '../pdf/fonts/Koruri-Regular.ttf'
 import fontPathBold from '../pdf/fonts/Koruri-Bold.ttf'
 import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
 import {HorizontalBar} from 'react-chartjs-2';
+import moment from "moment";
+import { Link } from 'react-router-dom';
 
 Font.register( {
     family: 'Open Sans',
@@ -46,17 +49,26 @@ type Props = RouterProps;
 
 const Student = ({ session, match }: Props) => {
     const [student, setStudent] = useState({});
-    const [data1, setData1] = useState([]);
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true)
     const [blob, setBlob] = useState()
     const [labelPoints, setLabelPoints] = useState([]);
     const [points, setPoints] = useState([]);
+    const [currentInterviews, setCurrentInterviews] = useState([]);
 
-    const [blobHalfResume, setBlobHalfResume] = useState()
     
     const { darwin_myTk, darwin_uid } = isAuthenticates();
+
+    const loadCurrentInterviews = () => {
+      getInterviewsByStudent(match.params.studentId, darwin_myTk).then(data => {
+        if (data.error) {
+            setError(data.error);
+        } else {
+          setCurrentInterviews(data)
+        }
+      })
+    }
 
     const loadSingleStudent = () => {
        // console.log(studentId)
@@ -90,6 +102,30 @@ const Student = ({ session, match }: Props) => {
             }})
      };
 
+     const resultInNice = (result) => {
+      if (result === "Nil") {
+          return ""
+      }
+      else if (result === "合格") {
+          return "●"
+      }
+      else if (result === "不合格") {
+          return "X"
+      }
+      else if (result === "三角") {
+          return "▲"
+      }
+      else if (result === "辞退") {
+          return "辞退"
+      }
+      else if (result === "内定") {
+          return "内定"
+      }
+      else {
+          return ""
+      }
+    }
+
     function _calculateAge(dateString) { // birthday is a date
       var today = new Date();
       var birthDate = new Date(dateString);
@@ -103,6 +139,7 @@ const Student = ({ session, match }: Props) => {
 
     useEffect(() => {
         loadSingleStudent();
+        loadCurrentInterviews();
     }, []);
 
     const [headerStyle, setHeaderStyle] = useState({
@@ -226,7 +263,20 @@ const Student = ({ session, match }: Props) => {
                       </div>
                       <div className="card-body">
 
-                      <div className="mb-2">
+                      { session.role === 1 || session.role === 4 ? 
+                      <>
+                        <div className="mb-2"> 
+                        <Icon prefix="fe" name="user" /> <strong>名前: </strong> {student.name}
+                        </div> 
+                        <div className="mb-2"> 
+                        <Icon prefix="fe" name="user" /> <strong>メール: </strong> {student.email}
+                        </div>
+                        <div className="mb-2"> 
+                        <Icon prefix="fe" name="user" /> <strong>Skype ID: </strong> {student.skype}
+                        </div> </>
+                          : null 
+                      }
+                      <div className="mb-2"> 
                       <Icon prefix="fe" name="book" /> <strong>ID: </strong> {student.studentid}
                       </div>
                       <div className="mb-2">
@@ -356,7 +406,73 @@ const Student = ({ session, match }: Props) => {
 
                       { session.role === 1 || session.role === 4 ? 
                       <> 
+  <div className="list-list" style={{padding: "0px"}}>
+          <div className="card-header">
+            <div className="card-title">面接</div>
+          </div>
+          <div className="card-body" style={{padding: "0px"}}>
+              <div class="table-responsive-sm">
+                  <table class="table card-table table-striped" style={{fontSize: "10px"}}>
+                        <thead>
+                            <tr>
+                            <th>会社名 </th>
+                            <th>Status</th>
+                            <th>Event</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            </tr>
+                        </thead> 
+                        
+                        <tbody>{currentInterviews.map((interview,i) => 
+                        <tr> 
+                            <td>
+                            <Link to={`/admin/profile/${interview.company._id}`} target="_blank">{interview.company.name}</Link>
+                      
+                            </td>
+                          <td>
+                              {interview.status}
+                            </td>
+                            <td>{ moment(interview.eventDay).format('YYYY/MM')} </td>
+                                {interview.interviewItems.length === 0 ? 
+                            <> 
+                            <td></td><td></td>
+                            <td></td><td></td>
+                            </> :
+                            <> 
+                            {interview.interviewItems.length === 1 ?
+                            <> 
+                            {interview.interviewItems.map((item,i) => <>
+                                <td> {item.phase} </td>
+                                <td> {resultInNice(item.result)} </td> 
+                                <td></td>
+                                <td></td>
+                                </>)} 
+                            </> : 
+                            <>
+                              {interview.interviewItems.map((item,i) => <>
+                                <td>  {item.phase} </td>
+                                <td>  {resultInNice(item.result)} </td> </>)} 
+                                </>}
+                          </>}
+                          <td>
+                          <Link to={`/admin/interview/${interview._id}`}>Details</Link>
+                          </td>
+                        </tr>
+                    )}
+                
+                </tbody>
+                </table>    
+                </div>
+             </div>
+        </div>
+
+                   
+                    
                       <div className="list-list" style={{padding: "0px"}}>
+                        
                       <div className="card-header"><div className="card-title">メンター</div>
                       </div>
                       <div className="card-body">
@@ -494,8 +610,8 @@ const Student = ({ session, match }: Props) => {
           </thead>
           <tbody>
             <tr>
-              <td>
-              Passport: {student.passport} <br/>
+              <td> 
+              Passport: {student.passport ? "YES" : "No"} <br/>
               WeChatId: {student.weChatId} <br/>
               Facebook: {student.contactDetails? student.contactDetails.faceBook : null} <br/>
               Wechat: {student.contactDetails? student.contactDetails.weChat : null}  <br/>
@@ -516,11 +632,10 @@ const Student = ({ session, match }: Props) => {
                   <tbody>
                     <tr>
                       <td>
-                      <Tag.List>{student.rec_users ?
+                        {student.rec_users ?
                         student.rec_users.map((user,i) => (
-                            <Tag key={i} color="danger">{user.name}</Tag>)) : null
+                          <a key={i} href={`/admin/profile/${user._id}`} >{ (i ? ', ' : '') + user.name }</a>)) : null
                             }
-                      </Tag.List>
                       </td>
                     </tr>
                    
@@ -535,12 +650,11 @@ const Student = ({ session, match }: Props) => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                      <Tag.List>{student.push_users ?
+                      <td>{student.push_users ?
                         student.push_users.map((user,i) => (
-                            <Tag key={i} color="green">{user.name}</Tag>)) : null
+                          <a key={i} href={`/admin/profile/${user._id}`} >{ (i ? ', ' : '') + user.name }</a>)) : null
                             }
-                      </Tag.List>
+                     
                       </td>
                     </tr>
                    
@@ -556,11 +670,10 @@ const Student = ({ session, match }: Props) => {
                   <tbody>
                     <tr>
                       <td>
-                      <Tag.List>{student.favorites ?
+                       {student.favorites ?
                         student.favorites.map((user,i) => (
-                            <Tag key={i} color="primary">{user.name}</Tag>)) : null
+                            <a key={i} href={`/admin/profile/${user._id}`} >{ (i ? ', ' : '') + user.name }</a>)) : null
                             }
-                      </Tag.List>
                       </td>
                     </tr>
                    
@@ -574,19 +687,22 @@ const Student = ({ session, match }: Props) => {
                   </thead>
                   <tbody>
                     <tr>
-                      <td>
-                      <Tag.List>{student.hide_users ?
+                      <td>{student.hide_users ?
                         student.hide_users.map((user,i) => (
-                            <Tag key={i} color="dark">{user.name}</Tag>)) : null
+                          <a key={i} href={`/admin/profile/${user._id}`} >{ (i ? ', ' : '') + user.name }</a>)) : null
                             }
-                      </Tag.List>
+                      
                       </td>
                     </tr>
                    
                   </tbody>
                 </table>
                 
-              </div> </> : null }
+              </div>
+              
+               </> 
+              
+              : null }
         <div>
         {session.role === 3 ? null : <>
           <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> 

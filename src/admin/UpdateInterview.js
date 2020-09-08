@@ -15,6 +15,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
         status: "",
         companyRank: "",
         companyRate: "",
+        eventDay: "",
         reason: "",
         company: "",
         student: "",
@@ -39,6 +40,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
         companyRank, 
         companyRate, 
         reason,  
+        eventDay,
         formData,
         error, 
         success, 
@@ -51,7 +53,7 @@ const UpdateInterview = ({ interviewId, match, history }) => {
             if (data.error) {
                 setValues({ ...values, error: true });
             } else {
-                setValues({ ...values, company: data.company, student: data.student,
+                setValues({ ...values, company: data.company, student: data.student, eventDay: data.eventDay,
                 interviewType: data.interviewType, studentStatus: data.studentStatus, companyStatus: data.companyStatus, 
                 status: data.status, companyRate: data.companyRank, companyRate: data.companyRate, reason: data.reason, 
                 formData: new FormData()});
@@ -143,6 +145,12 @@ const UpdateInterview = ({ interviewId, match, history }) => {
        <Modal.Header>   Update ( {student.studentid} {student.name} : {company.name} )
        </Modal.Header>
        <Modal.Body>
+       <div class="mb-2">
+
+       <div class="form-label">Event Day</div>
+        <input type="text" onChange={handleChange("eventDay")} value={eventDay} class="form-control"/>
+          </div>
+
            <div class="mb-2">
               <div class="form-label">Interview Type</div>
               <select placeholder="Select English level" onChange={handleChange("interviewType")} value={values.interviewType} name="interviewType" class="form-control">       

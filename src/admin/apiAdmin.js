@@ -628,6 +628,29 @@ export const updateInterviewStatus = (interviewId, status, adminId, token) => {
           });
   };
 
+  export const updateInterviewEventDay = (interviewId, eventDay, adminId, token) => {
+    const data = {
+        eventDay,
+        interviewId
+    };
+      return fetch(`${API}/interviews/bulkupdate/eventday/${adminId}`, {
+          method: "POST",
+          headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify(data)
+      })
+          .then(response => {
+              return response.json();
+          })
+          .catch(err => {
+              console.log(err);
+          });
+  };
+
+
   export const massSendJd = (interviewId, adminId, token) => {
     const data = {
         interviewId

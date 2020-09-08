@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
-import { getInterviews, deleteInterview, deleteInterviewItem,  updateInterviewStatus, massSendJd } from "./apiAdmin";
+import { getInterviews, deleteInterview, deleteInterviewItem,  updateInterviewStatus,updateInterviewEventDay, massSendJd } from "./apiAdmin";
 import SiteWrapper from '../templates/SiteWrapper'
 import { useTable, useSortBy, useFilters, useGlobalFilter,useRowSelect } from 'react-table'
 import matchSorter from 'match-sorter'
+import { Link } from "react-router-dom";
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import UpdateInterview from "./UpdateInterview";
 import Button from 'react-bootstrap/Button';
@@ -384,17 +385,25 @@ const columns = React.useMemo(
       Filter: SelectColumnFilter,
       accessor: "students[0].studentid"
     },
+    
 
     {
       Header: 'StudentName',
       Filter: "",
-      accessor: "students[0].name"
+      accessor: (text, i) => <>
+      <Link to={`/student/${text.students[0]._id}`}>{text.students[0].name}</Link>
+      </>
     },
 
       {
         Header: 'Company',
         Filter: SelectColumnFilter,
         accessor: "companies[0].name"
+      },
+      {
+        Header: 'Event',
+        Filter: SelectColumnFilter,
+        accessor: "eventDay"
       },
    
     {
@@ -500,6 +509,23 @@ const clickSubmit = e => {
   setSuccess(false);
   // make request to api to create category
   updateInterviewStatus(selectedRows.map(
+    d => d.original._id), name, darwin_uid, darwin_myTk ).then(data => {
+      if (data.error) {
+          setError(data.error);
+      } else {
+          setError("");
+          setSuccess(true);
+          window.location.reload();
+      }
+  });
+};
+
+const clickSubmit1 = e => {
+  e.preventDefault();
+  setError("");
+  setSuccess(false);
+  // make request to api to create category
+  updateInterviewEventDay(selectedRows.map(
     d => d.original._id), name, darwin_uid, darwin_myTk ).then(data => {
       if (data.error) {
           setError(data.error);
