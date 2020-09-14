@@ -460,7 +460,8 @@ const ManageStudent = () => {
       <DropdownButton id="btn-sm dropdown-primary-button" title="Actions" size="sm" variant="secondary">
         <Dropdown.Item to={`/student/${text._id}`}>View </Dropdown.Item>
         <Dropdown.Item to={`/admin/reverse/matching/${text._id}`}>Matching</Dropdown.Item>
-        <Dropdown.Item to={`/admin/student/update/${text._id}`} >Update</Dropdown.Item>
+        <Dropdown.Item to={`/admin/student/update/${text._id}`} >編集</Dropdown.Item>
+        <Dropdown.Item to={`/interview/student/${text._id}`} >正式Resume</Dropdown.Item>
       </DropdownButton>,
       filterable : true
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
-import { moveRecOne, moveRecTwo, readUser, matchStudent, recordRecOne } from './apiAdmin';
+import { moveRecOne, moveRecTwo, readUser, matchStudent, recordRecOne, moveFavorites } from './apiAdmin';
 import {  getFavStudents  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPreRec from "./AddPreRec";
@@ -144,6 +144,18 @@ const MatchingUser = ({ logout, session, match }: Props) => {
     });
 };
 
+
+const destroyFavorites = () => {
+  setLoading(true);
+  moveFavorites(match.params.userId, darwin_myTk).then(data => {
+      if (data.error) {
+          console.log(data.error);
+      } else {
+          setLoading(false); 
+          window.location.reload(false);
+      }
+  });
+};
 
 
   useEffect(() => {
@@ -361,6 +373,11 @@ const MatchingUser = ({ logout, session, match }: Props) => {
             <button className="likeBtn smaller mr-2" 
                      onClick={() => { if (window.confirm('Are you sure you wish to remove all 推薦2? ')) destroyRecTwo()} } >
                   推薦2一括削除
+            </button>
+
+            <button className="likeBtn smaller mr-2" 
+                     onClick={() => { if (window.confirm('Are you sure you wish to remove all 検討リスト? ')) destroyFavorites()} } >
+                  検討リスト削除
             </button>
 
             <a type="button" className="likeBtn smaller mr-2" 
