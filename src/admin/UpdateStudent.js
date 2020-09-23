@@ -302,7 +302,7 @@ const UpdateStudent = ({ session, match, history }) => {
          <h4 class="card-title">Update Student</h4>
         </div>
         <div class="card-body">
-          { session.role === 1 ? <>
+        { session.role === 1 ? <>
         <div class="mb-2">
             <label class="form-label">Name</label>
              <input type="text" onChange={handleChange("name")} value={name} name="name"  class="form-control"/>
@@ -385,51 +385,7 @@ const UpdateStudent = ({ session, match, history }) => {
              <option value="Male"> Male </option>
              <option value="Female">  Female </option>
              </select>
-        </div>
-  
-          <div class="mb-2">
-            <label class="form-label">Japanese</label>
-             <select placeholder="Select Japanese level" onChange={handleChange("japanese")} value={values.japanese} name="japanese">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select> 
-          </div>
-  
-          <div class="mb-2">
-            <label class="form-label">JLPT</label>
-             <select placeholder="Select JLPT" onChange={handleChange("jlpt")} value={values.jlpt} name="jlpt">
-            <option value=""> Select </option>
-            <option value="N1"> N1 </option>
-            <option value="N2"> N2 </option>
-            <option value="N3"> N3 </option>
-            <option value="N4"> N4 </option>
-            <option value="N5"> N5 </option>
-            <option value="None"> None </option>
-            </select>
-         </div>
-
-        < div class="mb-2">
-            <label class="form-label">JLPT Next</label>
-             <input type="text" onChange={handleChange("jlpt_next")} value={values.jlpt_next} name="jlpt_next"  class="form-control"/>
-          </div>
-  
-          <div class="mb-2">
-            <label class="form-label">English</label>
-            <select placeholder="Select English level" onChange={handleChange("english")} value={values.english} name="english">
-            <option value=""> Select </option>
-            <option value="A"> A </option>
-            <option value="B"> B </option>
-            <option value="C"> C </option>
-            <option value="D"> D </option>
-            <option value="E"> E </option>
-            </select>  
-          </div>
-
-            < div class="mb-2">
+             < div class="mb-2">
             <label class="form-label">Other Languages</label>
              <input type="text" onChange={handleChange("other_languages")} value={values.other_languages} name="other_languages"  class="form-control"/>
           </div>
@@ -521,12 +477,60 @@ const UpdateStudent = ({ session, match, history }) => {
             <label class="form-label">Github URL</label>
              <input type="text" onChange={handleChange("github")} value={values.github} name="github"  class="form-control"/>
           </div>
+          <div class="mb-2">
+            <label class="form-label">English</label>
+            <select placeholder="Select English level" onChange={handleChange("english")} value={values.english} name="english">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select>  
+          </div>
+
+      
   
           <div class="mb-2">
             <label class="form-label">学歴</label>
              <input type="text" onChange={handleChange("education_bg")} value={values.education_bg} name="education_bg" rows="5" class="form-control"/>
           </div>
 
+          <div class="mb-2">
+            <label class="form-label">Japanese</label>
+             <select placeholder="Select Japanese level" onChange={handleChange("japanese")} value={values.japanese} name="japanese">
+            <option value=""> Select </option>
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="D"> D </option>
+            <option value="E"> E </option>
+            </select> 
+          </div>
+  
+          <div class="mb-2">
+            <label class="form-label">JLPT</label>
+             <select placeholder="Select JLPT" onChange={handleChange("jlpt")} value={values.jlpt} name="jlpt">
+            <option value=""> Select </option>
+            <option value="N1"> N1 </option>
+            <option value="N2"> N2 </option>
+            <option value="N3"> N3 </option>
+            <option value="N4"> N4 </option>
+            <option value="N5"> N5 </option>
+            <option value="None"> None </option>
+            </select>
+         </div>
+         
+          < div class="mb-2">
+            <label class="form-label">JLPT Next</label>
+             <input type="text" onChange={handleChange("jlpt_next")} value={values.jlpt_next} name="jlpt_next"  class="form-control"/>
+          </div>
+  
+        </div> </> : null }
+  
+      
+
+      
           <div class="mb-2">
             <label class="form-label">学歴備考</label>
             <textarea onChange={handleChange("qualification")} value={values.qualification} name="qualification" rows="5" class="form-control"/>
@@ -551,7 +555,8 @@ const UpdateStudent = ({ session, match, history }) => {
             <label class="form-label">その他PR</label>
             <textarea onChange={handleChange("other_pr")} value={values.other_pr} name="other_pr" rows="5" class="form-control"/>
           </div>
-        
+
+          { session.role === 1 ? <>
           <hr/>
 
           <div class="mb-2">
@@ -664,7 +669,7 @@ const UpdateStudent = ({ session, match, history }) => {
               <option value="false"> FALSE </option>
               </select>
          </div>
-
+</>:null}
           <hr/>
 
           <div class="mb-2">
@@ -778,54 +783,8 @@ const UpdateStudent = ({ session, match, history }) => {
         <input onChange={handleChange("mentorOffer")} value={values.mentorOffer} name="mentorOffer" class="form-control"/>
       </div>
 
-          <hr/>
-          <div class="mb-2">
-            <label class="form-label">Offer Company</label>
-            <input onChange={handleChange("offerCompany")} value={values.offerCompany} name="offerCompany" class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Offer Job</label>
-            <input onChange={handleChange("offerJob")} value={values.offerJob} name="offerJob" class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Offer Industry</label>
-            <input onChange={handleChange("offerIndustry")} value={values.offerIndustry} name="offerIndustry" class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Offer Period</label>
-            <input onChange={handleChange("period")} value={values.period} name="period" class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Offer Profile Img</label>
-            <input onChange={handleChange("profileImg")} value={values.profileImg} name="profileImg" class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Offer Profile Img 2</label>
-            <input onChange={handleChange("profileImgTwo")} value={values.profileImgTwo} name="profileImg" class="form-control"/>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Offer Reflections</label>
-            <textarea onChange={handleChange("reflections")} value={values.reflections} name="reflections" rows="5" class="form-control"/>
-          </div>
-  
-          <div class="mb-2">
-            <label class="form-label">FYP</label>
-            <input onChange={handleChange('upload_fyp')} type="file" name="upload_fyp"  />
-            </div>
-
-            <div class="mb-2">
-            <label class="form-label">FYP</label>
-            <input onChange={handleChange('upload_fyp')} value={values.upload_fyp} name="upload_fyp" class="form-control" />
-            </div>
-
-            <hr/> 
-
+      { session.role === 1 ? 
+  <>
             <div class="mb-2">
           <label class="form-label">Status</label>
           <select class="form-label" placeholder="Select Status" onChange={handleChange("status")} value={values.status} name="gender">
@@ -858,117 +817,6 @@ const UpdateStudent = ({ session, match, history }) => {
              </select>
           </div>  </> : null }
 
-        { session.role === 4 ? 
-        <>
-        <div class="mb-2">
-        <label class="form-label">メンター総合評価</label>
-        <select placeholder="メンター総合評価" onChange={handleChange("mentorRating")} value={values.mentorRating} name="mentorRating">
-        <option value=""> Select </option>
-        <option value="A+"> A+ </option>
-        <option value="A"> A </option>
-        <option value="A-"> A- </option>
-        <option value="B+"> B+ </option>
-        <option value="B"> B </option>
-        <option value="B-"> B- </option>
-        <option value="C+"> C+ </option>
-        <option value="C"> C </option>
-        <option value="C-"> C- </option>
-        <option value="D+"> D+ </option>
-        <option value="D"> D </option>
-        <option value="D-"> D- </option>
-        <option value="E+"> E+ </option>
-        <option value="E"> E </option>
-        <option value="E-"> E- </option>
-        </select>  
-      </div>
-
-
-      <div class="mb-2">
-        <label class="form-label">メンター性格</label>
-        <select placeholder="メンター性格" onChange={handleChange("mentorCharacter")} value={values.mentorCharacter} name="mentorCharacter">
-        <option value=""> Select </option>
-        <option value="A"> A専門が合えばどこでも合格するレベル </option>
-        <option value="B"> Bコミュニケーションはまずまず </option>
-        <option value="C"> C普通にコミュニケーション可能 </option>
-        <option value="D"> D緊張してコミュニケーションが大変 </option>
-        <option value="E"> E面接にならない </option>
-        </select>  
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">メンター日本語レベル</label>
-        <select placeholder="メンター日本語レベル" onChange={handleChange("mentorJapanese")} value={values.mentorJapanese} name="mentorJapanese">
-        <option value=""> Select </option>
-        <option value="A"> A </option>
-        <option value="B"> B </option>
-        <option value="C"> C </option>
-        <option value="D"> D </option>
-        <option value="E"> E </option>
-        </select>  
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">メンター勉強</label>
-        <select placeholder="メンター勉強" onChange={handleChange("mentorStudy")} value={values.mentorStudy} name="mentorStudy">
-        <option value=""> Select </option>
-        <option value="A"> A FYP、大学の勉強　ともにかなり良い </option>
-        <option value="B"> B しっかりやっている </option>
-        <option value="C"> C普通 </option>
-        <option value="D"> D FYPだめ、勉強していなそう </option>
-        <option value="E"> E 全然ダメ </option>
-        </select>  
-      </div>
-    
-
-      <div class="mb-2">
-        <label class="form-label">メンター入社するか</label>
-        <select placeholder="メンター入社するか" onChange={handleChange("mentorEntry")} value={values.mentorEntry} name="mentorEntry">
-        <option value=""> Select </option>
-        <option value="A"> A SGWJで合格したらどこでも入社しそう </option>
-        <option value="B"> B 多分、合格したら入社する </option>
-        <option value="C"> C よっぽど本人の希望と違いがなければ入社する </option>
-        <option value="D"> D　すでにまあまあのオファーがあったり、入社したい企業が限定されている </option>
-        <option value="E"> E 両親反対、かなり良いオファー持っている、希望年収が高すぎる、希望勤務地が狭すぎる </option>
-        </select>  
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">メンター</label>
-        <select placeholder="メンター入社するか" onChange={handleChange("mentor")} value={values.mentor} name="mentor">
-        <option value=""> Select </option>
-        <option value="神原"> 神原 </option>
-        <option value="鈴木 秀和"> 鈴木 秀和 </option>
-        <option value="鈴木 信雄"> 鈴木 信雄 </option>
-        <option value="神原浩司"> 神原浩司 </option>
-        <option value="岡庭"> 岡庭 </option>
-        <option value="須川"> 須川 </option>
-        <option value="三瓶"> 三瓶 </option>
-        <option value="Grace"> Grace </option>
-        <option value="赤田"> 赤田 </option>
-        <option value="青地"> 青地</option>
-        </select>  
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">メンター AtoJへのコメントと評価ポイント</label>
-        <textarea onChange={handleChange("mentorPointAtoJ")} value={values.mentorPointAtoJ} name="mentorPointAtoJ" rows="5" class="form-control"/>
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">メンター面談メモ</label>
-        <textarea onChange={handleChange("mentorMemo")} value={values.mentorMemo} name="mentorMemo" rows="5" class="form-control"/>
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">面談前　事前質問書き込みスペース</label>
-        <textarea onChange={handleChange("mentorMemoBefore")} value={values.mentorMemoBefore} name="mentorMemoBefore" rows="5" class="form-control"/>
-      </div>
-
-      <div class="mb-2">
-        <label class="form-label">メンター持っているオファー	</label>
-        <input onChange={handleChange("mentorOffer")} value={values.mentorOffer} name="mentorOffer" class="form-control"/>
-      </div>
-      </> : null }   
       </div> 
     <div class="card-footer text-right">
                     <div class="d-flex">

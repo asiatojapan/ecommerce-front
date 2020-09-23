@@ -214,7 +214,10 @@ const destroyFavorites = () => {
             <div style={{width: "100px"}}>{text.tags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
             <div style={{fontSize: "10px"}} >{text.university} </div>
             <div style={{fontSize: "10px"}} >{text.grad_year} / {text.grad_month} </div>
-            <a href="#" title={`${text.comments}`} class="tooltip1">コメント</a></div> 
+            <div class="tooltip2">コメント
+              <span class="tooltiptext">{text.comments}</span>
+            </div>
+            </div> 
           },
           
           {
@@ -232,9 +235,16 @@ const destroyFavorites = () => {
           {
             Header: '学歴',
             Filter: "",
-             accessor: "educationBgTags",
-             id: "educationBgTags"
-          },
+            id: "educationBgTags",
+             accessor: (text, i) =>
+             <div style={{width: "100px"}}>{text.educationBgTags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
+            <div style={{fontSize: "10px"}} > <b>{text.matchingMemo.slice(0,50)} </b> </div> 
+            {text.matchingMemo.length > 50 ? 
+            <div class="tooltip2">...
+              <span class="tooltiptext">{text.matchingMemo}</span>
+            </div>: null }
+            </div>
+           },
           {
             Header: '国籍',
             Filter: "",
