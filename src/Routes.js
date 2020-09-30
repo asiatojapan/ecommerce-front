@@ -35,6 +35,7 @@ import MatchingStudent from "./reverse/MatchingStudent";
 import RecommendHistory from "./recommend/RecommendHistory";
 import MyHistory from "./recommend/MyHistory";
 import MyCurrentRecommends from "./recommend/MyCurrentRecommends";
+import AllHoldings from "./recommend/AllHoldings";
 import AllRecommends from "./recommend/AllRecommends";
 import RecordedRecommended from "./recommend/RecordedRecommended";
 //////////////////////////////
@@ -168,6 +169,7 @@ const Routes = () => {
     <AdminRoute path="/admin/interviews/:userId" exact component={MyInterviews} />
     <AdminRoute path="/admin/interview/:interviewId" exact component={Interview} />
     <AdminRoute path="/admin/recommends/:userId" exact component={MyCurrentRecommends} />
+    <AdminRoute path="/admin/prerecommends" exact component={AllHoldings} />
     <AdminRoute path="/admin/recommends" exact component={AllRecommends} />
 
 
@@ -180,7 +182,7 @@ const Routes = () => {
     <AdminRoute path="/admin/users" exact component={ManageUsers} />
     <AdminRoute path="/admin/student/update/:studentId" exact component={UpdateStudent} />
     <AdminRoute path="/admin/user/update/:userId" exact component={UpdateUser} />
-      <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
+    <AdminRoute path="/admin/interview/update/:interviewId" exact component={UpdateInterview} />
   
 
 

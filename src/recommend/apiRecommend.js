@@ -80,8 +80,38 @@ export const getAllCurrentRecommends = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+export const getAllCurrentHoldings = (userId, token) => {
+    return fetch(`${API}/exportcurrentprerec/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
 export const getGroupedRecommends = (userId, token) => {
     return fetch(`${API}/exportgroupedcurrentrec/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
+
+export const getGroupedHoldings = (userId, token) => {
+    return fetch(`${API}/exportgroupedholdings/${userId}`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
@@ -110,6 +140,20 @@ export const getMyCurrentRecommends = (userId, token) => {
         .catch(err => console.log(err));
 };
 
+export const getMyCurrentHoldings = (userId, token) => {
+    return fetch(`${API}/currentholding/${userId}`, {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
 
 export const getMyCurrentPushes = (userId, token) => {
     return fetch(`${API}/currentpush/${userId}`, {

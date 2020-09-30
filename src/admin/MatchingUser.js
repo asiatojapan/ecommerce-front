@@ -238,7 +238,7 @@ const destroyFavorites = () => {
             id: "educationBgTags",
              accessor: (text, i) =>
              <div style={{width: "100px"}}>{text.educationBgTags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
-            <div style={{fontSize: "10px"}} > <b>{text.matchingMemo.slice(0,50)} </b> </div> 
+            <div style={{fontSize: "10px"}} > <b> {text.matchingMemo.length > 0 ? text.matchingMemo.slice(0,50) : null} </b> </div> 
             {text.matchingMemo.length > 50 ? 
             <div class="tooltip2">...
               <span class="tooltiptext">{text.matchingMemo}</span>

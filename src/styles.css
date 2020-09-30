@@ -958,8 +958,8 @@ button.likeBtn:focus {
   border-color: #444 transparent;
   border-width: 12px 6px 0 6px;
   content: "";
-  left: 45%;
-  bottom: 30px;
+  left: 65%;
+  bottom: 200px;
   position: absolute;
 }
 
@@ -977,6 +977,8 @@ button.likeBtn:focus {
   color: #fff;
   text-align: center;
   padding: 5px 5px;
+  left: 45%;
+  bottom: 20px;
   border-radius: 6px;
  
   /* Position the tooltip text - see examples below! */
