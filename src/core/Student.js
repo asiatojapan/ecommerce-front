@@ -4,6 +4,7 @@ import { getInterviewsByStudent } from '../interview/apiInterview';
 import { readStudentBestJobs } from '../matching/apiMatching';
 import SiteWrapper from '../templates/SiteWrapper'
 import  AddFav2  from './AddFav2';
+import  UpdateStudentRatings  from '../admin/UpdateStudentRatings';
 import {  isAuthenticates } from '../auth';
 import { Page, Icon, Grid, Tag } from "tabler-react";
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
@@ -591,6 +592,7 @@ const Student = ({ session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
       {session.role === 1 || session.role === 4 ? 
 <>
+<UpdateStudentRatings studentId={student.studentid} />
 
 <a className="unlikeBtn resumeGradient fullWidth mb-4 " href={`/admin/reverse/matching/${student._id}`}> Matching
 </a>

@@ -15,7 +15,8 @@ import {
 } from "tabler-react";
 import { Table } from "./ManageStudents";
 import { logout } from "../actions/session";
-import moment from "moment"
+import moment from "moment";
+import UpdateStudentRatings from "./UpdateStudentRatings"
 
 const mapStateToProps = ({ session }) => ({
 session
@@ -202,7 +203,8 @@ const destroyFavorites = () => {
              accessor: (text, i) => 
              <> <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>  <br/>
               { text.inJapan === true ? <span className="badge bg-red">日本在住 </span>: null }  <br/>
-              { text.forNextMonth === true ? <span className="badge bg-yellow"> 翌月Only </span>: null } 
+              { text.forNextMonth === true ? <span className="badge bg-yellow"> 翌月Only </span>: null }  <br/>
+              {text.ratings}
               </> ,
              id: "name"
            },
@@ -232,19 +234,7 @@ const destroyFavorites = () => {
              accessor: "japanese",
              id: "japanese"
           },
-          {
-            Header: '学歴',
-            Filter: "",
-            id: "educationBgTags",
-             accessor: (text, i) =>
-             <div style={{width: "100px"}}>{text.educationBgTags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
-            <div style={{fontSize: "10px"}} > <b> {text.matchingMemo.length > 0 ? text.matchingMemo.slice(0,50) : null} </b> </div> 
-            {text.matchingMemo.length > 50 ? 
-            <div class="tooltip2">...
-              <span class="tooltiptext">{text.matchingMemo}</span>
-            </div>: null }
-            </div>
-           },
+         
           {
             Header: '国籍',
             Filter: "",
