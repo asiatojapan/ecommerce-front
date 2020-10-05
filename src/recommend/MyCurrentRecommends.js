@@ -133,19 +133,11 @@ const AllRecommends = ({match}) => {
           <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th>User</th>
-                    <th>推薦ID</th>
                     <th>推薦学生</th>
                     </tr>
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
                <td>
-               <Link to={`/admin/profile/${recommend.user[0]._id}`}>{recommend.user[0].name}</Link> 
-                </td>
-                <td>
-                <Link to={`/student/${recommend._id}`}>  {recommend.studentid} </Link> 
-                </td>
-                <td>
                   {reformattedData(recommend)}
                 
                 </td>
@@ -172,19 +164,11 @@ const AllRecommends = ({match}) => {
           <table class="table table-bordered">
                 <thead>
                     <tr>
-                    <th>User</th>
-                    <th>推薦ID</th>
                     <th>推薦学生</th>
                     </tr>
                 </thead> <tbody>{pushes.map((push,i) => 
            <tr>
-               <td>
-               <Link to={`/admin/profile/${push.user[0]._id}`}>{push.user[0].name}</Link> 
-                </td>
-                <td>
-                <Link to={`/student/${push._id}`}>  {push.studentid} </Link> 
-                </td>
-                <td>
+                 <td>
                   {reformattedData(push)}
                 
                 </td>
