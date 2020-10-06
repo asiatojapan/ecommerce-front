@@ -54,7 +54,6 @@ const AllRecommends = ({match}) => {
 
   const reformattedData = (data) => {
      return( <> 
-      ■ID：{data.studentid}<br/>
       {data.comments}<br/>
       ■日本語力：{data.japanese}　　 ■英語力：{data.english}　　■性別：{data.gender}　　■国籍・地域：{data.country}　<br/>
       ■大学：{data.university}<br/>
@@ -133,11 +132,15 @@ const AllRecommends = ({match}) => {
           <table class="table table-bordered">
                 <thead>
                     <tr>
+                    <th>ID</th>
                     <th>推薦学生</th>
                     </tr>
                 </thead> <tbody>{recommends.map((recommend,i) => 
            <tr>
-               <td>
+                 <td>
+                <Link to={`/student/${recommend._id}`}>  {recommend.studentid} </Link> 
+                </td>
+                <td>
                   {reformattedData(recommend)}
                 
                 </td>
@@ -164,11 +167,15 @@ const AllRecommends = ({match}) => {
           <table class="table table-bordered">
                 <thead>
                     <tr>
+                     <th>ID</th>
                     <th>推薦学生</th>
                     </tr>
                 </thead> <tbody>{pushes.map((push,i) => 
            <tr>
-                 <td>
+               <td>
+                <Link to={`/student/${push._id}`}>  {push.studentid} </Link> 
+                </td>
+                <td>
                   {reformattedData(push)}
                 
                 </td>
