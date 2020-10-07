@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { readStudent, listRelated } from './apiCore';
+import { readStudent, listRelated,  updateStudentRatings } from './apiCore';
 import { getInterviewsByStudent } from '../interview/apiInterview';
 import { readStudentBestJobs } from '../matching/apiMatching';
 import SiteWrapper from '../templates/SiteWrapper'
@@ -18,6 +18,7 @@ import fontPathSemiBold from '../pdf/fonts/Koruri-Semibold.ttf'
 import {HorizontalBar} from 'react-chartjs-2';
 import moment from "moment";
 import { Link } from 'react-router-dom';
+import ReactStars from "react-rating-stars-component";
 
 Font.register( {
     family: 'Open Sans',
@@ -49,6 +50,17 @@ type Props = RouterProps;
 
 
 const Student = ({ session, match }: Props) => {
+
+    const ratingChanged = (ratings) => {
+      updateStudentRatings(match.params.studentId, ratings, darwin_uid, darwin_myTk, ratings).then(data => {
+          if (data.error) {
+              setError(data.error);
+          } else {
+              setError("");
+          }
+      });
+    };
+
     const [student, setStudent] = useState({});
     const [relatedStudent, setRelatedStudent] = useState([]);
     const [error, setError] = useState(false);
@@ -592,7 +604,13 @@ const Student = ({ session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
       {session.role === 1 || session.role === 4 ? 
 <>
-<UpdateStudentRatings studentId={student.studentid} />
+{student.ratings? <ReactStars
+    count={5}
+    value={student.ratings}
+    onChange={ratingChanged}
+    size={30}
+    activeColor="#ffd700"
+  /> : null }
 
 <a className="unlikeBtn resumeGradient fullWidth mb-4 " href={`/admin/reverse/matching/${student._id}`}> Matching
 </a>

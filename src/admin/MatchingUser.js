@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { isAuthenticates } from "../auth";
 import { Link } from 'react-router-dom';
 import { moveRecOne, moveRecTwo, readUser, matchStudent, recordRecOne, moveFavorites } from './apiAdmin';
-import {  getFavStudents  } from '../core/apiCore';
+import {  getFavStudents, updateStudentRatings  } from '../core/apiCore';
 import AddRec from "./AddRec";
 import AddPreRec from "./AddPreRec";
 import AddPush from "./AddPush";
@@ -16,7 +16,7 @@ import {
 import { Table } from "./ManageStudents";
 import { logout } from "../actions/session";
 import moment from "moment";
-import UpdateStudentRatings from "./UpdateStudentRatings"
+import ReactStars from "react-rating-stars-component";
 
 const mapStateToProps = ({ session }) => ({
 session
@@ -85,6 +85,16 @@ const MatchingUser = ({ logout, session, match }: Props) => {
                //  console.log(data)
             }
         });
+    };
+
+    const ratingChanged = (ratings) => {
+      updateStudentRatings(match.params.studentId, ratings, darwin_uid, darwin_myTk, ratings).then(data => {
+          if (data.error) {
+              setError(data.error);
+          } else {
+              setError("");
+          }
+      });
     };
 
 
@@ -204,7 +214,7 @@ const destroyFavorites = () => {
              <> <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>  <br/>
               { text.inJapan === true ? <span className="badge bg-red">日本在住 </span>: null }  <br/>
               { text.forNextMonth === true ? <span className="badge bg-yellow"> 翌月Only </span>: null }  <br/>
-              {text.ratings}
+             
               </> ,
              id: "name"
            },
