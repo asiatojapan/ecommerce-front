@@ -604,8 +604,8 @@ const Student = ({ session, match }: Props) => {
       <Grid.Col width={12} lg={3} sm={12} >
       {session.role === 1 || session.role === 4 ? 
 <>
-{student.ratings? <ReactStars
-    count={5}
+{student.ratings != null ? <ReactStars
+    count={3}
     value={student.ratings}
     onChange={ratingChanged}
     size={30}
