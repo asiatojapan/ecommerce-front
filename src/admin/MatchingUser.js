@@ -203,9 +203,7 @@ const destroyFavorites = () => {
              accessor: (text, i) => 
              <> <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>  <br/>
               { text.inJapan === true ? <span className="badge bg-red">日本在住 </span>: null }  <br/>
-              
               {text.importantDetails} <br/>
-              
               { text.ratings === 0 ? null: <b style={{fontSize: "16px"}}>{text.ratings} </b>}
               </> ,
              id: "name"
