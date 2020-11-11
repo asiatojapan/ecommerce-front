@@ -202,9 +202,6 @@ const destroyFavorites = () => {
              Filter: "",
              accessor: (text, i) => 
              <> <Link to={`/student/${text._id}`} target="_blank">{text.name} </Link>  <br/>
-              { text.inJapan === true ? <span className="badge bg-red">日本在住 </span>: null }  <br/>
-              {text.importantDetails} <br/>
-              { text.ratings === 0 ? null: <b style={{fontSize: "16px"}}>{text.ratings} </b>}
               </> ,
              id: "name"
            },
@@ -240,11 +237,7 @@ const destroyFavorites = () => {
             id: "educationBgTags",
              accessor: (text, i) =>
              <div style={{width: "100px"}}>{text.educationBgTags.map((t, i) => <span className="badge bg-blue m-1">{t}</span> )}
-            <div style={{fontSize: "10px"}} > <b> {text.matchingMemo.length > 0 ? text.matchingMemo.slice(0,50) : null} </b> </div> 
-            {text.matchingMemo.length > 50 ? 
-            <div class="tooltip2">...
-              <span class="tooltiptext">{text.matchingMemo}</span>
-            </div>: null }
+          
             </div>
            },
           {
