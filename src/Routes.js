@@ -175,7 +175,7 @@ const Routes = () => {
 
     <AdminRoute path="/admin/profile/:userId" exact component={AdminUser} />
     <AdminRoute path="/admin/create/student" exact component={AddStudent} />
-    <Route path="/admin/create/user" exact component={AddUser} />
+    <AdminRoute path="/admin/create/user" exact component={AddUser} />
     <AdminRoute path="/admin/interviews" exact component={ManageInterviews} />
     <AdminRoute path="/admin/suisen" exact component={FavList} />
      <AdminRoute path="/admin/students" exact component={ManageStudents} />
