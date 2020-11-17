@@ -133,6 +133,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="14:15"> 14:15 </option>
                     <option value="14:20"> 14:20 </option>
                     <option value="14:30"> 14:30 </option>
+                    <option value="14:40"> 14:40 </option>
                     <option value="14:45"> 14:45 </option>
                     <option value="15:00"> 15:00 </option>
                     <option value="15:10"> 15:10 </option>
