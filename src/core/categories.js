@@ -64,7 +64,11 @@ export const categories = [
         name: "文系日本語学科以外"
     },
     {
-        _id: 15,
+        _id: 16,
         name: "文系"
+    },
+    {
+        _id: 17,
+        name: "【CodetoJapan】AIコンテスト参加者​​"
     },
 ];

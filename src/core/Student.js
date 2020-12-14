@@ -602,6 +602,7 @@ const Student = ({ session, match }: Props) => {
       </Grid.Col>
       
       <Grid.Col width={12} lg={3} sm={12} >
+ 
       {session.role === 1 || session.role === 4 ? 
 <>
 {student.ratings != null ? <ReactStars
@@ -725,6 +726,12 @@ const Student = ({ session, match }: Props) => {
               : null }
         <div>
         {session.role === 3 ? null : <>
+
+                        {student.codeToJapan == null || student.codeToJapan == undefined || student.codeToJapan == "" ? "" :  
+                        <a className="link" target="_blank" href={student.codeToJapan} className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}}>
+        <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> AI Contest Result <br/> {student.codeToJapanScore}
+        </a>}
+
           <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> 
     
         {student.upload_fyp == null || student.upload_fyp == undefined || student.upload_fyp == "" ? "" :  <a className="link" href={student.upload_fyp} className="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>

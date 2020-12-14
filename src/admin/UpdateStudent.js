@@ -50,6 +50,7 @@ const UpdateStudent = ({ session, match, history }) => {
       japaneseTags: "",
       faculty: '',
       it_skills: '',
+      other_it_skills: '',
       entry_timing: '',
       other_languages: "",
       jlpt: '',
@@ -91,6 +92,8 @@ const UpdateStudent = ({ session, match, history }) => {
       mentorPointAtoJ: "",
       mentorJapanese: "",
       mentorOffer: "",
+      codeToJapanScore: "",
+      codeToJapan: "",
       redirectToProfile: false,
       formData: ''
     });
@@ -140,6 +143,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     major: data.major,
                     faculty: data.faculty,
                     it_skills: data.it_skills,
+                    other_it_skills: data.other_it_skills,
                     entry_timing: data.entry_timing,
                     jlpt: data.jlpt,
                     jlpt_next: data.jlpt_next,
@@ -183,6 +187,8 @@ const UpdateStudent = ({ session, match, history }) => {
                     skypeJoinCompanyMemo: data.skypeJoinCompanyMemo,
                     skypeCanComeJapan: data.skypeCanComeJapan,
                     weChatId: data.weChatId,
+                    codeToJapanScore: data.codeToJapanScore,
+                    codeToJapan: data.codeToJapan,
                     passport: data.passport,
                     matchingMemo: data.matchingMemo,
                     formData: new FormData()
@@ -239,6 +245,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     major: data.major,
                     faculty: data.faculty,
                     it_skills: data.it_skills,
+                    other_it_skills: data.other_it_skills,
                     password: data.password,
                     entry_timing: data.entry_timing,
                     jlpt: data.jlpt,
@@ -289,6 +296,8 @@ const UpdateStudent = ({ session, match, history }) => {
                     skypeCanComeJapan: data.skypeCanComeJapan,
                     weChatId: data.weChatId,
                     passport: data.passport,
+                    codeToJapan: data.codeToJapan,
+                    codeToJapanScore: data.codeToJapanScore,
                     matchingMemo: data.matchingMemo,
                 });
             }
@@ -430,6 +439,21 @@ const UpdateStudent = ({ session, match, history }) => {
           <div class="mb-2">
             <label class="form-label">It Skills</label>
              <input type="text" onChange={handleChange("it_skills")} value={values.it_skills} name="it_skills"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Other It Skills</label>
+             <input type="text" onChange={handleChange("other_it_skills")} value={values.other_it_skills} name="other_it_skills"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Code To Japan</label>
+             <input type="text" onChange={handleChange("codeToJapan")} value={values.codeToJapan} name="codeToJapan"  class="form-control"/>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Code To Japan Score</label>
+             <input type="text" onChange={handleChange("codeToJapanScore")} value={values.codeToJapanScore} name="codeToJapanScore"  class="form-control"/>
           </div>
 
           <div class="mb-2">
