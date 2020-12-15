@@ -729,7 +729,7 @@ const Student = ({ session, match }: Props) => {
 
                         {student.codeToJapan == null || student.codeToJapan == undefined || student.codeToJapan == "" ? "" :  
                         <a className="link" target="_blank" href={student.codeToJapan} className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}}>
-        <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> AI Contest Result <br/> {student.codeToJapanScore}
+        <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> AI Contest Result 
         </a>}
 
           <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> 

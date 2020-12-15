@@ -69,6 +69,11 @@ export const categories = [
     },
     {
         _id: 17,
-        name: "【CodetoJapan】AIコンテスト参加者​​"
+        name: "【CODE TO JAPAN】 Algorithm コンテスト参加者​"
     },
+    {
+        _id: 18,
+        name: "【CODE TO JAPAN】 AIコンテスト参加者​​"
+    },
+
 ];
