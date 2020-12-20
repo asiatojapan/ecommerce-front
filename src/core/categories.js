@@ -76,4 +76,9 @@ export const categories = [
         name: "【CODE TO JAPAN】 AIコンテスト参加者​​"
     },
 
+    {
+        _id: 18,
+        name: "Women in Tech"
+    }
+
 ];
