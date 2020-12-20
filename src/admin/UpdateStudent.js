@@ -452,7 +452,7 @@ const UpdateStudent = ({ session, match, history }) => {
           </div>
 
           <div class="mb-2">
-            <label class="form-label">Code To Japan Algorithm</label>
+            <label class="form-label">Code To Japan Algorithm </label>
              <input type="text" onChange={handleChange("codeToJapanAlgorithm")} value={values.codeToJapanAlgorithm} name="codeToJapanScoreAlgorithn"  class="form-control"/>
           </div>
 
