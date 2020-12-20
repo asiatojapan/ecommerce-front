@@ -92,7 +92,7 @@ const UpdateStudent = ({ session, match, history }) => {
       mentorPointAtoJ: "",
       mentorJapanese: "",
       mentorOffer: "",
-      codeToJapanScore: "",
+      codeToJapanAlgorithm: "",
       codeToJapan: "",
       redirectToProfile: false,
       formData: ''
@@ -187,7 +187,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     skypeJoinCompanyMemo: data.skypeJoinCompanyMemo,
                     skypeCanComeJapan: data.skypeCanComeJapan,
                     weChatId: data.weChatId,
-                    codeToJapanScore: data.codeToJapanScore,
+                    codeToJapanAlgorithm: data.codeToJapanAlgorithm,
                     codeToJapan: data.codeToJapan,
                     passport: data.passport,
                     matchingMemo: data.matchingMemo,
@@ -297,7 +297,7 @@ const UpdateStudent = ({ session, match, history }) => {
                     weChatId: data.weChatId,
                     passport: data.passport,
                     codeToJapan: data.codeToJapan,
-                    codeToJapanScore: data.codeToJapanScore,
+                    codeToJapanAlgorithm: data.codeToJapanAlgorithm,
                     matchingMemo: data.matchingMemo,
                 });
             }
@@ -447,13 +447,13 @@ const UpdateStudent = ({ session, match, history }) => {
           </div>
 
           <div class="mb-2">
-            <label class="form-label">Code To Japan</label>
+            <label class="form-label">Code To Japan AI</label>
              <input type="text" onChange={handleChange("codeToJapan")} value={values.codeToJapan} name="codeToJapan"  class="form-control"/>
           </div>
 
           <div class="mb-2">
-            <label class="form-label">Code To Japan Score</label>
-             <input type="text" onChange={handleChange("codeToJapanScore")} value={values.codeToJapanScore} name="codeToJapanScore"  class="form-control"/>
+            <label class="form-label">Code To Japan Algorithm</label>
+             <input type="text" onChange={handleChange("codeToJapanAlgorithm")} value={values.codeToJapanAlgorithm} name="codeToJapanScoreAlgorithn"  class="form-control"/>
           </div>
 
           <div class="mb-2">
