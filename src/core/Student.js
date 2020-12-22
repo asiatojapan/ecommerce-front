@@ -727,12 +727,12 @@ const Student = ({ session, match }: Props) => {
         <div>
         {session.role === 3 ? null : <>
 
-                        {student.codeToJapan == null || student.codeToJapan == undefined || student.codeToJapan == "" ? "" :  
+        {student.codeToJapan == null || student.codeToJapan == undefined || student.codeToJapan == "" ? "" :  
                         <a className="link" target="_blank" href={student.codeToJapan} className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> AI Contest Result 
         </a>}
 
-        {student.codeToJapan == null || student.codeToJapan == undefined || student.codeToJapan == "" ? "" :  
+        {student.codeToJapanAlgorithm == null || student.codeToJapanAlgorithm == undefined || student.codeToJapanAlgorithm == "" ? "" :  
                         <a className="link" target="_blank" href={student.codeToJapanAlgorithm} className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}}>
         <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> Algorithm Contest Result 
         </a>}
