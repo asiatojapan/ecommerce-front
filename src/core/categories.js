@@ -80,5 +80,4 @@ export const categories = [
         _id: 18,
         name: "Women in Tech"
     }
-
 ];

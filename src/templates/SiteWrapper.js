@@ -50,7 +50,7 @@ return (
             { isAuthenticates() && (session.role !== 4 && session.role !== 3 && session.role !== 2 ) && 
            ( <>
             <Nav.Link href="/user/interviews">面接予定学生</Nav.Link> 
-            <Nav.Link target="_blank" href="http://asiatojapan.com/wp-content/uploads/2020/06/利用マニュアル20200608.pdf">利用マニュアル</Nav.Link>
+            <Nav.Link target="_blank" href="http://asiatojapan.com/wp-content/uploads/2021/01/利用マニュアル_Study-Go-Work-JAPAN-compressed.pdf">利用マニュアル</Nav.Link>
             <Nav.Link target="_blank" href="http://asiatojapan.com/wp-content/uploads/2020/10/%E3%83%95%E3%82%A9%E3%83%AD%E3%83%BC%E9%9D%A2%E8%AB%87%E4%BB%98%E3%81%8D%E5%86%85%E5%AE%9A%E8%80%85%E5%90%91%E3%81%91%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%A6%E7%BF%9220201012.pdf">内定者フォロー</Nav.Link>
             <Nav.Link target="_blank" href="http://asiatojapan.com/wp-content/uploads/2020/12/ITスキル診断コンテスト_CODE-TO-JAPANご説明_20201204-compressed.pdf">CODE TO JAPAN</Nav.Link>
             
