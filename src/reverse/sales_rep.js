@@ -31,5 +31,9 @@ export const sales_rep = [
         _id: 7,
         name: "生賀 正晃"
     },
+    {
+        _id: 8,
+        name: "福島"
+    },
 
 ];
