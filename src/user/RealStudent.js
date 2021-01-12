@@ -276,10 +276,21 @@ const RealStudent = (props) => {
                       </div>
 
                       <div class="card-body">
+                      {student.codeToJapan == null || student.codeToJapan == undefined || student.codeToJapan == "" ? "" :  
+                        <a className="link" target="_blank" href={student.codeToJapan} className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}}>
+                      <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> AI Contest Result 
+                      </a>}
 
-                      {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
+                      {student.codeToJapanAlgorithm == null || student.codeToJapanAlgorithm == undefined || student.codeToJapanAlgorithm == "" ? "" :  
+                                      <a className="link" target="_blank" href={student.codeToJapanAlgorithm} className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}}>
+                      <i class="fe fe-download" style={{marginRight: "5px"}}></i>【CODE TO JAPAN】<br/> Algorithm Contest Result 
+                      </a>}
+
+
+                      {window.navigator.msSaveOrOpenBlob ? <button className="resumeGradient unlikeBtn fullWidth" style={{marginBottom:"1rem"}} onClick={()=> createPDFLinkButton1()}> <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button> :  <> {createPDFLinkButton(student,
                         <button className="unlikeBtn resumeGradient fullWidth" >  <i class="fe fe-download" style={{marginRight: "5px"}}>{" "}</i>  RESUME</button>
                       )} </>}
+
     
                       {student.upload_fyp == null ? "":  <a href={student.upload_fyp} class="resumeGradient unlikeBtn fullWidth" style={{marginTop:"1rem"}}>
                           FYP
