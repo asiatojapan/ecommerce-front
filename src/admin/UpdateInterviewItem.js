@@ -108,6 +108,7 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
               <option value="">Select</option>
                     <option value="08:00"> 08:00 </option>
                     <option value="09:00"> 09:00 </option>
+                    <option value="09:20"> 09:20 </option>
                     <option value="09:30"> 09:30 </option>
                     <option value="09:40"> 09:40 </option>
                     <option value="09:45"> 09:45 </option>
@@ -124,9 +125,11 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="11:30"> 11:30 </option>
                     <option value="11:40"> 11:40 </option>
                     <option value="12:00"> 12:00 </option>
+                    <option value="12:20"> 12:20 </option>
                     <option value="12:30"> 12:30 </option>
                     <option value="12:40"> 12:40 </option>
                     <option value="13:00"> 13:00 </option>
+                    <option value="13:20"> 13:20 </option>
                     <option value="13:30"> 13:30 </option>
                     <option value="13:40"> 13:40 </option>
                     <option value="13:45"> 13:45 </option>
@@ -147,13 +150,17 @@ const UpdateInterviewItem = ({ interviewId, interviewItemId, match, history }) =
                     <option value="16:15"> 16:15 </option>
                     <option value="16:20"> 16:20 </option>
                     <option value="16:30"> 16:30 </option>
+                    <option value="16:40"> 16:40 </option>
                     <option value="17:00"> 17:00 </option>
                     <option value="17:15"> 17:15 </option>
+                    <option value="17:20"> 17:20 </option>
                     <option value="17:30"> 17:30 </option>
                     <option value="17:40"> 17:40 </option>
                     <option value="17:45"> 17:45 </option>
                     <option value="18:00"> 18:00 </option>
+                    <option value="18:20"> 18:20 </option>
                     <option value="18:30"> 18:30 </option>
+                    <option value="18:40"> 18:40 </option>
                     <option value="19:00"> 19:00 </option>
                     <option value="19:30"> 19:30 </option>
                     <option value="20:00"> 20:00 </option>
