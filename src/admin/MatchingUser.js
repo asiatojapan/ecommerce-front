@@ -291,14 +291,7 @@ const destroyFavorites = () => {
             Filter: SelectColumnFilter,
             accessor: "otherTagsPoints"
           },
-          {
-            Header: 'Job',
-            Filter: SelectColumnFilter,
-            accessor: (text, i) =>
-            <div style={{width: "140px"}}> {text.jobPoints.length == null ? null : 
-            <> {text.jobPoints.map((t, i) => <>{t.jobName} [{t.points}] <br/> </>)}</> }
-          </div> 
-          },
+      
 
           {
             Header: 'Faved',
